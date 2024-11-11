@@ -1,0 +1,4 @@
+name: SkyMythDE
+version: '1.0-SNAPSHOT'
+main: de.skymyth.SkyMythPlugin
+api-version: '1.21'
