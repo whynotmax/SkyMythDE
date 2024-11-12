@@ -13,9 +13,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class TablistManager {
 
@@ -30,7 +28,7 @@ public class TablistManager {
         this.teamMap = new HashMap<>();
 
         int teamBefore = 0;
-        for (Group group : LuckPermsProvider.get().getGroupManager().getLoadedGroups()) {
+        for (Group group : getGroupsSortedByWeight()) {
             final String name;
             if (teamBefore < 10) {
                 name = "0" + teamBefore + group.getName();
@@ -104,6 +102,12 @@ public class TablistManager {
     public String getRankPrefixChat(Player player) {
         String group = LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup();
         return teamMap.get(group).getDisplayName();
+    }
+
+    private List<Group> getGroupsSortedByWeight() {
+        List<Group> groups = new ArrayList<>(LuckPermsProvider.get().getGroupManager().getLoadedGroups());
+        groups.sort(Comparator.comparingInt(i -> i != null ? i.getWeight().orElse(0) : 0));
+        return groups;
     }
 
 }

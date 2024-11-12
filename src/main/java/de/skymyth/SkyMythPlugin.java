@@ -6,7 +6,7 @@ import de.skymyth.commands.impl.PayCommand;
 import de.skymyth.commands.impl.PingCommand;
 import de.skymyth.commands.impl.ReplyCommand;
 import de.skymyth.crate.CrateManager;
-import de.skymyth.listener.PlayerChatListener;
+import de.skymyth.listener.AsyncPlayerChatListener;
 import de.skymyth.listener.PlayerJoinListener;
 import de.skymyth.listener.PlayerQuitListener;
 import de.skymyth.scoreboard.ScoreboardManager;
@@ -56,7 +56,7 @@ public final class SkyMythPlugin extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(), this);
 
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");

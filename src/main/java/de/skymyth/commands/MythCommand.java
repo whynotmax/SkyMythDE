@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class MythCommand extends Command {
 
-    SkyMythPlugin plugin;
+    protected SkyMythPlugin plugin;
     String permission;
     List<String> aliases;
 

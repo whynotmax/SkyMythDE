@@ -15,7 +15,7 @@ public record PlayerQuitListener(SkyMythPlugin plugin) implements Listener {
         User user = plugin.getUserManager().getUser(player.getUniqueId());
 
         event.setQuitMessage(null);
-        user.setLastSeen(System.currentTimeMillis());
+        user.updatePlayTime();
         plugin.getScoreboardManager().destroyScoreboard(player);
 
         plugin.getUserManager().saveUser(player.getUniqueId());
