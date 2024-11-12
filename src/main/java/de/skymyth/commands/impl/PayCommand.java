@@ -51,9 +51,7 @@ public class PayCommand extends MythCommand {
             }
 
             User user = this.plugin.getUserManager().getUser(player.getUniqueId());
-            User targetUser = this.plugin.getUserManager().getUser(player.getUniqueId());
-
-
+            User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
 
             if(user.getBalance() < amount) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu ist dein Kontostand zu niedrig.");
