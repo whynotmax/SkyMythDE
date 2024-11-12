@@ -13,12 +13,10 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserManager {
 
-    SkyMythPlugin plugin;
     Map<UUID, User> userMap;
     UserRepository repository;
 
     public UserManager(SkyMythPlugin plugin) {
-        this.plugin = plugin;
         this.userMap = new HashMap<>();
         this.repository = plugin.getMongoManager().create(UserRepository.class);
     }
@@ -43,7 +41,12 @@ public class UserManager {
     }
 
     public User getUser(UUID uuid) {
-        return this.userMap.get(uuid);
+        User user = this.userMap.get(uuid);
+        if (user == null) {
+            this.loadUser(uuid);
+            user = this.userMap.get(uuid);
+        }
+        return user;
     }
 
 

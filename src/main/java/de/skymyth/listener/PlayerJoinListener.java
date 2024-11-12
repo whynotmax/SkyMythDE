@@ -12,6 +12,9 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        //Immer zu erst
+        plugin.getUserManager().loadUser(player.getUniqueId());
+
         event.setJoinMessage(null);
         plugin.getScoreboardManager().createScoreboard(player);
 

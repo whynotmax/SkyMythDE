@@ -5,6 +5,7 @@ import de.skymyth.command.CrateCommand;
 import de.skymyth.crate.CrateManager;
 import de.skymyth.listener.PlayerJoinListener;
 import de.skymyth.scoreboard.ScoreboardManager;
+import de.skymyth.user.UserManager;
 import de.skymyth.utility.codec.CrateItemCodec;
 import de.skymyth.utility.codec.ItemStackCodec;
 import de.skymyth.utility.codec.LocationCodec;
@@ -15,21 +16,25 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Score;
+
+import java.lang.reflect.Field;
 
 @Log
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class SkyMythPlugin extends JavaPlugin {
 
-    final String prefix = "§8» §5§lSkyMyth.DE §8┃ §7";
+    public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
 
     SkyMythPlugin plugin;
 
     MongoManager mongoManager;
     ScoreboardManager scoreboardManager;
     CrateManager crateManager;
+    UserManager userManager;
 
     @Override
     public void onEnable() {
@@ -40,11 +45,22 @@ public final class SkyMythPlugin extends JavaPlugin {
 
         this.scoreboardManager = new ScoreboardManager(plugin);
         this.crateManager = new CrateManager(plugin);
+        this.userManager = new UserManager(plugin);
 
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
 
-        this.getCommand("crate").setExecutor(new CrateCommand(plugin));
+        //Commands
+        try {
+            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+
+            bukkitCommandMap.setAccessible(true);
+            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+
+            //Register commands
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
 
         log.info("SkyMyth Plugin enabled.");
     }
@@ -52,5 +68,9 @@ public final class SkyMythPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         log.info("SkyMyth Plugin disabled.");
+    }
+
+    public String getPrefix() {
+        return PREFIX;
     }
 }
