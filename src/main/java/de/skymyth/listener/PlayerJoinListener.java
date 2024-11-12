@@ -16,6 +16,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
 
         event.setJoinMessage(null);
         plugin.getScoreboardManager().createScoreboard(player);
+        plugin.getTablistManager().setRank(player);
 
         for (int i = 0; i < 50; i++) {
             player.sendMessage("§" + String.valueOf(i).charAt(0));
