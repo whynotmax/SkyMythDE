@@ -3,6 +3,7 @@ package de.skymyth;
 
 import de.skymyth.command.CrateCommand;
 import de.skymyth.crate.CrateManager;
+import de.skymyth.listener.PlayerChatListener;
 import de.skymyth.listener.PlayerJoinListener;
 import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.user.UserManager;
@@ -49,6 +50,7 @@ public final class SkyMythPlugin extends JavaPlugin {
 
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
 
         //Commands
         try {

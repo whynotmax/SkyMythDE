@@ -1,10 +1,12 @@
 package de.skymyth.crate;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.crate.inventory.CrateEditInventory;
 import de.skymyth.crate.model.Crate;
 import de.skymyth.crate.repository.CrateRepository;
 import de.skymyth.utility.ItemBuilder;
 import de.skymyth.utility.SkullCreator;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -18,6 +20,7 @@ public class CrateManager {
     public CrateManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
         this.repository = this.plugin.getMongoManager().create(CrateRepository.class);
+        Bukkit.getPluginManager().registerEvents(new CrateEditInventory(plugin), plugin);
     }
 
     public Crate createCrate(String name) {
