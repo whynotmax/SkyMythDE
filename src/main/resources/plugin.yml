@@ -4,6 +4,3 @@ main: de.skymyth.SkyMythPlugin
 authors:
   - sxbide
   - max
-
-commands:
-  crate:

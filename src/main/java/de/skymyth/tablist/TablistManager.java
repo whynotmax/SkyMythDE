@@ -66,7 +66,7 @@ public class TablistManager {
     public void updateTablistHeaderAndFooter(Player player) {
         sendTab(player,
                 "§r\n" +
-                        "§8» §5§lSkyMyth§8.§5§lDE §8(§71§8.§78 §8- §71§8.§720§8) §8«\n" +
+                        "§8» §5§lSkyMyth§8.§5§lDE §8(§71§8.§78 §8- §71§8.§721§8) §8«\n" +
                         "§r\n" +
                         "§7Online§8: §a" + plugin.getServer().getOnlinePlayers().size() + "§8/§a" + plugin.getServer().getMaxPlayers() + "§8 ┃ §7Rekord§8: §a0§r\n§r",
                 """
