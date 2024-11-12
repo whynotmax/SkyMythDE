@@ -39,17 +39,17 @@ public class ScoreboardManager {
 
         fastBoard.updateLines(
                 "",
-                "§f✌️ §8| §7Statistiken",
-                " §8× §a0 §8/ §c0",
+                "§f⚔ §8┃ §7Statistiken",
+                "  §8× §a0 §8/ §c0",
                 "",
-                "§f$ §8| §7Tokens",
-                " §8× §f0",
+                "§f$ §8┃ §7Tokens",
+                "  §8× §f0",
                 "",
-                "§f❤️ §8| §7Online",
-                " §8× §a" + Bukkit.getOnlinePlayers().size() + " §8/ §c" + Bukkit.getMaxPlayers(),
+                "§f❤ §8┃ §7Online",
+                "  §8× §a" + Bukkit.getOnlinePlayers().size() + " §8/ §c" + Bukkit.getMaxPlayers(),
                 "",
-                "§f♛ §8| §7Trophäen",
-                " §8× §60"
+                "§f♛ §8┃ §7Trophäen",
+                "  §8× §60"
         );
     }
 }
