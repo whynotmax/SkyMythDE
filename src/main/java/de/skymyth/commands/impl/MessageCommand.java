@@ -2,7 +2,7 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
-import de.skymyth.utility.Utility;
+import de.skymyth.utility.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -45,8 +45,8 @@ public class MessageCommand extends MythCommand {
             target.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7zu §eDir §8» §7" + stringBuilder);
             target.playSound(target.getLocation(), Sound.CHICKEN_EGG_POP, 1F, 1F);
 
-            Utility.MESSAGE.put(player, target);
-            Utility.MESSAGE.put(target, player);
+            Util.MESSAGE.put(player, target);
+            Util.MESSAGE.put(target, player);
             return;
         }
 

@@ -2,7 +2,7 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
-import de.skymyth.utility.Utility;
+import de.skymyth.utility.Util;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -25,7 +25,7 @@ public class ReplyCommand extends MythCommand {
             stringBuilder.append(arg).append(" ");
         }
 
-        Player target = Utility.MESSAGE.get(player);
+        Player target = Util.MESSAGE.get(player);
 
         if(target == null) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst keinem Spieler antworten.");

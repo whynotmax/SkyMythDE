@@ -9,6 +9,7 @@ import de.skymyth.listener.PlayerChatListener;
 import de.skymyth.listener.PlayerJoinListener;
 import de.skymyth.listener.PlayerQuitListener;
 import de.skymyth.scoreboard.ScoreboardManager;
+import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
 import de.skymyth.utility.codec.CrateItemCodec;
 import de.skymyth.utility.codec.ItemStackCodec;
@@ -38,6 +39,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     ScoreboardManager scoreboardManager;
     CrateManager crateManager;
     UserManager userManager;
+    TablistManager tablistManager;
 
     @Override
     public void onEnable() {
@@ -49,7 +51,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.scoreboardManager = new ScoreboardManager(plugin);
         this.crateManager = new CrateManager(plugin);
         this.userManager = new UserManager(plugin);
-
+        this.tablistManager = new TablistManager(plugin);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);

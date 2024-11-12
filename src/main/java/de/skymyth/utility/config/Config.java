@@ -1,4 +1,4 @@
-package de.skymyth.utility;
+package de.skymyth.utility.config;
 
 import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;

@@ -1,7 +1,7 @@
 package de.skymyth.utility.codec;
 
 import de.skymyth.crate.model.CrateItem;
-import de.skymyth.utility.ItemStackConverter;
+import de.skymyth.utility.item.ItemStackConverter;
 import org.bson.BsonReader;
 import org.bson.BsonWriter;
 import org.bson.codecs.Codec;

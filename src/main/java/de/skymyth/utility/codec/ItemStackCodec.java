@@ -1,6 +1,6 @@
 package de.skymyth.utility.codec;
 
-import de.skymyth.utility.ItemStackConverter;
+import de.skymyth.utility.item.ItemStackConverter;
 import lombok.extern.java.Log;
 import org.bson.BsonReader;
 import org.bson.BsonWriter;

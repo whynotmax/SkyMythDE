@@ -1,4 +1,4 @@
-package de.skymyth.utility;
+package de.skymyth.utility.item;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;

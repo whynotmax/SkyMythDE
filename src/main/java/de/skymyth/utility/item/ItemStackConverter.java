@@ -1,4 +1,4 @@
-package de.skymyth.utility;
+package de.skymyth.utility.item;
 
 import lombok.experimental.UtilityClass;
 import org.bukkit.inventory.ItemStack;
