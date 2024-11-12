@@ -21,13 +21,13 @@ public record CrateCommand(SkyMythPlugin plugin) implements CommandExecutor {
                 String name = args[1];
 
                 if (plugin.getCrateManager().existsCrate(name)) {
-                    player.sendMessage(plugin.getPrefix() + "§cDiese Crate existiert bereits.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDiese Crate existiert bereits.");
                     return false;
                 }
 
 
                 Crate crate = plugin.getCrateManager().createCrate(name);
-                player.sendMessage(plugin.getPrefix() + "§7Die Crate §a" + name + " §7wurde §aerstellt.");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Die Crate §a" + name + " §7wurde §aerstellt.");
                 return false;
             }
 
@@ -36,7 +36,7 @@ public record CrateCommand(SkyMythPlugin plugin) implements CommandExecutor {
                 String name = args[1];
 
                 if (!plugin.getCrateManager().existsCrate(name)) {
-                    player.sendMessage(plugin.getPrefix() + "§cDiese Crate existiert nicht.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDiese Crate existiert nicht.");
                     return false;
                 }
 

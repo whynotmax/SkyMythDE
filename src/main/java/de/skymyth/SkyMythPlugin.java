@@ -1,6 +1,14 @@
 package de.skymyth;
 
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.reflect.FieldAccessException;
 import de.skymyth.commands.impl.*;
 import de.skymyth.crate.CrateManager;
 import de.skymyth.inventory.InventoryManager;
@@ -73,9 +81,27 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("ping", new PingCommand(plugin));
             commandMap.register("chatclear", new ChatclearCommand(plugin));
 
+            ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+            protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, new PacketType[]{PacketType.Play.Client.TAB_COMPLETE}) {
+                public void onPacketReceiving(PacketEvent event) {
+                    if (event.getPacketType() == PacketType.Play.Client.TAB_COMPLETE)
+                        try {
+                            PacketContainer packet = event.getPacket();
+                            String message = (packet.getSpecificModifier(String.class).read(0)).toLowerCase();
+                            // The following is a boolean function that returns true if the command should be cancelled
+                            //if (CommonScripts.commandIsNotInThree(event.getPlayer(), message)) {
+                            // Cancel the event
+                            event.setCancelled(true);
+                            //}
+                        } catch (FieldAccessException e) {
+                            e.printStackTrace();
+                        }
+                }
+            });
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+
 
         log.info("SkyMyth Plugin enabled.");
     }
@@ -83,9 +109,5 @@ public final class SkyMythPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         log.info("SkyMyth Plugin disabled.");
-    }
-
-    public String getPrefix() {
-        return PREFIX;
     }
 }

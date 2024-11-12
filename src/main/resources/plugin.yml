@@ -1,6 +1,8 @@
 name: SkyMythDE
 version: '1.0-SNAPSHOT'
 main: de.skymyth.SkyMythPlugin
+softdepend:
+  - ProtocolLib
 authors:
   - sxbide
   - max
