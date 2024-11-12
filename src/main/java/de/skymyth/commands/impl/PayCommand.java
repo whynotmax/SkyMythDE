@@ -58,8 +58,9 @@ public class PayCommand extends MythCommand {
                 return;
             }
 
-            user.setBalance(user.getBalance()-amount);
-            targetUser.setBalance(targetUser.getBalance()+amount);
+
+            user.removeBalance(amount);
+            targetUser.addBalance(amount);
 
             plugin.getUserManager().saveUser(user);
             plugin.getUserManager().saveUser(targetUser);

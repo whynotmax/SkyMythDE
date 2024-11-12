@@ -4,8 +4,6 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.tpa.TeleportManager;
 import org.bukkit.entity.Player;
-
-import java.lang.foreign.PaddingLayout;
 import java.util.ArrayList;
 
 public class TPAHereCommand extends MythCommand {
