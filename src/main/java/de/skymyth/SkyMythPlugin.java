@@ -1,10 +1,7 @@
 package de.skymyth;
 
 
-import de.skymyth.commands.impl.MessageCommand;
-import de.skymyth.commands.impl.PayCommand;
-import de.skymyth.commands.impl.PingCommand;
-import de.skymyth.commands.impl.ReplyCommand;
+import de.skymyth.commands.impl.*;
 import de.skymyth.crate.CrateManager;
 import de.skymyth.listener.AsyncPlayerChatListener;
 import de.skymyth.listener.PlayerJoinListener;
@@ -68,6 +65,7 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("r", new ReplyCommand(plugin));
             commandMap.register("pay", new PayCommand(plugin));
             commandMap.register("ping", new PingCommand(plugin));
+            commandMap.register("chatclear", new ChatclearCommand(plugin));
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);

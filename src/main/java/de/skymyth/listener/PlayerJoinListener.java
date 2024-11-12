@@ -44,8 +44,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         player.sendMessage("§8§m----------------------------------------§r");
 
         user.setLastSeen(System.currentTimeMillis());
-
-        player.playSound(player.getLocation().add(0,10,0), Sound.ENDERDRAGON_HIT, 1,1);
+        player.playSound(player.getLocation().clone().add(0,10,0), Sound.ENDERDRAGON_HIT, 1,1);
 
 
 
