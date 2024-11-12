@@ -5,6 +5,7 @@ import de.skymyth.commands.MythCommand;
 import de.skymyth.user.model.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
@@ -25,8 +26,7 @@ public class PayCommand extends MythCommand {
 
         if(args.length == 2) {
             Player target = Bukkit.getPlayer(args[0]);
-            User user = this.plugin.getUserManager().getUser(player.getUniqueId());
-            User targetUser = this.plugin.getUserManager().getUser(player.getUniqueId());
+
 
             if(target == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler wurde nicht gefunden.");
@@ -50,17 +50,25 @@ public class PayCommand extends MythCommand {
                 return;
             }
 
+            User user = this.plugin.getUserManager().getUser(player.getUniqueId());
+            User targetUser = this.plugin.getUserManager().getUser(player.getUniqueId());
+
+
+
             if(user.getBalance() < amount) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu ist dein Kontostand zu niedrig.");
                 return;
             }
 
-            user.setBalance((user.getBalance())-amount);
-            targetUser.setBalance((targetUser.getBalance())+amount);
+            user.setBalance(user.getBalance()-amount);
+            targetUser.setBalance(targetUser.getBalance()+amount);
+
+            plugin.getUserManager().saveUser(user);
+            plugin.getUserManager().saveUser(targetUser);
 
             player.sendMessage(SkyMythPlugin.PREFIX + "§eDu §7hast §e" + target.getName() + " §e" + NumberFormat.getInstance().format(amount) + " §7Tokens überwiesen.");
             player.playSound(player.getLocation(), Sound.CHICKEN_EGG_POP, 1F, 1F);
-            target.sendMessage(SkyMythPlugin.PREFIX + "§e" + plugin.getName() + " §7hat §eDir §e" + NumberFormat.getInstance().format(amount) + " §7Tokens überwiesen.");
+            target.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7hat §eDir §e" + NumberFormat.getInstance().format(amount) + " §7Tokens überwiesen.");
             target.playSound(target.getLocation(), Sound.CHICKEN_EGG_POP, 1F, 1F);
             return;
         }

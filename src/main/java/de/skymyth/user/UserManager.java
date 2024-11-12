@@ -37,6 +37,12 @@ public class UserManager {
 
     public void saveUser(UUID uuid) {
         User user = this.userMap.get(uuid);
+        this.userMap.put(uuid, user);
+        this.repository.save(user);
+    }
+
+    public void saveUser(User user) {
+        this.userMap.put(user.getUniqueId(), user);
         this.repository.save(user);
     }
 

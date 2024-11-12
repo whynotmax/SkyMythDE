@@ -1,6 +1,7 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.user.model.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,14 +12,15 @@ public record PlayerQuitListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
 
         event.setQuitMessage(null);
-
+        user.setLastSeen(System.currentTimeMillis());
         plugin.getScoreboardManager().destroyScoreboard(player);
 
-
-        //Immer zum Schluss
         plugin.getUserManager().saveUser(player.getUniqueId());
+
+
 
     }
 }

@@ -1,6 +1,7 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.user.model.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +12,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
 
         plugin.getUserManager().loadUser(player.getUniqueId());
 
@@ -31,6 +33,11 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Tutorial§8: /§ctutorial");
         player.sendMessage("§r ");
         player.sendMessage("§8§m----------------------------------------§r");
+
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
+
+        user.setLastSeen(System.currentTimeMillis());
+
 
         if (!player.hasPlayedBefore()) {
 

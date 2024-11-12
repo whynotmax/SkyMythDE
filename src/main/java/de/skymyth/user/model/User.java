@@ -20,6 +20,7 @@ public class User {
     long kills;
     long deaths;
     long trophies;
+    long lastSeen;
 
 
 }

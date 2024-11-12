@@ -3,6 +3,7 @@ package de.skymyth;
 
 import de.skymyth.commands.impl.MessageCommand;
 import de.skymyth.commands.impl.PayCommand;
+import de.skymyth.commands.impl.PingCommand;
 import de.skymyth.commands.impl.ReplyCommand;
 import de.skymyth.crate.CrateManager;
 import de.skymyth.listener.PlayerChatListener;
@@ -66,6 +67,7 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("msg", new MessageCommand(plugin));
             commandMap.register("r", new ReplyCommand(plugin));
             commandMap.register("pay", new PayCommand(plugin));
+            commandMap.register("ping", new PingCommand(plugin));
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
