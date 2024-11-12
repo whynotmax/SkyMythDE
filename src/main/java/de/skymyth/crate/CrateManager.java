@@ -27,7 +27,7 @@ public class CrateManager {
             crate = new Crate();
             crate.setName(name);
             crate.setDisplayName(name);
-            crate.setItemStacks(new ArrayList<>());
+            crate.setCrateItems(new ArrayList<>());
             crate.setDisplayItem(new ItemStack(Material.DIRT));
             crate.setEnabled(true);
             this.repository.save(crate);

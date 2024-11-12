@@ -15,7 +15,7 @@ public class Crate {
     String name;
     String displayName;
     ItemStack displayItem;
-    List<ItemStack> itemStacks;
+    List<CrateItem> crateItems;
     boolean enabled;
 
 
