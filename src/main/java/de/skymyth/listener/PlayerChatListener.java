@@ -2,6 +2,7 @@ package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,6 +27,7 @@ public class PlayerChatListener implements Listener {
                 if (content.equalsIgnoreCase(blocked)) {
                     foundAny = true;
                     contentToSendToTeam.append("§c§n").append(content).append("§7 ");
+                    break;
                 } else {
                     contentToSendToTeam.append(content).append(" ");
                 }
@@ -38,7 +40,7 @@ public class PlayerChatListener implements Listener {
             for (Player teamMember : Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("skymyth.team")).toList()) {
                 teamMember.sendMessage(SkyMythPlugin.PREFIX + "§c" + player.getName() + "§7 hat versucht, folgendes zu schreiben:");
                 teamMember.sendMessage(SkyMythPlugin.PREFIX + "§7" + contentToSendToTeam);
-                teamMember.playSound(teamMember.getLocation(), "entity.experience_orb.pickup", 1, 1);
+                teamMember.playSound(teamMember.getLocation(), Sound.ORB_PICKUP, 1, 1);
             }
             return;
         }

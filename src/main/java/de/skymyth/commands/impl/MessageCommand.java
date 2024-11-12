@@ -7,10 +7,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+
 public class MessageCommand extends MythCommand {
 
     public MessageCommand(SkyMythPlugin plugin) {
-        super("msg", null, plugin);
+        super("msg", null, new ArrayList<>(){{
+            add("pm");
+            add("tell");
+        }}, plugin);
     }
 
     @Override

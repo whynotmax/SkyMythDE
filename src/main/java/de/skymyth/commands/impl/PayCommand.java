@@ -8,13 +8,14 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 public class PayCommand extends MythCommand {
 
     SkyMythPlugin plugin;
 
     public PayCommand(SkyMythPlugin plugin) {
-        super("pay", null, plugin);
+        super("pay", null, new ArrayList<>(), plugin);
         this.plugin = plugin;
     }
 

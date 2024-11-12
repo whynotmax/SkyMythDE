@@ -6,10 +6,14 @@ import de.skymyth.utility.Utility;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+
 public class ReplyCommand extends MythCommand {
 
     public ReplyCommand(SkyMythPlugin plugin) {
-        super("r", null, plugin);
+        super("r", null, new ArrayList<>(){{
+            add("reply");
+        }}, plugin);
     }
 
     @Override
@@ -17,8 +21,8 @@ public class ReplyCommand extends MythCommand {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 1; i < args.length; i++) {
-            stringBuilder.append(args[i]).append(" ");
+        for (String arg : args) {
+            stringBuilder.append(arg).append(" ");
         }
 
         Player target = Utility.MESSAGE.get(player);

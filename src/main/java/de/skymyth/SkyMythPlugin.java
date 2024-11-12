@@ -43,7 +43,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        this.mongoManager = new MongoManager(Credentials.of("mongodb://localhost:27017/", "skymyth"));
+        this.mongoManager = new MongoManager(Credentials.of("mongodb://minerush:Rbrmf5aPMt9hqgx7BWjLkGe2U38w46Kv@87.106.178.7:27017/", "skymyth"));
         this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new CrateItemCodec());
 
         this.scoreboardManager = new ScoreboardManager(plugin);
