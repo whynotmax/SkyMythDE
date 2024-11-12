@@ -38,9 +38,11 @@ public class TablistManager {
                 name = teamBefore + group.getName();
             }
             teamBefore++;
+            String prefix = group.getCachedData().getMetaData().getPrefix() != null ? group.getCachedData().getMetaData().getPrefix() : "";
+            String suffix = group.getCachedData().getMetaData().getSuffix() != null ? group.getCachedData().getMetaData().getSuffix() : "";
             Team scoreboardTeam = scoreboard.registerNewTeam(Objects.equals(group.getName(), "default") ? "999default" : name);
-            scoreboardTeam.setPrefix(group.getCachedData().getMetaData().getPrefix().replace("&", "§"));
-            scoreboardTeam.setDisplayName(group.getCachedData().getMetaData().getSuffix().replace("&", "§"));
+            scoreboardTeam.setPrefix(prefix.replace("&", "§"));
+            scoreboardTeam.setDisplayName(suffix.replace("&", "§"));
             teamMap.put(group.getName(), scoreboardTeam);
         }
         for (Map.Entry<String, Team> teamEntry : teamMap.entrySet()) {
