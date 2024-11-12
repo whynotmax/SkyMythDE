@@ -1,10 +1,13 @@
 package de.skymyth;
 
 
-import de.skymyth.command.CrateCommand;
+import de.skymyth.commands.impl.MessageCommand;
+import de.skymyth.commands.impl.PayCommand;
+import de.skymyth.commands.impl.ReplyCommand;
 import de.skymyth.crate.CrateManager;
 import de.skymyth.listener.PlayerChatListener;
 import de.skymyth.listener.PlayerJoinListener;
+import de.skymyth.listener.PlayerQuitListener;
 import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.user.UserManager;
 import de.skymyth.utility.codec.CrateItemCodec;
@@ -19,7 +22,6 @@ import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scoreboard.Score;
 
 import java.lang.reflect.Field;
 
@@ -50,16 +52,19 @@ public final class SkyMythPlugin extends JavaPlugin {
 
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
 
-        //Commands
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 
             bukkitCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
-            //Register commands
+            commandMap.register("msg", new MessageCommand(plugin));
+            commandMap.register("r", new ReplyCommand(plugin));
+            commandMap.register("pay", new PayCommand(plugin));
+
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }

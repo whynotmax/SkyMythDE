@@ -1,4 +1,4 @@
-package de.skymyth.command;
+package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.crate.model.Crate;
