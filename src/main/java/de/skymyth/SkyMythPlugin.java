@@ -83,22 +83,6 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("ping", new PingCommand(plugin));
             commandMap.register("chatclear", new ChatclearCommand(plugin));
 
-            ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-            protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Client.TAB_COMPLETE) {
-                public void onPacketReceiving(PacketEvent event) {
-                    if (event.getPacketType() == PacketType.Play.Client.TAB_COMPLETE)
-                        try {
-                            PacketContainer packet = event.getPacket();
-                            String message = (packet.getSpecificModifier(String.class).read(0)).toLowerCase();
-                            Command closestCommand = findCommandByName(message);
-                            if (closestCommand.getPermission() != null && event.getPlayer().hasPermission(closestCommand.getPermission())) {
-                                event.setCancelled(true);
-                            }
-                        } catch (FieldAccessException e) {
-                            e.printStackTrace();
-                        }
-                }
-            });
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
