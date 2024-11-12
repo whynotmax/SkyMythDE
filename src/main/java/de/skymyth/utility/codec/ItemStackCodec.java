@@ -2,12 +2,12 @@ package de.skymyth.utility.codec;
 
 import de.skymyth.utility.ItemStackConverter;
 import lombok.extern.java.Log;
-import net.minecraft.server.v1_8_R3.ItemStack;
 import org.bson.BsonReader;
 import org.bson.BsonWriter;
 import org.bson.codecs.Codec;
 import org.bson.codecs.DecoderContext;
 import org.bson.codecs.EncoderContext;
+import org.bukkit.inventory.ItemStack;
 
 @Log
 public class ItemStackCodec implements Codec<ItemStack> {

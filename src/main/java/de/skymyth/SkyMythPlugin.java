@@ -5,6 +5,7 @@ import de.skymyth.command.CrateCommand;
 import de.skymyth.crate.CrateManager;
 import de.skymyth.listener.PlayerJoinListener;
 import de.skymyth.scoreboard.ScoreboardManager;
+import de.skymyth.utility.codec.CrateItemCodec;
 import de.skymyth.utility.codec.ItemStackCodec;
 import de.skymyth.utility.codec.LocationCodec;
 import eu.koboo.en2do.Credentials;
@@ -35,8 +36,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         plugin = this;
 
         this.mongoManager = new MongoManager(Credentials.of("mongodb://localhost:27017/", "skymyth"));
-        this.mongoManager.registerCodec(new ItemStackCodec());
-        this.mongoManager.registerCodec(new LocationCodec());
+        this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new CrateItemCodec());
 
         this.scoreboardManager = new ScoreboardManager(plugin);
         this.crateManager = new CrateManager(plugin);

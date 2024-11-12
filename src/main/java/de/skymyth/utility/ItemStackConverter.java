@@ -1,7 +1,7 @@
 package de.skymyth.utility;
 
 import lombok.experimental.UtilityClass;
-import net.minecraft.server.v1_8_R3.ItemStack;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
