@@ -82,6 +82,7 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("pay", new PayCommand(plugin));
             commandMap.register("ping", new PingCommand(plugin));
             commandMap.register("chatclear", new ChatclearCommand(plugin));
+            commandMap.register("test", new TestCommand(plugin));
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);

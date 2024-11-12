@@ -39,7 +39,7 @@ public class AsyncPlayerChatListener implements Listener {
         if (foundAny) {
             event.setCancelled(true);
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDeine Nachricht wird nun von Teammitgliedern überprüft.");
-            for (Player teamMember : Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("skymyth.team")).toList()) {
+            for (var teamMember : Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("skymyth.team")).toList()) {
                 teamMember.sendMessage(SkyMythPlugin.PREFIX + "§c" + player.getName() + "§7 hat versucht, folgendes zu schreiben:");
                 teamMember.sendMessage(SkyMythPlugin.PREFIX + "§7" + contentToSendToTeam);
                 teamMember.playSound(teamMember.getLocation(), Sound.ORB_PICKUP, 1, 1);
@@ -52,7 +52,17 @@ public class AsyncPlayerChatListener implements Listener {
         var playerGroup = LuckPermsProvider.get().getGroupManager().getGroup(LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup());
         var chatPrefix = playerGroup.getCachedData().getMetaData().getMetaValue("chat-prefix");
         if (chatPrefix == null) chatPrefix = "§r" + playerGroup.getName();
+        else chatPrefix = chatPrefix.replace("&", "§");
 
+        var badge = ""; //TODO: Implement badge system
 
+        //noinspection ConstantValue
+        if (!badge.isEmpty()) {
+            chatPrefix = "§r §8[" + badge + "§8] §7";
+        }
+
+        format = "§r " + chatPrefix + "§7" + player.getName() + "§8 × §7" + message;
+
+        event.setFormat(format);
     }
 }
