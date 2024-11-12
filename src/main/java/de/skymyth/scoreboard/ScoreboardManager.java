@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -45,7 +46,7 @@ public class ScoreboardManager {
                 "  §8× §a" + user.getKills() + " §8/ §c" + user.getDeaths(),
                 "",
                 "§f$ §8┃ §7Tokens",
-                "  §8× §f" + NumberFormat.getInstance().format(user.getBalance()),
+                "  §8× §f" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()),
                 "",
                 "§f❤ §8┃ §7Online",
                 "  §8× §a" + Bukkit.getOnlinePlayers().size() + " §8/ §c" + Bukkit.getMaxPlayers(),
