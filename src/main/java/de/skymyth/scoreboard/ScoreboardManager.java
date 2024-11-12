@@ -26,7 +26,6 @@ public class ScoreboardManager {
     public void createScoreboard(Player player) {
         FastBoard fastBoard = new FastBoard(player);
         fastBoard.updateTitle("§5§lSkyMyth");
-
         this.fastBoardMap.put(player.getUniqueId(), fastBoard);
     }
 

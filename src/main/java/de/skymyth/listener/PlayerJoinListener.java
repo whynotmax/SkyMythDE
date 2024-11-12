@@ -13,7 +13,6 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
 
         event.setJoinMessage(null);
-
         plugin.getScoreboardManager().createScoreboard(player);
 
 
