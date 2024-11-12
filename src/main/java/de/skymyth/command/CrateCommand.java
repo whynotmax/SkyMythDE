@@ -29,7 +29,7 @@ public record CrateCommand(SkyMythPlugin plugin) implements CommandExecutor {
                 Crate crate = plugin.getCrateManager().createCrate(name);
                 player.sendMessage(plugin.getPrefix() + "§7Die Crate §a" + name + " §7wurde §aerstellt.");
 
-                plugin.getCrateManager().setDisplayItem(crate, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjA5Mjk5YTExN2JlZTg4ZDMyNjJmNmFiOTgyMTFmYmEzNDRlY2FlMzliNDdlYzg0ODEyOTcwNmRlZGM4MWU0ZiJ9fX0=");
+                plugin.getCrateManager().setDisplayItem(crate, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWZkMTA4MzgzZGZhNWIwMmU4NjYzNTYwOTU0MTUyMGU0ZTE1ODk1MmQ2OGMxYzhmOGYyMDBlYzdlODg2NDJkIn19fQ==");
                 return false;
             }
 

@@ -46,7 +46,9 @@ public class CrateManager {
     }
 
     public void setDisplayItem(Crate crate, String base64) {
-        ItemBuilder itemBuilder = new ItemBuilder(SkullCreator.itemFromBase64(base64));
+        ItemBuilder itemBuilder = new ItemBuilder(Material.SKULL_ITEM)
+                .setDataId(3)
+                .addSkullValue(base64);
         itemBuilder.setName("§8» " + crate.getName() + " §7Crate §8× §eJetzt öffnen");
         crate.setDisplayItem(itemBuilder);
         this.repository.save(crate);
