@@ -29,7 +29,9 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -82,17 +84,16 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("chatclear", new ChatclearCommand(plugin));
 
             ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-            protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, new PacketType[]{PacketType.Play.Client.TAB_COMPLETE}) {
+            protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Client.TAB_COMPLETE) {
                 public void onPacketReceiving(PacketEvent event) {
                     if (event.getPacketType() == PacketType.Play.Client.TAB_COMPLETE)
                         try {
                             PacketContainer packet = event.getPacket();
                             String message = (packet.getSpecificModifier(String.class).read(0)).toLowerCase();
-                            // The following is a boolean function that returns true if the command should be cancelled
-                            //if (CommonScripts.commandIsNotInThree(event.getPlayer(), message)) {
-                            // Cancel the event
-                            event.setCancelled(true);
-                            //}
+                            Command closestCommand = findCommandByName(message);
+                            if (closestCommand.getPermission() != null && event.getPlayer().hasPermission(closestCommand.getPermission())) {
+                                event.setCancelled(true);
+                            }
                         } catch (FieldAccessException e) {
                             e.printStackTrace();
                         }
@@ -109,5 +110,48 @@ public final class SkyMythPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         log.info("SkyMyth Plugin disabled.");
+    }
+
+    public Command findCommandByName(String name) {
+        try {
+            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+
+            bukkitCommandMap.setAccessible(true);
+            SimpleCommandMap commandMap = (SimpleCommandMap) bukkitCommandMap.get(Bukkit.getServer());
+
+            Command closestCommand = null;
+            int closestDistance = Integer.MAX_VALUE;
+
+            for (String commandName : commandMap.getCommands().stream().map(Command::getName).toList()) {
+                int distance = levenshteinDistance(name, commandName);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestCommand = commandMap.getCommand(commandName);
+                }
+            }
+
+            return closestCommand;
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private int levenshteinDistance(String a, String b) {
+        int[][] dp = new int[a.length() + 1][b.length() + 1];
+
+        for (int i = 0; i <= a.length(); i++) {
+            for (int j = 0; j <= b.length(); j++) {
+                if (i == 0) {
+                    dp[i][j] = j;
+                } else if (j == 0) {
+                    dp[i][j] = i;
+                } else {
+                    dp[i][j] = Math.min(dp[i - 1][j - 1] + (a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1),
+                            Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
+                }
+            }
+        }
+
+        return dp[a.length()][b.length()];
     }
 }

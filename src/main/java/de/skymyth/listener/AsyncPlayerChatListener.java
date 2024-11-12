@@ -1,6 +1,8 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.model.group.Group;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -45,7 +47,12 @@ public class AsyncPlayerChatListener implements Listener {
             return;
         }
 
-        // Hier könnte ihr Code stehen, der ausgeführt wird, wenn der Spieler keine verbotenen Wörter benutzt hat.
+        String format;
+
+        var playerGroup = LuckPermsProvider.get().getGroupManager().getGroup(LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup());
+        var chatPrefix = playerGroup.getCachedData().getMetaData().getMetaValue("chat-prefix");
+        if (chatPrefix == null) chatPrefix = "§r" + playerGroup.getName();
+
 
     }
 }
