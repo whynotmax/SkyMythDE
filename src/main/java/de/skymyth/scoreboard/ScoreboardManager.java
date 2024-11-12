@@ -1,12 +1,14 @@
 package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.user.model.User;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -35,20 +37,21 @@ public class ScoreboardManager {
 
     public void updateScoreboard(Player player) {
         FastBoard fastBoard = this.fastBoardMap.get(player.getUniqueId());
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
 
         fastBoard.updateLines(
                 "",
                 "§f⚔ §8┃ §7Statistiken",
-                "  §8× §a0 §8/ §c0",
+                "  §8× §a" + user.getKills() + " §8/ §c" + user.getDeaths(),
                 "",
                 "§f$ §8┃ §7Tokens",
-                "  §8× §f0",
+                "  §8× §f" + NumberFormat.getInstance().format(user.getBalance()),
                 "",
                 "§f❤ §8┃ §7Online",
                 "  §8× §a" + Bukkit.getOnlinePlayers().size() + " §8/ §c" + Bukkit.getMaxPlayers(),
                 "",
                 "§f♛ §8┃ §7Trophäen",
-                "  §8× §60"
+                "  §8× §6" + user.getTrophies()
         );
     }
 }

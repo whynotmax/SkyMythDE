@@ -19,6 +19,7 @@ public class User {
     long balance;
     long kills;
     long deaths;
+    long trophies;
 
 
 }
