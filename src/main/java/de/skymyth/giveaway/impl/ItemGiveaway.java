@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.text.NumberFormat;
+import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 public class ItemGiveaway extends Giveaway {
@@ -44,7 +46,9 @@ public class ItemGiveaway extends Giveaway {
 
     @Override
     public Player determineWinner() {
-        return Bukkit.getOnlinePlayers().stream().findAny().orElse(null);
+        Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
+        List<? extends Player> players = List.copyOf(onlinePlayers);
+        return players.get((int) (Math.random() * players.size()));
     }
 
     @Override
