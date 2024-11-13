@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class RandomPlayerScrambleTitle {
 
@@ -29,42 +30,35 @@ public class RandomPlayerScrambleTitle {
             if (randomPart != null) {
                 randomPart.setRevealed(true);
             } else {
-                winnerConsumer.accept(Bukkit.getPlayer(playerNameToScramble));
-                AtomicInteger counter = new AtomicInteger(0);
-                BukkitTask winnerTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-                    counter.getAndIncrement();
-                    if (counter.get() % 2 == 0) {
-                        Bukkit.getOnlinePlayers().forEach(player -> {
-                            TitleUtil.sendTitle(player, 0, 25, 20, "§6§n" + playerNameToScramble + "§r", "§7Gewinner");
-                        });
-                        return;
-                    }
-                    Bukkit.getOnlinePlayers().forEach(player -> {
-                        TitleUtil.sendTitle(player, 0, 25, 20, "§e§n" + playerNameToScramble + "§r", "§7Gewinner");
-                    });
-                }, 0, 5);
-                Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                    winnerTask.cancel();
-                    winnerConsumer.accept(Bukkit.getPlayer(playerNameToScramble));
-                }, 75);
+                startWinnerTask(playerNameToScramble, winnerConsumer);
                 titleTask.cancel();
                 return;
             }
 
-            StringBuilder scrambledName = new StringBuilder();
-            for (TitlePart part : titleParts) {
-                if (part.isRevealed()) {
-                    scrambledName.append("§6").append(part.getCharacter()).append("§r");
-                } else {
-                    scrambledName.append("§6§k").append(part.getCharacter()).append("§r");
-                }
-            }
+            String scrambledName = titleParts.stream()
+                    .map(part -> part.isRevealed() ? "§6" + part.getCharacter() + "§r" : "§6§k" + part.getCharacter() + "§r")
+                    .collect(Collectors.joining());
 
-            Bukkit.getOnlinePlayers().forEach(player -> {
-                TitleUtil.sendTitle(player, 0, 25, 20, scrambledName.toString(), "§7Gewinner");
-            });
+            Bukkit.getOnlinePlayers().forEach(player ->
+                    TitleUtil.sendTitle(player, 0, 25, 20, scrambledName, "§8× §7Gewinner §8×")
+            );
         }, 0, 20);
+    }
 
+    private void startWinnerTask(String playerNameToScramble, Consumer<Player> winnerConsumer) {
+        AtomicInteger counter = new AtomicInteger(0);
+        BukkitTask winnerTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            counter.getAndIncrement();
+            String colorCode = (counter.get() % 2 == 0) ? "§6§n" : "§e§n";
+            Bukkit.getOnlinePlayers().forEach(player ->
+                    TitleUtil.sendTitle(player, 0, 25, 20, colorCode + playerNameToScramble + "§r", "§8× §7Gewinner §8×")
+            );
+        }, 0, 5);
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            winnerTask.cancel();
+            winnerConsumer.accept(Bukkit.getPlayer(playerNameToScramble));
+        }, 75);
     }
 
     private TitlePart getRandomTitlePart(List<TitlePart> titleParts) {

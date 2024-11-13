@@ -18,6 +18,7 @@ import de.skymyth.listener.PlayerJoinListener;
 import de.skymyth.listener.PlayerQuitListener;
 import de.skymyth.location.LocationManager;
 import de.skymyth.scoreboard.ScoreboardManager;
+import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
 import de.skymyth.utility.codec.CrateItemCodec;
@@ -33,6 +34,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -86,7 +88,20 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("ping", new PingCommand(plugin));
             commandMap.register("chatclear", new ChatclearCommand(plugin));
             commandMap.register("test", new TestCommand(plugin));
+            commandMap.register("team", new TeamCommand(plugin));
 
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Field f = Enchantment.class.getDeclaredField("acceptingNew");
+            f.setAccessible(true);
+            f.set(null, true);
+
+            Enchantment.registerEnchantment(EnchantWrapper.STAT_TRACK);
+        } catch (IllegalArgumentException | ExceptionInInitializerError e) {
+            e.printStackTrace();
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
