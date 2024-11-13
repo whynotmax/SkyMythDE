@@ -15,8 +15,8 @@ import java.util.UUID;
 public class Clan {
 
     @Id
-    String clanName;
-    UUID clanLeader;
+    String name;
+    UUID leader;
 
     long maxMembers;
 

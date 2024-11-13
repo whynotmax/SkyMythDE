@@ -4,6 +4,7 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,6 +45,8 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         player.sendMessage("§8§m----------------------------------------§r");
 
         user.setLastSeen(System.currentTimeMillis());
+
+        player.setGameMode((player.isOp() ? GameMode.CREATIVE : GameMode.SURVIVAL));
         player.playSound(player.getLocation().clone().add(0,10,0), Sound.ENDERDRAGON_HIT, 1,1);
 
 
