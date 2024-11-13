@@ -17,4 +17,5 @@ public class Util {
     public static final Map<Player, Player> MESSAGE = new HashMap<>();
     public static final Cache<Player, Player> TELEPORT = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
 
+
 }

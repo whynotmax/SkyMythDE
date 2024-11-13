@@ -9,6 +9,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.FieldAccessException;
+import de.skymyth.clan.ClanManager;
 import de.skymyth.commands.impl.*;
 import de.skymyth.crate.CrateManager;
 import de.skymyth.giveaway.GiveawayManager;
@@ -56,6 +57,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     LocationManager locationManager;
     InventoryManager inventoryManager;
     GiveawayManager giveawayManager;
+    ClanManager clanManager;
 
     @Override
     public void onEnable() {
@@ -71,6 +73,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.locationManager = new LocationManager(plugin);
         this.inventoryManager = new InventoryManager(plugin);
         this.giveawayManager = new GiveawayManager(plugin);
+        this.clanManager = new ClanManager(plugin);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
