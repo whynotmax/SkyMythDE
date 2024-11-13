@@ -29,7 +29,7 @@ public abstract class MythCommand extends Command {
             if (permission == null || player.hasPermission(permission)) {
                 run(player, strings);
             } else {
-                player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte. §8(§c" + permission + "§8)");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
             }
         }
         return false;

@@ -21,6 +21,10 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
+        if(plugin.getLocationManager().getPosition("spawn") != null) {
+            player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
+        }
+
 
         plugin.getUserManager().loadUser(player.getUniqueId());
 
@@ -50,7 +54,6 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         player.playSound(player.getLocation().clone().add(0,10,0), Sound.ENDERDRAGON_HIT, 1,1);
 
 
-
         if (!player.hasPlayedBefore()) {
             Bukkit.broadcastMessage("§r");
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Willkommen §e" + player.getName() + "§7 auf §5§lSkyMyth§8.§5§lDE§7!");
@@ -63,6 +66,12 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
                 onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e500 Coins §7erhalten.");
             }
         }
+
+
+        if(plugin.getLocationManager().getPosition("spawn") != null) {
+            player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
+        }
+
 
 
     }
