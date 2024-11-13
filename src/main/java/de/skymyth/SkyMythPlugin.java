@@ -11,6 +11,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.FieldAccessException;
 import de.skymyth.commands.impl.*;
 import de.skymyth.crate.CrateManager;
+import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.listener.AsyncPlayerChatListener;
 import de.skymyth.listener.PlayerJoinListener;
@@ -52,13 +53,14 @@ public final class SkyMythPlugin extends JavaPlugin {
     TablistManager tablistManager;
     LocationManager locationManager;
     InventoryManager inventoryManager;
+    GiveawayManager giveawayManager;
 
     @Override
     public void onEnable() {
         plugin = this;
 
         this.mongoManager = new MongoManager(Credentials.of("mongodb://minerush:Rbrmf5aPMt9hqgx7BWjLkGe2U38w46Kv@87.106.178.7:27017/", "skymyth"));
-        this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new CrateItemCodec());
+        this.mongoManager = this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new CrateItemCodec());
 
         this.scoreboardManager = new ScoreboardManager(plugin);
         this.crateManager = new CrateManager(plugin);
@@ -66,6 +68,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.tablistManager = new TablistManager(plugin);
         this.locationManager = new LocationManager(plugin);
         this.inventoryManager = new InventoryManager(plugin);
+        this.giveawayManager = new GiveawayManager(plugin);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);

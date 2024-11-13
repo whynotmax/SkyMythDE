@@ -1,7 +1,7 @@
 package de.skymyth.giveaway.impl;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.giveaway.Giveaway;
+import de.skymyth.giveaway.model.Giveaway;
 import de.skymyth.giveaway.title.RandomPlayerScrambleTitle;
 import de.skymyth.user.model.User;
 import org.bukkit.Bukkit;
@@ -13,10 +13,12 @@ import java.util.Locale;
 public class TokenGiveaway extends Giveaway {
 
     long amount;
+    boolean finished;
 
     public TokenGiveaway(SkyMythPlugin plugin, long amount) {
         super(plugin);
         this.amount = amount;
+        this.finished = false;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class TokenGiveaway extends Giveaway {
                 user.addBalance(amount);
                 plugin.getUserManager().saveUser(user);
                 plugin.getScoreboardManager().updateScoreboard(player);
+                finished = true;
             });
         }, 20L);
     }
@@ -44,5 +47,10 @@ public class TokenGiveaway extends Giveaway {
     @Override
     public Player determineWinner() {
         return Bukkit.getOnlinePlayers().stream().findAny().orElse(null);
+    }
+
+    @Override
+    public boolean done() {
+        return finished;
     }
 }

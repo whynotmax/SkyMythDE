@@ -1,4 +1,4 @@
-package de.skymyth.giveaway;
+package de.skymyth.giveaway.model;
 
 import de.skymyth.SkyMythPlugin;
 import org.bukkit.entity.Player;
@@ -14,5 +14,7 @@ public abstract class Giveaway {
     public abstract void run();
 
     public abstract Player determineWinner();
+
+    public abstract boolean done();
 
 }

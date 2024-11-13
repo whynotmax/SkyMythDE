@@ -1,10 +1,8 @@
 package de.skymyth.giveaway.impl;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.giveaway.Giveaway;
+import de.skymyth.giveaway.model.Giveaway;
 import de.skymyth.giveaway.title.RandomPlayerScrambleTitle;
-import de.skymyth.user.model.User;
-import de.skymyth.utility.codec.ItemStackCodec;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -15,10 +13,12 @@ import java.util.Locale;
 public class ItemGiveaway extends Giveaway {
 
     ItemStack itemStack;
+    boolean finished;
 
     public ItemGiveaway(SkyMythPlugin plugin, ItemStack itemStack) {
         super(plugin);
         this.itemStack = itemStack.clone();
+        this.finished = false;
     }
 
     @Override
@@ -37,6 +37,7 @@ public class ItemGiveaway extends Giveaway {
                 Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Gewinner des Token Giveaways ist §e" + player.getName() + "§7!");
                 player.getInventory().addItem(itemStack.clone());
                 plugin.getScoreboardManager().updateScoreboard(player);
+                finished = true;
             });
         }, 20L);
     }
@@ -44,5 +45,10 @@ public class ItemGiveaway extends Giveaway {
     @Override
     public Player determineWinner() {
         return Bukkit.getOnlinePlayers().stream().findAny().orElse(null);
+    }
+
+    @Override
+    public boolean done() {
+        return finished;
     }
 }

@@ -43,7 +43,10 @@ public class RandomPlayerScrambleTitle {
                         TitleUtil.sendTitle(player, 0, 25, 20, "§e§n" + playerNameToScramble + "§r", "§7Gewinner");
                     });
                 }, 0, 5);
-                Bukkit.getScheduler().runTaskLater(plugin, winnerTask::cancel, 75);
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    winnerTask.cancel();
+                    winnerConsumer.accept(Bukkit.getPlayer(playerNameToScramble));
+                }, 75);
                 titleTask.cancel();
                 return;
             }
