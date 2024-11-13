@@ -33,8 +33,8 @@ public class CrateManager {
             crate.setDisplayItem(new ItemStack(Material.DIRT));
             crate.setEnabled(true);
             this.repository.save(crate);
-        } else  {
-            throw new RuntimeException("This crate name is already existing");
+        } else {
+            throw new RuntimeException("This crate name is already taken!");
         }
         return crate;
     }
