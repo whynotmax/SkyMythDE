@@ -17,7 +17,7 @@ public class AsyncPlayerChatListener implements Listener {
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        String message = event.getMessage();
+        String message = event.getMessage().replaceAll("%", "%%");
 
         String[] messageContent = message.split(" ");
 
