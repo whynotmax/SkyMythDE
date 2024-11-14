@@ -1,15 +1,23 @@
 package de.skymyth.commands.impl;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.clan.model.Clan;
 import de.skymyth.commands.MythCommand;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ClanCommand extends MythCommand {
+
+    private final Cache<Player, Clan> clanInvite = CacheBuilder.newBuilder().expireAfterWrite(3, TimeUnit.MINUTES).build();
+
 
     public ClanCommand(SkyMythPlugin plugin) {
         super("clan", "", new ArrayList<>(), plugin);
@@ -84,9 +92,12 @@ public class ClanCommand extends MythCommand {
             return;
         }
 
+        // /clan invite <spieler>
+
         if (args.length == 2 && args[0].equalsIgnoreCase("invite")) {
 
             Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
+            String playerName = args[1];
 
             if (clan == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich in keinem Clan.");
@@ -98,7 +109,64 @@ public class ClanCommand extends MythCommand {
                 return;
             }
 
-            clan.getMembers().add(Bukkit.getPlayer("044mzcy_og").getUniqueId());
+            if(clan.getMembers().size() > clan.getMaxMembers()) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDein Clan ist voll §8(§a"+ clan.getMembers().size() + " §8/ §c" + clan.getMaxMembers() + "§8)");
+                return;
+            }
+
+            Player targetPlayer = Bukkit.getPlayer(playerName);
+
+            if(targetPlayer == null || !targetPlayer.hasPlayedBefore()) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler war noch nie auf SkyMyth.");
+                return;
+            }
+
+            if(this.clanInvite.getIfPresent(targetPlayer) != null) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler hat bereits eine offene Claneinladung.");
+                return;
+            }
+
+            if(plugin.getClanManager().isInClan(targetPlayer.getUniqueId())) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler ist bereits in einem Clan.");
+                return;
+            }
+
+            this.clanInvite.put(targetPlayer, clan);
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + targetPlayer.getName() + " §7eine Claneinladung geschickt.");
+
+            targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest in den Clan §e" + clan.getName() + " §7eingeladen.");
+            targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Trete dem Clan jetzt mit §a/Clan accept §7bei.");
+            targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDie Anfrage läuft in 3 Minuten automatisch ab.");
+            return;
+        }
+
+        if(args.length == 1 && args[0].equalsIgnoreCase("accept")) {
+            if (plugin.getClanManager().isInClan(player.getUniqueId())) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich bereits in einem Clan.");
+                return;
+            }
+
+            Clan invitedClan = this.clanInvite.getIfPresent(player);
+
+            if(invitedClan == null) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu wurdest in keinen Clan eingeladen.");
+                return;
+            }
+
+            if(invitedClan.getMembers().size() > invitedClan.getMaxMembers()) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Clan ist voll.");
+                return;
+            }
+
+            invitedClan.getMembers().add(player.getUniqueId());
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du bist nun ein Mitglied des Clans §e" + invitedClan.getName());
+
+            for (UUID member : invitedClan.getMembers()) {
+                Player clanPlayer = Bukkit.getPlayer(member);
+                if (clanPlayer != null) {
+                    clanPlayer.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7ist deinem Clan beigetreten.");
+                }
+            }
             return;
         }
 
