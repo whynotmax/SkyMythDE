@@ -21,7 +21,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        if(plugin.getLocationManager().getPosition("spawn") != null) {
+        if (plugin.getLocationManager().getPosition("spawn") != null) {
             player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
         }
 
@@ -51,7 +51,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         user.setLastSeen(System.currentTimeMillis());
 
         player.setGameMode((player.isOp() ? GameMode.CREATIVE : GameMode.SURVIVAL));
-        player.playSound(player.getLocation().clone().add(0,10,0), Sound.ENDERDRAGON_HIT, 1,1);
+        player.playSound(player.getLocation().clone().add(0, 10, 0), Sound.ENDERDRAGON_HIT, 1, 1);
 
 
         if (!player.hasPlayedBefore()) {
@@ -68,10 +68,9 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         }
 
 
-        if(plugin.getLocationManager().getPosition("spawn") != null) {
+        if (plugin.getLocationManager().getPosition("spawn") != null) {
             player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
         }
-
 
 
     }

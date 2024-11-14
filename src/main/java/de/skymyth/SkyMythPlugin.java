@@ -1,20 +1,12 @@
 package de.skymyth;
 
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.reflect.FieldAccessException;
 import de.skymyth.clan.ClanManager;
 import de.skymyth.commands.impl.*;
-import de.skymyth.crate.CrateManager;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.listener.AsyncPlayerChatListener;
+import de.skymyth.listener.CombatListener;
 import de.skymyth.listener.PlayerJoinListener;
 import de.skymyth.listener.PlayerQuitListener;
 import de.skymyth.location.LocationManager;
@@ -22,7 +14,6 @@ import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
-import de.skymyth.utility.codec.CrateItemCodec;
 import de.skymyth.utility.codec.ItemStackCodec;
 import de.skymyth.utility.codec.LocationCodec;
 import eu.koboo.en2do.Credentials;
@@ -51,7 +42,6 @@ public final class SkyMythPlugin extends JavaPlugin {
 
     MongoManager mongoManager;
     ScoreboardManager scoreboardManager;
-    CrateManager crateManager;
     UserManager userManager;
     TablistManager tablistManager;
     LocationManager locationManager;
@@ -64,10 +54,9 @@ public final class SkyMythPlugin extends JavaPlugin {
         plugin = this;
 
         this.mongoManager = new MongoManager(Credentials.of("mongodb://minerush:Rbrmf5aPMt9hqgx7BWjLkGe2U38w46Kv@87.106.178.7:27017/", "skymyth"));
-        this.mongoManager = this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new CrateItemCodec());
+        this.mongoManager = this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec());
 
         this.scoreboardManager = new ScoreboardManager(plugin);
-        this.crateManager = new CrateManager(plugin);
         this.userManager = new UserManager(plugin);
         this.tablistManager = new TablistManager(plugin);
         this.locationManager = new LocationManager(plugin);
@@ -78,6 +67,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new CombatListener(plugin), this);
 
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");

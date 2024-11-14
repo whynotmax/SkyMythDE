@@ -23,20 +23,22 @@ public class Position {
     boolean warp; //Indicates if the position is a warp or not!
 
     /**
-     * Converts the Position object to a Bukkit location
-     * @return  The Bukkit location
-     */
-    public Location toBukkitLocation() {
-        return location;
-    }
-
-    /**
      * Converts a Bukkit location to a Position object
+     *
      * @param location The Bukkit location
      * @return The Position object - Note that the name of this position object will be null - please set it manually!
      */
     public static Position fromBukkitLocation(Location location) {
         return new Position(null, location.clone(), false);
+    }
+
+    /**
+     * Converts the Position object to a Bukkit location
+     *
+     * @return The Bukkit location
+     */
+    public Location toBukkitLocation() {
+        return location;
     }
 
 }

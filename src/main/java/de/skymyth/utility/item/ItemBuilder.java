@@ -128,13 +128,6 @@ public class ItemBuilder extends ItemStack {
         return this;
     }
 
-    public ItemBuilder setUnbreakable(boolean unbreakable) {
-        ItemMeta meta = getItemMeta();
-        meta.spigot().setUnbreakable(unbreakable);
-        setItemMeta(meta);
-        return this;
-    }
-
     public ItemBuilder addFlag(ItemFlag flag) {
         ItemMeta meta = getItemMeta();
         meta.addItemFlags(flag);
@@ -164,6 +157,13 @@ public class ItemBuilder extends ItemStack {
 
     public boolean isUnbreakable() {
         return getItemMeta().spigot().isUnbreakable();
+    }
+
+    public ItemBuilder setUnbreakable(boolean unbreakable) {
+        ItemMeta meta = getItemMeta();
+        meta.spigot().setUnbreakable(unbreakable);
+        setItemMeta(meta);
+        return this;
     }
 
     public boolean isGlowing() {

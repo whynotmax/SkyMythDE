@@ -2,7 +2,6 @@ package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import net.luckperms.api.LuckPermsProvider;
-import net.luckperms.api.model.group.Group;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

@@ -6,7 +6,6 @@ import de.skymyth.tpa.TeleportManager;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TPACommand extends MythCommand {
 

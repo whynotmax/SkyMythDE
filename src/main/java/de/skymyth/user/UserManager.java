@@ -24,7 +24,7 @@ public class UserManager {
     public void loadUser(UUID uuid) {
         User user = this.repository.findFirstById(uuid);
 
-        if(user == null) {
+        if (user == null) {
             user = new User();
             user.setUniqueId(uuid);
             user.setBalance(750);

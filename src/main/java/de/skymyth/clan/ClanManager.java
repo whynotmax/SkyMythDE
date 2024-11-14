@@ -5,7 +5,6 @@ import de.skymyth.clan.model.Clan;
 import de.skymyth.clan.repository.ClanRepository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -49,7 +48,7 @@ public class ClanManager {
 
     public Clan getClan(UUID uuid) {
         for (Clan value : clanMap.values()) {
-            if(value.getLeader().equals(uuid) || value.getMembers().contains(uuid)) {
+            if (value.getLeader().equals(uuid) || value.getMembers().contains(uuid)) {
                 return value;
             }
         }
@@ -59,8 +58,6 @@ public class ClanManager {
     public boolean isInClan(UUID uuid) {
         return this.getClan(uuid) != null;
     }
-
-
 
 
 }

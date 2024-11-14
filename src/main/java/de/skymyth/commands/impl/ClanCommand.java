@@ -5,6 +5,7 @@ import de.skymyth.clan.model.Clan;
 import de.skymyth.commands.MythCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -21,11 +22,11 @@ public class ClanCommand extends MythCommand {
         // /Clan info
         // /Clan delete
 
-        if(args.length == 2 && args[0].equalsIgnoreCase("create")) {
+        if (args.length == 2 && args[0].equalsIgnoreCase("create")) {
 
             String clanName = args[1];
 
-            if(plugin.getClanManager().isInClan(player.getUniqueId())) {
+            if (plugin.getClanManager().isInClan(player.getUniqueId())) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich bereits in einem Clan.");
                 return;
             }
@@ -35,17 +36,17 @@ public class ClanCommand extends MythCommand {
                 return;
             }
 
-            if(clanName.length() < 2) {
+            if (clanName.length() < 2) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Clanname ist zu kurz.");
                 return;
             }
 
-            if(clanName.length() > 5) {
+            if (clanName.length() > 5) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Clanname ist zu lange.");
                 return;
             }
 
-            if(plugin.getClanManager().existsClan(clanName)) {
+            if (plugin.getClanManager().existsClan(clanName)) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Clanname ist bereits vergeben.");
                 return;
             }
@@ -55,16 +56,16 @@ public class ClanCommand extends MythCommand {
             return;
         }
 
-        if(args.length == 1 && args[0].equalsIgnoreCase("delete")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("delete")) {
 
             Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
 
-            if(clan == null) {
+            if (clan == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich in keinem Clan.");
                 return;
             }
 
-            if(!clan.getLeader().equals(player.getUniqueId())) {
+            if (!clan.getLeader().equals(player.getUniqueId())) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cNur der Clanbesitzer kann den Clan löschen.");
                 return;
             }
@@ -73,7 +74,7 @@ public class ClanCommand extends MythCommand {
                 clan.getMembers().remove(member);
 
                 Player clanPlayer = Bukkit.getPlayer(member);
-                if(clanPlayer != null) {
+                if (clanPlayer != null) {
                     clanPlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDein Clan wurde von §e" + player.getUniqueId() + " §caufgelöst.");
                 }
             }
@@ -83,16 +84,16 @@ public class ClanCommand extends MythCommand {
             return;
         }
 
-        if(args.length == 2 && args[0].equalsIgnoreCase("invite")) {
+        if (args.length == 2 && args[0].equalsIgnoreCase("invite")) {
 
             Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
 
-            if(clan == null) {
+            if (clan == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich in keinem Clan.");
                 return;
             }
 
-            if(!clan.getLeader().equals(player.getUniqueId())) {
+            if (!clan.getLeader().equals(player.getUniqueId())) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cNur der Clanbesitzer kann Spieler einladen.");
                 return;
             }
@@ -101,10 +102,10 @@ public class ClanCommand extends MythCommand {
             return;
         }
 
-        if(args.length == 1 && args[0].equalsIgnoreCase("info")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("info")) {
             Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
 
-            if(clan == null) {
+            if (clan == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich in keinem Clan.");
                 return;
             }
@@ -114,7 +115,7 @@ public class ClanCommand extends MythCommand {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein aktueller Clan: §e" + clan.getName());
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Clanbesitzer: §e" + Bukkit.getOfflinePlayer(clan.getLeader()).getName());
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Clanmitglieder: §a" + clan.getMembers().size() + " §8/ §c" + clan.getMaxMembers());
-            if(!clan.getMembers().isEmpty()) {
+            if (!clan.getMembers().isEmpty()) {
                 int i = 1;
                 for (UUID member : clan.getMembers()) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Mitglied #" + i + ": §e" + Bukkit.getOfflinePlayer(member).getName());

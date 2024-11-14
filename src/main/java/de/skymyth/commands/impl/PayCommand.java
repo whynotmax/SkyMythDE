@@ -5,7 +5,6 @@ import de.skymyth.commands.MythCommand;
 import de.skymyth.user.model.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
@@ -24,16 +23,16 @@ public class PayCommand extends MythCommand {
     public void run(Player player, String[] args) {
 
 
-        if(args.length == 2) {
+        if (args.length == 2) {
             Player target = Bukkit.getPlayer(args[0]);
 
 
-            if(target == null) {
+            if (target == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler wurde nicht gefunden.");
                 return;
             }
 
-            if(target == player) {
+            if (target == player) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst dir selber nichts überweisen.");
                 return;
             }
@@ -45,7 +44,7 @@ public class PayCommand extends MythCommand {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cBitte gebe eine gültige Anzahl an.");
             }
 
-            if(amount < 1 || amount > 1000000) {
+            if (amount < 1 || amount > 1000000) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst nur beträge zwischen 1 - 1 Mio. überweisen.");
                 return;
             }
@@ -53,7 +52,7 @@ public class PayCommand extends MythCommand {
             User user = this.plugin.getUserManager().getUser(player.getUniqueId());
             User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
 
-            if(user.getBalance() < amount) {
+            if (user.getBalance() < amount) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu ist dein Kontostand zu niedrig.");
                 return;
             }
@@ -73,7 +72,6 @@ public class PayCommand extends MythCommand {
         }
 
         player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /pay <spieler> <anzahl>");
-
 
 
     }

@@ -21,6 +21,5 @@ public record PlayerQuitListener(SkyMythPlugin plugin) implements Listener {
         plugin.getUserManager().saveUser(player.getUniqueId());
 
 
-
     }
 }

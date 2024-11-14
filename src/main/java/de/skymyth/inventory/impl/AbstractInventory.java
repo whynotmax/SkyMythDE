@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -15,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @Getter
@@ -93,8 +91,7 @@ public abstract class AbstractInventory {
         if (this.clickActions.containsKey(event.getSlot())) {
             this.clickActions.get(event.getSlot()).accept(event);
             return;
-        }
-        else event.setCancelled(true);
+        } else event.setCancelled(true);
     }
 
 }

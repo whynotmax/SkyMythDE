@@ -6,7 +6,6 @@ import de.skymyth.location.model.Position;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SetlocCommand extends MythCommand {
 
@@ -19,7 +18,7 @@ public class SetlocCommand extends MythCommand {
 
         // /setloc
 
-        if(args.length == 1) {
+        if (args.length == 1) {
 
             String name = args[0];
             Position position = new Position(name, player.getLocation(), false);

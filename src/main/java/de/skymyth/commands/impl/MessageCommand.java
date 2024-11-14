@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class MessageCommand extends MythCommand {
 
     public MessageCommand(SkyMythPlugin plugin) {
-        super("msg", null, new ArrayList<>(){{
+        super("msg", null, new ArrayList<>() {{
             add("pm");
             add("tell");
         }}, plugin);
@@ -21,10 +21,10 @@ public class MessageCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if(args.length > 1) {
+        if (args.length > 1) {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(target == null) {
+            if (target == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler wurde nicht gefunden.");
                 return;
             }
@@ -35,7 +35,7 @@ public class MessageCommand extends MythCommand {
                 stringBuilder.append(args[i]).append(" ");
             }
 
-            if(target == player) {
+            if (target == player) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst dir selber nicht schreiben.");
                 return;
             }

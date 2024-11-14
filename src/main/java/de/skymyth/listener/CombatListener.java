@@ -1,4 +1,4 @@
-package de.skymyth.combat;
+package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;

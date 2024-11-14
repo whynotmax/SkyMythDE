@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ReplyCommand extends MythCommand {
 
     public ReplyCommand(SkyMythPlugin plugin) {
-        super("r", null, new ArrayList<>(){{
+        super("r", null, new ArrayList<>() {{
             add("reply");
         }}, plugin);
     }
@@ -27,7 +27,7 @@ public class ReplyCommand extends MythCommand {
 
         Player target = Util.MESSAGE.get(player);
 
-        if(target == null) {
+        if (target == null) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst keinem Spieler antworten.");
             return;
         }
