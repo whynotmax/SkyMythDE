@@ -40,6 +40,8 @@ public class ScoreboardManager {
         FastBoard fastBoard = this.fastBoardMap.get(player.getUniqueId());
         User user = plugin.getUserManager().getUser(player.getUniqueId());
 
+        plugin.getTablistManager().setRank(player);
+
         fastBoard.updateLines(
                 "",
                 "§f⚔ §8┃ §7Statistiken",
