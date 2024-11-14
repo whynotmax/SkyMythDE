@@ -36,6 +36,15 @@ public class ClanManager {
         this.clanMap.remove(clanName);
     }
 
+    /**
+     * Stores the clan directly into mongo
+     * @param clan
+     */
+    public void saveClan(Clan clan){
+        this.repository.save(clan);
+    }
+
+
     public void deleteClan(Clan clan) {
         this.repository.delete(clan);
         this.clanMap.remove(clan.getName());
