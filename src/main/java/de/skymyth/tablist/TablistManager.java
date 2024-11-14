@@ -40,7 +40,7 @@ public class TablistManager {
             String suffix = group.getCachedData().getMetaData().getSuffix() != null ? group.getCachedData().getMetaData().getSuffix() : "";
             Team scoreboardTeam = scoreboard.registerNewTeam(Objects.equals(group.getName(), "default") ? "999default" : name);
             scoreboardTeam.setPrefix(prefix.replace("&", "§"));
-            scoreboardTeam.setDisplayName(suffix.replace("&", "§"));
+            scoreboardTeam.setSuffix(suffix.replace("&", "§"));
             teamMap.put(group.getName(), scoreboardTeam);
         }
         for (Map.Entry<String, Team> teamEntry : teamMap.entrySet()) {
@@ -56,6 +56,7 @@ public class TablistManager {
         }
         team.addPlayer(player);
         player.setDisplayName(player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#§e" + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
+        player.setPlayerListName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#§e" + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
             onlinePlayer.setScoreboard(scoreboard);
             updateTablistHeaderAndFooter(onlinePlayer);
