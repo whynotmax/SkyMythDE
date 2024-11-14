@@ -57,7 +57,7 @@ public class TPAcceptCommand extends MythCommand {
             TeleportManager.removeRequest(target.getUniqueId(), player.getUniqueId());
 
         } else {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cBenutze: §7/tpaccept <Spieler>");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: §7/tpaccept <Spieler>");
         }
     }
 }

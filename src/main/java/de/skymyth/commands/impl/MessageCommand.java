@@ -50,6 +50,6 @@ public class MessageCommand extends MythCommand {
             return;
         }
 
-        player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /msg <spieler> <nachricht>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /msg <spieler> <nachricht>");
     }
 }

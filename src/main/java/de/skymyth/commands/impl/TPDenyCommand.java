@@ -50,7 +50,7 @@ public class TPDenyCommand extends MythCommand {
             TeleportManager.removeRequest(target.getUniqueId(), player.getUniqueId());
 
         } else {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cBenutze: §7/tpdeny <Spieler>");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: §7/tpdeny <Spieler>");
         }
     }
 }

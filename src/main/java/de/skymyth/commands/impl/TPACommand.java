@@ -40,7 +40,7 @@ public class TPACommand extends MythCommand {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast eine Teleportanfrage an §e" + target.getName() + " §7gesendet.");
             target.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7möchte sich zu dir teleportieren. §7§o(/tpaccept)");
         } else {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cBenutze: §7/tpa <Spieler>");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: §7/tpa <Spieler>");
         }
     }
 }

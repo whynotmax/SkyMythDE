@@ -71,7 +71,7 @@ public class PayCommand extends MythCommand {
             return;
         }
 
-        player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /pay <spieler> <anzahl>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /pay <spieler> <anzahl>");
 
 
     }

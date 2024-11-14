@@ -41,7 +41,7 @@ public class TPAHereCommand extends MythCommand {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast eine Teleportanfrage an §e" + target.getName() + " §7gesendet.");
             target.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7möchte, dass du sich zu ihm teleportierst. §7§o(/tpaccept)");
         } else {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cBenutze: §7/tpahere <Spieler>");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: §7/tpahere <Spieler>");
         }
     }
 }

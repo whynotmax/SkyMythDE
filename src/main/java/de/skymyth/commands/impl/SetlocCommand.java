@@ -26,7 +26,7 @@ public class SetlocCommand extends MythCommand {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Die Position §e" + name + " §7wurde gesetzt.");
             return;
         }
-        player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /setloc <name>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /setloc <name>");
 
     }
 }

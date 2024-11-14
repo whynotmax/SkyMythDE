@@ -38,6 +38,6 @@ public class InfoCommand extends MythCommand {
 
             return;
         }
-        player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /Info <spieler>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /Info <spieler>");
     }
 }
