@@ -55,8 +55,8 @@ public class TablistManager {
             team = scoreboard.getTeam("999default");
         }
         team.addPlayer(player);
-        player.setDisplayName(player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#§e" + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
-        player.setPlayerListName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#§e" + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
+        player.setDisplayName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? "§c" : "§e") + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
+        player.setPlayerListName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? "§c" : "§e") + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
             onlinePlayer.setScoreboard(scoreboard);
             updateTablistHeaderAndFooter(onlinePlayer);
