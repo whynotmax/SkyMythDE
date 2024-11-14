@@ -75,13 +75,12 @@ public class ClanCommand extends MythCommand {
             }
 
             for (UUID member : clan.getMembers()) {
-                clan.getMembers().remove(member);
-
                 Player clanPlayer = Bukkit.getPlayer(member);
                 if (clanPlayer != null) {
-                    clanPlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDein Clan wurde von §e" + player.getUniqueId() + " §caufgelöst.");
+                    clanPlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDein Clan wurde von §e" + player.getName() + " §caufgelöst.");
                 }
             }
+            clan.setMembers(new ArrayList<>());
             clan.setLeader(null);
             plugin.getClanManager().deleteClan(clan);
             player.sendMessage(SkyMythPlugin.PREFIX + "§eDein Clan wurde erfolgreich aufgelöst.");
@@ -196,6 +195,8 @@ public class ClanCommand extends MythCommand {
             invitedClan.getMembers().add(player.getUniqueId());
             plugin.getClanManager().saveClan(invitedClan);
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du bist nun ein Mitglied des Clans §e" + invitedClan.getName());
+
+            this.clanInvite.invalidate(player);
 
             for (UUID member : invitedClan.getMembers()) {
                 Player clanPlayer = Bukkit.getPlayer(member);

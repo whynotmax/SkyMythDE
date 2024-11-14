@@ -38,7 +38,7 @@ public class AsyncPlayerChatListener implements Listener {
         if (foundAny) {
             event.setCancelled(true);
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDeine Nachricht wird nun von Teammitgliedern überprüft.");
-            for (var teamMember : Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("skymyth.team")).toList()) {
+            for (var teamMember : Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("myth.team")).toList()) {
                 teamMember.sendMessage(SkyMythPlugin.PREFIX + "§c" + player.getName() + "§7 hat versucht, folgendes zu schreiben:");
                 teamMember.sendMessage(SkyMythPlugin.PREFIX + "§7" + contentToSendToTeam);
                 teamMember.playSound(teamMember.getLocation(), Sound.ORB_PICKUP, 1, 1);
