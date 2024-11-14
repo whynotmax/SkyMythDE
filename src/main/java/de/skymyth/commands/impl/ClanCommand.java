@@ -197,6 +197,8 @@ public class ClanCommand extends MythCommand {
         }
 
         player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /clan create <name>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /clan invite <spieler>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /clan accept");
         player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /clan delete");
         player.sendMessage(SkyMythPlugin.PREFIX + "§cVerwende: /clan info");
 
