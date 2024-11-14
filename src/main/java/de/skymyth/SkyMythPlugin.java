@@ -84,6 +84,7 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("team", new TeamCommand(plugin));
             commandMap.register("clan", new ClanCommand(plugin));
             commandMap.register("setloc", new SetlocCommand(plugin));
+            commandMap.register("info", new InfoCommand(plugin));
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
