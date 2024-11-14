@@ -61,9 +61,6 @@ public class PayCommand extends MythCommand {
             user.removeBalance(amount);
             targetUser.addBalance(amount);
 
-            plugin.getUserManager().saveUser(user);
-            plugin.getUserManager().saveUser(targetUser);
-
             player.sendMessage(SkyMythPlugin.PREFIX + "§eDu §7hast §e" + target.getName() + " §e" + NumberFormat.getInstance().format(amount) + " §7Tokens überwiesen.");
             player.playSound(player.getLocation(), Sound.CHICKEN_EGG_POP, 1F, 1F);
             target.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7hat §eDir §e" + NumberFormat.getInstance().format(amount) + " §7Tokens überwiesen.");
