@@ -157,7 +157,7 @@ public class ClanCommand extends MythCommand {
             Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
 
             if (!clan.getLeader().equals(player.getUniqueId())) {
-                player.sendMessage(SkyMythPlugin.PREFIX + "§cNur der Clanbesitzer kann den Clan löschen.");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cNur der Clanbesitzer kann Mitglieder entfernen.");
                 return;
             }
 
