@@ -82,6 +82,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new CombatListener(plugin), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(plugin), this);
 
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
