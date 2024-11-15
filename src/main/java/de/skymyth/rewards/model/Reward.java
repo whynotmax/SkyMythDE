@@ -1,5 +1,6 @@
 package de.skymyth.rewards.model;
 
+import eu.koboo.en2do.repository.entity.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Reward {
 
+    @Id
     String id;
     String season;
 
