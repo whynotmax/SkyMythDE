@@ -4,12 +4,14 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
 import de.skymyth.user.repository.UserRepository;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserManager {
 

@@ -9,6 +9,7 @@ import de.skymyth.inventory.InventoryManager;
 import de.skymyth.listener.*;
 import de.skymyth.location.LocationManager;
 import de.skymyth.punish.PunishManager;
+import de.skymyth.ranking.RankingManager;
 import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
@@ -52,6 +53,8 @@ public final class SkyMythPlugin extends JavaPlugin {
     ClanManager clanManager;
     PunishManager punishManager;
     BadgeManager badgeManager;
+    RankingManager rankingManager;
+
 
     @Override
     public void onEnable() {
@@ -69,6 +72,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.clanManager = new ClanManager(plugin);
         this.punishManager = new PunishManager(plugin);
         this.badgeManager = new BadgeManager(plugin);
+        this.rankingManager = new RankingManager(plugin);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(plugin), this);
