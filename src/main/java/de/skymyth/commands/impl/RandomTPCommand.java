@@ -2,16 +2,19 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.rtp.RTPManager;
 import de.skymyth.user.model.User;
 import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.utility.RandomUtil;
 import de.skymyth.utility.TimeUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.time.Duration;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class RandomTPCommand extends MythCommand {
@@ -35,6 +38,19 @@ public class RandomTPCommand extends MythCommand {
 
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Es wird eine Stelle generiert...");
 
-        RandomUtil.teleportRandomly(this.plugin, player, Bukkit.getWorld("world")); //TODO: Change to Farmworld
+        CompletableFuture.supplyAsync(() -> {
+            teleportPlayer(player, Bukkit.getWorld("world"));
+            return null;
+        });
+    }
+
+    public void teleportPlayer(Player player, World world) {
+
+        int maxX = 2500;
+        int maxZ = 2500;
+
+        RTPManager rtpManager = new RTPManager(this.plugin, player, world, maxX, maxZ);
+        rtpManager.teleport();
+
     }
 }

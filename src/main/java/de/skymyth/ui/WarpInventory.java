@@ -5,6 +5,7 @@ import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.location.model.Position;
 import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.item.ItemBuilder;
+import de.skymyth.utility.item.SkullCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -34,6 +35,22 @@ public class WarpInventory extends AbstractInventory {
             }
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Spawn wurde noch nicht gesetzt.");
         }));
+
+        setItem(24, new ItemBuilder(SkullCreator.itemFromBase64("")).setName("§7Warp§8: §eBelohnungen").lore(
+                "§7§oTeleportiere dich zu den Belohnungen",
+                "§7",
+                "§aKlicke§8,§7 um dich zu teleportieren"
+        ), event -> {
+            Player player = (Player) event.getWhoClicked();
+            event.setCancelled(true);
+            Position rewards = this.plugin.getLocationManager().getPosition("rewards");
+            if (rewards != null) {
+                player.teleport(rewards.toBukkitLocation());
+                TitleUtil.sendTitle(player, 0, 40, 20, "§a§lBelohnungen", "§8× §7Du wurdest teleportiert §8×");
+                return;
+            }
+            player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Belohnungen wurden noch nicht gesetzt.");
+        });
     }
 
     @Override

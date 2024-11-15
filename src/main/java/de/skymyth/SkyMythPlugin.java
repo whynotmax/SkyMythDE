@@ -7,6 +7,7 @@ import de.skymyth.commands.MythCommand;
 import de.skymyth.commands.impl.*;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
+import de.skymyth.kit.KitManager;
 import de.skymyth.listener.*;
 import de.skymyth.location.LocationManager;
 import de.skymyth.punish.PunishManager;
@@ -61,6 +62,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     BadgeManager badgeManager;
     RankingManager rankingManager;
     RewardsManager rewardsManager;
+    KitManager kitManager;
 
 
     @Override
@@ -81,6 +83,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.badgeManager = new BadgeManager(plugin);
         this.rankingManager = new RankingManager(plugin);
         this.rewardsManager = new RewardsManager(plugin);
+        this.kitManager = new KitManager(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {
