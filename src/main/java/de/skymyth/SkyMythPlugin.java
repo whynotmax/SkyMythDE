@@ -99,6 +99,7 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("skymyth", new GlobalmuteCommand(plugin));
             commandMap.register("skymyth", new BroadcastCommand(plugin));
             commandMap.register("skymyth", new WarpCommand(plugin));
+            commandMap.register("skymyth", new GiveAllCommand(plugin));
 
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -123,6 +124,7 @@ public final class SkyMythPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.rankingManager.delete();
         log.info("SkyMyth Plugin disabled.");
     }
 

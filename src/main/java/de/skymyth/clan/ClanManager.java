@@ -18,7 +18,7 @@ public class ClanManager {
     public ClanManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
         this.repository = this.plugin.getMongoManager().create(ClanRepository.class);
-        this.clanMap = this.repository.findAll().stream().collect(Collectors.toMap(Clan::getName, clan -> clan));
+        this.clanMap = this.repository.findAll().stream().collect(Collectors.toMap(clan -> clan.getName().toLowerCase(), clan -> clan));
     }
 
     public void createClan(UUID uuid, String clanName) {
@@ -28,7 +28,7 @@ public class ClanManager {
         clan.setMaxMembers(10);
         clan.setMembers(new ArrayList<>());
         this.repository.save(clan);
-        this.clanMap.put(clanName, clan);
+        this.clanMap.put(clanName.toLowerCase(), clan);
     }
 
     public void deleteClan(String clanName) {
@@ -53,7 +53,7 @@ public class ClanManager {
 
 
     public boolean existsClan(String clanName) {
-        return this.clanMap.get(clanName) != null;
+        return this.clanMap.get(clanName.toLowerCase()) != null;
     }
 
     public Clan getClan(UUID uuid) {

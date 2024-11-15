@@ -2,6 +2,7 @@ package de.skymyth.punish.model;
 
 import de.skymyth.punish.model.reason.PunishReason;
 import de.skymyth.punish.model.type.PunishType;
+import eu.koboo.en2do.repository.entity.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Punish {
 
+    @Id
     String id;
 
     UUID target;

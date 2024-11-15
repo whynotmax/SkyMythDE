@@ -79,7 +79,6 @@ public class ClanCommand extends MythCommand {
                 }
             }
             clan.setMembers(new ArrayList<>());
-            clan.setLeader(null);
             plugin.getClanManager().deleteClan(clan);
             player.sendMessage(SkyMythPlugin.PREFIX + "§eDein Clan wurde erfolgreich aufgelöst.");
             return;

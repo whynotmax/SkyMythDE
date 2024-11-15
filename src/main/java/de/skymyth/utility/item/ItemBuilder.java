@@ -143,6 +143,7 @@ public class ItemBuilder extends ItemStack {
     }
 
     public ItemBuilder skullOwner(String playerName) {
+        setDataId(3);
         SkullMeta meta = (SkullMeta) getItemMeta();
         meta.setOwner(playerName);
         setItemMeta(meta);
