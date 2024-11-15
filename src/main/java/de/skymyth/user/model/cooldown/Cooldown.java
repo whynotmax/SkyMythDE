@@ -20,7 +20,7 @@ public class Cooldown {
     long start;
 
     public boolean isExpired() {
-        return System.currentTimeMillis() - start >= duration.toMillis();
+        return getRemainingTime() <= 0;
     }
 
     public void start() {
@@ -28,7 +28,7 @@ public class Cooldown {
     }
 
     public long getRemainingTime() {
-        return duration.toMillis() - (System.currentTimeMillis() - start);
+        return (start + duration.toMillis()) - System.currentTimeMillis();
     }
 
 }
