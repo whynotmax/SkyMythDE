@@ -78,9 +78,8 @@ public class ClanCommand extends MythCommand {
                     clanPlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDein Clan wurde von §e" + player.getName() + " §caufgelöst.");
                 }
             }
-            clan.setMembers(new ArrayList<>());
             plugin.getClanManager().deleteClan(clan);
-            player.sendMessage(SkyMythPlugin.PREFIX + "§eDein Clan wurde erfolgreich aufgelöst.");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein Clan wurde §aerfolgreich §7aufgelöst.");
             return;
         }
 

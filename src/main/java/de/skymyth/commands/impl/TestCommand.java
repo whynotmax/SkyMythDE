@@ -18,5 +18,7 @@ public class TestCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
         new ItemGiveaway(plugin, new ItemBuilder(Material.STONE).amount(300)).run();
+        plugin.getUserManager().getUser(player.getUniqueId())
+                .addKill();
     }
 }

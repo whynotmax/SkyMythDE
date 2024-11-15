@@ -48,7 +48,7 @@ public class ClanManager {
 
     public void deleteClan(Clan clan) {
         this.repository.delete(clan);
-        this.clanMap.remove(clan.getName());
+        this.clanMap.remove(clan.getName().toLowerCase());
     }
 
 
@@ -58,6 +58,7 @@ public class ClanManager {
 
     public Clan getClan(UUID uuid) {
         for (Clan value : clanMap.values()) {
+            if(value.getLeader() == null) continue;
             if (value.getLeader().equals(uuid) || value.getMembers().contains(uuid)) {
                 return value;
             }

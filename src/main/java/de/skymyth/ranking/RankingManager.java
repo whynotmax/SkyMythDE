@@ -12,20 +12,35 @@ import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RankingManager {
+public class RankingManager implements Listener {
 
     SkyMythPlugin plugin;
     World world = Bukkit.getWorld("Spawn");
     List<ArmorStand> rankingStands;
 
+    @EventHandler
+    public void onEntityDamage(EntityDamageByEntityEvent event) {
+        if(event.getEntity() instanceof ArmorStand armorStand) {
+            if(rankingStands.contains(armorStand)) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
     public RankingManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
         this.rankingStands = new ArrayList<>();
+
+        Bukkit.getPluginManager().registerEvents(this, plugin);
 
         for (Entity entity : this.world.getEntities()) {
             if(entity.getType() != EntityType.ARMOR_STAND) continue;
@@ -102,12 +117,10 @@ public class RankingManager {
                     ranking3.setBoots(new ItemStack(Material.LEATHER_BOOTS));
                     ranking3.setItemInHand(new ItemStack(Material.ENDER_PEARL));
                 }
-
-                System.out.println(player.getName() + ";" + kills + ";" + integer.get());
                 if (integer.get() > 3) continue;
                 integer.getAndIncrement();
             }
-        },20L, 20*60*1);
+        },20L, 20*60*5);
     }
 
     public void delete() {
