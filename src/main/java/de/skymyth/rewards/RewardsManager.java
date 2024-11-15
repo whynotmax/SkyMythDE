@@ -53,6 +53,7 @@ public class RewardsManager {
                 "§r",
                 "§7Aktuelle Saison: §e" + "Winter",
                 "§7Letzte Öffnung: §cUnbekannt",
+                "§7Öffner: §cUnbekannt",
                 "§r",
                 "§7§oKlicke auf den Block unten,",
                 "§7§o um deine Belohnung abzuholen."
@@ -62,9 +63,11 @@ public class RewardsManager {
             if (isInUse) return;
             if (lastOpened == 0 || lastOpenedBy == null) {
                 DHAPI.setHologramLine(this.hologram, 3, "§7Letzte Öffnung: §cUnbekannt");
+                DHAPI.setHologramLine(this.hologram, 4, "§7Öffner: §cUnbekannt");
                 return;
             }
             DHAPI.setHologramLine(this.hologram, 3, "§7Letzte Öffnung: §evor " + TimeUtil.beautifyTime(System.currentTimeMillis() - lastOpened, TimeUnit.MILLISECONDS, true, false));
+            DHAPI.setHologramLine(this.hologram, 4, "§7Öffner: §e" + Bukkit.getOfflinePlayer(lastOpenedBy).getName());
         }, 0L, 20 * 5L);
 
     }
@@ -126,6 +129,7 @@ public class RewardsManager {
                 armorStandHeadLocation.getWorld().dropItem(armorStandHeadLocation, reward.getItem());
             }
             lastOpened = System.currentTimeMillis();
+            lastOpenedBy = player.getUniqueId();
             isInUse = false;
             hologram.enable();
         }, 20 * 5L);
