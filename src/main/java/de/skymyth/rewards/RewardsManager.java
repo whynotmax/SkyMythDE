@@ -66,7 +66,7 @@ public class RewardsManager {
                 DHAPI.setHologramLine(this.hologram, 4, "§7Öffner: §cUnbekannt");
                 return;
             }
-            DHAPI.setHologramLine(this.hologram, 3, "§7Letzte Öffnung: §evor " + TimeUtil.beautifyTime(System.currentTimeMillis() - lastOpened, TimeUnit.MILLISECONDS, true, false));
+            DHAPI.setHologramLine(this.hologram, 3, "§7Letzte Öffnung: §evor " + TimeUtil.beautifyTime((System.currentTimeMillis() - lastOpened), TimeUnit.MILLISECONDS, true, true));
             DHAPI.setHologramLine(this.hologram, 4, "§7Öffner: §e" + Bukkit.getOfflinePlayer(lastOpenedBy).getName());
         }, 0L, 20 * 5L);
 
