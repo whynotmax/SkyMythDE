@@ -49,7 +49,7 @@ public class RewardsManager {
         this.rewards = new ArrayList<>(rewardRepository.findManyBySeason("Winter"));
 
         this.hologram = DHAPI.createHologram("rewards-hologram", this.hologramPosition.toBukkitLocation().clone().add(0, 1, 0), false, List.of(
-                "§f§lW§c§li§f§ln§c§lt§f§le§c§lr §f§lR§c§le§f§lw§c§la§f§lr§c§ld§f§ls",
+                "§f§lW§c§le§f§li§c§lh§f§ln§c§la§f§lc§c§lh§f§lt§c§ls§f§lb§c§le§f§ll§c§lo§f§ll§c§lo§f§ln§c§lu§f§ln§c§lg§f§le§c§ln",
                 "§r",
                 "§7Aktuelle Saison: §e" + "Winter",
                 "§7Letzte Öffnung: §cUnbekannt",

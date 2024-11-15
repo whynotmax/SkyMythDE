@@ -25,4 +25,14 @@ public class Util {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
+
+    public static String christmasColor(String text) {
+        String[] color = new String[]{"§c§l", "§f§l"};
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            builder.append(color[i % 2]).append(text.charAt(i));
+        }
+        return builder.toString();
+    }
+
 }
