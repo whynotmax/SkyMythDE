@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -32,6 +33,7 @@ public class UserManager {
             user.setBalance(750);
             user.setKills(0);
             user.setDeaths(0);
+            user.setCooldowns(new ArrayList<>());
         }
 
         this.userMap.put(uuid, user);

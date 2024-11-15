@@ -23,8 +23,9 @@ public class VanishCommand extends MythCommand {
 
         if (!Util.VANISH.contains(player)) {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if (!onlinePlayer.hasPermission("myth.team")) continue;
-                onlinePlayer.hidePlayer(player);
+                if (!onlinePlayer.hasPermission("myth.team")) {
+                    onlinePlayer.hidePlayer(player);
+                }
             }
 
             player.sendMessage(SkyMythPlugin.PREFIX + "§aDu bist nun im Vanish, niemand außer Teammitglieder sehen dich.");
@@ -32,8 +33,9 @@ public class VanishCommand extends MythCommand {
             Util.VANISH.add(player);
         } else {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if (!onlinePlayer.hasPermission("myth.team")) continue;
-                onlinePlayer.showPlayer(player);
+                if (!onlinePlayer.hasPermission("myth.team")) {
+                    onlinePlayer.showPlayer(player);
+                }
             }
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist nun nicht mehr Vanish, jeder sieht dich.");
             player.playSound(player.getLocation(), Sound.GLASS, 1, 1);
