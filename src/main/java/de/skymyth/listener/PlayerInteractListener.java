@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.time.Duration;
@@ -18,10 +19,11 @@ import java.util.concurrent.TimeUnit;
 public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent event) {
+    public void onInteract(BlockBreakEvent event) {
         Player player = event.getPlayer();
         if (!player.getWorld().getName().equalsIgnoreCase("Spawn")) return;
-        Block block = event.getClickedBlock();
+        event.setCancelled(true);
+        Block block = event.getBlock();
         if (block == null) return;
         if (block.getType() != Material.ENDER_PORTAL_FRAME) return;
 
