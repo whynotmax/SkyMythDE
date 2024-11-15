@@ -7,7 +7,6 @@ import de.skymyth.ui.WarpInventory;
 import de.skymyth.utility.TitleUtil;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WarpCommand extends MythCommand {

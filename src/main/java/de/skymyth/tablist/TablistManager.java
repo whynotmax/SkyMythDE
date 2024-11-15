@@ -1,10 +1,12 @@
 package de.skymyth.tablist;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.utility.Util;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.group.Group;
 import net.minecraft.server.v1_8_R3.ChatMessage;
 import net.minecraft.server.v1_8_R3.IChatBaseComponent;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 import net.minecraft.server.v1_8_R3.PacketPlayOutPlayerListHeaderFooter;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -56,7 +58,8 @@ public class TablistManager {
         }
         team.addPlayer(player);
         player.setDisplayName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? "§c" : "§e") + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
-        player.setPlayerListName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? "§c" : "§e") + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
+        player.setPlayerListName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? "§c" : "§e") + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : "")
+                + (Util.VANISH.contains(player) ? "§8(§bV§8)" : ""));
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
             onlinePlayer.setScoreboard(scoreboard);
             updateTablistHeaderAndFooter(onlinePlayer);
@@ -64,11 +67,16 @@ public class TablistManager {
     }
 
     public void updateTablistHeaderAndFooter(Player player) {
+
+        double tps = MinecraftServer.getServer().recentTps[0];
+
         sendTab(player,
                 "§r\n" +
-                        "§8» §5§lSkyMyth§8.§5§lDE §8(§71§8.§78 §8- §71§8.§721§8) §8«\n" +
+                        "§8» §5§lSkyMyth§8.§5§lDE §8┃ §cPvP §7mit §4❤ §8«\n" +
                         "§r\n" +
-                        "§7Online§8: §a" + plugin.getServer().getOnlinePlayers().size() + "§8/§a" + plugin.getServer().getMaxPlayers() + "§8 ┃ §7Rekord§8: §a0§r\n§r",
+                        "§2✥ §8» §7Aktueller Server: §aSkyPvP\n" +
+                        "§b✦ §8» §7Spieler Online: §c" + Bukkit.getOnlinePlayers().size() +
+                        "\n\n §8➥ §7Aktuelle TPS: §a" + Math.round(tps * 100.0D) / 100.0 + "\n",
                 """
                         §r
                         §7Discord§8: §chttps://discord.gg/7ZzQ3QJ§r

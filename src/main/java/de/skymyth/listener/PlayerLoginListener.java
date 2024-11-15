@@ -3,7 +3,6 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
-import de.skymyth.user.model.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

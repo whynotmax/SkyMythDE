@@ -58,7 +58,7 @@ public class ClanManager {
 
     public Clan getClan(UUID uuid) {
         for (Clan value : clanMap.values()) {
-            if(value.getLeader() == null) continue;
+            if (value.getLeader() == null) continue;
             if (value.getLeader().equals(uuid) || value.getMembers().contains(uuid)) {
                 return value;
             }

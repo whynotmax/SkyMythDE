@@ -15,7 +15,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
@@ -27,15 +26,6 @@ public class RankingManager implements Listener {
     World world = Bukkit.getWorld("Spawn");
     List<ArmorStand> rankingStands;
 
-    @EventHandler
-    public void onEntityDamage(EntityDamageByEntityEvent event) {
-        if(event.getEntity() instanceof ArmorStand armorStand) {
-            if(rankingStands.contains(armorStand)) {
-                event.setCancelled(true);
-            }
-        }
-    }
-
     public RankingManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
         this.rankingStands = new ArrayList<>();
@@ -43,8 +33,8 @@ public class RankingManager implements Listener {
         Bukkit.getPluginManager().registerEvents(this, plugin);
 
         for (Entity entity : this.world.getEntities()) {
-            if(entity.getType() != EntityType.ARMOR_STAND) continue;
-            if(entity.getLocation().distance(plugin.getLocationManager().getPosition("ranking-1").getLocation()) < 10) {
+            if (entity.getType() != EntityType.ARMOR_STAND) continue;
+            if (entity.getLocation().distance(plugin.getLocationManager().getPosition("ranking-1").getLocation()) < 10) {
                 entity.remove();
             }
         }
@@ -57,7 +47,6 @@ public class RankingManager implements Listener {
                 .getLocation().subtract(1, 0, 0), ArmorStand.class);
 
         ArmorStand[] armorStands = new ArmorStand[]{ranking1, ranking2, ranking3};
-
 
 
         for (ArmorStand armorStand : armorStands) {
@@ -89,8 +78,8 @@ public class RankingManager implements Listener {
 
                 OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
 
-                if(kills < 1) continue;
-                if(player == null) continue;
+                if (kills < 1) continue;
+                if (player == null) continue;
 
 
                 if (integer.get() == 1) {
@@ -120,7 +109,16 @@ public class RankingManager implements Listener {
                 if (integer.get() > 3) continue;
                 integer.getAndIncrement();
             }
-        },20L, 20*60*5);
+        }, 20L, 20 * 60 * 5);
+    }
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageByEntityEvent event) {
+        if (event.getEntity() instanceof ArmorStand armorStand) {
+            if (rankingStands.contains(armorStand)) {
+                event.setCancelled(true);
+            }
+        }
     }
 
     public void delete() {
