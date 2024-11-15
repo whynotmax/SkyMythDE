@@ -24,4 +24,16 @@ public class StringUtil {
         return stringBuilder.toString();
     }
 
+    /**
+     * Splits a string in the middle and inserts a separator.
+     * @param s the string to split
+     * @param separator the separator to insert
+     * @return  the string with the separator inserted in the middle
+     */
+    public String splitStringInMiddle(String s, String separator) {
+        int length = s.length();
+        int middle = length / 2;
+        return s.substring(0, middle) + separator + s.substring(middle, length);
+    }
+
 }

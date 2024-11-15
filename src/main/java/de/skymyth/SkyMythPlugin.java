@@ -5,11 +5,9 @@ import de.skymyth.clan.ClanManager;
 import de.skymyth.commands.impl.*;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
-import de.skymyth.listener.AsyncPlayerChatListener;
-import de.skymyth.listener.CombatListener;
-import de.skymyth.listener.PlayerJoinListener;
-import de.skymyth.listener.PlayerQuitListener;
+import de.skymyth.listener.*;
 import de.skymyth.location.LocationManager;
+import de.skymyth.punish.PunishManager;
 import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
@@ -51,6 +49,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     InventoryManager inventoryManager;
     GiveawayManager giveawayManager;
     ClanManager clanManager;
+    PunishManager punishManager;
 
     @Override
     public void onEnable() {
@@ -66,8 +65,10 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.inventoryManager = new InventoryManager(plugin);
         this.giveawayManager = new GiveawayManager(plugin);
         this.clanManager = new ClanManager(plugin);
+        this.punishManager = new PunishManager(plugin);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new CombatListener(plugin), this);

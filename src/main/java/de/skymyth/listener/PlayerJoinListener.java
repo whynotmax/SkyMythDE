@@ -25,8 +25,8 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
         }
 
-
         plugin.getUserManager().loadUser(player.getUniqueId());
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
 
         event.setJoinMessage(null);
         plugin.getScoreboardManager().createScoreboard(player);
@@ -36,7 +36,6 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             player.sendMessage("§" + String.valueOf(i).charAt(0));
         }
 
-        User user = plugin.getUserManager().getUser(player.getUniqueId());
 
         player.sendMessage("§8§m----------------------------------------§r");
         player.sendMessage("§r ");
