@@ -78,18 +78,19 @@ public final class SkyMythPlugin extends JavaPlugin {
             bukkitCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
-            commandMap.register("msg", new MessageCommand(plugin));
-            commandMap.register("r", new ReplyCommand(plugin));
-            commandMap.register("pay", new PayCommand(plugin));
-            commandMap.register("ping", new PingCommand(plugin));
-            commandMap.register("chatclear", new ChatclearCommand(plugin));
-            commandMap.register("test", new TestCommand(plugin));
-            commandMap.register("team", new TeamCommand(plugin));
-            commandMap.register("clan", new ClanCommand(plugin));
-            commandMap.register("setloc", new SetlocCommand(plugin));
-            commandMap.register("info", new InfoCommand(plugin));
-            commandMap.register("globalmute", new GlobalmuteCommand(plugin));
-            commandMap.register("broadcast", new BroadcastCommand(plugin));
+            commandMap.register("skymyth", new MessageCommand(plugin));
+            commandMap.register("skymyth", new ReplyCommand(plugin));
+            commandMap.register("skymyth", new PayCommand(plugin));
+            commandMap.register("skymyth", new PingCommand(plugin));
+            commandMap.register("skymyth", new ChatclearCommand(plugin));
+            commandMap.register("skymyth", new TestCommand(plugin));
+            commandMap.register("skymyth", new TeamCommand(plugin));
+            commandMap.register("skymyth", new ClanCommand(plugin));
+            commandMap.register("skymyth", new SetlocCommand(plugin));
+            commandMap.register("skymyth", new InfoCommand(plugin));
+            commandMap.register("skymyth", new GlobalmuteCommand(plugin));
+            commandMap.register("skymyth", new BroadcastCommand(plugin));
+            commandMap.register("skymyth", new WarpCommand(plugin));
 
 
         } catch (NoSuchFieldException | IllegalAccessException e) {

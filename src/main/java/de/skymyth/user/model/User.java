@@ -1,9 +1,11 @@
 package de.skymyth.user.model;
 
+import de.skymyth.user.model.cooldown.Cooldown;
 import eu.koboo.en2do.repository.entity.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +25,8 @@ public class User {
 
     long playTime;
     long lastSeen;
+
+    List<Cooldown> cooldowns;
 
     public void addBalance(long amount) {
         this.balance += amount;
@@ -59,6 +63,27 @@ public class User {
 
     public String getKillDeathRatio() {
         return this.deaths == 0 ? "∞" : (this.kills == 0 ? "0.00" : String.format("%.2f", (double) this.kills / this.deaths));
+    }
+
+    public Cooldown getCooldown(String name) {
+        return this.cooldowns.stream().filter(cooldown -> cooldown.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+    }
+
+    public void addCooldown(Cooldown cooldown) {
+        this.cooldowns.add(cooldown);
+    }
+
+    public void removeCooldown(String name) {
+        this.cooldowns.removeIf(cooldown -> cooldown.getName().equalsIgnoreCase(name));
+    }
+
+    public boolean hasCooldown(String name) {
+        return this.cooldowns.stream().anyMatch(cooldown -> cooldown.getName().equalsIgnoreCase(name));
+    }
+
+    public boolean isOnCooldown(String name) {
+        Cooldown cooldown = this.getCooldown(name);
+        return cooldown != null && !cooldown.isExpired();
     }
 
 }
