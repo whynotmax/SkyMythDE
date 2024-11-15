@@ -3,6 +3,7 @@ package de.skymyth;
 
 import de.skymyth.badge.BadgeManager;
 import de.skymyth.clan.ClanManager;
+import de.skymyth.commands.MythCommand;
 import de.skymyth.commands.impl.*;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
@@ -30,9 +31,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
+import java.sql.Ref;
 
 @Log
 @Getter
@@ -78,12 +82,14 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.rankingManager = new RankingManager(plugin);
         this.rewardsManager = new RewardsManager(plugin);
 
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(plugin), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
-        Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(plugin), this);
-        Bukkit.getPluginManager().registerEvents(new CombatListener(plugin), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(plugin), this);
+        Reflections listenerReflections = new Reflections("de.skymyth.listener");
+        listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {
+            try {
+                Bukkit.getPluginManager().registerEvents(listener.getDeclaredConstructor(SkyMythPlugin.class).newInstance(plugin), plugin);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         try {
             final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -91,22 +97,14 @@ public final class SkyMythPlugin extends JavaPlugin {
             bukkitCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
 
-            commandMap.register("skymyth", new MessageCommand(plugin));
-            commandMap.register("skymyth", new ReplyCommand(plugin));
-            commandMap.register("skymyth", new PayCommand(plugin));
-            commandMap.register("skymyth", new PingCommand(plugin));
-            commandMap.register("skymyth", new ChatclearCommand(plugin));
-            commandMap.register("skymyth", new TestCommand(plugin));
-            commandMap.register("skymyth", new TeamCommand(plugin));
-            commandMap.register("skymyth", new ClanCommand(plugin));
-            commandMap.register("skymyth", new SetlocCommand(plugin));
-            commandMap.register("skymyth", new InfoCommand(plugin));
-            commandMap.register("skymyth", new GlobalmuteCommand(plugin));
-            commandMap.register("skymyth", new BroadcastCommand(plugin));
-            commandMap.register("skymyth", new WarpCommand(plugin));
-            commandMap.register("skymyth", new GiveAllCommand(plugin));
-            commandMap.register("skymyth", new VanishCommand(plugin));
-            commandMap.register("skymyth", new PlaytimeCommand(plugin));
+            Reflections commandReflections = new Reflections("de.skymyth.commands.impl");
+            commandReflections.getSubTypesOf(MythCommand.class).forEach(command -> {
+                try {
+                    commandMap.register("skymyth", command.getDeclaredConstructor(SkyMythPlugin.class).newInstance(plugin));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
