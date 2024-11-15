@@ -1,6 +1,7 @@
 package de.skymyth;
 
 
+import de.skymyth.badge.BadgeManager;
 import de.skymyth.clan.ClanManager;
 import de.skymyth.commands.impl.*;
 import de.skymyth.giveaway.GiveawayManager;
@@ -50,6 +51,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     GiveawayManager giveawayManager;
     ClanManager clanManager;
     PunishManager punishManager;
+    BadgeManager badgeManager;
 
     @Override
     public void onEnable() {
@@ -66,6 +68,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.giveawayManager = new GiveawayManager(plugin);
         this.clanManager = new ClanManager(plugin);
         this.punishManager = new PunishManager(plugin);
+        this.badgeManager = new BadgeManager(plugin);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(plugin), this);

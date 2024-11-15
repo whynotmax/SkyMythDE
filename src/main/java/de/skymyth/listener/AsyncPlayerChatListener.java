@@ -1,6 +1,7 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.user.model.User;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -29,14 +30,17 @@ public class AsyncPlayerChatListener implements Listener {
 
         boolean foundAny = false;
         for (String content : messageContent) {
+            boolean isBlocked = false;
             for (String blocked : blockedContent) {
                 if (content.equalsIgnoreCase(blocked)) {
                     foundAny = true;
                     contentToSendToTeam.append("§c§n").append(content).append("§7 ");
+                    isBlocked = true;
                     break;
-                } else {
-                    contentToSendToTeam.append(content).append(" ");
                 }
+            }
+            if (!isBlocked) {
+                contentToSendToTeam.append(content).append(" ");
             }
         }
 
@@ -59,6 +63,8 @@ public class AsyncPlayerChatListener implements Listener {
             return;
         }
 
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
+
         String format;
 
         var playerGroup = LuckPermsProvider.get().getGroupManager().getGroup(LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup());
@@ -66,11 +72,11 @@ public class AsyncPlayerChatListener implements Listener {
         if (chatPrefix == null) chatPrefix = "§r" + playerGroup.getName();
         else chatPrefix = chatPrefix.replace("&", "§");
 
-        var badge = ""; //TODO: Implement badge system
+        boolean hasBadge = user.getSelectedBadge() != null;
+        var badge = (!hasBadge ? null : plugin.getBadgeManager().getBadge(user.getSelectedBadge())); //Implemented badge system
 
-        //noinspection ConstantValue
-        if (!badge.isEmpty()) {
-            chatPrefix = "§r §8[" + badge + "§8] §7";
+        if (badge != null) {
+            chatPrefix = "§r §8[" + badge.getCharacter() + "§8] §7";
         }
 
         format = "§r " + chatPrefix + "§7" + player.getName() + "§8 × §7" + message;

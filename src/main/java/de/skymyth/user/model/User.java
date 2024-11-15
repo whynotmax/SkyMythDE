@@ -28,6 +28,8 @@ public class User {
 
     List<Cooldown> cooldowns;
 
+    String selectedBadge;
+
     public void addBalance(long amount) {
         this.balance += amount;
     }
