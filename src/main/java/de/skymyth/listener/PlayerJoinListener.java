@@ -64,10 +64,12 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
                 onlineUser.addBalance(200);
                 onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e200 Tokens §7erhalten.");
             }
+            player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
         }
 
 
         if (plugin.getLocationManager().getPosition("spawn") != null) {
+            player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
             player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
         }
 
