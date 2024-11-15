@@ -28,13 +28,14 @@ public class RewardsManager {
         this.plugin = plugin;
         this.hologramPosition = plugin.getLocationManager().getPosition("rewards-hologram");
 
-        this.hologram = DHAPI.createHologram("rewards-hologram", this.hologramPosition.toBukkitLocation(), false, List.of(
+        this.hologram = DHAPI.createHologram("rewards-hologram", this.hologramPosition.toBukkitLocation().add(0, 1, 0), false, List.of(
                 "§f§lW§c§li§f§ln§c§lt§f§le§c§lr §f§lR§c§le§f§lw§c§la§f§lr§c§ld§f§ls",
                 "§r",
-                "§7Aktuelle Saison: §e" + getCurrentSeason(),
+                "§7Aktuelle Saison: §e" + "Winter",
                 "§7Letzte Öffnung: §cUnbekannt",
                 "§r",
-                "§7§oKlicke auf den Block unten, um deine Belohnung abzuholen."
+                "§7§oKlicke auf den Block unten,",
+                "§7§o um deine Belohnung abzuholen."
         ));
 
         this.hologramTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
