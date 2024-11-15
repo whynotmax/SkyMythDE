@@ -40,11 +40,11 @@ public class RankingManager implements Listener {
         }
 
         ArmorStand ranking1 = this.world.spawn(plugin.getLocationManager().getPosition("ranking-1")
-                .getLocation().subtract(1, 0, 0), ArmorStand.class);
+                .getLocation().subtract(0, 0, 0.5), ArmorStand.class);
         ArmorStand ranking2 = this.world.spawn(plugin.getLocationManager().getPosition("ranking-2")
-                .getLocation().subtract(1, 0, 0), ArmorStand.class);
+                .getLocation().subtract(0, 0, 0.5), ArmorStand.class);
         ArmorStand ranking3 = this.world.spawn(plugin.getLocationManager().getPosition("ranking-3")
-                .getLocation().subtract(1, 0, 0), ArmorStand.class);
+                .getLocation().subtract(0, 0, 0.5), ArmorStand.class);
 
         ArmorStand[] armorStands = new ArmorStand[]{ranking1, ranking2, ranking3};
 
@@ -56,10 +56,6 @@ public class RankingManager implements Listener {
             armorStand.setCustomName("§7Nicht besetzt");
             armorStand.setBasePlate(false);
             armorStand.setArms(true);
-            //armorStand.setRightArmPose(new EulerAngle(56F,305F,0F));
-            //armorStand.setLeftArmPose(new EulerAngle(18F,0F,0F));
-            //armorStand.setLeftLegPose(new EulerAngle(42F, 328F, 0F));
-            //armorStand.setRightLegPose(new EulerAngle(38F, 312F, 40F));
             armorStand.setHelmet(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDEzZTk2ZGY2ZWQ0YjcwYTVhNzBmYzI5ZGNkZTkzMTRkYmU5NzY2OTY0NzRmMTIwZTBiMzBlYTVkN2I5NmIzYSJ9fX0="));
             this.rankingStands.add(armorStand);
         }

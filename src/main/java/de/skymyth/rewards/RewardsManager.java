@@ -7,6 +7,7 @@ import de.skymyth.rewards.repository.RewardRepository;
 import de.skymyth.user.model.User;
 import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
 import eu.decentsoftware.holograms.api.DHAPI;
@@ -49,7 +50,7 @@ public class RewardsManager {
         this.rewards = new ArrayList<>(rewardRepository.findManyBySeason("Winter"));
 
         this.hologram = DHAPI.createHologram("rewards-hologram", this.hologramPosition.toBukkitLocation().clone().add(0, 1, 0), false, List.of(
-                "§f§lW§c§le§f§li§c§lh§f§ln§c§la§f§lc§c§lh§f§lt§c§ls§f§lb§c§le§f§ll§c§lo§f§ll§c§lo§f§ln§c§lu§f§ln§c§lg§f§le§c§ln",
+                Util.christmasColor("Weihnachtsbelohnung"),
                 "§r",
                 "§7Aktuelle Saison: §e" + "Winter",
                 "§7Letzte Öffnung: §cUnbekannt",

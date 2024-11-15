@@ -41,6 +41,7 @@ public class ScoreboardManager {
         User user = plugin.getUserManager().getUser(player.getUniqueId());
 
         plugin.getTablistManager().setRank(player);
+        user.updatePlayTime();
 
         fastBoard.updateLines(
                 "",
