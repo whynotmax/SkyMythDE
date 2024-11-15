@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class TPACommand extends MythCommand {
 
+
     public TPACommand(SkyMythPlugin plugin) {
         super("tpa", null, new ArrayList<>() {{
             add("teleportrequest");

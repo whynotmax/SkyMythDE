@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -19,6 +16,7 @@ public class Util {
 
     public static final Map<Player, Player> MESSAGE = new HashMap<>();
     public static final Cache<Player, Player> TELEPORT = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
+    public static final ArrayList<Player> VANISH = new ArrayList<>();
 
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {

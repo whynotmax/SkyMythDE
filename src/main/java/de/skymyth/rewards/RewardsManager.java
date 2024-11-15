@@ -61,7 +61,7 @@ public class RewardsManager {
                 return;
             }
             DHAPI.setHologramLine(this.hologram, 3, "§7Letzte Öffnung: §evor " + TimeUtil.beautifyTime(System.currentTimeMillis() - lastOpened, TimeUnit.MILLISECONDS, true, false));
-        }, 0L, 20*5L);
+        }, 0L, 20 * 5L);
 
     }
 
@@ -94,7 +94,7 @@ public class RewardsManager {
         BukkitTask armorStandRotationTaskTwo = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             armorStandRotationTask.cancel();
             armorStand.setHeadPose(armorStand.getHeadPose().add(0, 0.3, 0));
-        }, 20*3L, 1L);
+        }, 20 * 3L, 1L);
 
         BukkitTask armorStandExplosionTask = Bukkit.getScheduler().runTaskLater(plugin, () -> {
             Location armorStandHeadLocation = armorStand.getEyeLocation();
@@ -112,7 +112,7 @@ public class RewardsManager {
             lastOpened = System.currentTimeMillis();
             isInUse = false;
             hologram.enable();
-        }, 20*5L);
+        }, 20 * 5L);
 
     }
 

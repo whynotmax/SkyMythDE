@@ -26,9 +26,10 @@ public class StringUtil {
 
     /**
      * Splits a string in the middle and inserts a separator.
-     * @param s the string to split
+     *
+     * @param s         the string to split
      * @param separator the separator to insert
-     * @return  the string with the separator inserted in the middle
+     * @return the string with the separator inserted in the middle
      */
     public String splitStringInMiddle(String s, String separator) {
         int length = s.length();
