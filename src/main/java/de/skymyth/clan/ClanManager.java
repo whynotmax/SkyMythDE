@@ -38,9 +38,10 @@ public class ClanManager {
 
     /**
      * Stores the clan directly into mongo
+     *
      * @param clan
      */
-    public void saveClan(Clan clan){
+    public void saveClan(Clan clan) {
         this.repository.save(clan);
     }
 

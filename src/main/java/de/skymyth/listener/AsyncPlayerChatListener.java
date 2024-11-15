@@ -12,6 +12,11 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class AsyncPlayerChatListener implements Listener {
 
     private final String[] blockedContent = {".de", ".eu", "nigger", "nigga", "n1gg4", "n1gga", "n1gger", "n1gg3r", ".com", ".net", ".org", ".tk", "sieg", "heil", "miethe"};
+    SkyMythPlugin plugin;
+
+    public AsyncPlayerChatListener(SkyMythPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
@@ -34,6 +39,14 @@ public class AsyncPlayerChatListener implements Listener {
                 }
             }
         }
+
+        if (plugin.isGlobalMute() && !player.hasPermission("myth.team")) {
+            event.setCancelled(true);
+            player.sendMessage(SkyMythPlugin.PREFIX + "§cWährend dem Globalmute kannst du nicht schreiben.");
+            player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1, 1);
+            return;
+        }
+
 
         if (foundAny) {
             event.setCancelled(true);

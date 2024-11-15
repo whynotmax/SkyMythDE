@@ -20,6 +20,7 @@ import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
@@ -37,6 +38,8 @@ import java.lang.reflect.Field;
 public final class SkyMythPlugin extends JavaPlugin {
 
     public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
+    @Setter
+    private boolean globalMute = false;
 
     SkyMythPlugin plugin;
 
@@ -66,7 +69,7 @@ public final class SkyMythPlugin extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(plugin), this);
-        Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new AsyncPlayerChatListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new CombatListener(plugin), this);
 
         try {
@@ -85,6 +88,8 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("clan", new ClanCommand(plugin));
             commandMap.register("setloc", new SetlocCommand(plugin));
             commandMap.register("info", new InfoCommand(plugin));
+            commandMap.register("globalmute", new GlobalmuteCommand(plugin));
+            commandMap.register("broadcast", new BroadcastCommand(plugin));
 
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
