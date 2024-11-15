@@ -4,6 +4,8 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.location.model.Position;
 import de.skymyth.rewards.model.Reward;
 import de.skymyth.rewards.repository.RewardRepository;
+import de.skymyth.user.model.User;
+import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
@@ -17,6 +19,8 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,6 +75,18 @@ public class RewardsManager {
             return;
         }
         isInUse = true;
+
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
+
+        Cooldown cooldown = new Cooldown();
+        cooldown.setName("dailyReward");
+        cooldown.setDuration(Duration.of(1, ChronoUnit.DAYS));
+        cooldown.start();
+        user.addCooldown(cooldown);
+
+        plugin.getUserManager().getUserMap().put(player.getUniqueId(), user);
+
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du erhältst nun deine tägliche Belohnung.");
 
         this.hologram.disable(DisableCause.API);
 

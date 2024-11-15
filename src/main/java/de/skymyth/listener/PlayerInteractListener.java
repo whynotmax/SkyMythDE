@@ -32,13 +32,6 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu musst noch " + TimeUtil.beautifyTime(user.getCooldown("dailyReward").getRemainingTime(), TimeUnit.MILLISECONDS, true, true) + " warten.");
             return;
         }
-        Cooldown cooldown = new Cooldown();
-        cooldown.setName("dailyReward");
-        cooldown.setDuration(Duration.of(1, ChronoUnit.DAYS));
-        cooldown.start();
-        user.addCooldown(cooldown);
-
-        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du erhältst nun deine tägliche Belohnung.");
 
         plugin.getRewardsManager().openFor(player);
     }
