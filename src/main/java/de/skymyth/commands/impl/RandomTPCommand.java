@@ -35,6 +35,6 @@ public class RandomTPCommand extends MythCommand {
 
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Es wird eine Stelle generiert...");
 
-        RandomUtil.teleportRandomly(player, Bukkit.getWorld("world")); //TODO: Change to Farmworld
+        RandomUtil.teleportRandomly(this.plugin, player, Bukkit.getWorld("world")); //TODO: Change to Farmworld
     }
 }
