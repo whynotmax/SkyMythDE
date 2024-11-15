@@ -3,6 +3,7 @@ version: '1.0-SNAPSHOT'
 main: de.skymyth.SkyMythPlugin
 softdepend:
   - ProtocolLib
+  - DecentHolograms
 authors:
   - sxbide
   - 044mzcy_og

@@ -10,6 +10,7 @@ import de.skymyth.listener.*;
 import de.skymyth.location.LocationManager;
 import de.skymyth.punish.PunishManager;
 import de.skymyth.ranking.RankingManager;
+import de.skymyth.rewards.RewardsManager;
 import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
@@ -54,6 +55,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     PunishManager punishManager;
     BadgeManager badgeManager;
     RankingManager rankingManager;
+    RewardsManager rewardsManager;
 
 
     @Override
@@ -73,6 +75,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.punishManager = new PunishManager(plugin);
         this.badgeManager = new BadgeManager(plugin);
         this.rankingManager = new RankingManager(plugin);
+        this.rewardsManager = new RewardsManager(plugin);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(plugin), this);
         Bukkit.getPluginManager().registerEvents(new PlayerLoginListener(plugin), this);
