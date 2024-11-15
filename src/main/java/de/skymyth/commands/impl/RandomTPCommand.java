@@ -33,6 +33,8 @@ public class RandomTPCommand extends MythCommand {
         cooldown.start();
         user.addCooldown(cooldown);
 
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Es wird eine Stelle generiert...");
+
         RandomUtil.teleportRandomly(player, Bukkit.getWorld("world")); //TODO: Change to Farmworld
     }
 }

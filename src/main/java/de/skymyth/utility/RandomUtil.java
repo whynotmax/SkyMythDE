@@ -1,6 +1,5 @@
 package de.skymyth.utility;
 
-import com.mongodb.internal.VisibleForTesting;
 import de.skymyth.SkyMythPlugin;
 import org.bukkit.Chunk;
 import org.bukkit.World;
@@ -18,21 +17,20 @@ public class RandomUtil {
 
         int x = (int) (Math.random() * (maxX - minX + 1) + minX);
         int z = (int) (Math.random() * (maxZ - minZ + 1) + minZ);
-        int y = world.getHighestBlockYAt(x, z);
 
         CompletableFuture.supplyAsync(() -> {
             Chunk chunk = world.getChunkAt(x >> 4, z >> 4);
             if (!chunk.isLoaded()) {
-                return chunk.load();
+                chunk.load();
             }
-            return true;
-        }).thenAccept(loaded -> {
-            if (loaded) {
-                player.teleport(world.getBlockAt(x, y, z).getLocation());
-                TitleUtil.sendTitle(player, 0, 20, 20, "§aTeleportiert", "§8× §7Du wurdest zufällig teleportiert. §8×");
-                return;
-            }
+            return chunk;
+        }).thenAccept(chunk -> {
+            int y = world.getHighestBlockYAt(x, z);
+            player.teleport(world.getBlockAt(x, y, z).getLocation());
+            TitleUtil.sendTitle(player, 0, 20, 20, "§aTeleportiert", "§8× §7X: §e" + x + "§8 - §7Z: §e" + z + " §8×");
+        }).exceptionally(ex -> {
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Chunk konnte nicht geladen werden.");
+            return null;
         });
     }
 
