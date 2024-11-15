@@ -57,9 +57,9 @@ public class TablistManager {
             team = scoreboard.getTeam("999default");
         }
         team.addPlayer(player);
-        player.setDisplayName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? "§c" : "§e") + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : ""));
-        player.setPlayerListName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? "§c" : "§e") + plugin.getClanManager().getClan(player.getUniqueId()).getName() + "§8]" : "")
-                + (Util.VANISH.contains(player) ? "§8(§bV§8)" : ""));
+        player.setDisplayName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? Util.christmasColor(plugin.getClanManager().getClan(player.getUniqueId()).getName()) : "§e" + plugin.getClanManager().getClan(player.getUniqueId()).getName()) + "§8]" : ""));
+        player.setPlayerListName(team.getPrefix() + player.getName() + (plugin.getClanManager().isInClan(player.getUniqueId()) ? " §8[#" + (plugin.getClanManager().getClan(player.getUniqueId()).getName().equalsIgnoreCase("Team") ? Util.christmasColor(plugin.getClanManager().getClan(player.getUniqueId()).getName()) : "§e" + plugin.getClanManager().getClan(player.getUniqueId()).getName()) + "§8]" : "")
+                + (Util.VANISH.contains(player) ? " §8» §bV" : ""));
         Bukkit.getOnlinePlayers().forEach(onlinePlayer -> {
             onlinePlayer.setScoreboard(scoreboard);
             updateTablistHeaderAndFooter(onlinePlayer);
@@ -76,7 +76,7 @@ public class TablistManager {
                         "§r\n" +
                         "§2✥ §8» §7Aktueller Server: §aSkyPvP\n" +
                         "§b✦ §8» §7Spieler Online: §c" + Bukkit.getOnlinePlayers().size() +
-                        "\n\n §8➥ §7Aktuelle TPS: §a" + Math.round(tps * 100.0D) / 100.0 + "\n",
+                        "\n\n §8➥ §7Aktuelle TPS: §a" + Math.round(tps) + "\n",
                 """
                         §r
                         §7Discord§8: §chttps://discord.gg/7ZzQ3QJ§r
