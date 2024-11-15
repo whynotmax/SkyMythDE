@@ -106,6 +106,7 @@ public final class SkyMythPlugin extends JavaPlugin {
             commandMap.register("skymyth", new WarpCommand(plugin));
             commandMap.register("skymyth", new GiveAllCommand(plugin));
             commandMap.register("skymyth", new VanishCommand(plugin));
+            commandMap.register("skymyth", new PlaytimeCommand(plugin));
 
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
