@@ -93,7 +93,7 @@ public class RewardsManager {
 
         this.hologram.disable(DisableCause.API);
 
-        ArmorStand armorStand = player.getWorld().spawn(plugin.getLocationManager().getPosition("rewards-armorstand").toBukkitLocation().clone().add(0, -0.5, 0), ArmorStand.class);
+        ArmorStand armorStand = player.getWorld().spawn(plugin.getLocationManager().getPosition("rewards-armorstand").toBukkitLocation().clone().add(0, -2.5, 0), ArmorStand.class);
         armorStand.setGravity(false);
         armorStand.setVisible(false);
         armorStand.setCustomNameVisible(true);
