@@ -39,7 +39,7 @@ public class ProtectorManager implements Listener {
         Protector protector = this.getProtector(event.getBlock().getLocation());
 
         if(protector != null) {
-            if(this.isBlockInsideOfProtector(event.getBlock()) && !protector.getOwner().equals(player.getUniqueId())) {
+            if(this.isBlockInsideOfProtectedRadius(event.getBlock(), protector.getLocation(), Math.toIntExact(protector.getRadius())) && !protector.getOwner().equals(player.getUniqueId())) {
                 event.setCancelled(true);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
                 return;
@@ -53,7 +53,7 @@ public class ProtectorManager implements Listener {
         Protector protector = this.getProtector(event.getBlock().getLocation());
 
         if(protector != null) {
-            if(this.isBlockInsideOfProtector(event.getBlock()) && !protector.getOwner().equals(player.getUniqueId())) {
+            if(this.isBlockInsideOfProtectedRadius(event.getBlock(), protector.getLocation(), Math.toIntExact(protector.getRadius())) && !protector.getOwner().equals(player.getUniqueId())) {
                 event.setCancelled(true);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
                 return;
@@ -106,15 +106,8 @@ public class ProtectorManager implements Listener {
         return false;
     }
 
-    public boolean isBlockInsideOfProtector(Block block) {
-        for (Protector value : this.protectorMap.values()) {
-            double distance = block.getLocation().distance(value.getLocation());
-            if (distance < value.getRadius()) {
-                System.out.println(distance + ";" + value.getRadius());
-                return true;
-            }
-        }
-        return false;
+    public boolean isBlockInsideOfProtectedRadius(Block block, Location protectorLocation, int radius) {
+        return block.getLocation().distance(protectorLocation) < radius;
     }
 
 
