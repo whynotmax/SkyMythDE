@@ -3,11 +3,12 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.kit.model.Kit;
-import de.skymyth.kit.ui.KitMainInventory;
-import de.skymyth.protector.ui.ProtectorMainInventory;
+import de.skymyth.protector.ProtectionManager;
+import de.skymyth.protector.model.Protector;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
+import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -104,25 +105,26 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
 
         if(player.getWorld().getName().equalsIgnoreCase("world")) {
-
-
-            if(event.getItem() != null && event.getItem().hasItemMeta() && event.getItem().getItemMeta().getDisplayName().equals("§8» §aBasisschutz")) {
-
-                if(event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-
-                    if(plugin.getProtectorManager().hasProtector(player.getUniqueId())) {
-                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst nicht mehr als einen Basisschutz platzieren.");
-                        event.setCancelled(true);
-                        return;
-                    }
-
-                    plugin.getProtectorManager().createProtector(player.getUniqueId(), event.getClickedBlock().getLocation());
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§aDein Basisschutz ist jetzt aktiv!");
-                    player.getInventory().remove(event.getItem());
-                }
-
+            Chunk chunk = event.getClickedBlock().getChunk();
+            ProtectionManager protectionManager = plugin.getProtectorManager();
+            Protector userProtector = protectionManager.getProtector(player.getUniqueId());
+            if (protectionManager.isProtected(chunk) && userProtector.getProtectedChunks().stream().noneMatch(baseChunk -> baseChunk.getX() == chunk.getX() && baseChunk.getZ() == chunk.getZ())) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(SkyMythPlugin.PREFIX + "§cDieses Chunk ist von " + plugin.getServer().getOfflinePlayer(protectionManager.getProtector(chunk).getOwner()).getName() + " geschützt.");
+                return;
             }
-
+            if (itemStack.getItemMeta() != null && itemStack.getItemMeta().getDisplayName().startsWith("§8» §aBasisschutz")) {
+                event.setCancelled(true);
+                itemStack.amount(itemStack.getAmount() - 1);
+                if (itemStack.getAmount() == 0) {
+                    player.setItemInHand(new ItemStack(Material.AIR));
+                } else {
+                    player.setItemInHand(itemStack);
+                }
+                protectionManager.protect(userProtector, chunk);
+                event.getPlayer().sendMessage(SkyMythPlugin.PREFIX + "§7Du hast den Chunk §e" + chunk.getX() + "§7;§e" + chunk.getZ() + " §7geschützt.");
+                event.getPlayer().sendMessage(SkyMythPlugin.PREFIX + "§7Du kannst andere Spieler mit §e/bp invite <Spieler> §7einladen.");
+            }
         }
     }
 
