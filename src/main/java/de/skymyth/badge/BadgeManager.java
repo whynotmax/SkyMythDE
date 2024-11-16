@@ -3,6 +3,7 @@ package de.skymyth.badge;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.badge.repository.BadgeRepository;
+import de.skymyth.user.model.User;
 import eu.decentsoftware.holograms.api.utils.scheduler.S;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -58,4 +59,11 @@ public class BadgeManager {
         return cachedBadges.values().stream().filter(badge -> badge.getOwners().contains(user)).toList();
     }
 
+    public List<Badge> getBadgesSortedByOwnership(UUID user) {
+        return cachedBadges.values().stream().sorted((b1, b2) -> {
+            long b1Owned = b1.getOwners().stream().filter(uuid -> uuid.equals(user)).count();
+            long b2Owned = b2.getOwners().stream().filter(uuid -> uuid.equals(user)).count();
+            return Long.compare(b2Owned, b1Owned);
+        }).toList();
+    }
 }
