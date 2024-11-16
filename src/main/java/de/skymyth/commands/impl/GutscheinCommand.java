@@ -108,7 +108,7 @@ public class GutscheinCommand extends MythCommand {
 
     private ItemStack getKitVoucher(String kitName) {
         ItemBuilder itemBuilder = new ItemBuilder(Material.CHEST);
-        itemBuilder.setName("§7Gutschein§8: §e" + kitName + " §7(§eKit§7)");
+        itemBuilder.setName("§7Gutschein§8: §e" + kitName + " §8(§eKit§8)");
         itemBuilder.lore(
                 "§8§m------------------------------------------------------",
                 "§7Mit diesem Gutschein kannst du",

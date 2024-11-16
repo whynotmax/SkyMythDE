@@ -17,6 +17,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
@@ -24,30 +26,54 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        ItemStack item = player.getItemInHand();
         ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
-        if (player.getItemInHand() != null && itemStack.hasNBTTag("voucher")) {
+        if (player.getItemInHand() != null) {
             User user = plugin.getUserManager().getUser(player.getUniqueId());
-            String voucher = itemStack.getNBTTagValue("voucher");
-            if (voucher.equalsIgnoreCase("balance")) {
-                long balance = Long.parseLong(itemStack.getNBTTagValue("balance"));
-                balance *= itemStack.getAmount();
-                user.addBalance(balance);
-                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + balance + " §7Coins erhalten.");
-                player.setItemInHand(new ItemStack(Material.AIR));
+            if (itemStack.getType() == Material.DOUBLE_PLANT && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().startsWith("§7Gutschein§8: §e")) {
+                String[] split = itemStack.getItemMeta().getDisplayName().split("§e");
+                if (split.length == 2) {
+                    long amount = Long.parseLong(split[1].replace(" Coins", "").replace(".", ""));
+                    amount *= itemStack.getAmount();
+                    player.getInventory().remove(itemStack);
+                    user.addBalance(amount);
+                    plugin.getUserManager().saveUser(user);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + NumberFormat.getInstance(Locale.GERMAN).format(amount).replace(",", ".") + " Coins §7erhalten.");
+                    return;
+                }
                 return;
             }
-            if (voucher.equalsIgnoreCase("kit")) {
-                Kit kit = plugin.getKitManager().getKitByName(itemStack.getNBTTagValue("kit"));
-                if (kit == null) return;
-                kit.giveToAsVoucher(user);
+            if (itemStack.getType() == Material.PAPER && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().startsWith("§7Gutschein§8: §e")) {
+                String[] split = itemStack.getItemMeta().getDisplayName().split("§e");
+                if (split.length == 2) {
+                    String badgeName = split[1].replace("§8 (§7Badge§8)", "");
+                    Badge badge = plugin.getBadgeManager().getBadge(badgeName);
+                    if (badge == null) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Badge existiert nicht.");
+                        return;
+                    }
+                    player.getInventory().remove(itemStack);
+                    badge.getOwners().add(player.getUniqueId());
+                    plugin.getBadgeManager().saveBadge(badge);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Badge §e" + badge.getName() + " §7erhalten.");
+                    return;
+                }
+                return;
             }
-            if (voucher.equalsIgnoreCase("badge")) {
-                String badge = itemStack.getNBTTagValue("badge");
-                Badge badge1 = plugin.getBadgeManager().getBadge(badge);
-                if (badge1 == null) return;
-                badge1.getOwners().add(player.getUniqueId());
-                plugin.getBadgeManager().saveBadge(badge1);
-                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Badge §e" + badge + " §7erhalten.");
+            if (itemStack.getType() == Material.PAPER && itemStack.getItemMeta().hasDisplayName() && itemStack.getItemMeta().getDisplayName().startsWith("§7Gutschein§8: §e")) {
+                String[] split = itemStack.getItemMeta().getDisplayName().split("§e");
+                if (split.length == 2) {
+                    Kit kit = plugin.getKitManager().getKitByName(split[1].replace(" §8(§eKit§8)", ""));
+                    if (kit == null) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Kit existiert nicht.");
+                        return;
+                    }
+                    player.getInventory().remove(itemStack);
+                    kit.giveToAsVoucher(user);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + kit.getName() + " §7erhalten.");
+                    return;
+                }
+                return;
             }
             itemStack.amount(itemStack.getAmount() - 1);
             if (itemStack.getAmount() == 0) {
