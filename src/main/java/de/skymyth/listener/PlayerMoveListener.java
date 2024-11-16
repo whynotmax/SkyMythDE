@@ -21,7 +21,7 @@ public record PlayerMoveListener(SkyMythPlugin plugin) implements Listener {
             TitleUtil.sendTitle(player, 0, 40, 20, "§b§lEINGEFROREN", "§8× §7Du wurdest eingefroren §8×");
 
             player.sendMessage("§r");
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest aufgrund von deinem Verhalten §7eingefroren.");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest aufgrund von §cdeinem Verhalten §7eingefroren.");
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Bitte schalte jegliche verbotene Minecraft Modifikationen aus, um einen Bann zu verhindern.");
             player.sendMessage("§r");
 
