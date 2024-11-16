@@ -43,10 +43,9 @@ public class ProtectorManager implements Listener {
 
         if (protector != null) {
             for (Chunk chunk : protector.getChunks()) {
-                if(Util.containBlock(chunk, event.getBlock())) {
+                if (chunk.getBlock(event.getBlock().getX(), event.getBlock().getY(), event.getBlock().getZ()).getType().equals(event.getBlock().getType())) {
                     event.setCancelled(true);
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
-                    player.sendMessage("lol");
+                    player.sendMessage("§cDu kannst hier keine Blöcke platzieren!");
                 }
             }
         }
@@ -59,10 +58,9 @@ public class ProtectorManager implements Listener {
 
         if (protector != null) {
             for (Chunk chunk : protector.getChunks()) {
-                if(Util.containBlock(chunk, event.getBlock())) {
+                if (chunk.getBlock(event.getBlock().getX(), event.getBlock().getY(), event.getBlock().getZ()).getType().equals(event.getBlock().getType())) {
                     event.setCancelled(true);
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
-                    player.sendMessage("lol");
+                    player.sendMessage("§cDu kannst hier keine Blöcke platzieren!");
                 }
             }
         }
