@@ -25,7 +25,7 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
-        if (itemStack.hasNBTTag("voucher")) {
+        if (player.getItemInHand() != null && itemStack.hasNBTTag("voucher")) {
             User user = plugin.getUserManager().getUser(player.getUniqueId());
             String voucher = itemStack.getNBTTagValue("voucher");
             if (voucher.equalsIgnoreCase("balance")) {
