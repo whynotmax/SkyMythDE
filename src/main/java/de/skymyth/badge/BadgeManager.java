@@ -8,10 +8,7 @@ import eu.decentsoftware.holograms.api.utils.scheduler.S;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -59,11 +56,7 @@ public class BadgeManager {
         return cachedBadges.values().stream().filter(badge -> badge.getOwners().contains(user)).toList();
     }
 
-    public List<Badge> getBadgesSortedByOwnership(UUID user) {
-        return cachedBadges.values().stream().sorted((b1, b2) -> {
-            long b1Owned = b1.getOwners().stream().filter(uuid -> uuid.equals(user)).count();
-            long b2Owned = b2.getOwners().stream().filter(uuid -> uuid.equals(user)).count();
-            return Long.compare(b2Owned, b1Owned);
-        }).toList();
+    public List<Badge> getBadges() {
+        return new ArrayList<>(cachedBadges.values());
     }
 }

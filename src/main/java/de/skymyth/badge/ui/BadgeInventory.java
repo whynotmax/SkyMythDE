@@ -26,7 +26,7 @@ public class BadgeInventory extends AbstractInventory {
 
         defaultInventory();
 
-        List<Badge> badgesSortedByOwnership = plugin.getBadgeManager().getBadgesSortedByOwnership(playerUUID);
+        List<Badge> badgesSortedByOwnership = plugin.getBadgeManager().getBadges();
 
         pagination = new Pagination<>(28);
 
