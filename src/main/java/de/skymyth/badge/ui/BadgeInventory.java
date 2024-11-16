@@ -44,6 +44,8 @@ public class BadgeInventory extends AbstractInventory {
             );
         }
 
+        update(0);
+
     }
 
     private void update(int newPage) {
