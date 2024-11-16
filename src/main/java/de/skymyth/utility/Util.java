@@ -4,6 +4,8 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Chunk;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -33,6 +35,10 @@ public class Util {
             builder.append(color[i % 2]).append(text.charAt(i));
         }
         return builder.toString();
+    }
+
+    public static boolean isBlockInChunk(Chunk chunk, Block block) {
+        return block.getChunk().getX() == chunk.getX() && block.getChunk().getZ() == chunk.getZ();
     }
 
 }
