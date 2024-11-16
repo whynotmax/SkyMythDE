@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 
 import java.util.List;
@@ -27,8 +28,7 @@ public class Protector {
     /**
      * In Blocks
      */
-    long radius;
-    long maxRadius;
+    List<Chunk> chunks;
 
     List<UUID> trusted;
     List<UUID> denied;

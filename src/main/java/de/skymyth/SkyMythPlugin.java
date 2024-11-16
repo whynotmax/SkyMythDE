@@ -18,6 +18,7 @@ import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
+import de.skymyth.utility.codec.ChunkCodec;
 import de.skymyth.utility.codec.DurationCodec;
 import de.skymyth.utility.codec.ItemStackCodec;
 import de.skymyth.utility.codec.LocationCodec;
@@ -72,7 +73,8 @@ public final class SkyMythPlugin extends JavaPlugin {
         plugin = this;
 
         this.mongoManager = new MongoManager(Credentials.of("mongodb://minerush:Rbrmf5aPMt9hqgx7BWjLkGe2U38w46Kv@87.106.178.7:27017/", "skymyth"));
-        this.mongoManager = this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new DurationCodec());
+        this.mongoManager = this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new DurationCodec())
+                .registerCodec(new ChunkCodec());
 
         this.scoreboardManager = new ScoreboardManager(plugin);
         this.userManager = new UserManager(plugin);

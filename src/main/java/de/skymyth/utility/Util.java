@@ -37,8 +37,17 @@ public class Util {
         return builder.toString();
     }
 
-    public static boolean isBlockInChunk(Chunk chunk, Block block) {
-        return block.getChunk().getX() == chunk.getX() && block.getChunk().getZ() == chunk.getZ();
+    public static boolean containBlock(Chunk chunk, Block block) {
+        for (int x = 0; x < 16; x++) {
+            for (int y = 0; y < 256; y++) {
+                for (int z = 0; z < 16; z++) {
+                    if (chunk.getBlock(x, y, z).getType() == block.getType()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }

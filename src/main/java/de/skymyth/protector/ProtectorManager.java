@@ -3,8 +3,10 @@ package de.skymyth.protector;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.protector.model.Protector;
 import de.skymyth.protector.repository.ProtectorRepository;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,6 +17,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -38,11 +41,13 @@ public class ProtectorManager implements Listener {
         Player player = event.getPlayer();
         Protector protector = this.getProtector(event.getBlock().getLocation());
 
-        if(protector != null) {
-            if(this.isBlockInsideOfProtectedRadius(event.getBlock(), protector.getLocation(), Math.toIntExact(protector.getRadius())) && !protector.getOwner().equals(player.getUniqueId())) {
-                event.setCancelled(true);
-                player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
-                return;
+        if (protector != null) {
+            for (Chunk chunk : protector.getChunks()) {
+                if(Util.containBlock(chunk, event.getBlock())) {
+                    event.setCancelled(true);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
+                    player.sendMessage("lol");
+                }
             }
         }
     }
@@ -52,27 +57,32 @@ public class ProtectorManager implements Listener {
         Player player = event.getPlayer();
         Protector protector = this.getProtector(event.getBlock().getLocation());
 
-        if(protector != null) {
-            if(this.isBlockInsideOfProtectedRadius(event.getBlock(), protector.getLocation(), Math.toIntExact(protector.getRadius())) && !protector.getOwner().equals(player.getUniqueId())) {
-                event.setCancelled(true);
-                player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
-                return;
+        if (protector != null) {
+            for (Chunk chunk : protector.getChunks()) {
+                if(Util.containBlock(chunk, event.getBlock())) {
+                    event.setCancelled(true);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Basis von " + Bukkit.getOfflinePlayer(protector.getOwner()).getName() + " §cist geschützt!");
+                    player.sendMessage("lol");
+                }
             }
         }
     }
 
-    public void createProtector(UUID uuid, Location location) {
 
+    public void createProtector(UUID uuid, Location location) {
         Protector protector = new Protector();
         protector.setProtectorUniqueId(UUID.randomUUID());
         protector.setOwner(uuid);
-        protector.setRadius(5);
-        protector.setMaxRadius(5);
+        protector.setChunks(new ArrayList<>());
         protector.setLocation(location);
+
+        Chunk chunk = location.getChunk();
+        protector.getChunks().add(chunk);
 
         this.protectorMap.put(uuid, protector);
         this.repository.save(protector);
     }
+
 
     public ItemStack getProtectorItem() {
         ItemBuilder itemBuilder = new ItemBuilder(Material.ENDER_PORTAL_FRAME)
@@ -99,23 +109,9 @@ public class ProtectorManager implements Listener {
         return this.protectorMap.get(uuid);
     }
 
-    public boolean isInsideOfProtector(Player player) {
-        for (Protector value : this.protectorMap.values()) {
-            return player.getLocation().distance(value.getLocation()) < value.getRadius();
-        }
-        return false;
-    }
-
-    public boolean isBlockInsideOfProtectedRadius(Block block, Location protectorLocation, int radius) {
-        return block.getLocation().distance(protectorLocation) < radius;
-    }
-
-
-
-
     public Protector getProtector(Location location) {
         for (Protector value : this.protectorMap.values()) {
-            if(value.getLocation().equals(location)) {
+            if (value.getLocation().equals(location)) {
                 return value;
             }
         }
