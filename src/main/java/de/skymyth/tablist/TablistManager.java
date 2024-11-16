@@ -75,7 +75,7 @@ public class TablistManager {
                         "§8» §5§lSkyMyth§8.§5§lDE §8┃ §cWeihnachten 2024 §4❤ §8«\n" +
                         "§r\n" +
                         "§2✥ §8» §7Aktueller Server: §aSkyPvP\n" +
-                        "§b✦ §8» §7Spieler Online: §c" + Bukkit.getOnlinePlayers().size() +
+                        "§b✦ §8» §7Spieler Online: §c" + (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()) +
                         "\n\n §8➥ §7Aktuelle TPS: §a" + Math.round(tps) + "\n",
                 """
                         §r

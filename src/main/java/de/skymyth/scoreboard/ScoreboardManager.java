@@ -2,6 +2,7 @@ package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import de.skymyth.utility.Util;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -53,7 +54,7 @@ public class ScoreboardManager {
                 "  §8× §f" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()),
                 "",
                 "§f❤ §8┃ §7Online",
-                "  §8× §a" + Bukkit.getOnlinePlayers().size() + " §8/ §c" + Bukkit.getMaxPlayers(),
+                "  §8× §a" + (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()) + " §8/ §c" + Bukkit.getMaxPlayers(),
                 "",
                 "§f♛ §8┃ §7Trophäen",
                 "  §8× §6" + user.getTrophies(),
