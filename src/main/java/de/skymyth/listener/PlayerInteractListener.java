@@ -1,10 +1,13 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.badge.model.Badge;
+import de.skymyth.kit.model.Kit;
 import de.skymyth.kit.ui.KitMainInventory;
 import de.skymyth.protector.ui.ProtectorMainInventory;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -12,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +24,39 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-
+        ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
+        if (itemStack.hasNBTTag("voucher")) {
+            User user = plugin.getUserManager().getUser(player.getUniqueId());
+            String voucher = itemStack.getNBTTagValue("voucher");
+            if (voucher.equalsIgnoreCase("balance")) {
+                long balance = Long.parseLong(itemStack.getNBTTagValue("balance"));
+                balance *= itemStack.getAmount();
+                user.addBalance(balance);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + balance + " §7Coins erhalten.");
+                player.setItemInHand(new ItemStack(Material.AIR));
+                return;
+            }
+            if (voucher.equalsIgnoreCase("kit")) {
+                Kit kit = plugin.getKitManager().getKitByName(itemStack.getNBTTagValue("kit"));
+                if (kit == null) return;
+                kit.giveToAsVoucher(user);
+            }
+            if (voucher.equalsIgnoreCase("badge")) {
+                String badge = itemStack.getNBTTagValue("badge");
+                Badge badge1 = plugin.getBadgeManager().getBadge(badge);
+                if (badge1 == null) return;
+                badge1.getOwners().add(player.getUniqueId());
+                plugin.getBadgeManager().saveBadge(badge1);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Badge §e" + badge + " §7erhalten.");
+            }
+            itemStack.amount(itemStack.getAmount() - 1);
+            if (itemStack.getAmount() == 0) {
+                player.setItemInHand(new ItemStack(Material.AIR));
+            } else {
+                player.setItemInHand(itemStack);
+            }
+            return;
+        }
 
 
         if (player.getWorld().getName().equalsIgnoreCase("Spawn")) {
@@ -44,12 +80,6 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
         if(player.getWorld().getName().equalsIgnoreCase("world")) {
 
-
-            if(plugin.getProtectorManager().isBlockInsideOfProtector(event.getClickedBlock())) {
-                if(event.getClickedBlock().getType() == Material.ENDER_PORTAL_FRAME) {
-                    plugin.getInventoryManager().openInventory(player, new ProtectorMainInventory(this.plugin));
-                }
-            }
 
             if(event.getItem() != null && event.getItem().hasItemMeta() && event.getItem().getItemMeta().getDisplayName().equals("§8» §aBasisschutz")) {
 

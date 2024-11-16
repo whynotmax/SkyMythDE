@@ -46,6 +46,48 @@ public class Kit {
     List<ItemStack> items;
 
     @Transient
+    public void giveToAsVoucher(User user) {
+        Player player = Bukkit.getPlayer(user.getUniqueId());
+        if (player == null) {
+            return;
+        }
+
+        for (ItemStack item : items) {
+            if (item.getType().name().contains("HELMET")) {
+                if (player.getInventory().getHelmet() != null) {
+                    player.getInventory().addItem(player.getInventory().getHelmet());
+                } else {
+                    player.getInventory().addItem(item);
+                }
+                continue;
+            } else if (item.getType().name().contains("CHESTPLATE")) {
+                if (player.getInventory().getChestplate() != null) {
+                    player.getInventory().addItem(player.getInventory().getChestplate());
+                } else {
+                    player.getInventory().addItem(item);
+                }
+                continue;
+            } else if (item.getType().name().contains("LEGGINGS")) {
+                if (player.getInventory().getLeggings() != null) {
+                    player.getInventory().addItem(player.getInventory().getLeggings());
+                } else {
+                    player.getInventory().addItem(item);
+                }
+                continue;
+            } else if (item.getType().name().contains("BOOTS")) {
+                if (player.getInventory().getBoots() != null) {
+                    player.getInventory().addItem(player.getInventory().getBoots());
+                } else {
+                    player.getInventory().addItem(item);
+                }
+                continue;
+            }
+            player.getInventory().addItem(item);
+        }
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");
+    }
+
+    @Transient
     public void giveTo(User user) {
         Player player = Bukkit.getPlayer(user.getUniqueId());
         if (player == null) {

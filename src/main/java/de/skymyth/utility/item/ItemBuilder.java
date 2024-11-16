@@ -201,4 +201,8 @@ public class ItemBuilder extends ItemStack {
         return getNBTTagCompound().hasKey(key);
     }
 
+    public String getNBTTagValue(String key) {
+        return getNBTTagCompound().getString(key);
+    }
+
 }
