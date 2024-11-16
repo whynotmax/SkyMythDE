@@ -64,27 +64,8 @@ public class DailyPotManager {
         }, 0L, 20*5L);
 
         this.potDrawTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date());
-            if (calendar.get(Calendar.HOUR_OF_DAY) == 17 && calendar.get(Calendar.MINUTE) == 30) {
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der DailyPot wird in 30 Minuten gezogen.");
-                return;
-            }
-            if (calendar.get(Calendar.HOUR_OF_DAY) == 17 && calendar.get(Calendar.MINUTE) == 45) {
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der DailyPot wird in 15 Minuten gezogen.");
-                return;
-            }
-            if (calendar.get(Calendar.HOUR_OF_DAY) == 17 && calendar.get(Calendar.MINUTE) == 55) {
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der DailyPot wird in 5 Minuten gezogen.");
-                return;
-            }
-            if (calendar.get(Calendar.HOUR_OF_DAY) == 17 && calendar.get(Calendar.MINUTE) == 59) {
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der DailyPot wird in 60 Sekunden gezogen.");
-                return;
-            }
-            if (calendar.get(Calendar.HOUR_OF_DAY) == 18) {
+            if (System.currentTimeMillis() - dailyPot.getLastPot() >= 86400000) {
                 drawDailyPot();
-                return;
             }
         }, 0L, 20*30L);
 
