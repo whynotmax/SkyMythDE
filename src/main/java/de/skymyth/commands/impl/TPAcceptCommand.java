@@ -47,9 +47,9 @@ public class TPAcceptCommand extends MythCommand {
 
             boolean isHere = request.isHere();
             if (isHere) {
-                target.teleport(player);
-            } else {
                 player.teleport(target);
+            } else {
+                target.teleport(player);
             }
 
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast die Teleportanfrage von §e" + target.getName() + " §7angenommen.");

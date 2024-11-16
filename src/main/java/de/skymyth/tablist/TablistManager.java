@@ -72,7 +72,7 @@ public class TablistManager {
 
         sendTab(player,
                 "§r\n" +
-                        "§8» §5§lSkyMyth§8.§5§lDE §8┃ §cPvP §7mit §4❤ §8«\n" +
+                        "§8» §5§lSkyMyth§8.§5§lDE §8┃ §cWeihnachten 2024 §4❤ §8«\n" +
                         "§r\n" +
                         "§2✥ §8» §7Aktueller Server: §aSkyPvP\n" +
                         "§b✦ §8» §7Spieler Online: §c" + Bukkit.getOnlinePlayers().size() +

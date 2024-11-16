@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class BroadcastCommand extends MythCommand {
 
     public BroadcastCommand(SkyMythPlugin plugin) {
-        super("broadcast", "myth.broadcastz", new ArrayList<>() {{
+        super("broadcast", "myth.broadcast", new ArrayList<>() {{
             add("bc");
         }}, plugin);
     }
