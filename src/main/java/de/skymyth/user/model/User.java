@@ -1,11 +1,13 @@
 package de.skymyth.user.model;
 
+import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
 import eu.koboo.en2do.repository.entity.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -27,6 +29,7 @@ public class User {
     long lastSeen;
 
     List<Cooldown> cooldowns;
+    Map<Perks, Long> perks;
 
     String selectedBadge;
 
@@ -97,6 +100,26 @@ public class User {
 
     public boolean hasQuitMessage() {
         return this.quitMessage != null && !this.quitMessage.isEmpty();
+    }
+
+    public void addPerk(Perks perk, long duration) {
+        this.perks.put(perk, System.currentTimeMillis() + duration);
+    }
+
+    public void removePerk(Perks perk) {
+        this.perks.remove(perk);
+    }
+
+    public boolean hasPerk(Perks perk) {
+        return this.perks.containsKey(perk);
+    }
+
+    public boolean isPerkActive(Perks perk) {
+        return this.perks.containsKey(perk) && this.perks.get(perk) > System.currentTimeMillis();
+    }
+
+    public long getPerkDuration(Perks perk) {
+        return this.perks.get(perk) - System.currentTimeMillis();
     }
 
 }

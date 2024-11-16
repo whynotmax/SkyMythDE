@@ -32,8 +32,13 @@ public class UserManager {
             user.setUniqueId(uuid);
             user.setBalance(750);
             user.setKills(0);
+            user.setTrophies(0);
             user.setDeaths(0);
             user.setCooldowns(new ArrayList<>());
+            user.setPerks(new HashMap<>());
+            user.setJoinMessage(null);
+            user.setQuitMessage(null);
+            user.setSelectedBadge(null);
         }
 
         this.userMap.put(uuid, user);
