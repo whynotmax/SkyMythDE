@@ -37,7 +37,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
-import java.sql.Ref;
 
 @Log
 @Getter
@@ -137,48 +136,5 @@ public final class SkyMythPlugin extends JavaPlugin {
     public void onDisable() {
         this.rankingManager.delete();
         log.info("SkyMyth Plugin disabled.");
-    }
-
-    public Command findCommandByName(String name) {
-        try {
-            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
-
-            bukkitCommandMap.setAccessible(true);
-            SimpleCommandMap commandMap = (SimpleCommandMap) bukkitCommandMap.get(Bukkit.getServer());
-
-            Command closestCommand = null;
-            int closestDistance = Integer.MAX_VALUE;
-
-            for (String commandName : commandMap.getCommands().stream().map(Command::getName).toList()) {
-                int distance = levenshteinDistance(name, commandName);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestCommand = commandMap.getCommand(commandName);
-                }
-            }
-
-            return closestCommand;
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private int levenshteinDistance(String a, String b) {
-        int[][] dp = new int[a.length() + 1][b.length() + 1];
-
-        for (int i = 0; i <= a.length(); i++) {
-            for (int j = 0; j <= b.length(); j++) {
-                if (i == 0) {
-                    dp[i][j] = j;
-                } else if (j == 0) {
-                    dp[i][j] = i;
-                } else {
-                    dp[i][j] = Math.min(dp[i - 1][j - 1] + (a.charAt(i - 1) == b.charAt(j - 1) ? 0 : 1),
-                            Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
-                }
-            }
-        }
-
-        return dp[a.length()][b.length()];
     }
 }

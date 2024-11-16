@@ -4,7 +4,6 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.kit.model.Kit;
 import de.skymyth.kit.model.type.KitType;
 import de.skymyth.kit.repository.KitRepository;
-import de.skymyth.utility.codec.ItemStackCodec;
 import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

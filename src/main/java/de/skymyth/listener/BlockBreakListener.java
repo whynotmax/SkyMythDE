@@ -7,7 +7,6 @@ import org.bukkit.Chunk;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 
 public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
 

@@ -19,6 +19,7 @@ public class Util {
     public static final Map<Player, Player> MESSAGE = new HashMap<>();
     public static final Cache<Player, Player> TELEPORT = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
     public static final ArrayList<Player> VANISH = new ArrayList<>();
+    public static final ArrayList<Player> FREEZE = new ArrayList<>();
 
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {

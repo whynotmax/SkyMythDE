@@ -3,7 +3,6 @@ package de.skymyth.commands.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.location.model.Position;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class SetlocCommand extends MythCommand {
 
             String name = args[0];
 
-            if(name.equalsIgnoreCase("spawn")) {
+            if (name.equalsIgnoreCase("spawn")) {
                 player.getWorld().setSpawnLocation((int) player.getLocation().getX(), (int) player.getLocation().getY(), (int) player.getLocation().getZ());
             }
 

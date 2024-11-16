@@ -8,7 +8,6 @@ import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -32,11 +31,14 @@ public class OtherKitsInventory extends AbstractInventory {
 
         for (Kit kit : plugin.getKitManager().getOtherKits()) {
             ItemBuilder displayItem = new ItemBuilder(kit.getDisplayItem());
-            displayItem.setName((user.hasCooldown("kit_" + kit.getName().toLowerCase()) ? "§c" : (kit.isEnabled() ? "§a" : "§c")) + kit.getName());
+            displayItem.setName("§7Kit§8: §e" + kit.getName());
             displayItem.lore(
-                    (kit.isEnabled() ? "§a" : "§c") + "§o" + (kit.isEnabled() ? "aktiviert" : "deaktiviert"),
-                    "§r",
-                    (user.hasCooldown("kit_" + kit.getName().toLowerCase()) ? "§c" : "§a") + (user.hasCooldown("kit_" + kit.getName().toLowerCase()) ? "Warte noch " + TimeUtil.beautifyTime(user.getCooldown("kit_" + kit.getName().toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true) : "Klicke§7, um das Kit zu erhalten")
+                    "§7Dieses Kit ist im Moment " + (kit.isEnabled() ? " §aaktiviert." : " §cdeaktiviert."),
+                    "",
+                    (user.hasCooldown("kit_" + kit.getName().toLowerCase()) ?
+                            "§cBitte warte noch " + TimeUtil.beautifyTime(user.getCooldown("kit_" + kit.getName().toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true)
+                            :
+                            "§7Du kannst das Kit jetzt sofort abholen")
             );
             pagination.addItem(displayItem);
         }
@@ -71,11 +73,12 @@ public class OtherKitsInventory extends AbstractInventory {
         int i = 10;
         for (ItemStack itemStack : pagination.getItems(newPage)) {
             this.setItem(i, itemStack, event -> {
-                Kit kit = plugin.getKitManager().getKitByName(itemStack.getItemMeta().getDisplayName().replaceFirst("§[a-f0-9]", ""));
+                Kit kit = plugin.getKitManager().getKitByName(itemStack.getItemMeta().getDisplayName().replaceAll("§7Kit§8: §e", ""));
                 if (kit == null) {
                     return;
                 }
                 kit.giveTo(user);
+                update(page);
             });
             i++;
             if (i == 17) {

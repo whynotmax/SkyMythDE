@@ -5,14 +5,12 @@ import de.skymyth.commands.MythCommand;
 import de.skymyth.rtp.RTPManager;
 import de.skymyth.user.model.User;
 import de.skymyth.user.model.cooldown.Cooldown;
-import de.skymyth.utility.RandomUtil;
 import de.skymyth.utility.TimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.time.Duration;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;

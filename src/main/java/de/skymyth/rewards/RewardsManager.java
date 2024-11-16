@@ -124,7 +124,7 @@ public class RewardsManager {
             for (int i = 0; i < 3; i++) {
                 Reward reward = getRandomRewardWithChance();
                 if (reward == null) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cEs gab ein Problem beim Laden deiner Belohnung §8#§c" + (i+1) + ".");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cEs gab ein Problem beim Laden deiner Belohnung §8#§c" + (i + 1) + ".");
                     continue;
                 }
                 armorStandHeadLocation.getWorld().dropItem(armorStandHeadLocation, reward.getItem());

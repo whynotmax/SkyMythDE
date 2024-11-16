@@ -7,7 +7,6 @@ import de.skymyth.protector.repository.ProtectorRepository;
 import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;

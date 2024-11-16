@@ -3,16 +3,12 @@ package de.skymyth.commands.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.utility.TitleUtil;
-import org.bukkit.*;
-import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.List;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +29,7 @@ public class SpawnCommand extends MythCommand {
         }
 
 
-        if(!player.hasPermission("myth.team")) {
+        if (!player.hasPermission("myth.team")) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wirst in §e3 Sekunden§7 zum Spawn teleportiert.");
 
             Location initialLocation = player.getLocation();

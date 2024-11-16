@@ -51,9 +51,9 @@ public class RTPManager {
     }
 
     private void set(double x, double y, double z) {
-        this.xF = (int)x;
-        this.yF = (int)y;
-        this.zF = (int)z;
+        this.xF = (int) x;
+        this.yF = (int) y;
+        this.zF = (int) z;
     }
 
     protected Location getLocation() {
@@ -63,7 +63,7 @@ public class RTPManager {
         x = this.randomizeType(x);
         z = this.randomizeType(z);
         int y = 63;
-        Location location = RandomUtil.safeizeLocation(new Location(this.world, (double)x, (double)y, (double)z));
+        Location location = RandomUtil.safeizeLocation(new Location(this.world, (double) x, (double) y, (double) z));
         if (location == null) {
             return null;
         } else {
