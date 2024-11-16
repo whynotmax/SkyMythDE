@@ -73,6 +73,10 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
         }
 
+        if (user.hasJoinMessage()) {
+            Bukkit.broadcastMessage("§8[§a+§8] §7" + user.getJoinMessage().replace('&', '§').replace("§k", "&k"));
+        }
+
 
     }
 }

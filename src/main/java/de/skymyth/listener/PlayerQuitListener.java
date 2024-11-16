@@ -2,6 +2,7 @@ package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,9 @@ public record PlayerQuitListener(SkyMythPlugin plugin) implements Listener {
 
         plugin.getUserManager().saveUser(user);
 
+        if (user.hasQuitMessage()) {
+            Bukkit.broadcastMessage("§8[§c-§8] §7" + user.getQuitMessage().replace('&', '§').replace("§k", "&k"));
+        }
 
     }
 }

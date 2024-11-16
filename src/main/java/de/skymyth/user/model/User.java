@@ -30,6 +30,9 @@ public class User {
 
     String selectedBadge;
 
+    String joinMessage;
+    String quitMessage;
+
     public void addBalance(long amount) {
         this.balance += amount;
     }
@@ -86,6 +89,14 @@ public class User {
     public boolean isOnCooldown(String name) {
         Cooldown cooldown = this.getCooldown(name);
         return cooldown != null && !cooldown.isExpired();
+    }
+
+    public boolean hasJoinMessage() {
+        return this.joinMessage != null && !this.joinMessage.isEmpty();
+    }
+
+    public boolean hasQuitMessage() {
+        return this.quitMessage != null && !this.quitMessage.isEmpty();
     }
 
 }
