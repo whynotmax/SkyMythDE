@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Duration;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -24,15 +25,12 @@ public enum PunishReason {
 
     public static final PunishReason[] VALUES = values();
 
-    public static PunishReason[] getReasonsByType(PunishType type) {
-        PunishReason[] reasons = new PunishReason[VALUES.length];
-        int index = 0;
+    public static List<PunishReason> getReasonsByType(PunishType type) {
+        List<PunishReason> reasons = new java.util.ArrayList<>();
         for (PunishReason reason : VALUES) {
-            if (reason.getType() != type) {
-                continue;
+            if (reason.getType() == type) {
+                reasons.add(reason);
             }
-            reasons[index] = reason;
-            index++;
         }
         return reasons;
     }
