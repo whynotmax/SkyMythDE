@@ -22,6 +22,7 @@ public class UnbanCommand extends MythCommand {
     public void run(Player player, String[] args) {
         if (args.length < 1) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /unban <Spieler>");
+            return;
         }
         String targetName = args[0];
         UUID targetUUID = UUIDFetcher.getUUID(targetName);

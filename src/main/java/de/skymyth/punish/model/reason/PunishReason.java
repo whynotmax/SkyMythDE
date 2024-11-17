@@ -16,7 +16,8 @@ public enum PunishReason {
     HACKING("Hacking", "Hacking", PunishType.BAN, Duration.ofDays(30)),
     ADVERTISING("Werbung", "Werbung", PunishType.MUTE, Duration.ofDays(7)),
     SPAMMING("Spamming", "Spamming", PunishType.MUTE, Duration.ofDays(1)),
-    GRIEFING("Griefing", "Griefing", PunishType.BAN, Duration.ofDays(7));
+    GRIEFING("Griefing", "Griefing", PunishType.BAN, Duration.ofDays(7)),
+    PERMANENT("Permanent", "Permanent", PunishType.BAN, Duration.ofDays(365));
 
     String name;
     String description;
