@@ -87,6 +87,7 @@ public class PunishManager {
         punish.setId(id);
 
         punishes.add(punish);
+        repository.save(punish);
 
         Player targetPlayer = plugin.getServer().getPlayer(target);
         if (targetPlayer != null) {
@@ -105,6 +106,7 @@ public class PunishManager {
             return;
         }
         punishes.remove(punish);
+        repository.delete(punish);
 
         Bukkit.broadcastMessage("§r");
         Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Spieler §e" + Bukkit.getOfflinePlayer(target).getName() + " §7wurde soeben entbannt.");
@@ -125,6 +127,7 @@ public class PunishManager {
         punish.setId(id);
 
         punishes.add(punish);
+        repository.save(punish);
 
         Player targetPlayer = plugin.getServer().getPlayer(target);
         if (targetPlayer != null) {
@@ -144,6 +147,7 @@ public class PunishManager {
             return;
         }
         punishes.remove(punish);
+        repository.delete(punish);
 
         Bukkit.broadcastMessage("§r");
         Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Spieler §e" + Bukkit.getOfflinePlayer(target).getName() + " §7wurde soeben entmutet.");
