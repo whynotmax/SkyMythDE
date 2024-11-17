@@ -28,9 +28,11 @@ public class DailyPotManager {
     BukkitTask hologramUpdateTask;
 
     BukkitTask potDrawTask;
+    Random random;
 
     public DailyPotManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
+        this.random = new Random();
         this.dailyPotRepository = plugin.getMongoManager().create(DailyPotRepository.class);
         if (!dailyPotRepository.findAll().isEmpty()) this.dailyPot = dailyPotRepository.findAll().getFirst();
         if (dailyPot == null) {
@@ -90,7 +92,7 @@ public class DailyPotManager {
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§cEs gibt keine Teilnehmer für den DailyPot.");
             return;
         }
-        int winnerIndex = new Random().nextInt(dailyPot.getParticipants().size());
+        int winnerIndex = this.random.nextInt(dailyPot.getParticipants().size());
         dailyPot.setLastWinner(dailyPot.getParticipants().get(winnerIndex));
         User winner = plugin.getUserManager().getUser(dailyPot.getLastWinner());
         winner.addBalance(Long.parseLong(String.valueOf(dailyPot.getPot())));
