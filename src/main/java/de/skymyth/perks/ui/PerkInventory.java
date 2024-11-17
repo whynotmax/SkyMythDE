@@ -57,7 +57,7 @@ public class PerkInventory extends AbstractInventory {
                     return;
                 }
                 if (user.getBalance() < price) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast nicht genügend Geld.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast nicht genügend Tokens.");
                     return;
                 }
                 user.addPerk(perk, perk.getDurationPerPrice().toMillis());
