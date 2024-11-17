@@ -83,5 +83,11 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         }
 
 
+        if(!plugin.getAllowedPlayers().contains(player.getName())) {
+            player.kickPlayer("§cEs tut uns leid, aber die Verbindung kann gerade nicht hergestellt werden.");
+        }
+
+
+
     }
 }

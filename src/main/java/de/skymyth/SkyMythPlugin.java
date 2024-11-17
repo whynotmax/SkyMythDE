@@ -50,6 +50,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     @Setter
     private boolean globalMute = false;
     private final List<Location> randomPvPLocations = new ArrayList<>();
+    private final List<String> allowedPlayers = new ArrayList<>();
 
 
     SkyMythPlugin plugin;
@@ -136,6 +137,11 @@ public final class SkyMythPlugin extends JavaPlugin {
         for (int i = 1; i < 7; i++) {
             this.randomPvPLocations.add(this.locationManager.getPosition("pvp-random-" + i).getLocation());
         }
+
+        this.allowedPlayers.add("sxbide");
+        this.allowedPlayers.add("044mzcy_og");
+        this.allowedPlayers.add("Tony782");
+        this.allowedPlayers.add("Lele_Mennels");
 
 
         log.info("SkyMyth Plugin enabled.");

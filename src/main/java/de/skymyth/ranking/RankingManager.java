@@ -2,6 +2,7 @@ package de.skymyth.ranking;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import de.skymyth.utility.UUIDFetcher;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
@@ -12,6 +13,7 @@ import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
