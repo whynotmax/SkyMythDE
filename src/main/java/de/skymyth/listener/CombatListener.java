@@ -27,7 +27,7 @@ public class CombatListener implements Listener {
         this.plugin = plugin;
         this.combatMap = new HashMap<>();
         this.combatTaskMap = new HashMap<>();
-        this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
+        this.lastHitMap =  new HashMap<>();
     }
 
     public void hit(Player player) {
@@ -87,15 +87,18 @@ public class CombatListener implements Listener {
 
     @EventHandler
     public void onHit(final EntityDamageByEntityEvent event) {
+        System.out.println("1");
         if (!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player)) return;
         Player damager = (Player) event.getDamager();
         Player target = (Player) event.getEntity();
         User damagerUser = this.plugin.getUserManager().getUser(damager.getUniqueId());
         User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
+        System.out.println("2");
         if (isInCombat(damager) || isInCombat(target)) {
             event.setCancelled(true);
             return;
         }
+        System.out.println("3");
         this.hit(damager);
         this.hit(target);
         this.startCombat(damager, target);
@@ -114,7 +117,7 @@ public class CombatListener implements Listener {
             this.combatMap.remove(target);
 
             TitleUtil.sendActionBar(target, "§cDu bist nicht mehr im Kampf.");
-            TitleUtil.sendTitle(target, 0, 10, 20, "§a" + player.getName() + " §7ist gestorben.", "§8× +§e1 Kill §8- +§e100 Tokens §8×");
+            TitleUtil.sendTitle(target, 0, 30, 20, "§a" + player.getName() + " §7ist gestorben.", "§8× +§e1 Kill §8- +§e100 Tokens §8×");
 
             User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
             targetUser.addKill();
@@ -144,8 +147,9 @@ public class CombatListener implements Listener {
         }
     }
 
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onLogout(final PlayerQuitEvent event) {
+    public void onLogout(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         if (isInCombat(player)) {
             Player target = this.combatMap.get(player);
