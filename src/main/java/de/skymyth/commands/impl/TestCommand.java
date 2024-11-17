@@ -2,6 +2,7 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.pvp.model.SpecialItems;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class TestCommand extends MythCommand {
                 .addKill();
 
         //player.getInventory().addItem(plugin.getProtectorManager().getProtectorItem());
+        player.getInventory().addItem(SpecialItems.FLAME_ROSE.getItemStack());
 
     }
 }

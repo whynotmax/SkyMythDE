@@ -2,6 +2,7 @@ package de.skymyth.rtp;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.utility.RandomUtil;
+import de.skymyth.utility.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -57,7 +58,7 @@ public class RTPManager {
     }
 
     protected Location getLocation() {
-        Random random = new Random();
+        Random random = Util.random;
         int x = random.nextInt(this.xCoord);
         int z = random.nextInt(this.zCoord);
         x = this.randomizeType(x);

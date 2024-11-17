@@ -3,6 +3,7 @@ package de.skymyth.user.model;
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
 import eu.koboo.en2do.repository.entity.Id;
+import eu.koboo.en2do.repository.entity.Transient;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -24,6 +25,8 @@ public class User {
     long kills;
     long deaths;
     long trophies;
+    @Transient
+    long pvpShards;
 
     long playTime;
     long lastSeen;

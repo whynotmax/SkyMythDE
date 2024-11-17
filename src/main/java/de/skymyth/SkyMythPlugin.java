@@ -28,6 +28,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
@@ -37,6 +38,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log
 @Getter
@@ -46,6 +49,8 @@ public final class SkyMythPlugin extends JavaPlugin {
     public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
     @Setter
     private boolean globalMute = false;
+    private final List<Location> randomPvPLocations = new ArrayList<>();
+
 
     SkyMythPlugin plugin;
 
@@ -126,6 +131,10 @@ public final class SkyMythPlugin extends JavaPlugin {
             e.printStackTrace();
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
+        }
+
+        for (int i = 1; i < 7; i++) {
+            this.randomPvPLocations.add(this.locationManager.getPosition("pvp-random-" + i).getLocation());
         }
 
 

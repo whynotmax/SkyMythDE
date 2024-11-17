@@ -77,6 +77,11 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             Bukkit.broadcastMessage("§8[§a+§8] §7" + user.getJoinMessage().replace('&', '§').replace("§k", "&k"));
         }
 
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            onlinePlayer.showPlayer(player);
+            player.showPlayer(onlinePlayer);
+        }
+
 
     }
 }
