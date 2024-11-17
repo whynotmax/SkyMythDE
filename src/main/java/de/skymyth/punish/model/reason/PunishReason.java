@@ -19,12 +19,11 @@ public enum PunishReason {
     GRIEFING("Griefing", "Griefing", PunishType.BAN, Duration.ofDays(7)),
     PERMANENT("Permanent", "Permanent", PunishType.BAN, Duration.ofDays(365));
 
+    public static final PunishReason[] VALUES = values();
     String name;
     String description;
     PunishType type;
     Duration punishDuration;
-
-    public static final PunishReason[] VALUES = values();
 
     public static List<PunishReason> getReasonsByType(PunishType type) {
         List<PunishReason> reasons = new java.util.ArrayList<>();

@@ -6,7 +6,6 @@ import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
-import eu.decentsoftware.holograms.api.utils.scheduler.S;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 

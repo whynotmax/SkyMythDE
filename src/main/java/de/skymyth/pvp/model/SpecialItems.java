@@ -1,7 +1,8 @@
 package de.skymyth.pvp.model;
 
 import de.skymyth.utility.item.ItemBuilder;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

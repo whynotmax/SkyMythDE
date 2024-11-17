@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 
 public record PlayerMoveListener(SkyMythPlugin plugin) implements Listener {
 
@@ -40,11 +39,12 @@ public record PlayerMoveListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         Block block = player.getLocation().getBlock();
 
-        if(player.getWorld().getName().equals("Spawn")) {
+        if (player.getWorld().getName().equals("Spawn")) {
             if (block.getType().equals(Material.ENDER_PORTAL)) {
                 Location location = plugin.getRandomPvPLocations().get(Util.random.nextInt(plugin.getRandomPvPLocations().size()));
                 player.teleport(location);
-                player.playSound(player.getLocation(), Sound.PORTAL_TRAVEL, 1.0F,2.0F);
+                player.playSound(player.getLocation(), Sound.PORTAL_TRAVEL, 1.0F, 2.0F);
+                TitleUtil.sendTitle(player, 0, 30, 20, "§c§lPvP", "§8× §7Zufällig teleportiert §8×");
             }
         }
     }

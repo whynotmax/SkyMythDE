@@ -29,9 +29,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
-import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,12 +45,10 @@ import java.util.List;
 public final class SkyMythPlugin extends JavaPlugin {
 
     public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
-    @Setter
-    private boolean globalMute = false;
     private final List<Location> randomPvPLocations = new ArrayList<>();
     private final List<String> allowedPlayers = new ArrayList<>();
-
-
+    @Setter
+    private boolean globalMute = false;
     SkyMythPlugin plugin;
 
     MongoManager mongoManager;

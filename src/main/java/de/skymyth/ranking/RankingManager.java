@@ -13,7 +13,6 @@ import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -75,30 +74,32 @@ public class RankingManager implements Listener {
                 Long kills = entry.getValue();
 
                 OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+                String playerName = UUIDFetcher.getName(uuid);
 
                 if (kills < 1) continue;
                 if (player == null) continue;
 
+                String killsText = (kills > 1 ? "§8( §a%s Kills §8)" : "§8( §a %s Kill §8)");
 
                 if (integer.get() == 1) {
-                    ranking1.setCustomName("§8#§c1 §7" + player.getName() + " §8( §a" + kills + " §7Kills §8)");
-                    ranking1.setHelmet(new ItemBuilder(Material.SKULL_ITEM).skullOwner(player.getName()));
+                    ranking1.setCustomName("§8#§c1 §7" + playerName + String.format(killsText, kills));
+                    ranking1.setHelmet(new ItemBuilder(Material.SKULL_ITEM).skullOwner(playerName));
                     ranking1.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
                     ranking1.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
                     ranking1.setBoots(new ItemStack(Material.DIAMOND_BOOTS));
                     ranking1.setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
                 }
                 if (integer.get() == 2) {
-                    ranking2.setCustomName("§8#§c2 §7" + player.getName() + " §8( §a" + kills + " §7Kills §8)");
-                    ranking2.setHelmet(new ItemBuilder(Material.SKULL_ITEM).skullOwner(player.getName()));
+                    ranking2.setCustomName("§8#§c2 §7" + playerName + String.format(killsText, kills));
+                    ranking2.setHelmet(new ItemBuilder(Material.SKULL_ITEM).skullOwner(playerName));
                     ranking2.setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
                     ranking2.setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
                     ranking2.setBoots(new ItemStack(Material.GOLD_BOOTS));
                     ranking2.setItemInHand(new ItemStack(Material.BOW));
                 }
                 if (integer.get() == 3) {
-                    ranking3.setCustomName("§8#§c3 §7" + player.getName() + " §8( §a" + kills + " §7Kills §8)");
-                    ranking3.setHelmet(new ItemBuilder(Material.SKULL_ITEM).skullOwner(player.getName()));
+                    ranking3.setCustomName("§8#§c3 §7" + playerName + String.format(killsText, kills));
+                    ranking3.setHelmet(new ItemBuilder(Material.SKULL_ITEM).skullOwner(playerName));
                     ranking3.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
                     ranking3.setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
                     ranking3.setBoots(new ItemStack(Material.LEATHER_BOOTS));

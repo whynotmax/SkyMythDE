@@ -10,12 +10,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 
-import javax.swing.*;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.UUID;
 
 public class DailyPotMainInventory extends AbstractInventory {
 

@@ -9,8 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-import javax.lang.model.element.ElementVisitor;
-
 public record PlayerLoginListener(SkyMythPlugin plugin) implements Listener {
 
     @EventHandler
@@ -22,7 +20,7 @@ public record PlayerLoginListener(SkyMythPlugin plugin) implements Listener {
             return;
         }
 
-        if(Bukkit.getServer().hasWhitelist() && !player.isWhitelisted()) {
+        if (Bukkit.getServer().hasWhitelist() && !player.isWhitelisted()) {
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7wollte den Server betreten.");
             return;
         }

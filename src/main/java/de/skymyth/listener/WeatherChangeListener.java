@@ -12,7 +12,7 @@ public record WeatherChangeListener(SkyMythPlugin plugin) implements Listener {
     public void onWeatherChange(WeatherChangeEvent event) {
         World world = event.getWorld();
 
-        if(world.getName().equalsIgnoreCase("Spawn")) {
+        if (world.getName().equalsIgnoreCase("Spawn")) {
             world.setWeatherDuration(0);
             world.setThundering(false);
             world.setTime(0);

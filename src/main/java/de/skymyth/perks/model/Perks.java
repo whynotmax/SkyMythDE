@@ -21,13 +21,12 @@ public enum Perks {
     DOUBLE_JUMP("Doppelsprung", Material.GOLD_BOOTS, "Erhalte die Fähigkeit, doppelt zu springen!", 200_000, Duration.ofMinutes(90)),
     ;
 
+    public static final Perks[] VALUES = values();
     String name;
     Material displayItem;
     String description;
     long price;
     Duration durationPerPrice;
-
-    public static final Perks[] VALUES = values();
 
 
 }

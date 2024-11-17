@@ -13,7 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Getter
@@ -63,13 +65,13 @@ public class DailyPotManager {
             DHAPI.setHologramLine(hologram, 3, "§7Gewinnchance: §e" + dailyPot.calculateWinChance() + "%");
             DHAPI.setHologramLine(hologram, 4, "§7Gewinn: §e" + NumberFormat.getInstance(Locale.GERMAN).format(dailyPot.getPot()).replace(",", ".") + "$");
             DHAPI.setHologramLine(hologram, 5, "§7Nächste Ziehung in: §e" + TimeUtil.beautifyTime((dailyPot.getLastPot() + 86400000 - System.currentTimeMillis()) / 1000, TimeUnit.SECONDS, true, true) + " Sekunden");
-        }, 0L, 20*5L);
+        }, 0L, 20 * 5L);
 
         this.potDrawTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (System.currentTimeMillis() - dailyPot.getLastPot() >= 86400000) {
                 drawDailyPot();
             }
-        }, 0L, 20*30L);
+        }, 0L, 20 * 30L);
 
     }
 

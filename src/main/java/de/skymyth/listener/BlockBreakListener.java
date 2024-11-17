@@ -15,8 +15,8 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         World world = player.getWorld();
 
-        if(!player.isOp()) {
-            if(world.getName().equalsIgnoreCase("Spawn") || world.getName().equalsIgnoreCase("PvP")) {
+        if (!player.isOp()) {
+            if (world.getName().equalsIgnoreCase("Spawn") || world.getName().equalsIgnoreCase("PvP")) {
                 event.setCancelled(true);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
             }

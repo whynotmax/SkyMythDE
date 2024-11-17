@@ -16,7 +16,7 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
     public void onEntityDamage(EntityDamageEvent event) {
 
 
-        if(event.getEntity() instanceof Player player) {
+        if (event.getEntity() instanceof Player player) {
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 if (player.getWorld().getName().equalsIgnoreCase("Spawn") || player.getWorld().getName().equalsIgnoreCase("PvP")) {
                     event.setCancelled(true);
@@ -31,17 +31,17 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
 
         World world = event.getEntity().getWorld();
 
-        if(event.getEntity() instanceof Player player) {
-            if(event.getDamager() instanceof Player damager) {
+        if (event.getEntity() instanceof Player player) {
+            if (event.getDamager() instanceof Player damager) {
 
-                if(world.getName().equalsIgnoreCase("Spawn")) {
+                if (world.getName().equalsIgnoreCase("Spawn")) {
                     event.setCancelled(true);
                     damager.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
                     return;
                 }
 
 
-                if(Util.FREEZE.contains(player) || Util.FREEZE.contains(damager)) {
+                if (Util.FREEZE.contains(player) || Util.FREEZE.contains(damager)) {
                     event.setCancelled(true);
                 }
             }

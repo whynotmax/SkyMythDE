@@ -10,10 +10,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CombatListener implements Listener {
@@ -22,12 +25,20 @@ public class CombatListener implements Listener {
     Map<Player, Player> combatMap;
     Map<Player, Long> lastHitMap;
     Map<Player, BukkitTask> combatTaskMap;
+    List<String> blockedCommands;
 
     public CombatListener(SkyMythPlugin plugin) {
         this.plugin = plugin;
         this.combatMap = new HashMap<>();
         this.combatTaskMap = new HashMap<>();
-        this.lastHitMap =  new HashMap<>();
+        this.lastHitMap = new HashMap<>();
+        this.blockedCommands = new ArrayList<>() {{
+            add("/warp");
+            add("/spawn");
+            add("/tpa");
+            add("/tpaccept");
+            add("/tpahere");
+        }};
     }
 
     public void hit(Player player) {
@@ -86,7 +97,24 @@ public class CombatListener implements Listener {
     }
 
     @EventHandler
-    public void onHit(final EntityDamageByEntityEvent event) {
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+
+        Player player = event.getPlayer();
+        String command = event.getMessage();
+
+        if (isInCombat(player)) {
+            for (String blockedCommand : blockedCommands) {
+                if (command.equalsIgnoreCase(blockedCommand) || command.contains(blockedCommand)) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Befehl ist im Kampf verboten.");
+                    event.setCancelled(true);
+                    return;
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onHit(EntityDamageByEntityEvent event) {
         System.out.println("1");
         if (!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player)) return;
         Player damager = (Player) event.getDamager();
