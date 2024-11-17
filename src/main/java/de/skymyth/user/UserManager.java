@@ -2,6 +2,7 @@ package de.skymyth.user;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import de.skymyth.user.model.enderchest.EnderChest;
 import de.skymyth.user.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class UserManager {
             user.setJoinMessage(null);
             user.setQuitMessage(null);
             user.setSelectedBadge(null);
+            user.setEnderChest(new EnderChest(1, new ArrayList<>(), new ArrayList<>()));
         }
 
         this.userMap.put(uuid, user);

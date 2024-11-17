@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 @Getter
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
 public abstract class AbstractInventory {
 
     String title;

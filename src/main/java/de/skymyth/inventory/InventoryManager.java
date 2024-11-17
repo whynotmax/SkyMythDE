@@ -38,7 +38,7 @@ public class InventoryManager implements Listener {
         if (this.inventories.containsKey(player.getUniqueId())) {
             AbstractInventory inventory = this.inventories.get(player.getUniqueId());
             if (event.getClickedInventory() != null && event.getClickedInventory().equals(inventory.getInventory())) {
-                event.setCancelled(true);
+                event.setCancelled(!event.getClickedInventory().getTitle().contains("Enderchest"));
                 inventory.handleClickEvent(event);
             }
         }
