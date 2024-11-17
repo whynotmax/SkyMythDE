@@ -9,7 +9,6 @@ import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.kit.KitManager;
 import de.skymyth.location.LocationManager;
-import de.skymyth.protector.ProtectionManager;
 import de.skymyth.punish.PunishManager;
 import de.skymyth.ranking.RankingManager;
 import de.skymyth.rewards.RewardsManager;
@@ -63,7 +62,6 @@ public final class SkyMythPlugin extends JavaPlugin {
     RankingManager rankingManager;
     RewardsManager rewardsManager;
     KitManager kitManager;
-    ProtectionManager protectorManager;
     CasinoManager casinoManager;
 
 
@@ -87,7 +85,6 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.rankingManager = new RankingManager(plugin);
         this.rewardsManager = new RewardsManager(plugin);
         this.kitManager = new KitManager(plugin);
-        this.protectorManager = new ProtectionManager(plugin);
         this.casinoManager = new CasinoManager(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");

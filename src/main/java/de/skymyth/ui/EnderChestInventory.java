@@ -30,80 +30,66 @@ public class EnderChestInventory extends AbstractInventory {
     }
 
     private void update(int newPage) {
+        saveCurrentPage();
         this.page = newPage;
 
-        Map<Integer, ItemStack> pageItems = user.getEnderChest().getPages().get(page);
-        if (pageItems == null) {
-            //TODO: Add empty page
-        } else {
+        for (int i = 0; i < 26; i++) {
+            setItem(i, new ItemBuilder(Material.AIR));
+        }
+
+        Map<Integer, ItemStack> pageItems = user.getEnderChest().getPages().size() > page ? user.getEnderChest().getPages().get(page) : new HashMap<>();
+        if (pageItems != null) {
             for (Map.Entry<Integer, ItemStack> entry : pageItems.entrySet()) {
                 setItem(entry.getKey(), entry.getValue(), event -> event.setCancelled(!isTrusted));
             }
         }
 
-        for (int i = 26; i < 36; i++) {
+        for (int i = 27; i < 36; i++) {
             setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE).setDataId(15).setName("§7"), event -> event.setCancelled(true));
         }
 
         setItem(27, new ItemBuilder(Material.ARROW).setName("§eVorherige Seite"), event -> {
+            event.setCancelled(true);
             if (page > 0) {
-                for (int i = 0; i < 26; i++) {
-                    ItemStack item = inventory.getItem(i);
-                    if (item == null) {
-                        continue;
-                    }
-                    Map<Integer, ItemStack> pageItemsSwitch = user.getEnderChest().getPages().get(page);
-                    if (pageItemsSwitch == null) {
-                        pageItemsSwitch = new HashMap<>();
-                    }
-                    pageItemsSwitch.put(i, item);
-                    user.getEnderChest().getPages().add(page, pageItemsSwitch);
-                }
-                plugin.getUserManager().saveUser(user);
                 update(page - 1);
-                return;
+            } else {
+                Player player = (Player) event.getWhoClicked();
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist bereits auf der ersten Seite.");
             }
-            Player player = (Player) event.getWhoClicked();
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist bereits auf der ersten Seite.");
         });
 
         setItem(35, new ItemBuilder(Material.ARROW).setName("§eNächste Seite"), event -> {
-            if (page < user.getEnderChest().getAquiredPages()) {
-                for (int i = 0; i < 26; i++) {
-                    ItemStack item = inventory.getItem(i);
-                    if (item == null) {
-                        continue;
-                    }
-                    Map<Integer, ItemStack> pageItemsSwitch = user.getEnderChest().getPages().get(page);
-                    if (pageItemsSwitch == null) {
-                        pageItemsSwitch = new HashMap<>();
-                    }
-                    pageItemsSwitch.put(i, item);
-                    user.getEnderChest().getPages().add(page, pageItemsSwitch);
-                }
-                plugin.getUserManager().saveUser(user);
+            event.setCancelled(true);
+            if (page + 1 < user.getEnderChest().getAquiredPages()) {
                 update(page + 1);
-                return;
+            } else {
+                Player player = (Player) event.getWhoClicked();
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist bereits auf der letzten Seite.");
             }
-            Player player = (Player) event.getWhoClicked();
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist bereits auf der letzten Seite.");
         });
+    }
+
+    private void saveCurrentPage() {
+        Map<Integer, ItemStack> pageItems = user.getEnderChest().getPages().size() > page ? user.getEnderChest().getPages().get(page) : new HashMap<>();
+        for (int i = 0; i < 26; i++) {
+            ItemStack item = inventory.getItem(i);
+            if (item != null) {
+                pageItems.put(i, item);
+            } else {
+                pageItems.remove(i);
+            }
+        }
+        if (user.getEnderChest().getPages().size() > page) {
+            user.getEnderChest().getPages().set(page, pageItems);
+        } else {
+            user.getEnderChest().getPages().add(page, pageItems);
+        }
+        plugin.getUserManager().saveUser(user);
     }
 
     @Override
     public void close(InventoryCloseEvent event) {
-        for (int i = 0; i < 26; i++) {
-            ItemStack item = inventory.getItem(i);
-            if (item == null) {
-                continue;
-            }
-            Map<Integer, ItemStack> pageItemsSwitch = user.getEnderChest().getPages().get(page);
-            if (pageItemsSwitch == null) {
-                pageItemsSwitch = new HashMap<>();
-            }
-            pageItemsSwitch.put(i, item);
-            user.getEnderChest().getPages().add(page, pageItemsSwitch);
-        }
-        plugin.getUserManager().saveUser(user);
+        saveCurrentPage();
+        event.getPlayer().sendMessage(SkyMythPlugin.PREFIX + "§aSeite " + (page + 1) + " gespeichert.");
     }
 }

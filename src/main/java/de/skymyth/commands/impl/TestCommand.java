@@ -18,7 +18,7 @@ public class TestCommand extends MythCommand {
         plugin.getUserManager().getUser(player.getUniqueId())
                 .addKill();
 
-        player.getInventory().addItem(plugin.getProtectorManager().getProtectorItem());
+        //player.getInventory().addItem(plugin.getProtectorManager().getProtectorItem());
 
     }
 }
