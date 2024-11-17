@@ -107,10 +107,6 @@ public class PunishManager {
         }
         punishes.remove(punish);
         repository.delete(punish);
-
-        Bukkit.broadcastMessage("§r");
-        Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Spieler §e" + Bukkit.getOfflinePlayer(target).getName() + " §7wurde soeben entbannt.");
-        Bukkit.broadcastMessage("§r");
     }
 
     public void mute(UUID target, PunishReason reason) {
@@ -134,11 +130,6 @@ public class PunishManager {
             targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest für §e" + TimeUtil.beautifyTime(reason.getPunishDuration().toMillis(), TimeUnit.MILLISECONDS, true, false) + " §7gemutet.");
             targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Grund: §e" + reason.getName());
         }
-
-        Bukkit.broadcastMessage("§r");
-        Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Spieler §e" + Bukkit.getOfflinePlayer(target).getName() + " §7wurde soeben gemutet.");
-        Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Grund: §e" + reason.getName());
-        Bukkit.broadcastMessage("§r");
     }
 
     public void unmute(UUID target) {
@@ -148,10 +139,6 @@ public class PunishManager {
         }
         punishes.remove(punish);
         repository.delete(punish);
-
-        Bukkit.broadcastMessage("§r");
-        Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Spieler §e" + Bukkit.getOfflinePlayer(target).getName() + " §7wurde soeben entmutet.");
-        Bukkit.broadcastMessage("§r");
     }
 
 }
