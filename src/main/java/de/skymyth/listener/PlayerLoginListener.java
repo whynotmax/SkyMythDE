@@ -3,10 +3,13 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+
+import javax.lang.model.element.ElementVisitor;
 
 public record PlayerLoginListener(SkyMythPlugin plugin) implements Listener {
 
@@ -18,6 +21,12 @@ public record PlayerLoginListener(SkyMythPlugin plugin) implements Listener {
             event.disallow(PlayerLoginEvent.Result.KICK_BANNED, plugin.getPunishManager().getBanScreen(result.getPunish()));
             return;
         }
+
+        if(Bukkit.getServer().hasWhitelist() && !player.isWhitelisted()) {
+            Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7wollte den Server betreten.");
+            return;
+        }
+
         event.allow();
     }
 
