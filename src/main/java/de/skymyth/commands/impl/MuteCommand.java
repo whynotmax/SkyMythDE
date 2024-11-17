@@ -42,9 +42,9 @@ public class MuteCommand extends MythCommand {
             }
             return;
         }
-        PunishReason[] banReasons = PunishReason.getReasonsByType(PunishType.MUTE);
-        if (id < 1 || id > banReasons.length) {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Die ID muss zwischen 1 und " + banReasons.length + " liegen.");
+        List<PunishReason> banReasons = PunishReason.getReasonsByType(PunishType.MUTE);
+        if (id < 1 || id > banReasons.size()) {
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Die ID muss zwischen 1 und " + banReasons.size() + " liegen.");
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Folgende ID's stehen zur Verfügung:");
             int index = 1;
             for (PunishReason reason : banReasons) {
@@ -52,7 +52,7 @@ public class MuteCommand extends MythCommand {
             }
             return;
         }
-        PunishReason reason = banReasons[id - 1];
+        PunishReason reason = banReasons.get(id - 1);
         UUID targetUUID = UUIDFetcher.getUUID(targetName);
         plugin.getPunishManager().mute(targetUUID, reason);
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Der Spieler §e" + targetName + " §7wurde für §c" + TimeUtil.beautifyTime(reason.getPunishDuration().toMillis(), TimeUnit.MILLISECONDS, true, true) + " §7gemuted.");
