@@ -50,7 +50,7 @@ public class ScoreboardManager {
                 "  §8× §a" + user.getKills() + " §8/ §c" + user.getDeaths(),
                 "  §8× §e" + user.getKillDeathRatio(),
                 "",
-                "§f$ §8┃ §7Tokens",
+                "§f⛃ §8┃ §7Tokens",
                 "  §8× §f" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()),
                 "",
                 "§f❤ §8┃ §7Online",
