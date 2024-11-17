@@ -28,9 +28,11 @@ public enum PunishReason {
         PunishReason[] reasons = new PunishReason[VALUES.length];
         int index = 0;
         for (PunishReason reason : VALUES) {
-            if (reason.getType() == type) {
-                reasons[index++] = reason;
+            if (reason.getType() != type) {
+                continue;
             }
+            reasons[index] = reason;
+            index++;
         }
         return reasons;
     }
