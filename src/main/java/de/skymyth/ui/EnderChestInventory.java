@@ -37,7 +37,7 @@ public class EnderChestInventory extends AbstractInventory {
             setItem(i, new ItemBuilder(Material.AIR));
         }
 
-        Map<Integer, ItemStack> pageItems = user.getEnderChest().getPages().size() > page ? user.getEnderChest().getPages().get(page) : new HashMap<>();
+        Map<Integer, ItemStack> pageItems = user.getEnderChest().getPages().size() > (page+1) ? user.getEnderChest().getPages().get(page) : new HashMap<>();
         if (pageItems != null) {
             for (Map.Entry<Integer, ItemStack> entry : pageItems.entrySet()) {
                 setItem(entry.getKey(), entry.getValue(), event -> event.setCancelled(!isTrusted));
