@@ -3,7 +3,11 @@ package de.skymyth.commands.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.pvp.model.SpecialItems;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.Chest;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
@@ -22,5 +26,13 @@ public class TestCommand extends MythCommand {
         //player.getInventory().addItem(plugin.getProtectorManager().getProtectorItem());
         player.getInventory().addItem(SpecialItems.FLAME_ROSE.getItemStack());
 
+
+        Block block = player.getLocation().getBlock();
+        block.setType(Material.CHEST);
+        Chest chest = (Chest) block.getState();
+
+        chest.getInventory().setItem(3, new ItemStack(Material.SPONGE));
+        chest.getInventory().setItem(6, new ItemStack(Material.TNT));
+        chest.getInventory().setItem(13, new ItemStack(Material.STICK));
     }
 }

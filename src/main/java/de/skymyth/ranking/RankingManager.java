@@ -65,13 +65,16 @@ public class RankingManager implements Listener {
             Map<UUID, Long> killsMap = new HashMap<>();
 
             for (User user : plugin.getUserManager().getRepository().findAll()) {
+                if(user.getKills() < 1) continue;
                 killsMap.put(user.getUniqueId(), user.getKills());
             }
 
             AtomicInteger integer = new AtomicInteger(1);
             for (Map.Entry<UUID, Long> entry : Util.sortMapByValue(killsMap).entrySet()) {
                 UUID uuid = entry.getKey();
-                Long kills = entry.getValue();
+                long kills = entry.getValue();
+
+                System.out.println(uuid + ";" + kills);
 
                 OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
                 String playerName = UUIDFetcher.getName(uuid);
