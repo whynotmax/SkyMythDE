@@ -8,6 +8,7 @@ import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.punish.repository.PunishRepository;
 import de.skymyth.utility.StringUtil;
 import de.skymyth.utility.TimeUtil;
+import eu.decentsoftware.holograms.api.utils.scheduler.S;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -42,6 +43,17 @@ public class PunishManager {
                 "§7Du kannst einen Entbannungsantrag auf unserem Discord stellen.\n" +
                 "§9§ndiscord.skymyth.de§r\n" +
                 "§r";
+    }
+
+    public void sendMuteMessage(Punish punish) {
+        Player player = plugin.getServer().getPlayer(punish.getTarget());
+        if (player != null) {
+            player.sendMessage("§r");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest für §e" + TimeUtil.beautifyTime(punish.getReason().getPunishDuration().toMillis(), TimeUnit.MILLISECONDS, true, false) + " §7gemutet.");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Grund: §e" + punish.getReason().getName());
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Verbleibende Zeit: §e" + TimeUtil.beautifyTime(punish.getRemaining(), TimeUnit.MILLISECONDS, true, false));
+            player.sendMessage("§r");
+        }
     }
 
     public Punish getPunish(UUID target, PunishType type) {
@@ -117,6 +129,7 @@ public class PunishManager {
         Player targetPlayer = plugin.getServer().getPlayer(target);
         if (targetPlayer != null) {
             targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest für §e" + TimeUtil.beautifyTime(reason.getPunishDuration().toMillis(), TimeUnit.MILLISECONDS, true, false) + " §7gemutet.");
+            targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Grund: §e" + reason.getName());
         }
 
         Bukkit.broadcastMessage("§r");

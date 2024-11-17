@@ -22,4 +22,17 @@ public enum PunishReason {
     PunishType type;
     Duration punishDuration;
 
+    public static final PunishReason[] VALUES = values();
+
+    public static PunishReason[] getReasonsByType(PunishType type) {
+        PunishReason[] reasons = new PunishReason[VALUES.length];
+        int index = 0;
+        for (PunishReason reason : VALUES) {
+            if (reason.getType() == type) {
+                reasons[index++] = reason;
+            }
+        }
+        return reasons;
+    }
+
 }

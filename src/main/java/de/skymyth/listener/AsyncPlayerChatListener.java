@@ -1,6 +1,8 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.punish.model.result.PunishCheckResult;
+import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.user.model.User;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
@@ -23,6 +25,13 @@ public class AsyncPlayerChatListener implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage().replaceAll("%", "%%");
+
+        PunishCheckResult punishCheckResult = plugin.getPunishManager().check(player.getUniqueId());
+        if (punishCheckResult.isPunished() && punishCheckResult.getPunish().getType() == PunishType.MUTE) {
+            event.setCancelled(true);
+            plugin.getPunishManager().sendMuteMessage(punishCheckResult.getPunish());
+            return;
+        }
 
         String[] messageContent = message.split(" ");
 

@@ -2,7 +2,6 @@ package de.skymyth.user.model;
 
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
-import de.skymyth.user.model.enderchest.EnderChest;
 import eu.koboo.en2do.repository.entity.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -33,8 +32,6 @@ public class User {
     Map<Perks, Long> perks;
 
     String selectedBadge;
-
-    EnderChest enderChest;
 
     String joinMessage;
     String quitMessage;

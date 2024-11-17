@@ -2,6 +2,8 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.punish.model.result.PunishCheckResult;
+import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.utility.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -20,6 +22,12 @@ public class MessageCommand extends MythCommand {
 
     @Override
     public void run(Player player, String[] args) {
+
+        PunishCheckResult punishCheckResult = plugin.getPunishManager().check(player.getUniqueId());
+        if (punishCheckResult.isPunished() && punishCheckResult.getPunish().getType() == PunishType.MUTE) {
+            plugin.getPunishManager().sendMuteMessage(punishCheckResult.getPunish());
+            return;
+        }
 
         if (args.length > 1) {
             Player target = Bukkit.getPlayer(args[0]);
