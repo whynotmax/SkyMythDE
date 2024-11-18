@@ -3,7 +3,6 @@ package de.skymyth.commands.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -60,6 +59,8 @@ public class StackCommand extends MythCommand {
                         itemStack.setAmount(rest);
                     } else {
                         content.setAmount(amount);
+                        itemStack.setAmount(1);
+                        itemStack.setType(Material.AIR);
                         break;
                     }
                 }
