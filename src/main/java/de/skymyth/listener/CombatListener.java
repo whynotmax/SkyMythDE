@@ -46,7 +46,7 @@ public class CombatListener implements Listener {
     }
 
     public long getRemainingTime(Player player) {
-        return 15000 - (System.currentTimeMillis() - this.lastHitMap.get(player));
+        return (15000 - (System.currentTimeMillis() - this.lastHitMap.get(player))) / 1000;
     }
 
     public void startCombat(Player player1, Player player2) {
@@ -115,15 +115,9 @@ public class CombatListener implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player)) return;
-        Player damager = (Player) event.getDamager();
-        Player target = (Player) event.getEntity();
+        if (!(event.getDamager() instanceof Player damager) || !(event.getEntity() instanceof Player target)) return;
         User damagerUser = this.plugin.getUserManager().getUser(damager.getUniqueId());
         User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
-        if (isInCombat(damager) || isInCombat(target)) {
-            event.setCancelled(true);
-            return;
-        }
         this.hit(damager);
         this.hit(target);
         this.startCombat(damager, target);

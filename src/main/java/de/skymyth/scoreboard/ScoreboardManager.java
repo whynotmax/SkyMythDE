@@ -44,6 +44,7 @@ public class ScoreboardManager {
         plugin.getTablistManager().setRank(player);
         user.updatePlayTime();
 
+        String playerWorld = player.getWorld().getName();
         fastBoard.updateLines(
                 "",
                 "§f⚔ §8┃ §7Statistiken",
