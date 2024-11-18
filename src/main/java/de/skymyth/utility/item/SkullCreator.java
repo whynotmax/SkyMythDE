@@ -55,9 +55,7 @@ public class SkullCreator {
      *
      * @param name The Player's name.
      * @return The head of the Player.
-     * @deprecated names don't make for good identifiers.
      */
-    @Deprecated
     public static ItemStack itemFromName(String name) {
         return itemWithName(createSkull(), name);
     }
@@ -98,9 +96,7 @@ public class SkullCreator {
      * @param item The item to apply the name to. Must be a player skull.
      * @param name The Player's name.
      * @return The head of the Player.
-     * @deprecated names don't make for good identifiers.
      */
-    @Deprecated
     public static ItemStack itemWithName(ItemStack item, String name) {
         notNull(item, "item");
         notNull(name, "name");
