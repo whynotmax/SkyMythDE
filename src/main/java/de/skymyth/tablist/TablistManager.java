@@ -45,9 +45,9 @@ public class TablistManager {
             scoreboardTeam.setSuffix(suffix.replace("&", "§"));
             teamMap.put(group.getName(), scoreboardTeam);
         }
-        for (Map.Entry<String, Team> teamEntry : teamMap.entrySet()) {
-            System.out.println("Team: " + teamEntry.getKey() + " - " + teamEntry.getValue().getName());
-        }
+//        for (Map.Entry<String, Team> teamEntry : teamMap.entrySet()) {
+//            System.out.println("Team: " + teamEntry.getKey() + " - " + teamEntry.getValue().getName());
+//        }
     }
 
     public void setRank(Player player) {

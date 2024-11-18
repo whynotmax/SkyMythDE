@@ -88,7 +88,7 @@ public class Kit {
     }
 
     @Transient
-    public void giveTo(User user) {
+    public void giveTo(User user, SkyMythPlugin plugin) {
         Player player = Bukkit.getPlayer(user.getUniqueId());
         if (player == null) {
             return;
@@ -138,6 +138,7 @@ public class Kit {
         cooldown.setDuration(this.cooldown);
         cooldown.start();
         user.addCooldown(cooldown);
+        plugin.getUserManager().saveUser(user);
     }
 
 }

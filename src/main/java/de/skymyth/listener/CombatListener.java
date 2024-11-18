@@ -115,18 +115,15 @@ public class CombatListener implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
-        System.out.println("1");
         if (!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player)) return;
         Player damager = (Player) event.getDamager();
         Player target = (Player) event.getEntity();
         User damagerUser = this.plugin.getUserManager().getUser(damager.getUniqueId());
         User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
-        System.out.println("2");
         if (isInCombat(damager) || isInCombat(target)) {
             event.setCancelled(true);
             return;
         }
-        System.out.println("3");
         this.hit(damager);
         this.hit(target);
         this.startCombat(damager, target);

@@ -77,7 +77,7 @@ public class OtherKitsInventory extends AbstractInventory {
                 if (kit == null) {
                     return;
                 }
-                kit.giveTo(user);
+                kit.giveTo(user, plugin);
                 update(page);
             });
             i++;

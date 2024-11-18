@@ -74,8 +74,6 @@ public class RankingManager implements Listener {
                 UUID uuid = entry.getKey();
                 long kills = entry.getValue();
 
-                System.out.println(uuid + ";" + kills);
-
                 OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
                 String playerName = UUIDFetcher.getName(uuid);
 

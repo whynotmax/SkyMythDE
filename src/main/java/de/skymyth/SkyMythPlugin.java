@@ -27,6 +27,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
+import net.jitse.npclib.NPCLib;
+import net.jitse.npclib.api.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandMap;
@@ -147,5 +149,9 @@ public final class SkyMythPlugin extends JavaPlugin {
     public void onDisable() {
         this.rankingManager.delete();
         log.info("SkyMyth Plugin disabled.");
+    }
+
+    private void setupNpcs() {
+
     }
 }
