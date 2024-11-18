@@ -20,7 +20,7 @@ public class LocationManager {
     }
 
     public Position getPosition(String name) {
-        return positions.get(name);
+        return positions.get(name.toLowerCase());
     }
 
     public void savePosition(Position position) {

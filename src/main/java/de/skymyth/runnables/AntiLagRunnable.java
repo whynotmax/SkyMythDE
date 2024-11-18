@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class AntiLagRunnable implements Runnable {
 
-    int seconds = 300;
-    int neededSeconds = 300;
+    int seconds = 750;
+    int neededSeconds = 750;
 
     @Override
     public void run() {

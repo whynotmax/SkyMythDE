@@ -14,14 +14,17 @@ public record PlayerRespawnListener(SkyMythPlugin plugin) implements Listener {
 
         Player player = event.getPlayer();
 
-        player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
+        event.setRespawnLocation(plugin.getLocationManager().getPosition("spawn").getLocation());
+
 
         plugin.getRewardsManager().getHologram().hide(player);
         plugin.getCasinoManager().getDailyPotManager().getHologram().hide(player);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             plugin.getRewardsManager().getHologram().show(player, 1);
             plugin.getCasinoManager().getDailyPotManager().getHologram().show(player, 1);
+            //player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
         }, 10L);
+
     }
 
 }

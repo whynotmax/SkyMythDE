@@ -3,6 +3,7 @@ package de.skymyth.ui;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.location.model.Position;
+import de.skymyth.utility.TeleportUtil;
 import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
@@ -27,10 +28,10 @@ public class WarpInventory extends AbstractInventory {
         ), (event -> {
             Player player = (Player) event.getWhoClicked();
             event.setCancelled(true);
+            player.closeInventory();
             Position spawn = this.plugin.getLocationManager().getPosition("spawn");
             if (spawn != null) {
-                player.teleport(spawn.toBukkitLocation());
-                TitleUtil.sendTitle(player, 0, 40, 20, "§a§lSpawn", "§8× §7Du wurdest teleportiert §8×");
+                TeleportUtil.createTeleportation(plugin, player, plugin.getLocationManager().getPosition("spawn").getLocation(), "Spawn");
                 return;
             }
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Spawn wurde noch nicht gesetzt.");
@@ -43,10 +44,10 @@ public class WarpInventory extends AbstractInventory {
         ), event -> {
             Player player = (Player) event.getWhoClicked();
             event.setCancelled(true);
+            player.closeInventory();
             Position rewards = this.plugin.getLocationManager().getPosition("rewards");
             if (rewards != null) {
-                player.teleport(rewards.toBukkitLocation());
-                TitleUtil.sendTitle(player, 0, 40, 20, "§a§lBelohnungen", "§8× §7Du wurdest teleportiert §8×");
+                TeleportUtil.createTeleportation(plugin, player, plugin.getLocationManager().getPosition("rewards").getLocation(), "Belohnungen");
                 return;
             }
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Belohnungen wurden noch nicht gesetzt.");
