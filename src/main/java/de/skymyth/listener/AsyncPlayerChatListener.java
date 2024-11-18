@@ -77,6 +77,7 @@ public class AsyncPlayerChatListener implements Listener {
         String format;
 
         var playerGroup = LuckPermsProvider.get().getGroupManager().getGroup(LuckPermsProvider.get().getUserManager().getUser(player.getUniqueId()).getPrimaryGroup());
+        var canUseColors = playerGroup.getCachedData().getMetaData().getMetaValue("chat-colors");
         var chatPrefix = playerGroup.getCachedData().getMetaData().getMetaValue("chat-prefix");
         if (chatPrefix == null) chatPrefix = "§r" + playerGroup.getName();
         else chatPrefix = chatPrefix.replace("&", "§");
@@ -88,6 +89,9 @@ public class AsyncPlayerChatListener implements Listener {
             chatPrefix = "§r §8[" + badge.getCharacter() + "§8] §7";
         }
 
+        if (canUseColors != null && canUseColors.equalsIgnoreCase("true")) {
+            message = message.replace("&", "§").replace("§k", "&k").replace("§n", "&n").replace("§m", "&m");
+        }
         format = "§r " + chatPrefix + "§7" + player.getName() + "§8 × §7" + message;
 
         event.setFormat(format);
