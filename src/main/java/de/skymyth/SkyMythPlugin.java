@@ -12,6 +12,7 @@ import de.skymyth.location.LocationManager;
 import de.skymyth.punish.PunishManager;
 import de.skymyth.ranking.RankingManager;
 import de.skymyth.rewards.RewardsManager;
+import de.skymyth.runnables.AntiLagRunnable;
 import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
@@ -138,6 +139,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.allowedPlayers.add("Tony782");
         this.allowedPlayers.add("Lele_Mennels");
 
+        Bukkit.getScheduler().runTaskTimer(this, new AntiLagRunnable(), 20L, 20L);
 
         log.info("SkyMyth Plugin enabled.");
     }

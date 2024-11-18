@@ -100,30 +100,30 @@ public class Kit {
         }
 
         for (ItemStack item : items) {
-            if (item.getType().name().contains("HELMET")) {
-                if (player.getInventory().getHelmet() != null) {
-                    player.getInventory().addItem(player.getInventory().getHelmet());
+            if (item.getType().name().toUpperCase().contains("HELMET")) {
+                if (player.getInventory().getHelmet() == null || player.getInventory().getHelmet().getType() == Material.AIR) {
+                    player.getInventory().setHelmet(item);
                 } else {
                     player.getInventory().addItem(item);
                 }
                 continue;
-            } else if (item.getType().name().contains("CHESTPLATE")) {
-                if (player.getInventory().getChestplate() != null) {
-                    player.getInventory().addItem(player.getInventory().getChestplate());
+            } else if (item.getType().name().toUpperCase().contains("CHESTPLATE")) {
+                if (player.getInventory().getChestplate() == null || player.getInventory().getChestplate().getType() == Material.AIR) {
+                    player.getInventory().setChestplate(item);
                 } else {
                     player.getInventory().addItem(item);
                 }
                 continue;
-            } else if (item.getType().name().contains("LEGGINGS")) {
-                if (player.getInventory().getLeggings() != null) {
-                    player.getInventory().addItem(player.getInventory().getLeggings());
+            } else if (item.getType().name().toUpperCase().contains("LEGGINGS")) {
+                if (player.getInventory().getLeggings() == null || player.getInventory().getLeggings().getType() == Material.AIR) {
+                    player.getInventory().setLeggings(item);
                 } else {
                     player.getInventory().addItem(item);
                 }
                 continue;
-            } else if (item.getType().name().contains("BOOTS")) {
-                if (player.getInventory().getBoots() != null) {
-                    player.getInventory().addItem(player.getInventory().getBoots());
+            } else if (item.getType().name().toUpperCase().contains("BOOTS")) {
+                if (player.getInventory().getBoots() == null || player.getInventory().getBoots().getType() == Material.AIR) {
+                    player.getInventory().setBoots(item);
                 } else {
                     player.getInventory().addItem(item);
                 }
@@ -131,11 +131,12 @@ public class Kit {
             }
             player.getInventory().addItem(item);
         }
+        player.updateInventory();
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");
 
         Cooldown cooldown = new Cooldown();
         cooldown.setName("kit_" + name.toLowerCase());
-        cooldown.setDuration(this.cooldown);
+        cooldown.setDuration(Duration.ofMillis(this.cooldown.toMillis()));
         cooldown.start();
         user.addCooldown(cooldown);
         plugin.getUserManager().saveUser(user);

@@ -21,6 +21,7 @@ public class Util {
     public static final ArrayList<Player> VANISH = new ArrayList<>();
     public static final ArrayList<Player> FREEZE = new ArrayList<>();
     public static final Random random = new Random();
+    public static boolean canDropItems = true;
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {
         return map.entrySet().stream()
