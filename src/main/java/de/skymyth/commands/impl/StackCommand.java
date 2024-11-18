@@ -11,8 +11,8 @@ import java.util.List;
 
 public class StackCommand extends MythCommand {
 
-    public StackCommand(String name, String permission, List<String> aliases, SkyMythPlugin plugin) {
-        super(name, permission, aliases, plugin);
+    public StackCommand(SkyMythPlugin plugin) {
+        super("stack", "myth.stack", List.of(), plugin);
     }
 
     @Override
