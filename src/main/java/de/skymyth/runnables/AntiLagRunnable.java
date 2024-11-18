@@ -20,16 +20,16 @@ public class AntiLagRunnable implements Runnable {
             case 30:
             case 10:
                 Util.canDropItems = false;
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es werden alle §eItems §7auf dem Boden in §e" + seconds + " Sekunden §7entfernt.");
+                if (!Bukkit.getOnlinePlayers().isEmpty()) Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es werden alle §eItems §7auf dem Boden in §e" + seconds + " Sekunden §7entfernt.");
                 break;
             case 5:
             case 4:
             case 3:
             case 2:
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es werden alle §eItems §7auf dem Boden in §e" + seconds + " Sekunden §7entfernt.");
+                if (!Bukkit.getOnlinePlayers().isEmpty()) Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es werden alle §eItems §7auf dem Boden in §e" + seconds + " Sekunden §7entfernt.");
                 break;
             case 1:
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es werden alle §eItems §7auf dem Boden in §e" + seconds + " Sekunde §7entfernt.");
+                if (!Bukkit.getOnlinePlayers().isEmpty()) Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es werden alle §eItems §7auf dem Boden in §e" + seconds + " Sekunde §7entfernt.");
                 break;
             case 0:
                 seconds = neededSeconds;
@@ -39,7 +39,7 @@ public class AntiLagRunnable implements Runnable {
                     itemsRemoved.getAndIncrement();
                     entity.remove();
                 }));
-                Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es wurden §e" + itemsRemoved.get() + " Items §7vom Boden entfernt.");
+                if (!Bukkit.getOnlinePlayers().isEmpty()) Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es wurden §e" + itemsRemoved.get() + " Items §7vom Boden entfernt.");
                 Util.canDropItems = true;
                 break;
         }

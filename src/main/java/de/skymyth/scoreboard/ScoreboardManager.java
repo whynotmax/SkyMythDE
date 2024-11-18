@@ -68,6 +68,26 @@ public class ScoreboardManager {
             );
             return;
         }
+        if (playerWorld.equalsIgnoreCase("PvP")) {
+            fastBoard.updateLines(
+                    "",
+                    "§f⚔ §8┃ §7Statistiken",
+                    "  §8× §a" + user.getKills() + " §8/ §c" + user.getDeaths(),
+                    "  §8× §e" + user.getKillDeathRatio(),
+                    "",
+                    "§f⛃ §8┃ §7Tokens",
+                    "  §8× §f" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()),
+                    "",
+                    "§f❤ §8┃ §7PvP-Shards",
+                    "  §8× §b" + NumberFormat.getInstance(Locale.GERMAN).format(user.getPvpShards()) ,
+                    "",
+                    "§f♛ §8┃ §7Trophäen",
+                    "  §8× §6" + user.getTrophies(),
+                    ""
+            );
+            return;
+        }
+        //TODO: Mine scoreboard?
         fastBoard.updateLines(
                 "",
                 "§f⚔ §8┃ §7Statistiken",
