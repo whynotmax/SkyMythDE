@@ -1,4 +1,4 @@
-package de.skymyth.listener;
+package de.skymyth.combat;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
@@ -39,6 +39,7 @@ public class CombatListener implements Listener {
             add("/tpaccept");
             add("/tpahere");
         }};
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     public void hit(Player player) {
@@ -86,6 +87,9 @@ public class CombatListener implements Listener {
 
             TitleUtil.sendActionBar(target1, "§cDu bist im Kampf mit " + target2.getName() + " §8(§e" + getRemainingTime(player1) + "§8)");
             TitleUtil.sendActionBar(target2, "§cDu bist im Kampf mit " + target1.getName() + " §8(§e" + getRemainingTime(player2) + "§8)");
+
+            plugin.getScoreboardManager().updateScoreboard(target1);
+            plugin.getScoreboardManager().updateScoreboard(target2);
         }, 0L, 20);
 
         this.combatTaskMap.put(player1, task);
@@ -94,6 +98,10 @@ public class CombatListener implements Listener {
 
     public boolean isInCombat(Player player) {
         return this.combatMap.containsKey(player);
+    }
+
+    public Player getEnemy(Player player) {
+        return this.combatMap.get(player);
     }
 
     @EventHandler
@@ -163,6 +171,9 @@ public class CombatListener implements Listener {
 
             target.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + player.getName() + " §7getötet.");
             target.sendMessage(SkyMythPlugin.PREFIX + "§8+§a1 Kill §8+§a100 Tokens §8+§a150 Trophäen");
+
+            plugin.getScoreboardManager().updateScoreboard(target);
+            plugin.getScoreboardManager().updateScoreboard(player);
         }
     }
 
@@ -206,16 +217,18 @@ public class CombatListener implements Listener {
             target.sendMessage(SkyMythPlugin.PREFIX + "§8+§a1 Kill §8+§a100 Tokens §8+§a150 Trophäen");
 
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7hat sich im Kampf ausgeloggt.");
+
+            plugin.getScoreboardManager().updateScoreboard(target);
         }
     }
 
-    private String getHearts(Player player) {
+    public String getHearts(Player player) {
         double health = player.getHealth();
         int hearts = (int) Math.ceil(health / 2);
         StringBuilder builder = new StringBuilder();
         builder.append("❤".repeat(Math.max(0, hearts)));
         String healthString = String.format("%.1f", health);
-        return "§c" + builder.toString() + "§8 (§e" + healthString + "§8)";
+        return "§c" + builder + "§8 (§e" + healthString + "§8)";
     }
 
 }

@@ -4,6 +4,7 @@ package de.skymyth;
 import de.skymyth.badge.BadgeManager;
 import de.skymyth.casino.CasinoManager;
 import de.skymyth.clan.ClanManager;
+import de.skymyth.combat.CombatListener;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
@@ -65,6 +66,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     RewardsManager rewardsManager;
     KitManager kitManager;
     CasinoManager casinoManager;
+    CombatListener combatListener;
 
 
     @Override
@@ -88,6 +90,8 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.rewardsManager = new RewardsManager(plugin);
         this.kitManager = new KitManager(plugin);
         this.casinoManager = new CasinoManager(plugin);
+
+        this.combatListener = new CombatListener(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {

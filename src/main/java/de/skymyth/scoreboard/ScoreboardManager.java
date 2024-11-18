@@ -2,18 +2,22 @@ package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.Util;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ScoreboardManager {
@@ -45,6 +49,25 @@ public class ScoreboardManager {
         user.updatePlayTime();
 
         String playerWorld = player.getWorld().getName();
+        if (plugin.getCombatListener().isInCombat(player)) {
+            fastBoard.updateLines(
+                    "",
+                    "§f⚔ §8┃ §7Rüstung",
+                    "  §8× §f" + getDurability(player.getInventory().getHelmet()) + " §7Helm",
+                    "  §8× §f" + getDurability(player.getInventory().getChestplate()) + " §7Brustplatte",
+                    "  §8× §f" + getDurability(player.getInventory().getLeggings()) + " §7Hose",
+                    "  §8× §f" + getDurability(player.getInventory().getBoots()) + " §7Schuhe",
+                    "",
+                    "§fΩ §8┃ §7Gegner",
+                    "  §8× §c" + plugin.getCombatListener().getEnemy(player).getName(),
+                    "  §8× §c" + plugin.getCombatListener().getHearts(plugin.getCombatListener().getEnemy(player)),
+                    "",
+                    "§f✄ §8┃ §7Verbleibend",
+                    "  §8× §c" + TimeUtil.beautifyTime(plugin.getCombatListener().getRemainingTime(player), TimeUnit.MILLISECONDS, true, true),
+                    ""
+            );
+            return;
+        }
         fastBoard.updateLines(
                 "",
                 "§f⚔ §8┃ §7Statistiken",
@@ -61,5 +84,32 @@ public class ScoreboardManager {
                 "  §8× §6" + user.getTrophies(),
                 ""
         );
+    }
+
+    private String getDurability(ItemStack itemStack) {
+        String perfect = "§a";
+        String good = "§2";
+        String middle = "§e";
+        String bad = "§c";
+        String ugly = "§4";
+
+        if (itemStack == null || itemStack.getType() == Material.AIR) {
+            return "§c✘";
+        }
+
+        double durability = (double) itemStack.getDurability() / itemStack.getType().getMaxDurability();
+
+        if (durability >= 0.8) {
+            return perfect + "✦ §8(§e" + String.format("%.2f", (durability * 100)) + "%§8)";
+        } else if (durability >= 0.6) {
+            return good + "✦ §8(§e" + String.format("%.2f", (durability * 100)) + "%§8)";
+        } else if (durability >= 0.4) {
+            return middle + "✦ §8(§e" + String.format("%.2f", (durability * 100)) + "%§8)";
+        } else if (durability >= 0.2) {
+            return bad + "✦ §8(§e" + String.format("%.2f", (durability * 100)) + "%§8)";
+        } else {
+            return ugly + "✦ §8(§e" + String.format("%.2f", (durability * 100)) + "%§8)";
+        }
+
     }
 }
