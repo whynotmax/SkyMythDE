@@ -54,6 +54,8 @@ public class CombatListener implements Listener {
         this.combatMap.put(player1, player2);
         this.combatMap.put(player2, player1);
 
+        if(player1 == player2) return;
+
         BukkitTask task = this.plugin.getServer().getScheduler().runTaskTimer(this.plugin, () -> {
 
             if (this.combatMap.get(player1) == null || this.combatMap.get(player2) == null) {
