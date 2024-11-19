@@ -1,11 +1,19 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.commands.impl.TestCommand;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+
+import javax.lang.model.element.ElementVisitor;
+import java.util.ArrayList;
+import java.util.List;
 
 public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
 
@@ -22,5 +30,7 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
             }
         }
     }
+
+
 
 }

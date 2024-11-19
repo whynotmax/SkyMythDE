@@ -2,6 +2,9 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.utility.Util;
+import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -9,8 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class TestCommand extends MythCommand {
+
 
     public TestCommand(SkyMythPlugin plugin) {
         super("test", null, new ArrayList<>(), plugin);
@@ -22,8 +28,8 @@ public class TestCommand extends MythCommand {
         plugin.getUserManager().getUser(player.getUniqueId())
                 .addKill();
 
-        //player.getInventory().addItem(plugin.getProtectorManager().getProtectorItem());
 
+        //player.getInventory().addItem(plugin.getProtectorManager().getProtectorItem());
 
         Block block = player.getLocation().getBlock();
         block.setType(Material.CHEST);

@@ -4,7 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
-import org.bukkit.Chunk;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -65,5 +65,35 @@ public class Util {
         }
         return false;
     }
+
+
+    public static Map<String, List<Block>> makeCircle(Location loc, int r) {
+        List<Block> circleBlocks = new ArrayList<>();
+        List<Block> innerBlocks = new ArrayList<>();
+        int centerX = loc.getBlockX();
+        int centerY = loc.getBlockY();
+        int centerZ = loc.getBlockZ();
+        World world = loc.getWorld();
+
+        for (int x = centerX - r; x <= centerX + r; x++) {
+            for (int z = centerZ - r; z <= centerZ + r; z++) {
+                double distanceSquared = Math.pow(x - centerX, 2) + Math.pow(z - centerZ, 2);
+
+                if (distanceSquared >= Math.pow(r - 0.5, 2) && distanceSquared <= Math.pow(r + 0.5, 2)) {
+                    circleBlocks.add(world.getBlockAt(x, centerY, z));
+                }
+                else if (distanceSquared < Math.pow(r, 2)) {
+                    innerBlocks.add(world.getBlockAt(x, centerY, z));
+                }
+            }
+        }
+
+        Map<String, List<Block>> result = new HashMap<>();
+        result.put("circle", circleBlocks);
+        result.put("inner", innerBlocks);
+
+        return result;
+    }
+
 
 }

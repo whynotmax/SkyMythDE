@@ -51,7 +51,7 @@ public class CombatListener implements Listener {
     }
 
     public void startCombat(Player player1, Player player2) {
-        if(player1 == player2) return;
+        if (player1 == player2) return;
 
         this.combatMap.put(player1, player2);
         this.combatMap.put(player2, player1);
@@ -60,8 +60,12 @@ public class CombatListener implements Listener {
         BukkitTask task = this.plugin.getServer().getScheduler().runTaskTimer(this.plugin, () -> {
 
             if (this.combatMap.get(player1) == null || this.combatMap.get(player2) == null) {
-                this.combatTaskMap.get(player1).cancel();
-                this.combatTaskMap.get(player2).cancel();
+                if (this.combatTaskMap.containsKey(player1)) {
+                    this.combatTaskMap.get(player1).cancel();
+                }
+                if (this.combatTaskMap.containsKey(player2)) {
+                    this.combatTaskMap.get(player2).cancel();
+                }
                 this.combatTaskMap.remove(player1);
                 this.combatTaskMap.remove(player2);
                 return;
@@ -216,9 +220,6 @@ public class CombatListener implements Listener {
                 playerUser.setTrophies(0);
             }
             this.plugin.getUserManager().saveUser(playerUser);
-
-            target.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + player.getName() + " §7getötet.");
-            target.sendMessage(SkyMythPlugin.PREFIX + "§8+§a1 Kill §8+§a100 Tokens §8+§a150 Trophäen");
 
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7hat sich im Kampf ausgeloggt.");
 

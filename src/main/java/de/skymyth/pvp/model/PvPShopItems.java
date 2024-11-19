@@ -1,6 +1,7 @@
 package de.skymyth.pvp.model;
 
 import de.skymyth.utility.item.ItemBuilder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Material;
@@ -8,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 @Getter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
+@AllArgsConstructor
 public enum PvPShopItems {
 
     GOLDEN_APPLE(new ItemStack(Material.GOLDEN_APPLE), "§6Goldener PvP Apfel", 10),
@@ -21,9 +23,4 @@ public enum PvPShopItems {
     String displayname;
     long price;
 
-     PvPShopItems(ItemStack itemStack, String displayname, long price) {
-         this.itemStack = itemStack;
-         this.displayname = displayname;
-         this.price = price;
-     }
 }

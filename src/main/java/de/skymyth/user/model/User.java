@@ -56,7 +56,7 @@ public class User {
     }
 
     public void addPvPShards(long amount) {
-        this.balance += amount;
+        this.pvpShards += amount;
     }
 
     public void addTrophy() {
