@@ -93,9 +93,8 @@ public class ScoreboardManager {
             BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(player.getLocation().getBlock());
 
             if(baseProtector != null) {
-                TitleUtil.sendActionBar(player, "§7Basisschutz von §e" + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName()
-                        + "§8, §8( §a" + Math.round(plugin.getBaseProtectorManager().getBaseProtectionDistance(player.getLocation().getBlock()))
-                        + "§8/§c" + baseProtector.getBaseProtectorRadius().getRadius() + " §7Distanz §8)");
+                TitleUtil.sendActionBar(player, "§7Du befindest dich im Basisschutz von §e" +
+                        Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName());
             }
         }
         //TODO: Mine scoreboard?

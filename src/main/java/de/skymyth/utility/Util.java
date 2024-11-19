@@ -80,15 +80,11 @@ public class Util {
     }
 
     public static void removeItem(Player player, ItemStack itemStack) {
-        for (ItemStack item : player.getInventory().getContents()) {
-            if (item != null && item.isSimilar(itemStack)) {
-                if (item.getAmount() > 1) {
-                    item.setAmount(item.getAmount() - 1);
-                } else {
-                    player.getInventory().remove(item);
-                }
-                break;
-            }
+        if(itemStack.getAmount() == 1) {
+            player.getInventory().removeItem(itemStack);
+        } else {
+            itemStack.setAmount(itemStack.getAmount() - 1);
+            player.updateInventory();
         }
     }
 

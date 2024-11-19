@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 
 import javax.lang.model.element.ElementVisitor;
 
@@ -37,7 +38,7 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
                 return;
             }
 
-            ItemBuilder itemBuilder = new ItemBuilder(event.getItemInHand());
+            ItemStack itemStack = event.getItemInHand();
             if (event.getItemInHand().getType() == Material.ENDER_PORTAL_FRAME) {
 
                 if (plugin.getBaseProtectorManager().hasBaseProtection(player.getUniqueId())) {
@@ -46,9 +47,11 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
                     return;
                 }
 
-                Util.removeItem(player, itemBuilder);
+                Util.removeItem(player, itemStack);
                 plugin.getBaseProtectorManager().createBaseProtection(player.getUniqueId(), event.getBlockPlaced().getLocation());
                 player.sendMessage(SkyMythPlugin.PREFIX + "§aDein Basisschutz wurde erfolgreich erstellt.");
+
+
             }
         }
 
