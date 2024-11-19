@@ -20,8 +20,22 @@ public class Util {
     public static final Cache<Player, Player> TELEPORT = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
     public static final ArrayList<Player> VANISH = new ArrayList<>();
     public static final ArrayList<Player> FREEZE = new ArrayList<>();
-    public static final Random random = new Random();
-    public static boolean canDropItems = true;
+    public static final Random RANDOM = new Random();
+    public static boolean CANDROPITEMS = true;
+    public static final List<String> BLOCKED_COMMANDS = new ArrayList<>(){{
+        add("/plugins");
+        add("/pl");
+        add("/me");
+        add("/say");
+        add("/minecraft:");
+        add("/ver");
+        add("/version");
+        add("/about");
+        add("/icanhasbukkit");
+        add("/bukkit:");
+        add("/tell");
+        add("/?");
+    }};
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {
         return map.entrySet().stream()

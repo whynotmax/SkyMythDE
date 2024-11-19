@@ -19,7 +19,7 @@ public class AntiLagRunnable implements Runnable {
             case 60:
             case 30:
             case 10:
-                Util.canDropItems = false;
+                Util.CANDROPITEMS = false;
                 if (!Bukkit.getOnlinePlayers().isEmpty()) Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es werden alle §eItems §7auf dem Boden in §e" + seconds + " Sekunden §7entfernt.");
                 break;
             case 5:
@@ -40,7 +40,7 @@ public class AntiLagRunnable implements Runnable {
                     entity.remove();
                 }));
                 if (!Bukkit.getOnlinePlayers().isEmpty()) Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es wurden §e" + itemsRemoved.get() + " Items §7vom Boden entfernt.");
-                Util.canDropItems = true;
+                Util.CANDROPITEMS = true;
                 break;
         }
     }

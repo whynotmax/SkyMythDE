@@ -58,7 +58,7 @@ public class RTPManager {
     }
 
     protected Location getLocation() {
-        Random random = Util.random;
+        Random random = Util.RANDOM;
         int x = random.nextInt(this.xCoord);
         int z = random.nextInt(this.zCoord);
         x = this.randomizeType(x);

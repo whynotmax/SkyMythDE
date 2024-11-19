@@ -18,7 +18,7 @@ public class ClanCommand extends MythCommand {
 
 
     public ClanCommand(SkyMythPlugin plugin) {
-        super("clan", "", new ArrayList<>(), plugin);
+        super("clan", null, new ArrayList<>(), plugin);
     }
 
     @Override

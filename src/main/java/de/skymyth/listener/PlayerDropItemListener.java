@@ -2,7 +2,6 @@ package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.utility.Util;
-import net.minecraft.server.v1_8_R3.WorldGenAcaciaTree;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +20,7 @@ public record PlayerDropItemListener(SkyMythPlugin plugin) implements Listener {
             player.sendMessage(SkyMythPlugin.PREFIX + "§cWenn du etwas wegwerfen möchtest, benutze /müll.");
             return;
         }
-        if (!Util.canDropItems) {
+        if (!Util.CANDROPITEMS) {
             event.setCancelled(true);
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst aktuell keine Items auf den Boden werfen.");
         }
