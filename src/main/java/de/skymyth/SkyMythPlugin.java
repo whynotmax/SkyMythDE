@@ -39,6 +39,7 @@ import org.reflections.Reflections;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 @Log
 @Getter
@@ -69,6 +70,10 @@ public final class SkyMythPlugin extends JavaPlugin {
     CombatListener combatListener;
     PvPShopManager pvPShopManager;
     AuctionHouseManager auctionHouseManager;
+
+    private final ForkJoinPool forkJoinPool = new ForkJoinPool(5,
+            ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+            (t, e) -> e.printStackTrace(System.out), true);
 
 
     @Override

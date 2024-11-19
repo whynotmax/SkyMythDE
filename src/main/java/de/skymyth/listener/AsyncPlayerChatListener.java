@@ -4,16 +4,34 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.user.model.User;
+import de.skymyth.utility.Util;
+import de.skymyth.utility.item.ItemBuilder;
 import net.luckperms.api.LuckPermsProvider;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
+
 public class AsyncPlayerChatListener implements Listener {
 
+    private final Pattern accentfilter = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
     private final String[] blockedContent = {".de", ".eu", "nigger", "nigga", "n1gg4", "n1gga", "n1gger", "n1gg3r", ".com", ".net", ".org", ".tk", "sieg", "heil", "miethe"};
     SkyMythPlugin plugin;
 
@@ -33,26 +51,6 @@ public class AsyncPlayerChatListener implements Listener {
             return;
         }
 
-        String[] messageContent = message.split(" ");
-
-        StringBuilder contentToSendToTeam = new StringBuilder();
-
-        boolean foundAny = false;
-        for (String content : messageContent) {
-            boolean isBlocked = false;
-            for (String blocked : blockedContent) {
-                if (content.equalsIgnoreCase(blocked)) {
-                    foundAny = true;
-                    contentToSendToTeam.append("§c§n").append(content).append("§7 ");
-                    isBlocked = true;
-                    break;
-                }
-            }
-            if (!isBlocked) {
-                contentToSendToTeam.append(content).append(" ");
-            }
-        }
-
         if (plugin.isGlobalMute() && !player.hasPermission("myth.team")) {
             event.setCancelled(true);
             player.sendMessage(SkyMythPlugin.PREFIX + "§cWährend dem Globalmute kannst du nicht schreiben.");
@@ -60,17 +58,6 @@ public class AsyncPlayerChatListener implements Listener {
             return;
         }
 
-
-        if (foundAny) {
-            event.setCancelled(true);
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cDeine Nachricht wird nun von Teammitgliedern überprüft.");
-            for (var teamMember : Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("myth.team")).toList()) {
-                teamMember.sendMessage(SkyMythPlugin.PREFIX + "§c" + player.getName() + "§7 hat versucht, folgendes zu schreiben:");
-                teamMember.sendMessage(SkyMythPlugin.PREFIX + "§7" + contentToSendToTeam);
-                teamMember.playSound(teamMember.getLocation(), Sound.ORB_PICKUP, 1, 1);
-            }
-            return;
-        }
 
         User user = plugin.getUserManager().getUser(player.getUniqueId());
 
@@ -83,17 +70,42 @@ public class AsyncPlayerChatListener implements Listener {
         else chatPrefix = chatPrefix.replace("&", "§");
 
         boolean hasBadge = user.getSelectedBadge() != null;
-        var badge = (!hasBadge ? null : plugin.getBadgeManager().getBadge(user.getSelectedBadge())); //Implemented badge system
+        var badge = (!hasBadge ? null : plugin.getBadgeManager().getBadge(user.getSelectedBadge()));
 
+        TextComponent textComponent = new TextComponent("");
         if (badge != null) {
             chatPrefix = "§8[§f" + badge.getColor() + badge.getCharacter() + "§8] §7";
+
+            ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
+            badgeItem.setName("§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge");
+            badgeItem.lore(
+                    "§8Badge-ID: " + badge.getName(),
+                    "§r",
+                    "§7§o" + badge.getDescription(),
+                    "§r",
+                    "§7Besitzer: §e" + badge.getOwners().size(),
+                    "§7Erstellt um: §e" + new SimpleDateFormat("dd.MM.yyyy HH:mm").format(badge.getCreationDate()),
+                    "§7Erstellt von: §e" + plugin.getServer().getOfflinePlayer(badge.getCreator()).getName(),
+                    "§r",
+                    (badge.getOwners().contains(player.getUniqueId()) ? "§a" : "§c")
+                            + (badge.getOwners().contains(player.getUniqueId()) ? "Du besitzt dieses Badge." : "Du besitzt dieses Badge nicht.")
+            );
+
+            textComponent = new TextComponent(chatPrefix);
+            TextComponent hover = new TextComponent(badge.getName());
+            hover.setHoverEvent(Util.showItem(badgeItem));
+            textComponent.addExtra(hover);
         }
 
         if (canUseColors != null && canUseColors.equalsIgnoreCase("true")) {
             message = message.replace("&", "§").replace("§k", "&k").replace("§n", "&n").replace("§m", "&m");
         }
-        format = "§r " + chatPrefix + "§7" + player.getName() + "§8 × §7" + message;
+        format = "§r " + textComponent + "§7" + player.getName() + "§8 × §7" + message;
 
-        event.setFormat(format);
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            onlinePlayer.spigot().sendMessage(new TextComponent(format));
+        }
+        //event.setFormat(format);
     }
+
 }

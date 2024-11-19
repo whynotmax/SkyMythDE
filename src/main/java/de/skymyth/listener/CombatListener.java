@@ -148,7 +148,7 @@ public class CombatListener implements Listener {
     }
 
     @EventHandler
-    public void onDeath(final PlayerDeathEvent event) {
+    public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         if (isInCombat(player)) {
 
