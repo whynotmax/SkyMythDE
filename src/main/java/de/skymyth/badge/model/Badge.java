@@ -20,6 +20,7 @@ public class Badge {
     @Id
     String name;
     String description;
+    String color;
 
     String character;
 

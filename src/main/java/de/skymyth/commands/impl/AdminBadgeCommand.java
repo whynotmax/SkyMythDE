@@ -18,6 +18,7 @@ public class AdminBadgeCommand extends MythCommand {
     public void sendHelp(Player player) {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende:");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge create <name> <char> <description>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge setcolor <name> <color>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge delete <name>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge add <player> <badge>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge remove <player> <badge>");
@@ -42,12 +43,27 @@ public class AdminBadgeCommand extends MythCommand {
                 plugin.getBadgeManager().createBadge(new Badge(
                         args[1],
                         stringBuilder.toString().trim(),
+                        "§f",
                         String.valueOf(args[2].charAt(0)),
                         System.currentTimeMillis(),
                         player.getUniqueId(),
                         new ArrayList<>()
                 ));
                 player.sendMessage(SkyMythPlugin.PREFIX + "§7Badge §e" + args[1] + " §7erstellt.");
+                break;
+            case "setcolor":
+                if (args.length < 3) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /abadge setcolor <name> <color>");
+                    return;
+                }
+                Badge badge3 = plugin.getBadgeManager().getBadge(args[1]);
+                if (badge3 == null) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Badge existiert nicht.");
+                    return;
+                }
+                badge3.setColor(args[2].replace('&', '§'));
+                plugin.getBadgeManager().saveBadge(badge3);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Farbe von Badge §e" + args[1] + " §7zu §e" + args[2].replace("§", "&") + " §7geändert.");
                 break;
             case "delete":
                 if (args.length < 2) {
