@@ -42,6 +42,7 @@ public class BadgeInventory extends AbstractInventory {
                     "§r",
                     (badge.getOwners().contains(playerUUID) ? "§a" : "§c") + (badge.getOwners().contains(playerUUID) ? "Du besitzt dieses Badge." : "Du besitzt dieses Badge nicht.")
             );
+            pagination.addItem(badgeItem);
         }
 
         update(0);

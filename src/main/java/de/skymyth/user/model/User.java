@@ -40,7 +40,7 @@ public class User {
     String quitMessage;
 
     public void addBalance(long amount) {
-        this.balance += amount;
+        this.balance += amount ;
     }
 
     public void removeBalance(long amount) {

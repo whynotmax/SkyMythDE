@@ -16,7 +16,7 @@ public class TrashCommand extends MythCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        player.openInventory(Bukkit.createInventory(null, 54, "Müll"));
+        player.openInventory(Bukkit.createInventory(null, 36, "Müll"));
 
     }
 }
