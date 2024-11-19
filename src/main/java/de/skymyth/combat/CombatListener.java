@@ -51,10 +51,11 @@ public class CombatListener implements Listener {
     }
 
     public void startCombat(Player player1, Player player2) {
+        if(player1 == player2) return;
+
         this.combatMap.put(player1, player2);
         this.combatMap.put(player2, player1);
 
-        if(player1 == player2) return;
 
         BukkitTask task = this.plugin.getServer().getScheduler().runTaskTimer(this.plugin, () -> {
 
