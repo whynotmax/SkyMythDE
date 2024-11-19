@@ -4,7 +4,6 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.location.model.Position;
 import de.skymyth.utility.TeleportUtil;
-import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
 import org.bukkit.Material;

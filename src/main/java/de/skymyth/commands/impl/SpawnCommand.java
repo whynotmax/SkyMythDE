@@ -3,15 +3,9 @@ package de.skymyth.commands.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.utility.TeleportUtil;
-import de.skymyth.utility.TitleUtil;
-import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SpawnCommand extends MythCommand {
 

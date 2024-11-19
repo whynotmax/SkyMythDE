@@ -15,22 +15,11 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 public class AsyncPlayerChatListener implements Listener {
@@ -83,12 +72,7 @@ public class AsyncPlayerChatListener implements Listener {
             ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
             badgeItem.setName("§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge");
             badgeItem.lore(
-                    "§7§o" + badge.getDescription(),
-                    "§r",
-                    "§7Besitzer: §e" + badge.getOwners().size(),
-                    "§7Erstellt um: §e" + new SimpleDateFormat("dd.MM.yyyy HH:mm").format(badge.getCreationDate()),
-                    "§7Erstellt von: §e" + plugin.getServer().getOfflinePlayer(badge.getCreator()).getName(),
-                    "§r"
+                    "§7§o" + badge.getDescription()
             );
             TextComponent hover = new TextComponent(chatPrefix);
             hover.setHoverEvent(Util.showItem(badgeItem));

@@ -8,7 +8,9 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import org.bukkit.*;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
@@ -27,8 +29,7 @@ public class Util {
     public static final ArrayList<Player> VANISH = new ArrayList<>();
     public static final ArrayList<Player> FREEZE = new ArrayList<>();
     public static final Random RANDOM = new Random();
-    public static boolean CANDROPITEMS = true;
-    public static final List<String> BLOCKED_COMMANDS = new ArrayList<>(){{
+    public static final List<String> BLOCKED_COMMANDS = new ArrayList<>() {{
         add("/plugins");
         add("/pl");
         add("/me");
@@ -42,6 +43,7 @@ public class Util {
         add("/tell");
         add("/?");
     }};
+    public static boolean CANDROPITEMS = true;
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {
         return map.entrySet().stream()
@@ -76,6 +78,20 @@ public class Util {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
 
+    public static void removeItem(Player player, ItemStack itemStack) {
+        if (!player.getInventory().contains(itemStack)) return;
+
+        for (ItemStack content : player.getInventory().getContents()) {
+            if (content.isSimilar(itemStack)) {
+                if (content.getAmount() > 1) {
+                    content.setAmount((content.getAmount() - 1));
+                } else {
+                    player.getInventory().remove(content);
+                }
+            }
+        }
+    }
+
     public static HoverEvent showItem(ItemStack itemStack) {
         return new HoverEvent(HoverEvent.Action.SHOW_ITEM, new BaseComponent[]{new TextComponent(CraftItemStack.asNMSCopy(itemStack).save(new NBTTagCompound()).toString())});
     }
@@ -95,8 +111,7 @@ public class Util {
 
                 if (distanceSquared >= Math.pow(r - 0.5, 2) && distanceSquared <= Math.pow(r + 0.5, 2)) {
                     circleBlocks.add(world.getBlockAt(x, centerY, z));
-                }
-                else if (distanceSquared < Math.pow(r, 2)) {
+                } else if (distanceSquared < Math.pow(r, 2)) {
                     innerBlocks.add(world.getBlockAt(x, centerY, z));
                 }
             }

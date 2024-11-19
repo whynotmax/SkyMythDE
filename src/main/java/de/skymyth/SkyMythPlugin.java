@@ -3,13 +3,14 @@ package de.skymyth;
 
 import de.skymyth.auctionhouse.AuctionHouseManager;
 import de.skymyth.badge.BadgeManager;
+import de.skymyth.baseprotector.BaseProtectorManager;
 import de.skymyth.casino.CasinoManager;
 import de.skymyth.clan.ClanManager;
-import de.skymyth.listener.CombatListener;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.kit.KitManager;
+import de.skymyth.listener.CombatListener;
 import de.skymyth.location.LocationManager;
 import de.skymyth.punish.PunishManager;
 import de.skymyth.pvp.PvPShopManager;
@@ -49,10 +50,12 @@ public final class SkyMythPlugin extends JavaPlugin {
     public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
     private final List<Location> randomPvPLocations = new ArrayList<>();
     private final List<String> allowedPlayers = new ArrayList<>();
+    private final ForkJoinPool forkJoinPool = new ForkJoinPool(5,
+            ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+            (t, e) -> e.printStackTrace(System.out), true);
     @Setter
     private boolean globalMute = false;
     SkyMythPlugin plugin;
-
     MongoManager mongoManager;
     ScoreboardManager scoreboardManager;
     UserManager userManager;
@@ -70,11 +73,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     CombatListener combatListener;
     PvPShopManager pvPShopManager;
     AuctionHouseManager auctionHouseManager;
-
-    private final ForkJoinPool forkJoinPool = new ForkJoinPool(5,
-            ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-            (t, e) -> e.printStackTrace(System.out), true);
-
+    BaseProtectorManager baseProtectorManager;
 
     @Override
     public void onEnable() {
@@ -99,6 +98,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.casinoManager = new CasinoManager(plugin);
         this.pvPShopManager = new PvPShopManager(plugin);
         this.auctionHouseManager = new AuctionHouseManager(plugin);
+        this.baseProtectorManager = new BaseProtectorManager(plugin);
 
         this.combatListener = new CombatListener(plugin);
 

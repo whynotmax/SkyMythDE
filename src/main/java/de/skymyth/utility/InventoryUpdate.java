@@ -1,4 +1,5 @@
 package de.skymyth.utility;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import lombok.Getter;
@@ -171,7 +172,7 @@ public final class InventoryUpdate {
         return null;
     }
 
-    private static String [] removeFirst(String [] array) {
+    private static String[] removeFirst(String[] array) {
         int length = array.length;
 
         String[] result = new String[length - 1];
@@ -267,29 +268,28 @@ public final class InventoryUpdate {
         // Added in 1.14, functional since 1.16.
         SMITHING(16, null, "SMITHING");
 
+        private static final char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         /**
          * -- GETTER --
-         *  Get the version in which the inventory container was added.
+         * Get the version in which the inventory container was added.
          *
          * @return the version.
          */
         private final int containerVersion;
         /**
          * -- GETTER --
-         *  Get the name of the inventory from Minecraft for older versions.
+         * Get the name of the inventory from Minecraft for older versions.
          *
          * @return name of the inventory.
          */
         private final String minecraftName;
         /**
          * -- GETTER --
-         *  Get inventory types names of the inventory.
+         * Get inventory types names of the inventory.
          *
          * @return bukkit names.
          */
         private final String[] inventoryTypesNames;
-
-        private static final char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
         Containers(int containerVersion, String minecraftName, String... inventoryTypesNames) {
             this.containerVersion = containerVersion;

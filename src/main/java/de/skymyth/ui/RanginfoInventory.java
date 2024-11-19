@@ -1,9 +1,7 @@
 package de.skymyth.ui;
 
-import de.skymyth.SkyMythPlugin;
 import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.utility.item.ItemBuilder;
-import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.group.Group;
 import org.bukkit.Material;

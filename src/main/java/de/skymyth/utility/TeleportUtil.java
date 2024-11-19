@@ -16,7 +16,7 @@ public class TeleportUtil {
     public static void createTeleportation(SkyMythPlugin plugin, Player player, Location location, String locationName) {
         Location initialLocation = player.getLocation();
 
-        if(TELEPORT_TASKS.containsKey(player)) return;
+        if (TELEPORT_TASKS.containsKey(player)) return;
 
         if (!player.hasPermission("myth.team")) {
 

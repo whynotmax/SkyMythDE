@@ -1,6 +1,5 @@
 package de.skymyth.commands.impl;
 
-import com.google.common.collect.Lists;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import org.bukkit.Bukkit;

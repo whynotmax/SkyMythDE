@@ -79,7 +79,7 @@ public class ScoreboardManager {
                     "  §8× §f" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()),
                     "",
                     "§f❤ §8┃ §7PvP-Shards",
-                    "  §8× §b" + NumberFormat.getInstance(Locale.GERMAN).format(user.getPvpShards()) ,
+                    "  §8× §b" + NumberFormat.getInstance(Locale.GERMAN).format(user.getPvpShards()),
                     "",
                     "§f♛ §8┃ §7Trophäen",
                     "  §8× §6" + user.getTrophies(),

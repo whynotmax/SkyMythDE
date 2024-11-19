@@ -1,6 +1,8 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.utility.Util;
+import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +17,24 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         World world = player.getWorld();
 
+        if (world.getName().equals("world")) {
+
+            ItemBuilder itemBuilder = new ItemBuilder(event.getItemInHand());
+            if (itemBuilder.isSimilar(plugin.getBaseProtectorManager().getBaseProtectorItem())) {
+
+                if (plugin.getBaseProtectorManager().hasBaseProtection(player.getUniqueId())) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst nicht mehr als einen Basisschutz haben.");
+                    return;
+                }
+
+                Util.removeItem(player, itemBuilder);
+                plugin.getBaseProtectorManager().createBaseProtection(player.getUniqueId(), event.getBlockPlaced().getLocation());
+                player.sendMessage(SkyMythPlugin.PREFIX + "§aDein Basisschutz wurde erfolgreich erstellt.");
+            }
+        }
+
         if (!player.isOp()) {
-            if (world.getName().equalsIgnoreCase("Spawn") || world.getName().equalsIgnoreCase("PvP")) {
+            if (world.getName().equals("Spawn") || world.getName().equals("PvP")) {
                 event.setCancelled(true);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
             }

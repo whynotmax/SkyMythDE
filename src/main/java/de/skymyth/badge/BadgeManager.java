@@ -17,22 +17,22 @@ import java.util.stream.Collectors;
 public class BadgeManager {
 
     SkyMythPlugin plugin;
-    BadgeRepository badgeRepository;
+    BadgeRepository repository;
 
     Map<String, Badge> cachedBadges;
 
     public BadgeManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
-        this.badgeRepository = plugin.getMongoManager().create(BadgeRepository.class);
+        this.repository = plugin.getMongoManager().create(BadgeRepository.class);
 
-        this.cachedBadges = badgeRepository.findAll().stream().collect(Collectors.toMap(Badge::getName, badge -> badge));
+        this.cachedBadges = repository.findAll().stream().collect(Collectors.toMap(Badge::getName, badge -> badge));
     }
 
     public void createBadge(Badge badge) {
         if (cachedBadges.values().stream().anyMatch(b -> b.getName().equalsIgnoreCase(badge.getName()))) {
             throw new IllegalArgumentException("Badge with name " + badge.getName() + " already exists.");
         }
-        badgeRepository.save(badge);
+        repository.save(badge);
         cachedBadges.put(badge.getName(), badge);
     }
 
@@ -40,13 +40,13 @@ public class BadgeManager {
         if (!cachedBadges.containsValue(badge)) {
             throw new IllegalArgumentException("Badge with name " + badge.getName() + " does not exist.");
         }
-        badgeRepository.delete(badge);
+        repository.delete(badge);
         cachedBadges.remove(badge.getName());
     }
 
     public void saveBadge(Badge badge) {
         cachedBadges.put(badge.getName(), badge);
-        badgeRepository.save(badge);
+        repository.save(badge);
     }
 
     public Badge getBadge(String name) {

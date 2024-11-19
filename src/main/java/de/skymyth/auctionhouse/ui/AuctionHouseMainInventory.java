@@ -7,7 +7,6 @@ import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.UUIDFetcher;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
-import net.minecraft.server.v1_8_R3.ItemStack;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 

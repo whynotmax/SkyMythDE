@@ -65,7 +65,7 @@ public class RankingManager implements Listener {
             Map<UUID, Long> killsMap = new HashMap<>();
 
             for (User user : plugin.getUserManager().getRepository().findAll()) {
-                if(user.getKills() < 1) continue;
+                if (user.getKills() < 1) continue;
                 killsMap.put(user.getUniqueId(), user.getKills());
             }
 

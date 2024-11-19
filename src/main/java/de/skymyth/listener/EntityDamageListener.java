@@ -32,14 +32,14 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
 
         World world = event.getEntity().getWorld();
 
-        if(world.getName().equals("Spawn")) {
+        if (world.getName().equals("Spawn")) {
 
-            if(event.getDamager() instanceof Projectile) {
+            if (event.getDamager() instanceof Projectile) {
                 event.setCancelled(true);
             }
 
-            if(event.getEntity() instanceof Player player) {
-                if(event.getDamager() instanceof Player damager) {
+            if (event.getEntity() instanceof Player player) {
+                if (event.getDamager() instanceof Player damager) {
                     if (Util.FREEZE.contains(player) || Util.FREEZE.contains(damager)) {
                         event.setCancelled(true);
                     }

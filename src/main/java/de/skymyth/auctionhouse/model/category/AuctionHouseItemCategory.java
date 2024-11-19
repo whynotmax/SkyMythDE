@@ -16,8 +16,7 @@ public enum AuctionHouseItemCategory {
     BLOCKS("Blöcke", Material.DIRT),
     REDSTONE("Redstone", Material.REDSTONE),
     MISC("Sonstiges", Material.CHEST),
-    SPECIAL("Spezial", Material.EMERALD)
-    ;
+    SPECIAL("Spezial", Material.EMERALD);
 
     String name;
     Material displayItem;

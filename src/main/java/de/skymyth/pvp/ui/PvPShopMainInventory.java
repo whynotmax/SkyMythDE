@@ -35,7 +35,7 @@ public class PvPShopMainInventory extends AbstractInventory {
                             ), event -> {
                         Player player = (Player) event.getWhoClicked();
 
-                        if(value.getPrice() < 1) {
+                        if (value.getPrice() < 1) {
                             player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Item kann im Moment nicht gekauft werden.");
                             return;
                         }
@@ -49,8 +49,8 @@ public class PvPShopMainInventory extends AbstractInventory {
                         player.getInventory().addItem(value.getItemStack());
                         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Item §e" + value.getDisplayname() + " §7gekauft.");
                     });
-            if(count.get() > 25) count.set(30);
-            if(count.get() > 34) return;
+            if (count.get() > 25) count.set(30);
+            if (count.get() > 34) return;
         }
     }
 

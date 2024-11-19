@@ -2,12 +2,10 @@ package de.skymyth.pvp;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.pvp.ui.PvPShopMainInventory;
-import de.skymyth.ui.WarpInventory;
 import de.skymyth.utility.item.SkullCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -15,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -70,7 +67,7 @@ public class PvPShopManager implements Listener {
         if (event.getRightClicked() instanceof ArmorStand armorStand) {
             if (armorStand == this.armorStand) {
 
-                if(!player.getWorld().getName().equals(this.location.getWorld().getName())) {
+                if (!player.getWorld().getName().equals(this.location.getWorld().getName())) {
                     player.kickPlayer("§cUnable to interact with entity");
                     return;
                 }

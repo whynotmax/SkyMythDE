@@ -693,4 +693,4 @@ whitelist:
   - sekunde
 ####################################
 ###########>>NAMEFILTER<<###########
-namefilter: []
+namefilter: [ ]

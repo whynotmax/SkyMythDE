@@ -52,7 +52,7 @@ public class CombatListener implements Listener {
 
     public void startCombat(Player player1, Player player2) {
         if (player1 == player2) return;
-        if(player1.getWorld().getName().equals("Spawn") || player2.getWorld().getName().equals("Spawn")) return;
+        if (player1.getWorld().getName().equals("Spawn") || player2.getWorld().getName().equals("Spawn")) return;
 
         this.combatMap.put(player1, player2);
         this.combatMap.put(player2, player1);

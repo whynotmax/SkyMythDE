@@ -1,6 +1,8 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.baseprotector.model.BaseProtector;
+import de.skymyth.baseprotector.ui.BaseMainInventory;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
@@ -21,7 +23,7 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
 
-        if (player.getWorld().getName().equalsIgnoreCase("Spawn")) {
+        if (player.getWorld().getName().equals("Spawn")) {
             Block block = event.getClickedBlock();
             if (block == null) return;
             if (block.getType() != Material.ENDER_PORTAL_FRAME) return;
@@ -36,6 +38,22 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
                 plugin.getRewardsManager().openFor(player);
             }
+        }
+
+        if (player.getWorld().getName().equals("world")) {
+
+            Block block = event.getClickedBlock();
+
+            if (block != null && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(block);
+
+                if (baseProtector != null) {
+                    if (baseProtector.getBaseOwner().equals(player.getUniqueId())) {
+                        plugin.getInventoryManager().openInventory(player, new BaseMainInventory());
+                    }
+                }
+            }
+
         }
     }
 
