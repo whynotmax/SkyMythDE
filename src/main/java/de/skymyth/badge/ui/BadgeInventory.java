@@ -94,7 +94,7 @@ public class BadgeInventory extends AbstractInventory {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu besitzt dieses Badge nicht.");
                     return;
                 }
-                if (user.getSelectedBadge().equalsIgnoreCase(badge.getName())) {
+                if (user.getSelectedBadge() != null && user.getSelectedBadge().equalsIgnoreCase(badge.getName())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast dieses Badge bereits ausgewählt.");
                     return;
                 }
