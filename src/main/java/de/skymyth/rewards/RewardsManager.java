@@ -90,7 +90,7 @@ public class RewardsManager {
         cooldown.start();
         user.addCooldown(cooldown);
 
-        plugin.getUserManager().getUserMap().put(player.getUniqueId(), user);
+        plugin.getUserManager().saveUser(user);
 
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du erhältst nun deine tägliche Belohnung.");
 

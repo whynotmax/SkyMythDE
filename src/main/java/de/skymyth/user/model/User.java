@@ -47,6 +47,10 @@ public class User {
         this.balance -= amount;
     }
 
+    public void removePvPShards(long amount) {
+        this.pvpShards -= amount;
+    }
+
     public void addKill() {
         this.kills++;
     }
