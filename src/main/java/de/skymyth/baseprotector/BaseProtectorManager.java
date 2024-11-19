@@ -45,6 +45,16 @@ public class BaseProtectorManager {
         this.repository.save(baseProtector);
     }
 
+    public void deleteBaseProtection(UUID uuid) {
+        if (!hasBaseProtection(uuid)) return;
+
+        BaseProtector baseProtector = this.getBaseProtector(uuid);
+
+        this.baseProtector.remove(uuid);
+        this.repository.delete(baseProtector);
+
+    }
+
     public BaseProtector getBaseProtection(Block block) {
         for (BaseProtector base : this.baseProtector.values()) {
             if (base.getBaseProtectorLocation().distance(block.getLocation()) < base.getBaseProtectorRadius().getRadius()) {

@@ -44,12 +44,12 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
             Block block = event.getClickedBlock();
 
-            if (block != null && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if (block != null && event.getAction() == Action.RIGHT_CLICK_BLOCK && block.getType() == Material.ENDER_PORTAL_FRAME) {
                 BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(block);
 
                 if (baseProtector != null) {
                     if (baseProtector.getBaseOwner().equals(player.getUniqueId())) {
-                        plugin.getInventoryManager().openInventory(player, new BaseMainInventory());
+                        plugin.getInventoryManager().openInventory(player, new BaseMainInventory(player, plugin));
                     }
                 }
             }

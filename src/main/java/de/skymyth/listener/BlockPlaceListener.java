@@ -3,11 +3,14 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+
+import javax.lang.model.element.ElementVisitor;
 
 public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
 
@@ -20,10 +23,11 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
         if (world.getName().equals("world")) {
 
             ItemBuilder itemBuilder = new ItemBuilder(event.getItemInHand());
-            if (itemBuilder.isSimilar(plugin.getBaseProtectorManager().getBaseProtectorItem())) {
+            if (event.getItemInHand().getType() == Material.ENDER_PORTAL_FRAME) {
 
                 if (plugin.getBaseProtectorManager().hasBaseProtection(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst nicht mehr als einen Basisschutz haben.");
+                    event.setCancelled(true);
                     return;
                 }
 

@@ -10,6 +10,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -82,6 +83,7 @@ public class Util {
         if (!player.getInventory().contains(itemStack)) return;
 
         for (ItemStack content : player.getInventory().getContents()) {
+            if(content == null) continue;
             if (content.isSimilar(itemStack)) {
                 if (content.getAmount() > 1) {
                     content.setAmount((content.getAmount() - 1));
