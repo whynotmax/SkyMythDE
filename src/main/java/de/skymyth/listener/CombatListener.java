@@ -1,4 +1,4 @@
-package de.skymyth.combat;
+package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
@@ -153,6 +153,7 @@ public class CombatListener implements Listener {
             targetUser.addKill();
             targetUser.addBalance(100);
             targetUser.addTrophies(150);
+            targetUser.addPvPShards(5);
             this.plugin.getUserManager().saveUser(targetUser);
 
             User playerUser = this.plugin.getUserManager().getUser(player.getUniqueId());

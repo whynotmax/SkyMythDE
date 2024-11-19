@@ -1,7 +1,6 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.pvp.model.SpecialItems;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
@@ -38,15 +37,6 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
                 plugin.getRewardsManager().openFor(player);
             }
         }
-
-        if (player.getWorld().getName().equalsIgnoreCase("PvP")) {
-            if (SpecialItems.FLAME_ROSE.getItemStack().isSimilar(itemStack)) {
-
-
-            }
-        }
-
-
     }
 
 }

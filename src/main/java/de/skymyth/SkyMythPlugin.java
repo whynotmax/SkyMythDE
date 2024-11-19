@@ -4,13 +4,14 @@ package de.skymyth;
 import de.skymyth.badge.BadgeManager;
 import de.skymyth.casino.CasinoManager;
 import de.skymyth.clan.ClanManager;
-import de.skymyth.combat.CombatListener;
+import de.skymyth.listener.CombatListener;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.kit.KitManager;
 import de.skymyth.location.LocationManager;
 import de.skymyth.punish.PunishManager;
+import de.skymyth.pvp.PvPShopManager;
 import de.skymyth.ranking.RankingManager;
 import de.skymyth.rewards.RewardsManager;
 import de.skymyth.runnables.AntiLagRunnable;
@@ -26,8 +27,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.java.Log;
-import net.jitse.npclib.NPCLib;
-import net.jitse.npclib.api.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandMap;
@@ -67,6 +66,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     KitManager kitManager;
     CasinoManager casinoManager;
     CombatListener combatListener;
+    PvPShopManager pvPShopManager;
 
 
     @Override
@@ -90,6 +90,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.rewardsManager = new RewardsManager(plugin);
         this.kitManager = new KitManager(plugin);
         this.casinoManager = new CasinoManager(plugin);
+        this.pvPShopManager = new PvPShopManager(plugin);
 
         this.combatListener = new CombatListener(plugin);
 
