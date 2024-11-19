@@ -3,9 +3,11 @@ package de.skymyth.badge.ui;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.inventory.impl.AbstractInventory;
+import de.skymyth.user.model.User;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -34,6 +36,8 @@ public class BadgeInventory extends AbstractInventory {
             ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
             badgeItem.setName("§8[§e" + badge.getCharacter() + "§8] §7Badge");
             badgeItem.lore(
+                    "§8Badge-ID: " + badge.getName(),
+                    "§r",
                     "§7§o" + badge.getDescription(),
                     "§r",
                     "§7Besitzer: §e" + badge.getOwners().size(),
@@ -68,10 +72,35 @@ public class BadgeInventory extends AbstractInventory {
             update(page + 1);
         });
 
+        this.setItem(49, new ItemBuilder(Material.BARRIER).setName("§cBadge entfernen").lore("§7Klicke, um deine aktive Badge zurückzusetzen."), event -> {
+            Player player = (Player) event.getWhoClicked();
+            User user = plugin.getUserManager().getUser(player.getUniqueId());
+            if (user.getSelectedBadge() == null) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast keine aktive Badge ausgewählt.");
+                return;
+            }
+            user.setSelectedBadge(null);
+            plugin.getUserManager().saveUser(user);
+            player.sendMessage(SkyMythPlugin.PREFIX + "§aDu hast deine aktive Badge zurückgesetzt.");
+        });
+
         int slot = 10;
         for (ItemStack itemStack : pagination.getItems(page)) {
             this.setItem(slot, itemStack, event -> {
-                //TODO: Implement badge click event
+                Player player = (Player) event.getWhoClicked();
+                User user = plugin.getUserManager().getUser(player.getUniqueId());
+                Badge badge = plugin.getBadgeManager().getBadge(itemStack.getItemMeta().getLore().get(0).replaceFirst("§8Badge-ID: ", ""));
+                if (!badge.getOwners().contains(player.getUniqueId())) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu besitzt dieses Badge nicht.");
+                    return;
+                }
+                if (user.getSelectedBadge().equalsIgnoreCase(badge.getName())) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast dieses Badge bereits ausgewählt.");
+                    return;
+                }
+                user.setSelectedBadge(badge.getName());
+                plugin.getUserManager().saveUser(user);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§aDu hast das Badge §e" + badge.getName() + " §aausgewählt.");
             });
             slot++;
             if (slot == 17 || slot == 26 || slot == 35) {

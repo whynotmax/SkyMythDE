@@ -61,4 +61,11 @@ public class Pagination<T> {
         return pages.getOrDefault(page, new ArrayList<>());
     }
 
+    public boolean isLastPage(int page) {
+        return page == pages.size() - 1;
+    }
+
+    public boolean isFirstPage(int page) {
+        return page == 0;
+    }
 }

@@ -71,8 +71,12 @@ public class CombatListener implements Listener {
                 return;
             }
             if (System.currentTimeMillis() - this.lastHitMap.get(player1) > 15000) {
-                this.combatTaskMap.get(player1).cancel();
-                this.combatTaskMap.get(player2).cancel();
+                if (this.combatTaskMap.containsKey(player1)) {
+                    this.combatTaskMap.get(player1).cancel();
+                }
+                if (this.combatTaskMap.containsKey(player2)) {
+                    this.combatTaskMap.get(player2).cancel();
+                }
                 this.combatTaskMap.remove(player1);
                 this.combatTaskMap.remove(player2);
                 this.combatMap.remove(player1);
@@ -83,8 +87,12 @@ public class CombatListener implements Listener {
             Player target2 = this.combatMap.get(player2);
 
             if (target2 == null || target1 == null) {
-                this.combatTaskMap.get(player1).cancel();
-                this.combatTaskMap.get(player2).cancel();
+                if (this.combatTaskMap.containsKey(player1)) {
+                    this.combatTaskMap.get(player1).cancel();
+                }
+                if (this.combatTaskMap.containsKey(player2)) {
+                    this.combatTaskMap.get(player2).cancel();
+                }
                 this.combatTaskMap.remove(player1);
                 this.combatTaskMap.remove(player2);
                 this.combatMap.remove(player1);

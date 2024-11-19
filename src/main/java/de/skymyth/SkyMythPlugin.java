@@ -1,6 +1,7 @@
 package de.skymyth;
 
 
+import de.skymyth.auctionhouse.AuctionHouseManager;
 import de.skymyth.badge.BadgeManager;
 import de.skymyth.casino.CasinoManager;
 import de.skymyth.clan.ClanManager;
@@ -67,6 +68,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     CasinoManager casinoManager;
     CombatListener combatListener;
     PvPShopManager pvPShopManager;
+    AuctionHouseManager auctionHouseManager;
 
 
     @Override
@@ -91,6 +93,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.kitManager = new KitManager(plugin);
         this.casinoManager = new CasinoManager(plugin);
         this.pvPShopManager = new PvPShopManager(plugin);
+        this.auctionHouseManager = new AuctionHouseManager(plugin);
 
         this.combatListener = new CombatListener(plugin);
 
