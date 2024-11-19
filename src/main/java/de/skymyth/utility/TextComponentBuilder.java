@@ -117,4 +117,12 @@ public class TextComponentBuilder {
     public TextComponent toTextComponent() {
         return this.textComponent;
     }
+
+    public void append(TextComponent textComponent) {
+        this.textComponent.addExtra(textComponent);
+    }
+
+    public void append(TextComponentBuilder textComponentBuilder) {
+        this.textComponent.addExtra(textComponentBuilder.toTextComponent());
+    }
 }
