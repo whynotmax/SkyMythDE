@@ -44,7 +44,6 @@ public class AuctionHouseMainInventory extends AbstractInventory {
 
         setItem(47, new ItemBuilder(Material.HOPPER).setName("§aItems filtern").lore(
                 "§7Filtere die Items nach:",
-                "§8- §7Kategorie",
                 "§8- §7Preis (günstigste zuerst)",
                 "§8- §7Preis (teuerste zuerst)",
                 "§8- §7Ablaufdatum (früheste zuerst)",
