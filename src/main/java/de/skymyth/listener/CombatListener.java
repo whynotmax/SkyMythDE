@@ -52,6 +52,7 @@ public class CombatListener implements Listener {
 
     public void startCombat(Player player1, Player player2) {
         if (player1 == player2) return;
+        if(player1.getWorld().getName().equals("Spawn") || player2.getWorld().getName().equals("Spawn")) return;
 
         this.combatMap.put(player1, player2);
         this.combatMap.put(player2, player1);
@@ -130,7 +131,7 @@ public class CombatListener implements Listener {
                 if (command.equalsIgnoreCase(blockedCommand) || command.contains(blockedCommand)) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Befehl ist im Kampf verboten.");
                     event.setCancelled(true);
-                    return;
+                    break;
                 }
             }
         }
@@ -150,6 +151,7 @@ public class CombatListener implements Listener {
     public void onDeath(final PlayerDeathEvent event) {
         Player player = event.getEntity();
         if (isInCombat(player)) {
+
             Player target = this.combatMap.get(player);
             this.combatTaskMap.get(player).cancel();
             this.combatTaskMap.get(target).cancel();

@@ -53,17 +53,17 @@ public class ScoreboardManager {
             fastBoard.updateLines(
                     "",
                     "§f⚔ §8┃ §7Rüstung",
-                    "  §8× §f" + getDurability(player.getInventory().getHelmet()) + " §7Helm",
-                    "  §8× §f" + getDurability(player.getInventory().getChestplate()) + " §7Brustplatte",
-                    "  §8× §f" + getDurability(player.getInventory().getLeggings()) + " §7Hose",
-                    "  §8× §f" + getDurability(player.getInventory().getBoots()) + " §7Schuhe",
+                    "  §8× §f" + getDurability(player.getInventory().getHelmet()),
+                    "  §8× §f" + getDurability(player.getInventory().getChestplate()),
+                    "  §8× §f" + getDurability(player.getInventory().getLeggings()),
+                    "  §8× §f" + getDurability(player.getInventory().getBoots()),
                     "",
                     "§fΩ §8┃ §7Gegner",
                     "  §8× §c" + plugin.getCombatListener().getEnemy(player).getName(),
-                    "  §8× §c" + plugin.getCombatListener().getHearts(plugin.getCombatListener().getEnemy(player)),
+                    "  §8× §c" + plugin.getCombatListener().getEnemy(player).getHealth() + "/" + plugin.getCombatListener().getEnemy(player).getMaxHealth(),
                     "",
                     "§f✄ §8┃ §7Verbleibend",
-                    "  §8× §c" + TimeUtil.beautifyTime(plugin.getCombatListener().getRemainingTime(player), TimeUnit.MILLISECONDS, true, true),
+                    "  §8× §c" + TimeUtil.beautifyTime(plugin.getCombatListener().getRemainingTime(player), TimeUnit.SECONDS, true, true),
                     ""
             );
             return;
