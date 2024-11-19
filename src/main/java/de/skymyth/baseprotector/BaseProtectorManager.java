@@ -64,6 +64,14 @@ public class BaseProtectorManager {
         return null;
     }
 
+    public double getBaseProtectionDistance(Block block) {
+        for (BaseProtector base : this.baseProtector.values()) {
+            return base.getBaseProtectorLocation().distance(block.getLocation());
+        }
+        return 0.0D;
+    }
+
+
     public boolean isBlockProtected(Block block) {
         for (BaseProtector base : this.baseProtector.values()) {
             if (base.getBaseProtectorLocation().distance(block.getLocation()) < base.getBaseProtectorRadius().getRadius()) {
@@ -81,8 +89,7 @@ public class BaseProtectorManager {
                 "§7Platziere diesen Basisschutz, um in einem Umkreis von 5 Blöcken",
                 "§7deine Base vor Raids und Angriffen zu schützen.",
                 "§r",
-                "§eRechtsklicke anschließend den Block um Optionen zu ändern.",
-                ""
+                "§eRechtsklicke anschließend den Block um Optionen zu ändern."
         );
         return itemBuilder;
     }

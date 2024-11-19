@@ -2,6 +2,7 @@ package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.baseprotector.model.BaseProtector;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
                 if(event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
 
                 if (!baseProtector.getBaseOwner().equals(player.getUniqueId()) || baseProtector.getTrustedPlayers().contains(player.getUniqueId())) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Block ist durch einen Basisschutz gesichert.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Die Base von §e" + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §7ist §cgeschützt.");
                     event.setCancelled(true);
                     return;
                 }

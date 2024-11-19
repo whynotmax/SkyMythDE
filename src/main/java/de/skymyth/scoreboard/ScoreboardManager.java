@@ -1,8 +1,10 @@
 package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.Util;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.AccessLevel;
@@ -68,7 +70,7 @@ public class ScoreboardManager {
             );
             return;
         }
-        if (playerWorld.equalsIgnoreCase("PvP")) {
+        if (playerWorld.equals("PvP")) {
             fastBoard.updateLines(
                     "",
                     "§f⚔ §8┃ §7Statistiken",
@@ -86,6 +88,15 @@ public class ScoreboardManager {
                     ""
             );
             return;
+        }
+        if(playerWorld.equals("world")) {
+            BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(player.getLocation().getBlock());
+
+            if(baseProtector != null) {
+                TitleUtil.sendActionBar(player, "§7Basisschutz von §e" + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName()
+                        + "§8, §8( §a" + Math.round(plugin.getBaseProtectorManager().getBaseProtectionDistance(player.getLocation().getBlock()))
+                        + "§8/§c" + baseProtector.getBaseProtectorRadius().getRadius() + " §7Distanz §8)");
+            }
         }
         //TODO: Mine scoreboard?
         fastBoard.updateLines(
