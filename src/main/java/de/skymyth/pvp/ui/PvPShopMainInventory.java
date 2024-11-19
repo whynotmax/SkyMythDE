@@ -45,7 +45,7 @@ public class PvPShopMainInventory extends AbstractInventory {
                             return;
                         }
 
-                        user.removeBalance(value.getPrice());
+                        user.removePvPShards(value.getPrice());
                         player.getInventory().addItem(value.getItemStack());
                         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Item §e" + value.getDisplayname() + " §7gekauft.");
                     });

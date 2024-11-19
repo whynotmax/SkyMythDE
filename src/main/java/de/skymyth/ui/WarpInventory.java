@@ -24,7 +24,7 @@ public class WarpInventory extends AbstractInventory {
         setItem(22, new ItemBuilder(Material.NETHER_STAR).setName("§7Warp§8: §eSpawn").lore(
                 "§7§oTeleportiere dich zum Spawn",
                 "§7",
-                "§aKlicke§8,§7 um dich zu teleportieren"
+                "§7Klicke,§7 um dich zu teleportieren"
         ), (event -> {
             Player player = (Player) event.getWhoClicked();
             event.setCancelled(true);
@@ -40,7 +40,7 @@ public class WarpInventory extends AbstractInventory {
         setItem(24, new ItemBuilder(SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzBmY2FiODM0ZTNlN2MwZDZhZjVkYzU5NzJmN2I5YWFiOGM3MzI4NTAzNWJkMDA3NWVlZGI3NGYzNTJlMDg2In19fQ==")).setName("§7Warp§8: §eBelohnungen").lore(
                 "§7§oTeleportiere dich zu den Belohnungen",
                 "§7",
-                "§aKlicke§8,§7 um dich zu teleportieren"
+                "§7Klicke,§7 um dich zu teleportieren"
         ), event -> {
             Player player = (Player) event.getWhoClicked();
             event.setCancelled(true);

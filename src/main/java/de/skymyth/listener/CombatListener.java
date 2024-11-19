@@ -164,7 +164,7 @@ public class CombatListener implements Listener {
             User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
             targetUser.addKill();
             targetUser.addBalance(100);
-            targetUser.addTrophies(150);
+            targetUser.addTrophies(30);
             targetUser.addPvPShards(5);
             this.plugin.getUserManager().saveUser(targetUser);
 
@@ -175,8 +175,8 @@ public class CombatListener implements Listener {
             } else {
                 playerUser.setBalance(0);
             }
-            if (playerUser.getTrophies() >= 150) {
-                playerUser.removeTrophies(150);
+            if (playerUser.getTrophies() >= 30) {
+                playerUser.removeTrophies(30);
             } else {
                 playerUser.setTrophies(0);
             }
@@ -212,7 +212,7 @@ public class CombatListener implements Listener {
             User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
             targetUser.addKill();
             targetUser.addBalance(100);
-            targetUser.addTrophies(150);
+            targetUser.addTrophies(30);
             this.plugin.getUserManager().saveUser(targetUser);
 
             User playerUser = this.plugin.getUserManager().getUser(player.getUniqueId());
@@ -222,8 +222,8 @@ public class CombatListener implements Listener {
             } else {
                 playerUser.setBalance(0);
             }
-            if (playerUser.getTrophies() >= 150) {
-                playerUser.removeTrophies(150);
+            if (playerUser.getTrophies() >= 30) {
+                playerUser.removeTrophies(30);
             } else {
                 playerUser.setTrophies(0);
             }
