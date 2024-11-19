@@ -86,7 +86,7 @@ public class AsyncPlayerChatListener implements Listener {
         var badge = (!hasBadge ? null : plugin.getBadgeManager().getBadge(user.getSelectedBadge())); //Implemented badge system
 
         if (badge != null) {
-            chatPrefix = "§r §8[" + badge.getCharacter() + "§8] §7";
+            chatPrefix = "§8[§f" + badge.getCharacter() + "§8] §7";
         }
 
         if (canUseColors != null && canUseColors.equalsIgnoreCase("true")) {
