@@ -3,7 +3,6 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.utility.Util;
-import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -12,8 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
-
-import javax.lang.model.element.ElementVisitor;
 
 public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
 
@@ -28,7 +25,7 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
             if (plugin.getBaseProtectorManager().isBlockProtected(event.getBlock())) {
                 BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(event.getBlock());
 
-                if(event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
+                if (event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
 
                 if (!baseProtector.getBaseOwner().equals(player.getUniqueId()) || baseProtector.getTrustedPlayers().contains(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Die Base von §e" + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §7ist §cgeschützt.");

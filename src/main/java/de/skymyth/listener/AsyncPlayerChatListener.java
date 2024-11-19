@@ -1,11 +1,11 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.badge.model.Badge;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TextComponentBuilder;
-import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -30,6 +30,17 @@ public class AsyncPlayerChatListener implements Listener {
 
     public AsyncPlayerChatListener(SkyMythPlugin plugin) {
         this.plugin = plugin;
+    }
+
+    private static TextComponent getHover(Badge badge, String chatPrefix) {
+        ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
+        badgeItem.setName("§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge");
+        badgeItem.lore(
+                "§7§o" + badge.getDescription()
+        );
+        TextComponent hover = new TextComponent(chatPrefix);
+        hover.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(badgeItem.getItemMeta().getDisplayName() + "\n" + badgeItem.getItemMeta().getLore().get(0))}));
+        return hover;
     }
 
     @EventHandler
@@ -69,13 +80,7 @@ public class AsyncPlayerChatListener implements Listener {
         if (badge != null) {
             chatPrefix = "§8[§f" + badge.getColor() + badge.getCharacter() + "§8] §7";
 
-            ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
-            badgeItem.setName("§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge");
-            badgeItem.lore(
-                    "§7§o" + badge.getDescription()
-            );
-            TextComponent hover = new TextComponent(chatPrefix);
-            hover.setHoverEvent(Util.showItem(badgeItem));
+            TextComponent hover = getHover(badge, chatPrefix);
             newMessage.append(hover);
         } else {
             newMessage.append(new TextComponent(chatPrefix));
@@ -86,8 +91,8 @@ public class AsyncPlayerChatListener implements Listener {
         }
 
         TextComponentBuilder playerName = new TextComponentBuilder("§7" + player.getName());
-        TextComponent hoverComponent = new TextComponentBuilder("§7Klicke, um seine Stats anzuzeigen.").toTextComponent();
-        playerName.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/stats " + player.getName()));
+        TextComponent hoverComponent = new TextComponentBuilder("§7Klicke, um " + player.getName() + " eine Direktnachricht zu senden.").toTextComponent();
+        playerName.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + player.getName() + " "));
         playerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{hoverComponent}));
 
         newMessage.append(playerName);
@@ -98,7 +103,6 @@ public class AsyncPlayerChatListener implements Listener {
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             onlinePlayer.spigot().sendMessage(newMessage.toTextComponent());
         }
-        //event.setFormat(format);
     }
 
 }

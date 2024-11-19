@@ -31,7 +31,7 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
             if (plugin.getBaseProtectorManager().isBlockProtected(event.getBlock())) {
                 BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(event.getBlock());
 
-                if(event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
+                if (event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
 
                 if (!baseProtector.getBaseOwner().equals(player.getUniqueId()) || baseProtector.getTrustedPlayers().contains(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Die Base von §e" + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §7ist §cgeschützt.");

@@ -89,10 +89,10 @@ public class ScoreboardManager {
             );
             return;
         }
-        if(playerWorld.equals("world")) {
+        if (playerWorld.equals("world")) {
             BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(player.getLocation().getBlock());
 
-            if(baseProtector != null) {
+            if (baseProtector != null) {
                 TitleUtil.sendActionBar(player, "§7Du befindest dich im Basisschutz von §e" +
                         Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName());
             }

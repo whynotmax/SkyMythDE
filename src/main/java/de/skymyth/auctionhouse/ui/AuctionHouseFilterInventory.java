@@ -121,7 +121,6 @@ public class AuctionHouseFilterInventory extends AbstractInventory {
     }
 
 
-
     @Override
     public void close(InventoryCloseEvent event) {
 

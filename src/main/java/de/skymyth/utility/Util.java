@@ -10,7 +10,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -80,7 +79,7 @@ public class Util {
     }
 
     public static void removeItem(Player player, ItemStack itemStack) {
-        if(itemStack.getAmount() == 1) {
+        if (itemStack.getAmount() == 1) {
             player.getInventory().removeItem(itemStack);
         } else {
             itemStack.setAmount(itemStack.getAmount() - 1);
