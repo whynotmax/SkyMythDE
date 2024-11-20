@@ -37,7 +37,7 @@ dependencies {
 
     compileOnly 'net.jitse:npclib-api:2.11.1-SNAPSHOT'
 
-    implementation 'com.github.azbh111:spigot-1.8.8:R'
+    compileOnly 'com.github.azbh111:spigot-1.8.8:R'
     compileOnly 'net.luckperms:api:5.4'
 
     compileOnly('com.github.DecentSoftware-eu:DecentHolograms:2.8.12')

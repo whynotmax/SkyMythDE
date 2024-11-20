@@ -18,14 +18,6 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         World world = player.getWorld();
 
-        /*
-        if (plugin.getLocationManager().getPosition("test").getLocation().distance(event.getBlock().getLocation()) < 5) {
-            event.setCancelled(true);
-            player.sendMessage("§cDistance to test -" + plugin.getLocationManager().getPosition("test").getLocation().distance(event.getBlock().getLocation()));
-        }
-
-         */
-
         if (player.getWorld().getName().equals("world")) {
 
             if (plugin.getBaseProtectorManager().isBlockProtected(event.getBlock())) {
@@ -33,7 +25,7 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
 
                 if (event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
 
-                if (!baseProtector.getBaseOwner().equals(player.getUniqueId()) || baseProtector.getTrustedPlayers().contains(player.getUniqueId())) {
+                if(!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
                     event.setCancelled(true);
                     return;

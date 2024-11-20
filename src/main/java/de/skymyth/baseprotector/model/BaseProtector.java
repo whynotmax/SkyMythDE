@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,4 +30,9 @@ public class BaseProtector {
     long maxTrustedPlayers;
 
     BaseProtectorRadius baseProtectorRadius;
+
+
+    public void addTrustedPlayer(UUID uuid) {
+        this.trustedPlayers.add(uuid);
+    }
 }

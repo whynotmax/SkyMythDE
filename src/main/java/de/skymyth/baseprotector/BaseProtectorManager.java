@@ -53,7 +53,11 @@ public class BaseProtectorManager {
 
         this.baseProtector.remove(uuid);
         this.repository.delete(baseProtector);
+    }
 
+    public void saveBaseProtection(BaseProtector baseProtector) {
+        this.baseProtector.put(baseProtector.getBaseOwner(), baseProtector);
+        this.repository.save(baseProtector);
     }
 
     public BaseProtector getBaseProtection(Block block) {

@@ -2,6 +2,7 @@ package de.skymyth.utility;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import de.skymyth.baseprotector.model.BaseProtector;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -26,6 +27,7 @@ public class Util {
 
     public static final Map<Player, Player> MESSAGE = new HashMap<>();
     public static final Cache<Player, Player> TELEPORT = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
+    public static final Cache<Player, BaseProtector> BASEINVITE = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
     public static final ArrayList<Player> VANISH = new ArrayList<>();
     public static final ArrayList<Player> FREEZE = new ArrayList<>();
     public static final Random RANDOM = new Random();

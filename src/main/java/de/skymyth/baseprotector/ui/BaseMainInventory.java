@@ -60,8 +60,20 @@ public class BaseMainInventory extends AbstractInventory {
             BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtector(player.getUniqueId());
 
             if (baseProtector != null) {
-                plugin.getInventoryManager().openInventory(player, new BasePlayersInventory(player, baseProtector));
+                plugin.getInventoryManager().openInventory(player, new BasePlayersInventory(plugin, player, baseProtector));
             }
+        });
+
+        setItem(15, new ItemBuilder(Material.STRING)
+                .setName("§6Radius erweitern")
+                .lore(
+                        "",
+                        "§7Erweitere den Radius deines Basisschutzes",
+                        "§7um mehr Platz zum bauen zu haben.",
+                        "",
+                        "§aKlicke, um deinen Basisradius zu erweitern"
+                ), event -> {
+
         });
     }
 

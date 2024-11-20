@@ -27,8 +27,8 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
 
                 if (event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
 
-                if (!baseProtector.getBaseOwner().equals(player.getUniqueId()) || baseProtector.getTrustedPlayers().contains(player.getUniqueId())) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " ist geschützt.");
+                if(!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
                     event.setCancelled(true);
                     return;
                 }
