@@ -21,7 +21,9 @@ public class AdminBadgeCommand extends MythCommand {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge setcolor <name> <color>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge delete <name>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge add <player> <badge>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge addall <badge>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge remove <player> <badge>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7/abadge removeall <badge>");
     }
 
     @Override
@@ -97,6 +99,25 @@ public class AdminBadgeCommand extends MythCommand {
                 plugin.getBadgeManager().saveBadge(badge1);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§7Badge §e" + args[2] + " §7zu §e" + offlinePlayer.getName() + "§7 hinzugefügt.");
                 break;
+            case "addall":
+                if (args.length < 2) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /abadge addall <badge>");
+                    return;
+                }
+                Badge badge4 = plugin.getBadgeManager().getBadge(args[1]);
+                if (badge4 == null) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Badge existiert nicht.");
+                    return;
+                }
+                for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
+                    if (badge4.getOwners().contains(onlinePlayer.getUniqueId())) {
+                        continue;
+                    }
+                    badge4.getOwners().add(onlinePlayer.getUniqueId());
+                }
+                plugin.getBadgeManager().saveBadge(badge4);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Badge §e" + args[1] + " §7zu allen Spielern hinzugefügt.");
+                break;
             case "remove":
                 if (args.length < 3) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /abadge remove <player> <badge>");
@@ -115,6 +136,20 @@ public class AdminBadgeCommand extends MythCommand {
                 badge2.getOwners().remove(offlinePlayer1.getUniqueId());
                 plugin.getBadgeManager().saveBadge(badge2);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§7Badge §e" + args[2] + " §7von §e" + offlinePlayer1.getName() + "§7 entfernt.");
+                break;
+            case "removeall":
+                if (args.length < 2) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /abadge removeall <badge>");
+                    return;
+                }
+                Badge badge5 = plugin.getBadgeManager().getBadge(args[1]);
+                if (badge5 == null) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Badge existiert nicht.");
+                    return;
+                }
+                badge5.getOwners().clear();
+                plugin.getBadgeManager().saveBadge(badge5);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Badge §e" + args[1] + " §7von allen Spielern entfernt.");
                 break;
             default:
                 this.sendHelp(player);
