@@ -27,7 +27,8 @@ public class BaseMainInventory extends AbstractInventory {
                 .lore(
                         "",
                         "§7Zerstöre deinen Basisschutz und erhalte ihn neu.",
-                        "§7Alles im Umkreis befindene ist daraufhin ungeschützt.",
+                        "§7Alles im Umkreis befindene ist daraufhin ungeschützt und",
+                        "§7von jedem Spieler zugreifbar. Zudem wird dein Radius gelöscht!",
                         "",
                         "§cKlicke, um deinen Basisschutz zu zerstören."
                 ), event -> {
@@ -43,7 +44,7 @@ public class BaseMainInventory extends AbstractInventory {
                 block.setType(Material.AIR);
                 location.getWorld().dropItemNaturally(location,
                         plugin.getBaseProtectorManager().getBaseProtectorItem());
-                player.playSound(location, Sound.CHICKEN_EGG_POP, 1, 1);
+                player.playSound(location, Sound.ITEM_BREAK, 1, 1);
             }
         });
 

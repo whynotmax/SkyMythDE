@@ -1,10 +1,8 @@
 package de.skymyth.baseprotector.ui;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.auctionhouse.ui.AuctionHouseNameFilterInventory;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.inventory.impl.AbstractInventory;
-import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.UUIDFetcher;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
@@ -67,7 +65,7 @@ public class BasePlayersInventory extends AbstractInventory {
                     plugin.getBaseProtectorManager().saveBaseProtection(baseProtector);
                     player.sendMessage(SkyMythPlugin.PREFIX + "§c" + playerName + " wurde als Mitbauer entfernt.");
 
-                    if(target != null) {
+                    if (target != null) {
                         target.sendMessage(SkyMythPlugin.PREFIX + "§cDu wurdest als Mitbauer von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + "'s Basisschutz entfernt.");
                     }
 

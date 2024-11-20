@@ -76,6 +76,15 @@ public class BaseProtectorManager {
         return 0.0D;
     }
 
+    public boolean isBaseSpotFine(Location location) {
+        for (BaseProtector value : this.baseProtector.values()) {
+            if (location.distance(value.getBaseProtectorLocation()) > BaseProtectorRadius.RADIUS_50X50.getRadius() * 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public boolean isBlockProtected(Block block) {
         for (BaseProtector base : this.baseProtector.values()) {

@@ -1,6 +1,7 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.user.model.User;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,6 +14,7 @@ public record PlayerRespawnListener(SkyMythPlugin plugin) implements Listener {
     public void onRespawn(PlayerRespawnEvent event) {
 
         Player player = event.getPlayer();
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
 
         event.setRespawnLocation(plugin.getLocationManager().getPosition("spawn").getLocation());
 
@@ -23,6 +25,7 @@ public record PlayerRespawnListener(SkyMythPlugin plugin) implements Listener {
             plugin.getRewardsManager().getHologram().show(player, 1);
             plugin.getCasinoManager().getDailyPotManager().getHologram().show(player, 1);
             //player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
+            plugin.getKitManager().getKitByName("Neuling").giveToAsVoucher(user);
         }, 10L);
 
     }

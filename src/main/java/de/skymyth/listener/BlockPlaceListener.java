@@ -3,9 +3,7 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.utility.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +25,7 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
 
                 if (event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
 
-                if(!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
+                if (!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
                     event.setCancelled(true);
                     return;
@@ -44,9 +42,19 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
                     return;
                 }
 
+                if (!plugin.getBaseProtectorManager().isBaseSpotFine(event.getBlockPlaced().getLocation())) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst hier keinen Basisschutz platzieren.");
+                    event.setCancelled(true);
+                    return;
+                }
+
                 Util.removeItem(player, itemStack);
                 plugin.getBaseProtectorManager().createBaseProtection(player.getUniqueId(), event.getBlockPlaced().getLocation());
                 player.sendMessage(SkyMythPlugin.PREFIX + "§aDein Basisschutz wurde erfolgreich erstellt.");
+                player.playSound(player.getLocation(), Sound.CHEST_CLOSE, 1, 1);
+                for (int i = 0; i < 10; i++) {
+                    event.getBlockPlaced().getWorld().playEffect(event.getBlockPlaced().getLocation().add(0, i, 0), Effect.COLOURED_DUST, i * 3);
+                }
 
 
             }

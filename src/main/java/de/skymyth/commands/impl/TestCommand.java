@@ -1,8 +1,6 @@
 package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.baseprotector.model.BaseProtector;
-import de.skymyth.baseprotector.model.radius.BaseProtectorRadius;
 import de.skymyth.commands.MythCommand;
 import org.bukkit.entity.Player;
 
@@ -36,8 +34,5 @@ public class TestCommand extends MythCommand {
          */
         player.getInventory().addItem(plugin.getBaseProtectorManager().getBaseProtectorItem());
 
-        BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtector(player.getUniqueId());
-
-        baseProtector.setBaseProtectorRadius(BaseProtectorRadius.RADIUS_20X20);
     }
 }

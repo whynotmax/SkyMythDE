@@ -12,7 +12,6 @@ import de.skymyth.utility.UUIDFetcher;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import net.wesjd.anvilgui.AnvilGUI;
-import org.apache.commons.lang.math.NumberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

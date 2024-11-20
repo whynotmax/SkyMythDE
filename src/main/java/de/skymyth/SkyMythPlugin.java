@@ -26,7 +26,6 @@ import de.skymyth.utility.Util;
 import de.skymyth.utility.codec.*;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
-import io.netty.util.internal.PlatformDependent;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +39,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.redisson.Redisson;
 import org.redisson.api.RMap;
-import org.redisson.api.RTopic;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.reflections.Reflections;
@@ -48,7 +46,6 @@ import org.reflections.Reflections;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ForkJoinPool;
 
 @Log
 @Getter
@@ -172,7 +169,7 @@ public final class SkyMythPlugin extends JavaPlugin {
 
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             this.playerCount.fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));
-        }, 0L, 20*30L);
+        }, 0L, 20 * 30L);
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 

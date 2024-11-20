@@ -36,7 +36,7 @@ public class PerkInventory extends AbstractInventory {
             lore.add("§r");
             lore.add("§7Status: " + (user.hasPerk(perk) ? "§aaktiviert" : "§cdeaktiviert"));
             if (perk.getPrice() >= 1) {
-                lore.add("§7Kosten: §e" + NumberFormat.getInstance(Locale.GERMAN).format(perk.getPrice()).replace(",", ".") + "$");
+                lore.add("§7Kosten: §e" + NumberFormat.getInstance(Locale.GERMAN).format(perk.getPrice()) + " ⛃");
             } else {
                 lore.add("§7Kosten: §cPerk global deaktiviert");
             }

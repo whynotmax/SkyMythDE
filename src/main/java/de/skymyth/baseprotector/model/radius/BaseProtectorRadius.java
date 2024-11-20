@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 public enum BaseProtectorRadius {
 
     RADIUS_5X5(5, -1),
-    RADIUS_10X10(10,  500),
+    RADIUS_10X10(10, 500),
     RADIUS_15X15(15, 1000),
     RADIUS_20X20(20, 2000),
     RADIUS_30X30(30, 4000),
@@ -21,5 +21,6 @@ public enum BaseProtectorRadius {
 
     long radius;
     long price;
+
 
 }

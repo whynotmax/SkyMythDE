@@ -68,6 +68,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
                 onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e200 Tokens §7erhalten.");
             }
             player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
+            plugin.getKitManager().getKitByName("Neuling").giveToAsVoucher(user);
         }
 
 

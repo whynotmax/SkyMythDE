@@ -1,6 +1,5 @@
 package de.skymyth.commands.impl;
 
-import com.google.common.collect.Lists;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.commands.MythCommand;
@@ -21,11 +20,11 @@ public class BaseCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if(args.length == 1 && args[0].equalsIgnoreCase("accept")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("accept")) {
 
             BaseProtector baseProtector = Util.BASEINVITE.asMap().get(player);
 
-            if(!Util.BASEINVITE.asMap().containsKey(player)) {
+            if (!Util.BASEINVITE.asMap().containsKey(player)) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu wurdest in keinen Basisschutz eingeladen.");
                 return;
             }
@@ -37,7 +36,7 @@ public class BaseCommand extends MythCommand {
             for (UUID trustedPlayer : baseProtector.getTrustedPlayers()) {
                 Player trusted = Bukkit.getPlayer(trustedPlayer);
 
-                if(trusted == null) continue;
+                if (trusted == null) continue;
                 trusted.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7ist nun ein Mitbauer von §e" +
                         UUIDFetcher.getName(baseProtector.getBaseOwner()) + "'s Basisschutz.");
                 Bukkit.getPlayer(baseProtector.getBaseOwner()).sendMessage(
