@@ -1,7 +1,6 @@
 package de.skymyth.auctionhouse.filter.impl;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.auctionhouse.filter.AuctionHouseItemFilter;
 import de.skymyth.auctionhouse.model.AuctionHouseItem;
 import de.skymyth.auctionhouse.model.category.AuctionHouseItemCategory;
 

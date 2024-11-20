@@ -20,7 +20,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-import javax.swing.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;

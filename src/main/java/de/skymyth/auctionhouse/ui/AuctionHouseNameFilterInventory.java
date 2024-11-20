@@ -2,12 +2,8 @@ package de.skymyth.auctionhouse.ui;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.auctionhouse.filter.AuctionHouseItemFilter;
-import de.skymyth.auctionhouse.filter.impl.AuctionHouseItemExpireDateFilter;
 import de.skymyth.auctionhouse.filter.impl.AuctionHouseItemNameFilter;
-import de.skymyth.auctionhouse.filter.impl.AuctionHouseItemPriceFilter;
-import de.skymyth.auctionhouse.filter.impl.result.AuctionHouseItemExpireDateFilterResult;
 import de.skymyth.auctionhouse.filter.impl.result.AuctionHouseItemNameFilterResult;
-import de.skymyth.auctionhouse.filter.impl.result.AuctionHouseItemPriceFilterResult;
 import de.skymyth.auctionhouse.model.AuctionHouseItem;
 import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.user.model.User;
@@ -19,7 +15,6 @@ import de.skymyth.utility.pagination.Pagination;
 import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
