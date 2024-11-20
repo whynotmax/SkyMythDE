@@ -36,7 +36,7 @@ public class BadgeInventory extends AbstractInventory {
         for (Badge badge : badgesSortedByOwnership) {
             ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
             badgeItem.setName("§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge");
-            badgeItem.glow(user.getSelectedBadge().equalsIgnoreCase(badge.getName()));
+            badgeItem.glow(user.getSelectedBadge() != null && user.getSelectedBadge().equalsIgnoreCase(badge.getName()));
             badgeItem.lore(
                     "§8Badge-ID: " + badge.getName(),
                     "§r",
