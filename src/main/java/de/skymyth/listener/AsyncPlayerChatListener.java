@@ -2,6 +2,9 @@ package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
+import de.skymyth.chatfilter.model.ChatFilterItem;
+import de.skymyth.punish.model.Punish;
+import de.skymyth.punish.model.reason.PunishReason;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.user.model.User;
@@ -59,6 +62,34 @@ public class AsyncPlayerChatListener implements Listener {
             event.setCancelled(true);
             player.sendMessage(SkyMythPlugin.PREFIX + "§cWährend dem Globalmute kannst du nicht schreiben.");
             player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1, 1);
+            return;
+        }
+
+        boolean containsBlockedContent = plugin.getChatFilterManager().checkMessage(message);
+        if (containsBlockedContent) {
+            event.setCancelled(true);
+            boolean isPunished = false;
+            for (ChatFilterItem chatFilterItem : plugin.getChatFilterManager().getBlockedContent(message)) {
+                if (chatFilterItem.isAutoMute() && !isPunished) {
+                    isPunished = true;
+                    PunishReason punishReason = chatFilterItem.getAutoMuteReason();
+                    plugin.getPunishManager().mute(player.getUniqueId(), punishReason);
+                }
+            }
+            player.sendMessage(SkyMythPlugin.PREFIX + "§cDeine Nachricht enthält blockierten Inhalt.");
+            if (isPunished) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu wurdest automatisch gemutet.");
+            }
+            player.playSound(player.getLocation(), Sound.NOTE_BASS_DRUM, 1, 1);
+
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (!onlinePlayer.hasPermission("myth.team")) {
+                    continue;
+                }
+                onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDer Spieler §e" + player.getName() + " §chat blockierten Inhalt geschrieben.");
+                onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§cNachricht: §7" + plugin.getChatFilterManager().replaceBlockedWords(message, "§c§n%word%§7"));
+                onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.NOTE_BASS_DRUM, 1, 1);
+            }
             return;
         }
 

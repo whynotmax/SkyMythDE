@@ -15,6 +15,8 @@ public enum PunishReason {
 
     HACKING("Hacking", "Hacking", PunishType.BAN, Duration.ofDays(30)),
     ADVERTISING("Werbung", "Werbung", PunishType.MUTE, Duration.ofDays(7)),
+    RACISM("Rassismus", "Rassismus", PunishType.MUTE, Duration.ofDays(7)),
+    CHAT("Chatverhalten", "Chatverhalten", PunishType.MUTE, Duration.ofDays(3)),
     SPAMMING("Spamming", "Spamming", PunishType.MUTE, Duration.ofDays(1)),
     GRIEFING("Griefing", "Griefing", PunishType.BAN, Duration.ofDays(7)),
     PERMANENT("Permanent", "Permanent", PunishType.BAN, Duration.ofDays(365));

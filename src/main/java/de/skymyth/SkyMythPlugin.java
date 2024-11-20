@@ -5,6 +5,7 @@ import de.skymyth.auctionhouse.AuctionHouseManager;
 import de.skymyth.badge.BadgeManager;
 import de.skymyth.baseprotector.BaseProtectorManager;
 import de.skymyth.casino.CasinoManager;
+import de.skymyth.chatfilter.ChatFilterManager;
 import de.skymyth.clan.ClanManager;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.giveaway.GiveawayManager;
@@ -79,6 +80,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     PvPShopManager pvPShopManager;
     AuctionHouseManager auctionHouseManager;
     BaseProtectorManager baseProtectorManager;
+    ChatFilterManager chatFilterManager;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -114,6 +116,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.pvPShopManager = new PvPShopManager(plugin);
         this.auctionHouseManager = new AuctionHouseManager(plugin);
         this.baseProtectorManager = new BaseProtectorManager(plugin);
+        this.chatFilterManager = new ChatFilterManager(plugin);
 
         this.combatListener = new CombatListener(plugin);
 
@@ -170,6 +173,8 @@ public final class SkyMythPlugin extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             this.playerCount.fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));
         }, 0L, 20*30L);
+
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         log.info("SkyMyth Plugin enabled.");
     }

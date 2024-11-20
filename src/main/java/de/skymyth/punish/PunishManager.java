@@ -126,8 +126,7 @@ public class PunishManager {
 
         Player targetPlayer = plugin.getServer().getPlayer(target);
         if (targetPlayer != null) {
-            targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest für §e" + TimeUtil.beautifyTime(reason.getPunishDuration().toMillis(), TimeUnit.MILLISECONDS, true, false) + " §7gemutet.");
-            targetPlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Grund: §e" + reason.getName());
+            sendMuteMessage(punish);
         }
     }
 
