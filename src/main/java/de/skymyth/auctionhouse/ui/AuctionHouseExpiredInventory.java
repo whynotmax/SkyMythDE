@@ -45,7 +45,6 @@ public class AuctionHouseExpiredInventory extends AbstractInventory {
     private void update(int newPage) {
         this.page = newPage;
 
-        clear();
         defaultInventory();
 
         setItem(47, new ItemBuilder(Material.HOPPER).setName("§aItems filtern").lore(
@@ -118,8 +117,6 @@ public class AuctionHouseExpiredInventory extends AbstractInventory {
             }
             update(this.page - 1);
         });
-
-        defaultInventory();
 
         int slot = 10;
         for (AuctionHouseItem auctionHouseItem : this.pagination.getItems(newPage)) {
