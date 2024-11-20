@@ -34,9 +34,6 @@ public class AuctionHouseItemNameFilter {
             return AuctionHouseItemNameFilterResult.startFiltering(this, matches);
         }
         matches = new ArrayList<>(allActiveItems.stream().filter(auctionHouseItem -> {
-            if (!auctionHouseItem.getItemStack().hasItemMeta()) {
-                return false;
-            }
             if (!auctionHouseItem.getItemStack().getItemMeta().hasDisplayName()) {
                 //Search for material name
                 return auctionHouseItem.getItemStack().getType().name().toLowerCase().contains(searchingFor.toLowerCase());

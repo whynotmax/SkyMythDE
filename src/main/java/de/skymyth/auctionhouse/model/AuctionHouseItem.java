@@ -41,7 +41,7 @@ public class AuctionHouseItem {
 
     @Transient
     public long getRemainingTime() {
-        return (start + duration.toMillis() - System.currentTimeMillis()) / 1000;
+        return (start + duration.toMillis() - System.currentTimeMillis());
     }
 
     @Transient
