@@ -114,6 +114,14 @@ public class ItemBuilder extends ItemStack {
         return new ItemBuilder(CraftItemStack.asCraftMirror(nmsStack));
     }
 
+    public ItemBuilder glow(boolean glowing) {
+        if (glowing) {
+            return glow();
+        } else {
+            return unglow();
+        }
+    }
+
     public ItemBuilder addEnchant(Enchantment enchantment, int level) {
         ItemMeta itemMeta = getItemMeta();
         itemMeta.addEnchant(enchantment, level, false);

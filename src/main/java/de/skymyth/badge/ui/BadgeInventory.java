@@ -32,9 +32,11 @@ public class BadgeInventory extends AbstractInventory {
 
         pagination = new Pagination<>(28);
 
+        User user = plugin.getUserManager().getUser(playerUUID);
         for (Badge badge : badgesSortedByOwnership) {
             ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
             badgeItem.setName("§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge");
+            badgeItem.glow(user.getSelectedBadge().equalsIgnoreCase(badge.getName()));
             badgeItem.lore(
                     "§8Badge-ID: " + badge.getName(),
                     "§r",
