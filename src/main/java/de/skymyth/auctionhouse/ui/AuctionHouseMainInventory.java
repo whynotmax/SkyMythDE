@@ -96,7 +96,7 @@ public class AuctionHouseMainInventory extends AbstractInventory {
             Bukkit.getScheduler().runTaskLater(plugin, () -> builder.open(player), 2L);
         });
 
-        setItem(50, new ItemBuilder(Material.CHEST).setName("§cDeine abgelauften Auktionen").lore(
+        setItem(50, new ItemBuilder(Material.HOPPER_MINECART).setName("§cDeine abgelauften Auktionen").lore(
                 "§7Hier findest du alle deine abgelaufenen Auktionen"
         ), event -> {
             Player player = (Player) event.getWhoClicked();
