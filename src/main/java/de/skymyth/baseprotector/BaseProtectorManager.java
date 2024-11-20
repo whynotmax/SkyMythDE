@@ -40,6 +40,7 @@ public class BaseProtectorManager {
         baseProtector.setBaseProtectorLocation(location);
         baseProtector.setTrustedPlayers(new ArrayList<>());
         baseProtector.setBaseProtectorRadius(BaseProtectorRadius.RADIUS_5X5);
+        baseProtector.setMaxTrustedPlayers(10);
 
         this.baseProtector.put(uuid, baseProtector);
         this.repository.save(baseProtector);

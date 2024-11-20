@@ -26,11 +26,10 @@ public class BaseMainInventory extends AbstractInventory {
                 .setName("§cBaseschutz zerstören")
                 .lore(
                         "",
-                        "§cZerstöre deinen Basisschutz und erhalte ihn neu.",
-                        "§calles im Umkreis befindene is daraufhin ungeschützt.",
+                        "§7Zerstöre deinen Basisschutz und erhalte ihn neu.",
+                        "§7Alles im Umkreis befindene ist daraufhin ungeschützt.",
                         "",
-                        "§7Klicke, um deinen Basisschutz zu zerstören.",
-                        ""
+                        "§cKlicke, um deinen Basisschutz zu zerstören."
                 ), event -> {
 
             player.closeInventory();
@@ -45,6 +44,23 @@ public class BaseMainInventory extends AbstractInventory {
                 location.getWorld().dropItemNaturally(location,
                         plugin.getBaseProtectorManager().getBaseProtectorItem());
                 player.playSound(location, Sound.CHICKEN_EGG_POP, 1, 1);
+            }
+        });
+
+        setItem(11, new ItemBuilder(Material.NAME_TAG)
+                .setName("§aSpieler einladen")
+                .lore(
+                        "",
+                        "§7Lade bis zu 10 Spieler ein und erbaut zusammen",
+                        "§7euer eigenes Dorf, eure Farms oder Lager.",
+                        "",
+                        "§aKlicke, um Spieler zum mitbauen einzuladen"
+                ), event -> {
+            player.closeInventory();
+            BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtector(player.getUniqueId());
+
+            if (baseProtector != null) {
+                plugin.getInventoryManager().openInventory(player, new BasePlayersInventory(player, baseProtector));
             }
         });
     }

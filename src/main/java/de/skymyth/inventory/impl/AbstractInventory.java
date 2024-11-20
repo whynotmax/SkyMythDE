@@ -48,6 +48,9 @@ public abstract class AbstractInventory {
         this.setItem(slot, item, null);
     }
 
+    public void update() {
+    }
+
     public void setItem(int slot, ItemStack item, Consumer<InventoryClickEvent> clickAction) {
         this.inventory.setItem(slot, item);
         if (clickAction != null) {

@@ -26,5 +26,7 @@ public class BaseProtector {
     UUID baseOwner;
     List<UUID> trustedPlayers;
 
+    long maxTrustedPlayers;
+
     BaseProtectorRadius baseProtectorRadius;
 }
