@@ -65,7 +65,7 @@ public class BaseMainInventory extends AbstractInventory {
         });
 
         setItem(15, new ItemBuilder(Material.STRING)
-                .setName("§6Radius erweitern")
+                .setName("§aRadius erweitern")
                 .lore(
                         "",
                         "§7Erweitere den Radius deines Basisschutzes",
