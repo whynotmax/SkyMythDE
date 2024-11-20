@@ -57,9 +57,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
     private final List<Location> randomPvPLocations = new ArrayList<>();
     private final List<String> allowedPlayers = new ArrayList<>();
-    private final ForkJoinPool forkJoinPool = new ForkJoinPool(5,
-            ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-            (t, e) -> e.printStackTrace(System.out), true);
+
     @Setter
     private boolean globalMute = false;
     SkyMythPlugin plugin;
@@ -166,8 +164,6 @@ public final class SkyMythPlugin extends JavaPlugin {
 
         this.allowedPlayers.add("sxbide");
         this.allowedPlayers.add("044mzcy_og");
-        this.allowedPlayers.add("Tony782");
-        this.allowedPlayers.add("Lele_Mennels");
 
         Bukkit.getScheduler().runTaskTimer(this, new AntiLagRunnable(), 20L, 20L);
 
@@ -181,10 +177,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         this.rankingManager.delete();
+        this.playerCount.fastPut("skypvp", 0);
         log.info("SkyMyth Plugin disabled.");
-    }
-
-    private void setupNpcs() {
-
     }
 }

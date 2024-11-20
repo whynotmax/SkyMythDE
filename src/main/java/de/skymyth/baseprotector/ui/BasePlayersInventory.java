@@ -37,7 +37,7 @@ public class BasePlayersInventory extends AbstractInventory {
 
             String name = UUIDFetcher.getName(trustedPlayer);
 
-            if (slotCounter.get() == 16) {
+            if (slotCounter.get() == 17) {
                 slotCounter.set(19);
             }
 

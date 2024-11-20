@@ -73,6 +73,8 @@ public class BaseMainInventory extends AbstractInventory {
                         "",
                         "§aKlicke, um deinen Basisradius zu erweitern"
                 ), event -> {
+            plugin.getInventoryManager().openInventory(player, new BaseRadiusInventory(plugin, player));
+
 
         });
     }
