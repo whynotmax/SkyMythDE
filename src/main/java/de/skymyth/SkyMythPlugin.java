@@ -21,9 +21,11 @@ import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.codec.*;
 import eu.koboo.en2do.Credentials;
 import eu.koboo.en2do.MongoManager;
+import io.netty.util.internal.PlatformDependent;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +37,11 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.redisson.Redisson;
+import org.redisson.api.RMap;
+import org.redisson.api.RTopic;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
@@ -75,6 +82,9 @@ public final class SkyMythPlugin extends JavaPlugin {
     AuctionHouseManager auctionHouseManager;
     BaseProtectorManager baseProtectorManager;
 
+    RedissonClient redissonClient;
+    RMap<String, Integer> playerCount;
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -82,6 +92,13 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.mongoManager = new MongoManager(Credentials.of("mongodb://minerush:Rbrmf5aPMt9hqgx7BWjLkGe2U38w46Kv@87.106.178.7:27017/", "skymyth"));
         this.mongoManager = this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new DurationCodec())
                 .registerCodec(new ChunkCodec()).registerCodec(new CooldownCodec());
+
+        Config redissonConfig = new Config();
+        redissonConfig.useSingleServer().setAddress("redis://87.106.178.7:6379");
+        redissonConfig.useSingleServer().setPassword("WsTvD7x8eMtAyjKE");
+
+        this.redissonClient = Redisson.create(redissonConfig);
+        this.playerCount = this.redissonClient.getMap("player-count");
 
         this.scoreboardManager = new ScoreboardManager(plugin);
         this.userManager = new UserManager(plugin);
@@ -153,6 +170,10 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.allowedPlayers.add("Lele_Mennels");
 
         Bukkit.getScheduler().runTaskTimer(this, new AntiLagRunnable(), 20L, 20L);
+
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            this.playerCount.fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));
+        }, 0L, 20*30L);
 
         log.info("SkyMyth Plugin enabled.");
     }

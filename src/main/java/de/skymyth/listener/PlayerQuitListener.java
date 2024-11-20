@@ -16,6 +16,8 @@ public record PlayerQuitListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         User user = plugin.getUserManager().getUser(player.getUniqueId());
 
+        plugin.getPlayerCount().fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));
+
         event.setQuitMessage(null);
         user.updatePlayTime();
         plugin.getScoreboardManager().destroyScoreboard(player);

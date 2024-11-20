@@ -3,6 +3,7 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -20,6 +21,8 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+
+        plugin.getPlayerCount().fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));
 
         if (plugin.getLocationManager().getPosition("spawn") != null) {
             player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());

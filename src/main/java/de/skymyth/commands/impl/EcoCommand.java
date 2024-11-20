@@ -4,6 +4,7 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.UUIDFetcher;
+import io.netty.util.internal.PlatformDependent;
 import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
