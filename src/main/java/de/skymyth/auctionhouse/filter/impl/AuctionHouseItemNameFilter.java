@@ -3,10 +3,13 @@ package de.skymyth.auctionhouse.filter.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.auctionhouse.filter.impl.result.AuctionHouseItemNameFilterResult;
 import de.skymyth.auctionhouse.model.AuctionHouseItem;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class AuctionHouseItemNameFilter {
 
     SkyMythPlugin plugin;

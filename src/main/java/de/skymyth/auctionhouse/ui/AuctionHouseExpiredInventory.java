@@ -4,7 +4,6 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.auctionhouse.filter.AuctionHouseItemFilter;
 import de.skymyth.auctionhouse.model.AuctionHouseItem;
 import de.skymyth.inventory.impl.AbstractInventory;
-import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.UUIDFetcher;
@@ -19,36 +18,34 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class AuctionHouseMainInventory extends AbstractInventory {
+public class AuctionHouseExpiredInventory extends AbstractInventory {
 
     SkyMythPlugin plugin;
+    UUID seller;
     Pagination<AuctionHouseItem> pagination;
     int page;
 
-    public AuctionHouseMainInventory(SkyMythPlugin plugin) {
-        super("Auktionen: Alle", 54);
+    public AuctionHouseExpiredInventory(SkyMythPlugin plugin, UUID seller) {
+        super("Auktionen: Abgelaufen", 54);
         this.plugin = plugin;
+        this.seller = seller;
 
-        defaultInventory();
-
-        this.page = 0;
         this.pagination = new Pagination<>(0, 28);
 
-        plugin.getAuctionHouseManager().getAuctionHouseItems().forEach(this.pagination::addItem);
+        plugin.getAuctionHouseManager().getExpiredAuctionHouseItems(seller).forEach(this.pagination::addItem);
+
+        this.page = 0;
 
         update(0);
-    }
-
-    @Override
-    public void close(InventoryCloseEvent event) {
-
     }
 
     private void update(int newPage) {
         this.page = newPage;
 
+        clear();
         defaultInventory();
 
         setItem(47, new ItemBuilder(Material.HOPPER).setName("§aItems filtern").lore(
@@ -96,13 +93,9 @@ public class AuctionHouseMainInventory extends AbstractInventory {
             Bukkit.getScheduler().runTaskLater(plugin, () -> builder.open(player), 2L);
         });
 
-        setItem(50, new ItemBuilder(Material.CHEST).setName("§cDeine abgelauften Auktionen").lore(
+        setItem(50, new ItemBuilder(Material.CHEST).glow().setName("§cDeine abgelauften Auktionen").lore(
                 "§7Hier findest du alle deine abgelaufenen Auktionen"
-        ), event -> {
-            Player player = (Player) event.getWhoClicked();
-            player.closeInventory();
-            Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().openInventory(player, new AuctionHouseExpiredInventory(plugin, player.getUniqueId())), 2L);
-        });
+        ));
 
         setItem(51, new ItemBuilder(Material.EMERALD).setName("§aAuktion starten").lore(
                 "§7Starte eine neue Auktion"
@@ -126,59 +119,28 @@ public class AuctionHouseMainInventory extends AbstractInventory {
             update(this.page - 1);
         });
 
+        defaultInventory();
+
         int slot = 10;
-        for (AuctionHouseItem auctionHouseItem : this.pagination.getItems(this.page)) {
-            ItemBuilder itemBuilder = new ItemBuilder(auctionHouseItem.getItemStack());
-            itemBuilder.setName(auctionHouseItem.getItemStack().getItemMeta().hasDisplayName() ? auctionHouseItem.getItemStack().getItemMeta().getDisplayName() : auctionHouseItem.getItemStack().getType().name());
-            itemBuilder.lore(
+        for (AuctionHouseItem auctionHouseItem : this.pagination.getItems(newPage)) {
+            setItem(slot, new ItemBuilder(auctionHouseItem.getItemStack()).setName("§7" + (auctionHouseItem.getItemStack().getItemMeta().hasDisplayName() ? auctionHouseItem.getItemStack().getItemMeta().getDisplayName() : auctionHouseItem.getItemStack().getType().name())).lore(
                     "§7Verkäufer: §e" + UUIDFetcher.getName(auctionHouseItem.getSeller()),
                     "§7Preis: §e" + NumberFormat.getInstance(Locale.GERMAN).format(auctionHouseItem.getPrice()).replace(",", ".") + " Coins",
                     "§7Kategorie: §e" + auctionHouseItem.getCategory().getName(),
-                    "§7Ablaufdatum: §e" + TimeUtil.beautifyTime(auctionHouseItem.getRemainingTime(), TimeUnit.MILLISECONDS, true, true)
-            );
-            slot++;
-            setItem(slot, itemBuilder, event -> {
-                Player player = (Player) event.getWhoClicked();
-                User user = plugin.getUserManager().getUser(player.getUniqueId());
-                if (auctionHouseItem.getSeller().equals(player.getUniqueId())) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast deine Auktion entfernt.");
-                    player.playSound(player.getLocation(), org.bukkit.Sound.ORB_PICKUP, 1, 1);
-                    plugin.getAuctionHouseManager().removeAuctionHouseItem(auctionHouseItem);
-                    player.getInventory().addItem(auctionHouseItem.getItemStack());
-                    update(page);
-                    return;
-                }
-                if (auctionHouseItem.isExpired() || auctionHouseItem.getExpired()) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDiese Auktion ist bereits abgelaufen.");
-                    player.playSound(player.getLocation(), org.bukkit.Sound.ORB_PICKUP, 1, 1);
-                    update(page);
-                    return;
-                }
-                if (user.getBalance() < auctionHouseItem.getPrice()) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast nicht genügend Tokens.");
-                    player.playSound(player.getLocation(), org.bukkit.Sound.ORB_PICKUP, 1, 1);
-                    return;
-                }
-                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast die Auktion für §e" + NumberFormat.getInstance(Locale.GERMAN).format(auctionHouseItem.getPrice()).replace(",", ".") + " Tokens §7gekauft.");
-                player.playSound(player.getLocation(), org.bukkit.Sound.LEVEL_UP, 1, 1);
-                user.removeBalance(auctionHouseItem.getPrice());
-                plugin.getUserManager().saveUser(user);
+                    "§7Ablaufdatum: §e" + TimeUtil.beautifyTime(auctionHouseItem.getRemainingTime(), TimeUnit.MILLISECONDS, true, true),
+                    "§r",
+                    "§7Klicke hier um das Item abzuholen."
+            ), event -> {
                 plugin.getAuctionHouseManager().removeAuctionHouseItem(auctionHouseItem);
-                player.getInventory().addItem(auctionHouseItem.getItemStack());
-                update(page);
-
-                Player seller = plugin.getServer().getPlayer(auctionHouseItem.getSeller());
-                if (seller == null) return;
-                seller.sendMessage(SkyMythPlugin.PREFIX + "§7Deine Auktion wurde für §e" + NumberFormat.getInstance(Locale.GERMAN).format(auctionHouseItem.getPrice()).replace(",", ".") + " Tokens §7verkauft.");
-                seller.sendMessage(SkyMythPlugin.PREFIX + "§7Käufer: §e" + player.getName());
+                plugin.getServer().getPlayer(auctionHouseItem.getSeller()).sendMessage(SkyMythPlugin.PREFIX + "§7Du hast dein Auktionshaus-Item §e" + (auctionHouseItem.getItemStack().getItemMeta().hasDisplayName() ? auctionHouseItem.getItemStack().getItemMeta().getDisplayName() : auctionHouseItem.getItemStack().getType().name()) + " §7abgeholt.");
+                update(this.page);
             });
-            if (slot == 17) {
-                slot = 19;
-            } else if (slot == 26) {
-                slot = 28;
-            } else if (slot == 35) {
-                slot = 37;
-            }
+            slot++;
         }
+    }
+
+    @Override
+    public void close(InventoryCloseEvent event) {
+
     }
 }

@@ -5,6 +5,8 @@ import de.skymyth.auctionhouse.model.AuctionHouseItem;
 import de.skymyth.auctionhouse.model.category.AuctionHouseItemCategory;
 import de.skymyth.auctionhouse.repository.AuctionHouseItemRepository;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,11 +16,29 @@ public class AuctionHouseManager {
     SkyMythPlugin plugin;
     AuctionHouseItemRepository repository;
     Map<UUID, List<AuctionHouseItem>> auctionHouseItems;
+    BukkitTask expiredItemsTask;
 
     public AuctionHouseManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
         this.repository = plugin.getMongoManager().create(AuctionHouseItemRepository.class);
         this.auctionHouseItems = new HashMap<>(this.repository.findAll().stream().collect(Collectors.groupingBy(AuctionHouseItem::getSeller)));
+        this.expiredItemsTask = this.plugin.getServer().getScheduler().runTaskTimerAsynchronously(this.plugin, () -> {
+            for (UUID seller : this.auctionHouseItems.keySet()) {
+                List<AuctionHouseItem> expiredItems = getExpiredAuctionHouseItems(seller);
+                for (AuctionHouseItem expiredItem : expiredItems) {
+                    if (expiredItem.getExpired()) {
+                        continue;
+                    }
+                    expiredItem.setExpired(true);
+                    this.auctionHouseItems.get(seller).remove(expiredItem);
+                    this.repository.save(expiredItem);
+                    Player player = this.plugin.getServer().getPlayer(seller);
+                    if (player == null) return;
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein Auktionshaus-Item §e" + (expiredItem.getItemStack().getItemMeta().hasDisplayName() ? expiredItem.getItemStack().getItemMeta().getDisplayName() : expiredItem.getItemStack().getType().name()) + " §7ist abgelaufen.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Hole es dir im Auktionshaus ab.");
+                }
+            }
+        }, 0, 20);
     }
 
     public void addAuctionHouseItem(AuctionHouseItem auctionHouseItem) {
@@ -44,12 +64,22 @@ public class AuctionHouseManager {
     }
 
     public List<AuctionHouseItem> getAllAuctionHouseItems(AuctionHouseItemCategory category) {
-        return this.auctionHouseItems.values().stream().flatMap(Collection::stream).filter(item -> item.getCategory().equals(category)).collect(Collectors.toList());
+        List<AuctionHouseItem> allItems = this.auctionHouseItems.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+        List<AuctionHouseItem> categoryItems = new ArrayList<>();
+        for (AuctionHouseItem auctionHouseItem : allItems) {
+            AuctionHouseItemCategory itemCategory = determineCategory(auctionHouseItem);
+            if (itemCategory.equals(category)) {
+                categoryItems.add(auctionHouseItem);
+            }
+        }
+        return categoryItems;
     }
 
     public List<AuctionHouseItem> getAuctionHouseItems() {
         return this.auctionHouseItems.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
+
+
 
     public AuctionHouseItemCategory determineCategory(AuctionHouseItem auctionHouseItem) {
         List<Material> pvpItems = List.of(Material.WOOD_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.GOLD_SWORD, Material.DIAMOND_SWORD, Material.BOW, Material.ARROW, Material.GOLDEN_APPLE, Material.LEATHER_BOOTS, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS, Material.LEATHER_HELMET, Material.CHAINMAIL_BOOTS, Material.CHAINMAIL_LEGGINGS, Material.CHAINMAIL_CHESTPLATE, Material.CHAINMAIL_HELMET, Material.IRON_BOOTS, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_HELMET, Material.GOLD_BOOTS, Material.GOLD_LEGGINGS, Material.GOLD_CHESTPLATE, Material.GOLD_HELMET, Material.DIAMOND_BOOTS, Material.DIAMOND_LEGGINGS, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_HELMET);

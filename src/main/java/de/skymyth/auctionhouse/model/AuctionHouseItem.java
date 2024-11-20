@@ -26,6 +26,8 @@ public class AuctionHouseItem {
     UUID seller;
     ItemStack itemStack;
 
+    boolean expired;
+
     long price;
     AuctionHouseItemCategory category;
 
@@ -40,6 +42,11 @@ public class AuctionHouseItem {
     @Transient
     public long getRemainingTime() {
         return (start + duration.toMillis() - System.currentTimeMillis()) / 1000;
+    }
+
+    @Transient
+    public boolean getExpired() {
+        return expired;
     }
 
 }
