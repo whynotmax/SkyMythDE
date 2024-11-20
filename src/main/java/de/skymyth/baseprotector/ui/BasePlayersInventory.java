@@ -18,7 +18,7 @@ public class BasePlayersInventory extends AbstractInventory {
     BaseProtector baseProtector;
 
     public BasePlayersInventory(Player player, BaseProtector baseProtector) {
-        super("Basisschutz: Mitbauer", 37);
+        super("Basisschutz: Mitbauer", 36);
         this.player = player;
         this.baseProtector = baseProtector;
 
