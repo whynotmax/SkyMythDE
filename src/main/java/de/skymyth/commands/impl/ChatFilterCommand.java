@@ -142,6 +142,17 @@ public class ChatFilterCommand extends MythCommand {
                 }
                 break;
             }
+            case "remove" -> {
+                String word = args[1];
+                if (!plugin.getChatFilterManager().isChatFilterItem(word)) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDas Wort ist nicht in der Liste.");
+                    return;
+                }
+                ChatFilterItem chatFilterItem = plugin.getChatFilterManager().getChatFilterItem(word);
+                plugin.getChatFilterManager().removeChatFilterItem(chatFilterItem);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§aDas Wort wurde entfernt.");
+                break;
+            }
             case null, default -> sendHelp(player);
         }
     }
