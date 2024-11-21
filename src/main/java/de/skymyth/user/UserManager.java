@@ -39,6 +39,7 @@ public class UserManager {
             user.setJoinMessage(null);
             user.setQuitMessage(null);
             user.setSelectedBadge(null);
+            user.setAdventDayOpened(new HashMap<>());
         }
 
         this.userMap.put(uuid, user);

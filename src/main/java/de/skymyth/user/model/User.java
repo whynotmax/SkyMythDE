@@ -1,5 +1,6 @@
 package de.skymyth.user.model;
 
+import de.skymyth.advent.model.AdventDay;
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
 import eu.koboo.en2do.repository.entity.Id;
@@ -33,6 +34,7 @@ public class User {
 
     List<Cooldown> cooldowns;
     Map<Perks, Long> perks;
+    Map<Integer, Boolean> adventDayOpened;
 
     String selectedBadge;
 
@@ -42,6 +44,11 @@ public class User {
     public void addBalance(long amount) {
         this.balance += amount;
     }
+
+    public void openAdvent(int day) {
+        this.adventDayOpened.put(day, true);
+    }
+
 
     public void removeBalance(long amount) {
         this.balance -= amount;

@@ -149,7 +149,9 @@ public class CombatListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
+        event.setDeathMessage(null);
         Player player = event.getEntity();
+        User playerUser = this.plugin.getUserManager().getUser(player.getUniqueId());
         if (isInCombat(player)) {
 
             Player target = this.combatMap.get(player);
@@ -170,7 +172,6 @@ public class CombatListener implements Listener {
             targetUser.addPvPShards(5);
             this.plugin.getUserManager().saveUser(targetUser);
 
-            User playerUser = this.plugin.getUserManager().getUser(player.getUniqueId());
             playerUser.addDeath();
             if (playerUser.getBalance() >= 100) {
                 playerUser.removeBalance(100);
@@ -192,6 +193,9 @@ public class CombatListener implements Listener {
 
             plugin.getScoreboardManager().updateScoreboard(target);
             plugin.getScoreboardManager().updateScoreboard(player);
+        } else {
+            playerUser.addDeath();
+            player.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist gestorben.");
         }
     }
 

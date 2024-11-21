@@ -1,6 +1,7 @@
 package de.skymyth;
 
 
+import de.skymyth.advent.CalenderManager;
 import de.skymyth.auctionhouse.AuctionHouseManager;
 import de.skymyth.badge.BadgeManager;
 import de.skymyth.baseprotector.BaseProtectorManager;
@@ -78,6 +79,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     AuctionHouseManager auctionHouseManager;
     BaseProtectorManager baseProtectorManager;
     ChatFilterManager chatFilterManager;
+    CalenderManager calenderManager;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -114,6 +116,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.auctionHouseManager = new AuctionHouseManager(plugin);
         this.baseProtectorManager = new BaseProtectorManager(plugin);
         this.chatFilterManager = new ChatFilterManager(plugin);
+        this.calenderManager = new CalenderManager();
 
         this.combatListener = new CombatListener(plugin);
 
