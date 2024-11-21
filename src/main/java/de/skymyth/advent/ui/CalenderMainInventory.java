@@ -87,19 +87,16 @@ public class CalenderMainInventory extends AbstractInventory {
                 int currentDay = Integer.parseInt(itemName);
                 if (today.getMonthValue() == month && today.getDayOfMonth() == currentDay) {
 
-                    boolean alreadyTaken = plugin.getUserManager().getUser(player.getUniqueId())
-                            .getAdventDayOpened().getOrDefault(currentDay, false);
-
-                    if(alreadyTaken) {
+                    if(taken) {
                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast dieses Türchen bereits abgeholt.");
                         return;
                     }
 
+                    user.openAdvent(currentDay);
+
                     player.closeInventory();
                     plugin.getInventoryManager().openInventory(player, new CalenderMainInventory(plugin, player));
 
-                    user.openAdvent(currentDay);
-                    plugin.getUserManager().saveUser(user);
 
                     player.sendMessage(SkyMythPlugin.PREFIX + "§aDu hast das " + currentDay + ". Türchen geöffnet.");
 
@@ -121,6 +118,7 @@ public class CalenderMainInventory extends AbstractInventory {
                     if(adventDay.getTokens() > 0) {
                         user.addBalance(adventDay.getTokens());
                         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + adventDay.getTokens() + " Tokens §7erhalten.");
+                        plugin.getUserManager().saveUser(user);
                     }
                 } else {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Tag ist heute nicht.");
