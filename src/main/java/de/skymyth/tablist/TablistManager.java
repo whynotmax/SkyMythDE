@@ -75,13 +75,12 @@ public class TablistManager {
                         "§8» §5§lSkyMyth§8.§5§lDE §8┃ §cWeihnachten 2024 §4❤ §8«\n" +
                         "§r\n" +
                         "§2✥ §8» §7Aktueller Server: §aSkyPvP\n" +
-                        "§b✦ §8» §7Spieler Online: §c" + (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()) +
-                        "\n\n §8➥ §7Aktuelle TPS: §a" + Math.round(tps) + "\n",
-                """
-                        §r
-                        §7Discord§8: §chttps://discord.gg/7ZzQ3QJ§r
-                        §7Bewerben§8: §capply.skymyth.de§r
-                        §r""");
+                        "§9✦ §8» §7Spieler Online: §c" + (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()) +
+                        (player.isOp() ? "\n\n §8➥ §7Aktuelle TPS: §a" + Math.round(tps) + " §8× §7Aktuelle CPU: §a" + Util.getProcessCpuLoad() + "%%" + "\n" : "\n"),
+                "\n" +
+                        "§7Heute schon gevotet? §8» §c/vote \n" +
+                        "§7Discord§8: §cdiscord.SkyMyth.de §8× §7Bewerben§8: §capply.skymyth.de§r" +
+                        "\n");
     }
 
     private void sendTab(Player player, String head, String foot) {

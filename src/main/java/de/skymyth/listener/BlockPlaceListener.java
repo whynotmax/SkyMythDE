@@ -34,7 +34,7 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
             }
 
             ItemStack itemStack = event.getItemInHand();
-            if (event.getItemInHand().getType() == Material.ENDER_PORTAL_FRAME) {
+            if (event.getItemInHand().getType() == Material.ENDER_PORTAL_FRAME) { //
 
                 if (plugin.getBaseProtectorManager().hasBaseProtection(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst nicht mehr als einen Basisschutz haben.");
@@ -52,8 +52,9 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
                 plugin.getBaseProtectorManager().createBaseProtection(player.getUniqueId(), event.getBlockPlaced().getLocation());
                 player.sendMessage(SkyMythPlugin.PREFIX + "§aDein Basisschutz wurde erfolgreich erstellt.");
                 player.playSound(player.getLocation(), Sound.CHEST_CLOSE, 1, 1);
-                for (int i = 0; i < 10; i++) {
-                    event.getBlockPlaced().getWorld().playEffect(event.getBlockPlaced().getLocation().add(0, i, 0), Effect.COLOURED_DUST, i * 3);
+                for (int i = 0; i < 5; i++) {
+                    event.getBlockPlaced().getWorld().playEffect(event.getBlockPlaced().getLocation()
+                            .add(0.5f, i, 0.5f), Effect.COLOURED_DUST, i * 3);
                 }
 
 

@@ -17,6 +17,8 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import javax.management.*;
+import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -119,6 +121,23 @@ public class Util {
         result.put("inner", innerBlocks);
 
         return result;
+    }
+
+    public double getProcessCpuLoad()  {
+        try {
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            ObjectName name = ObjectName.getInstance("java.lang:type=OperatingSystem");
+            AttributeList list = mbs.getAttributes(name, new String[]{"ProcessCpuLoad"});
+            if (list.isEmpty()) {
+                return Double.NaN;
+            } else {
+                Attribute att = (Attribute) list.get(0);
+                Double value = (Double) att.getValue();
+                return value != -1.0D ? (double) ((int) (value * 1000.0D)) / 10.0D : Double.NaN;
+            }
+        }catch (Exception exception) {
+            return 0.0;
+        }
     }
 
 
