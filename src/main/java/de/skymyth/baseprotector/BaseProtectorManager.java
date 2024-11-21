@@ -5,6 +5,8 @@ import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.baseprotector.model.radius.BaseProtectorRadius;
 import de.skymyth.baseprotector.repository.BaseProtectorRepository;
 import de.skymyth.utility.item.ItemBuilder;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,6 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BaseProtectorManager {
 
     SkyMythPlugin plugin;

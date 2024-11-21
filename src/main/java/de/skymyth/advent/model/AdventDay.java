@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 @Getter
 @Setter
@@ -21,4 +23,5 @@ public class AdventDay {
 
     List<ItemStack> itemStacks;
     long tokens;
+    Consumer<Player> actions;
 }

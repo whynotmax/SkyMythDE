@@ -1,33 +1,53 @@
 package de.skymyth.advent;
 
+import de.skymyth.SkyMythPlugin;
 import de.skymyth.advent.model.AdventDay;
+import de.skymyth.badge.model.Badge;
+import de.skymyth.user.model.User;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CalenderManager {
 
-    public Map<Integer, AdventDay> adventDayMap;
+    SkyMythPlugin plugin;
+    Map<Integer, AdventDay> adventDayMap;
 
-    public CalenderManager() {
+    public CalenderManager(SkyMythPlugin plugin) {
+        this.plugin = plugin;
         this.adventDayMap = new HashMap<>();
 
-        AdventDay firstDay = new AdventDay();
-        firstDay.setDay(1);
-        firstDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).amount(3)));
-        firstDay.setTokens(50);
 
-        AdventDay twentyOneDay = new AdventDay();
-        twentyOneDay.setDay(21);
-        twentyOneDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).amount(3)));
-        twentyOneDay.setTokens(150);
+        /*
+        for (int i = 1; i < 23; i++) {
+            AdventDay day = new AdventDay();
+            day.setDay(i);
+            day.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).amount(3)));
+            day.setTokens(100);
+            this.adventDayMap.put(i, day);
+        }
 
-        this.adventDayMap.put(1, firstDay);
-        this.adventDayMap.put(21, twentyOneDay);
+         */
+        AdventDay lastDay = new AdventDay();
+        lastDay.setDay(21);
+        lastDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).amount(16)));
+        lastDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).setDataId(1).amount(3)));
+        lastDay.setActions(player -> {
+            Badge badge = plugin.getBadgeManager().getBadge("weihnachten24");
+            badge.getOwners().add(player.getUniqueId());
+            plugin.getBadgeManager().saveBadge(badge);
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das " + Util.christmasColor("Weihnachten") + " 2024 §7Badge " + "§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge" + " erhalten!");
+        });
+        lastDay.setTokens(5000);
+        this.adventDayMap.put(21, lastDay);
+
     }
 
     public AdventDay getAdventDay(int day) {

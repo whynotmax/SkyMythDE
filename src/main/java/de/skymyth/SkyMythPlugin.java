@@ -116,7 +116,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.auctionHouseManager = new AuctionHouseManager(plugin);
         this.baseProtectorManager = new BaseProtectorManager(plugin);
         this.chatFilterManager = new ChatFilterManager(plugin);
-        this.calenderManager = new CalenderManager();
+        this.calenderManager = new CalenderManager(plugin);
 
         this.combatListener = new CombatListener(plugin);
 

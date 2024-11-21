@@ -98,28 +98,26 @@ public class ItemBuilder extends ItemStack {
         return this;
     }
 
-    public ItemBuilder glow() {
-        final net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(this);
-        NBTTagCompound tag = null;
-        if (!nmsStack.hasTag()) {
-            tag = new NBTTagCompound();
-            nmsStack.setTag(tag);
-        }
-        if (tag == null) {
-            tag = nmsStack.getTag();
-        }
-        final NBTTagList ench = new NBTTagList();
-        tag.set("ench", ench);
-        nmsStack.setTag(tag);
-        return new ItemBuilder(CraftItemStack.asCraftMirror(nmsStack));
-    }
-
-    public ItemBuilder glow(boolean glowing) {
+    public ItemBuilder glow(final boolean glowing) {
+        final ItemMeta itemMeta = this.getItemMeta();
+        assert itemMeta != null;
         if (glowing) {
-            return glow();
+            itemMeta.addEnchant(Enchantment.LUCK, 1, true);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
-            return unglow();
+            itemMeta.removeEnchant(Enchantment.LUCK);
+            itemMeta.removeItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
+        this.setItemMeta(itemMeta);
+        return this;
+    }
+    public ItemBuilder glow() {
+        final ItemMeta itemMeta = this.getItemMeta();
+        assert itemMeta != null;
+        itemMeta.addEnchant(Enchantment.LUCK, 1, true);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        this.setItemMeta(itemMeta);
+        return this;
     }
 
     public ItemBuilder addEnchant(Enchantment enchantment, int level) {
@@ -175,24 +173,6 @@ public class ItemBuilder extends ItemStack {
         return this;
     }
 
-    public boolean isGlowing() {
-        return hasNBTTag("ench");
-    }
-
-    public ItemBuilder unglow() {
-        final net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(this);
-        NBTTagCompound tag = null;
-        if (!nmsStack.hasTag()) {
-            tag = new NBTTagCompound();
-            nmsStack.setTag(tag);
-        }
-        if (tag == null) {
-            tag = nmsStack.getTag();
-        }
-        tag.set("ench", null);
-        nmsStack.setTag(tag);
-        return new ItemBuilder(CraftItemStack.asCraftMirror(nmsStack));
-    }
 
     public NBTTagCompound getNBTTagCompound() {
         net.minecraft.server.v1_8_R3.ItemStack itemStack = CraftItemStack.asNMSCopy(this);

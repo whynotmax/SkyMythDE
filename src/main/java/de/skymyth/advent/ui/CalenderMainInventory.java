@@ -10,7 +10,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,6 +45,7 @@ public class CalenderMainInventory extends AbstractInventory {
             boolean taken = user.getAdventDayOpened().getOrDefault(i, false);
 
             if (today.getMonthValue() == month && today.getDayOfMonth() == i) {
+                itemBuilder.glow();
                 if (taken) {
                     itemBuilder.lore(
                             "",
@@ -117,8 +120,12 @@ public class CalenderMainInventory extends AbstractInventory {
 
                     if(adventDay.getTokens() > 0) {
                         user.addBalance(adventDay.getTokens());
-                        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + adventDay.getTokens() + " Tokens §7erhalten.");
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + NumberFormat.getInstance(Locale.GERMAN).format(adventDay.getTokens()) + " Tokens §7erhalten.");
                         plugin.getUserManager().saveUser(user);
+                    }
+
+                    if(adventDay.getActions() != null) {
+                        adventDay.getActions().accept(player);
                     }
                 } else {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Tag ist heute nicht.");
