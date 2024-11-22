@@ -108,7 +108,7 @@ public class User {
         if (cooldown == null) {
             return false;
         }
-        if (cooldown.isExpired()) {
+        if (cooldown.isExpired() || ((cooldown.getStart() + cooldown.getDuration().toMillis()) - System.currentTimeMillis() <= 0)) {
             this.removeCooldown(name);
             return false;
         }
