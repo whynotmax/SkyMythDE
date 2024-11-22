@@ -8,6 +8,7 @@ import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -38,7 +39,10 @@ public class OtherKitsInventory extends AbstractInventory {
                     (user.isOnCooldown("kit" + kit.getName().toLowerCase()) ?
                             "§cBitte warte noch " + TimeUtil.beautifyTime(user.getCooldown("kit_" + kit.getName().toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true)
                             :
-                            "§7Du kannst das Kit jetzt sofort abholen")
+                            "§7Du kannst das Kit jetzt sofort abholen"),
+                    "§r",
+                    "§7Rechtsklick, um die Kit-Vorschau zu sehen.",
+                    "§7Linksklick, um das Kit zu erhalten."
             );
             pagination.addItem(displayItem);
         }
@@ -73,8 +77,13 @@ public class OtherKitsInventory extends AbstractInventory {
         int i = 10;
         for (ItemStack itemStack : pagination.getItems(newPage)) {
             this.setItem(i, itemStack, event -> {
+                Player player = (Player) event.getWhoClicked();
                 Kit kit = plugin.getKitManager().getKitByName(itemStack.getItemMeta().getDisplayName().replaceAll("§7Kit§8: §e", ""));
                 if (kit == null) {
+                    return;
+                }
+                if (event.getAction().name().contains("RIGHT")) {
+                    plugin.getInventoryManager().openInventory(player, new KitPreviewInventory(plugin, user, kit));
                     return;
                 }
                 kit.giveTo(user, plugin);

@@ -8,40 +8,31 @@ import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.TimeUnit;
 
-public class RankSpecificKitsInventory extends AbstractInventory {
+public class KitPreviewInventory extends AbstractInventory {
 
     Pagination<ItemStack> pagination;
     SkyMythPlugin plugin;
     User user;
+    Kit kit;
     int page;
 
-    public RankSpecificKitsInventory(SkyMythPlugin plugin, User user) {
-        super("Kits: Rangspezifische Kits", 54);
+    public KitPreviewInventory(SkyMythPlugin plugin, User user, Kit kit) {
+        super("Kits: " + kit.getName() + " (Vorschau)", 54);
         this.plugin = plugin;
         this.user = user;
+        this.kit = kit;
 
         defaultInventory();
 
         pagination = new Pagination<>(28);
 
-        for (Kit kit : plugin.getKitManager().getRankSpecificKits()) {
-            ItemBuilder displayItem = new ItemBuilder(kit.getDisplayItem());
-            displayItem.setName("§7Kit§8: §e" + kit.getName());
-            displayItem.lore(
-                    "§7Dieses Kit ist im Moment " + (kit.isEnabled() ? " §aaktiviert." : " §cdeaktiviert."),
-                    "",
-                    (user.isOnCooldown("kit" + kit.getName().toLowerCase()) ?
-                            "§cBitte warte noch " + TimeUtil.beautifyTime(user.getCooldown("kit" + kit.getName().toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true)
-                            :
-                            "§7Du kannst das Kit jetzt sofort abholen")
-            );
-            pagination.addItem(displayItem);
+        for (ItemStack itemStack : kit.getItems()) {
+            pagination.addItem(itemStack);
         }
 
         update(0);
@@ -73,19 +64,7 @@ public class RankSpecificKitsInventory extends AbstractInventory {
 
         int i = 10;
         for (ItemStack itemStack : pagination.getItems(newPage)) {
-            this.setItem(i, itemStack, event -> {
-                Player player = (Player) event.getWhoClicked();
-                Kit kit = plugin.getKitManager().getKitByName(itemStack.getItemMeta().getDisplayName().replaceAll("§7Kit§8: §e", ""));
-                if (kit == null) {
-                    return;
-                }
-                if (event.getAction().name().contains("RIGHT")) {
-                    plugin.getInventoryManager().openInventory(player, new KitPreviewInventory(plugin, user, kit));
-                    return;
-                }
-                kit.giveTo(user, plugin);
-                update(page);
-            });
+            this.setItem(i, itemStack);
             i++;
             if (i == 17) {
                 i = 19;
