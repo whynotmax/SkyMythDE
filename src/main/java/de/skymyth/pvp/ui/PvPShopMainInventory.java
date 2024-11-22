@@ -17,7 +17,7 @@ public class PvPShopMainInventory extends AbstractInventory {
     private User user;
 
     public PvPShopMainInventory(User user) {
-        super("PvPShop: Menü", 54);
+        super("PvPShop: Menü", 36);
 
         this.user = user;
         defaultInventory();
