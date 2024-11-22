@@ -103,13 +103,12 @@ public class User {
         this.cooldowns.removeIf(cooldown -> cooldown.getName().equalsIgnoreCase(name));
     }
 
-    public boolean hasCooldown(String name) {
-        return this.cooldowns.stream().anyMatch(cooldown -> cooldown.getName().equalsIgnoreCase(name));
-    }
-
     public boolean isOnCooldown(String name) {
         Cooldown cooldown = this.getCooldown(name);
-        return cooldown != null && !cooldown.isExpired();
+        if (cooldown == null) {
+            return false;
+        }
+        return !cooldown.isExpired();
     }
 
     public boolean hasJoinMessage() {

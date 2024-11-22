@@ -19,7 +19,7 @@ public class HealCommand extends MythCommand {
     public void run(Player player, String[] args) {
         if (args.length == 0) {
             User user = plugin.getUserManager().getUser(player.getUniqueId());
-            if (user.hasCooldown("command_heal")) {
+            if (user.isOnCooldown("command_heal")) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst diesen Befehl nur alle 30 Sekunden verwenden.");
                 return;
             }

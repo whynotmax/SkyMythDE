@@ -67,7 +67,7 @@ public class ReportCommand extends MythCommand {
 
                 User user = plugin.getUserManager().getUser(player.getUniqueId());
 
-                if (user.hasCooldown("command_report")) {
+                if (user.isOnCooldown("command_report")) {
                     long remaining = user.getCooldown("command_report").getRemainingTime();
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu musst noch " +
                             TimeUtil.beautifyTime(remaining, TimeUnit.MILLISECONDS, true, true)

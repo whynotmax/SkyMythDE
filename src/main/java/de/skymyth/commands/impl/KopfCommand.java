@@ -22,7 +22,7 @@ public class KopfCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
         User user = plugin.getUserManager().getUser(player.getUniqueId());
-        if (user.hasCooldown("command_kopf")) {
+        if (user.isOnCooldown("command_kopf")) {
             long remaining = user.getCooldown("command_kopf").getRemainingTime();
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu musst noch " + TimeUtil.beautifyTime(remaining, TimeUnit.MILLISECONDS, true, true) + " warten, bevor du den Befehl erneut verwenden kannst.");
             return;

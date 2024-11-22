@@ -34,7 +34,7 @@ public class WerbungCommand extends MythCommand {
             return;
         }
 
-        if (user.hasCooldown("command_werbung")) {
+        if (user.isOnCooldown("command_werbung")) {
             long remaining = user.getCooldown("command_werbung").getRemainingTime();
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu musst noch " + TimeUtil.beautifyTime(remaining, TimeUnit.MILLISECONDS, true, true) + " warten, bevor du den Befehl erneut verwenden kannst.");
             return;

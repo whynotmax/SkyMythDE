@@ -94,7 +94,7 @@ public class Kit {
             return;
         }
 
-        if (user.hasCooldown("kit_" + name.toLowerCase())) {
+        if (user.isOnCooldown("kit_" + name.toLowerCase())) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du musst noch §e" + TimeUtil.beautifyTime(user.getCooldown("kit_" + name.toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true) + " §7warten, bevor du das Kit §e" + name + " §7abholen kannst.");
             return;
         }
