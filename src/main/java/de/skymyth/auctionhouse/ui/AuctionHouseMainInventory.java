@@ -127,7 +127,7 @@ public class AuctionHouseMainInventory extends AbstractInventory {
                         }
                         player.closeInventory();
                         try {
-                            long price = Long.parseLong(itemName.replace(",", ".").replace(".", ""));
+                            long price = Long.parseLong(itemName.replace(".", ""));
                             if (price < 1) {
                                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Preis muss mindestens 1.000 Tokens betragen.");
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
@@ -154,9 +154,9 @@ public class AuctionHouseMainInventory extends AbstractInventory {
                                             }
                                             player.closeInventory();
                                             return Collections.singletonList(AnvilGUI.ResponseAction.run(() -> {
-                                                User user = plugin.getUserManager().getUser(player.getUniqueId());
                                                 if (Duration.ofMillis(duration).toHours() >= 3) {
                                                     long fee = (long) (price * 0.05);
+                                                    User user = plugin.getUserManager().getUser(player.getUniqueId());
                                                     if (user.getBalance() < fee) {
                                                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast nicht genügend Tokens um die Gebühr zu zahlen.");
                                                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Gebühr für die Dauer wäre " + NumberFormat.getInstance(Locale.GERMAN).format(fee).replace(",", ".") + " Tokens.");
@@ -164,21 +164,21 @@ public class AuctionHouseMainInventory extends AbstractInventory {
                                                     }
                                                     user.removeBalance(fee);
                                                     plugin.getUserManager().saveUser(user);
+                                                    AuctionHouseItem auctionHouseItem = new AuctionHouseItem(
+                                                            RandomUtil.randomInt(100000, 999999),
+                                                            player.getUniqueId(),
+                                                            itemStack.clone(),
+                                                            false,
+                                                            price,
+                                                            null,
+                                                            System.currentTimeMillis(),
+                                                            Duration.ofMillis(duration)
+                                                    );
+                                                    plugin.getAuctionHouseManager().addAuctionHouseItem(auctionHouseItem);
+                                                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast dein Item für §e" + NumberFormat.getInstance(Locale.GERMAN).format(price).replace(",", ".") + " Tokens §7zum Verkauf angeboten.");
+                                                    player.closeInventory();
+                                                    Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().openInventory(player, new AuctionHouseMainInventory(plugin)), 2L);
                                                 }
-                                                AuctionHouseItem auctionHouseItem = new AuctionHouseItem(
-                                                        RandomUtil.randomInt(100000, 999999),
-                                                        player.getUniqueId(),
-                                                        itemStack.clone(),
-                                                        false,
-                                                        price,
-                                                        null,
-                                                        System.currentTimeMillis(),
-                                                        Duration.ofMillis(duration)
-                                                );
-                                                plugin.getAuctionHouseManager().addAuctionHouseItem(auctionHouseItem);
-                                                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast dein Item für §e" + NumberFormat.getInstance(Locale.GERMAN).format(price).replace(",", ".") + " Tokens §7zum Verkauf angeboten.");
-                                                player.closeInventory();
-                                                Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().openInventory(player, new AuctionHouseMainInventory(plugin)), 2L);
                                             }));
                                         });
                                 Bukkit.getScheduler().runTaskLater(plugin, () -> builder2.open(player), 2L);
