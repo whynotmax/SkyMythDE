@@ -17,7 +17,7 @@ public class PvPShopMainInventory extends AbstractInventory {
     private User user;
 
     public PvPShopMainInventory(User user) {
-        super("PvPShop: Menü", 36);
+        super("PvPShop: Menü", 45);
 
         this.user = user;
         defaultInventory();
@@ -49,8 +49,7 @@ public class PvPShopMainInventory extends AbstractInventory {
                         player.getInventory().addItem(value.getItemStack());
                         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Item §e" + value.getDisplayname() + " §7gekauft.");
                     });
-            if (count.get() > 25) count.set(30);
-            if (count.get() > 34) return;
+            if (count.get() > 25) return;
         }
     }
 
