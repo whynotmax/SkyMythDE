@@ -140,7 +140,7 @@ public class    CombatListener implements Listener {
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player damager) || !(event.getEntity() instanceof Player target)) return;
-
+        // todo: angel und bogen auch pvp start
         User damagerUser = this.plugin.getUserManager().getUser(damager.getUniqueId());
         User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
         this.hit(damager);

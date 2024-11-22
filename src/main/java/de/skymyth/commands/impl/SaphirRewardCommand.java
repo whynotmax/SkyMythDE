@@ -20,13 +20,13 @@ public class SaphirRewardCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
         User user = plugin.getUserManager().getUser(player.getUniqueId());
-        if (user.isOnCooldown("command_saphirReward")) {
-            long remaining = user.getCooldown("command_saphirReward").getRemainingTime();
+        if (user.isOnCooldown("commandSaphirReward")) {
+            long remaining = user.getCooldown("commandSaphirReward").getRemainingTime();
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu musst noch " + TimeUtil.beautifyTime(remaining, TimeUnit.MILLISECONDS, true, true) + " warten, bevor du den Befehl erneut verwenden kannst.");
             return;
         }
         Cooldown cooldown = new Cooldown();
-        cooldown.setName("command_saphirReward");
+        cooldown.setName("commandSaphirReward");
         cooldown.setDuration(Duration.ofDays(1));
         cooldown.start();
         user.addCooldown(cooldown);

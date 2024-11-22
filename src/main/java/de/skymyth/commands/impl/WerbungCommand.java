@@ -34,14 +34,14 @@ public class WerbungCommand extends MythCommand {
             return;
         }
 
-        if (user.isOnCooldown("command_werbung")) {
-            long remaining = user.getCooldown("command_werbung").getRemainingTime();
+        if (user.isOnCooldown("commandWerbung")) {
+            long remaining = user.getCooldown("commandWerbung").getRemainingTime();
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu musst noch " + TimeUtil.beautifyTime(remaining, TimeUnit.MILLISECONDS, true, true) + " warten, bevor du den Befehl erneut verwenden kannst.");
             return;
         }
 
         Cooldown cooldown = new Cooldown();
-        cooldown.setName("command_werbung");
+        cooldown.setName("commandWerbung");
         cooldown.setDuration(Duration.ofMinutes(15));
         cooldown.start();
         user.addCooldown(cooldown);

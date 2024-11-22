@@ -94,8 +94,8 @@ public class Kit {
             return;
         }
 
-        if (user.isOnCooldown("kit_" + name.toLowerCase())) {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du musst noch §e" + TimeUtil.beautifyTime(user.getCooldown("kit_" + name.toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true) + " §7warten, bevor du das Kit §e" + name + " §7abholen kannst.");
+        if (user.isOnCooldown("kit" + name.toLowerCase())) {
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du musst noch §e" + TimeUtil.beautifyTime(user.getCooldown("kit" + name.toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true) + " §7warten, bevor du das Kit §e" + name + " §7abholen kannst.");
             return;
         }
 
@@ -135,7 +135,7 @@ public class Kit {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");
 
         Cooldown cooldown = new Cooldown();
-        cooldown.setName("kit_" + name.toLowerCase());
+        cooldown.setName("kit" + name.toLowerCase());
         cooldown.setDuration(Duration.ofMillis(this.cooldown.toMillis()));
         cooldown.start();
         user.addCooldown(cooldown);

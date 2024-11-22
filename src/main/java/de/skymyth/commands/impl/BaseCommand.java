@@ -29,7 +29,7 @@ public class BaseCommand extends MythCommand {
                 return;
             }
 
-            if(baseProtector == null) {
+            if(!plugin.getBaseProtectorManager().existsBaseProtection(baseProtector)) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Basisschutz existiert nicht mehr.");
                 return;
             }

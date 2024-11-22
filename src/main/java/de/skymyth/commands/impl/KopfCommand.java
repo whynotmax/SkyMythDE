@@ -22,8 +22,8 @@ public class KopfCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
         User user = plugin.getUserManager().getUser(player.getUniqueId());
-        if (user.isOnCooldown("command_kopf")) {
-            long remaining = user.getCooldown("command_kopf").getRemainingTime();
+        if (user.isOnCooldown("commandKopf")) {
+            long remaining = user.getCooldown("commandKopf").getRemainingTime();
             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu musst noch " + TimeUtil.beautifyTime(remaining, TimeUnit.MILLISECONDS, true, true) + " warten, bevor du den Befehl erneut verwenden kannst.");
             return;
         }
@@ -35,7 +35,7 @@ public class KopfCommand extends MythCommand {
         String targetName = args[0];
 
         Cooldown cooldown = new Cooldown();
-        cooldown.setName("command_kopf");
+        cooldown.setName("commandKopf");
         cooldown.setDuration(Duration.ofDays(1));
         cooldown.start();
         user.addCooldown(cooldown);

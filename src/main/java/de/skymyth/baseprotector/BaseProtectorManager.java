@@ -58,6 +58,10 @@ public class BaseProtectorManager {
         this.repository.delete(baseProtector);
     }
 
+    public boolean existsBaseProtection(BaseProtector baseProtector) {
+        return this.baseProtector.containsKey(baseProtector.getBaseOwner());
+    }
+
     public void saveBaseProtection(BaseProtector baseProtector) {
         this.baseProtector.put(baseProtector.getBaseOwner(), baseProtector);
         this.repository.save(baseProtector);

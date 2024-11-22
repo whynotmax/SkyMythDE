@@ -35,7 +35,7 @@ public class OtherKitsInventory extends AbstractInventory {
             displayItem.lore(
                     "§7Dieses Kit ist im Moment " + (kit.isEnabled() ? " §aaktiviert." : " §cdeaktiviert."),
                     "",
-                    (user.isOnCooldown("kit_" + kit.getName().toLowerCase()) ?
+                    (user.isOnCooldown("kit" + kit.getName().toLowerCase()) ?
                             "§cBitte warte noch " + TimeUtil.beautifyTime(user.getCooldown("kit_" + kit.getName().toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true)
                             :
                             "§7Du kannst das Kit jetzt sofort abholen")
