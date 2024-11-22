@@ -9,6 +9,7 @@ import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -82,7 +83,7 @@ public class OtherKitsInventory extends AbstractInventory {
                 if (kit == null) {
                     return;
                 }
-                if (event.getAction().name().contains("RIGHT")) {
+                if (event.getAction().equals(InventoryAction.PICKUP_HALF)) {
                     plugin.getInventoryManager().openInventory(player, new KitPreviewInventory(plugin, user, kit));
                     return;
                 }

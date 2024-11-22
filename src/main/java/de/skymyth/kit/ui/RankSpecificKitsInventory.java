@@ -9,6 +9,7 @@ import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -39,7 +40,10 @@ public class RankSpecificKitsInventory extends AbstractInventory {
                     (user.isOnCooldown("kit" + kit.getName().toLowerCase()) ?
                             "§cBitte warte noch " + TimeUtil.beautifyTime(user.getCooldown("kit" + kit.getName().toLowerCase()).getRemainingTime(), TimeUnit.MILLISECONDS, true, true)
                             :
-                            "§7Du kannst das Kit jetzt sofort abholen")
+                            "§7Du kannst das Kit jetzt sofort abholen"),
+                    "§r",
+                    "§7Rechtsklick, um die Kit-Vorschau zu sehen.",
+                    "§7Linksklick, um das Kit zu erhalten."
             );
             pagination.addItem(displayItem);
         }
@@ -79,7 +83,7 @@ public class RankSpecificKitsInventory extends AbstractInventory {
                 if (kit == null) {
                     return;
                 }
-                if (event.getAction().name().contains("RIGHT")) {
+                if (event.getAction().equals(InventoryAction.PICKUP_HALF)) {
                     plugin.getInventoryManager().openInventory(player, new KitPreviewInventory(plugin, user, kit));
                     return;
                 }
