@@ -108,6 +108,10 @@ public class User {
         if (cooldown == null) {
             return false;
         }
+        if (cooldown.isExpired()) {
+            this.removeCooldown(name);
+            return false;
+        }
         return !cooldown.isExpired();
     }
 
