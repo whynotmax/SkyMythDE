@@ -47,7 +47,7 @@ public class ScoreboardManager {
         FastBoard fastBoard = this.fastBoardMap.get(player.getUniqueId());
         User user = plugin.getUserManager().getUser(player.getUniqueId());
 
-        if(fastBoard == null) return;
+        if(fastBoard == null || fastBoard.isDeleted()) return;
 
         plugin.getTablistManager().setRank(player);
         user.updatePlayTime();
@@ -91,14 +91,6 @@ public class ScoreboardManager {
             );
             return;
         }
-        if (playerWorld.equals("world")) {
-            BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(player.getLocation().getBlock());
-
-            if (baseProtector != null) {
-                TitleUtil.sendActionBar(player, "§7Du befindest dich im Basisschutz von §e" +
-                        Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName());
-            }
-        }
         //TODO: Mine scoreboard?
         fastBoard.updateLines(
                 "",
@@ -132,7 +124,7 @@ public class ScoreboardManager {
         double durability = (double) itemStack.getDurability() / itemStack.getType().getMaxDurability();
 
         if (durability >= 0.8) {
-            return perfect + "✦ §8(§e" + String.format("%.2f", (durability * 100)) + "%§8)";
+            return perfect + "✦ §8(§e" + String.format("%.0f", (durability * 100)) + "%§8)";
         } else if (durability >= 0.6) {
             return good + "✦ §8(§e" + String.format("%.2f", (durability * 100)) + "%§8)";
         } else if (durability >= 0.4) {

@@ -5,6 +5,7 @@ import de.skymyth.user.model.User;
 import de.skymyth.utility.TitleUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class    CombatListener implements Listener {
+public class CombatListener implements Listener {
 
     SkyMythPlugin plugin;
     Map<Player, Player> combatMap;
@@ -139,8 +140,22 @@ public class    CombatListener implements Listener {
 
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player damager) || !(event.getEntity() instanceof Player target)) return;
-        // todo: angel und bogen auch pvp start
+        Player damager;
+        Player target = event.getEntity() instanceof Player ? (Player) event.getEntity() : null;
+        if (event.getDamager() instanceof Player) {
+            damager = (Player) event.getDamager();
+        } else if (event.getDamager() instanceof Projectile projectile) {
+            if (projectile.getShooter() instanceof Player) {
+                damager = (Player) projectile.getShooter();
+            } else {
+                return;
+            }
+        } else {
+            return;
+        }
+
+        if (damager == null || target == null) return;
+
         User damagerUser = this.plugin.getUserManager().getUser(damager.getUniqueId());
         User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
         this.hit(damager);
