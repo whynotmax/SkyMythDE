@@ -16,8 +16,13 @@ public class NearCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
+        if(player.getWorld().getNearbyEntities(player.getLocation(), 50,50, 50).isEmpty()) {
+            player.sendMessage(SkyMythPlugin.PREFIX + "§cEs befinden sich keine Spieler in deiner Nähe.");
+            return;
+        }
+
         int count = 0;
-        for (Entity nearbyEntity : player.getWorld().getNearbyEntities(player.getLocation(), 20, 20, 20)) {
+        for (Entity nearbyEntity : player.getWorld().getNearbyEntities(player.getLocation(), 50, 50, 50)) {
             if (nearbyEntity == player) continue;
             count++;
             if(count == 0) {
@@ -25,7 +30,7 @@ public class NearCommand extends MythCommand {
                 return;
             }
             if (nearbyEntity instanceof Player minecraftPlayer) {
-                player.sendMessage(SkyMythPlugin.PREFIX + "§e" + minecraftPlayer.getName() + " ist §e" + Math.round(nearbyEntity.getLocation().distance(player.getLocation())) + " §7Blöcke weit weg.");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§e" + minecraftPlayer.getName() + " §7ist §e" + Math.round(nearbyEntity.getLocation().distance(player.getLocation())) + " §7Blöcke weit weg.");
             }
         }
 

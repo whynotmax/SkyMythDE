@@ -36,17 +36,17 @@ public class CalenderManager {
 
          */
         AdventDay lastDay = new AdventDay();
-        lastDay.setDay(21);
+        lastDay.setDay(22);
         lastDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).amount(16)));
         lastDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).setDataId(1).amount(3)));
         lastDay.setActions(player -> {
             Badge badge = plugin.getBadgeManager().getBadge("weihnachten24");
             badge.getOwners().add(player.getUniqueId());
             plugin.getBadgeManager().saveBadge(badge);
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das " + Util.christmasColor("Weihnachten") + " 2024 §7Badge " + "§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge" + " erhalten!");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das " + Util.christmasColor("Weihnachten") + " 2024 " + "§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge" + " erhalten!");
         });
         lastDay.setTokens(5000);
-        this.adventDayMap.put(21, lastDay);
+        this.adventDayMap.put(22, lastDay);
 
     }
 

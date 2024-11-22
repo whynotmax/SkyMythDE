@@ -34,7 +34,9 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
             }
 
             ItemStack itemStack = event.getItemInHand();
-            if (event.getItemInHand().getType() == Material.ENDER_PORTAL_FRAME) { //
+            if (itemStack.getItemMeta().getDisplayName() != null &&
+                    itemStack.getItemMeta().getDisplayName().equals("§cBasisschutz")
+                    && itemStack.getType() == Material.ENDER_PORTAL_FRAME) { //
 
                 if (plugin.getBaseProtectorManager().hasBaseProtection(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst nicht mehr als einen Basisschutz haben.");

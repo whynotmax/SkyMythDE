@@ -127,7 +127,7 @@ public class AuctionHouseMainInventory extends AbstractInventory {
                         }
                         player.closeInventory();
                         try {
-                            long price = Long.parseLong(itemName.replace(".", ""));
+                            long price = Long.parseLong(itemName.replace(",", ".").replace(".", ""));
                             if (price < 1) {
                                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Preis muss mindestens 1.000 Tokens betragen.");
                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
