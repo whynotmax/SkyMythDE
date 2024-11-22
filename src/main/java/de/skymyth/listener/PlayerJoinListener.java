@@ -51,6 +51,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         player.sendMessage("§8§m----------------------------------------§r");
 
         user.setLastSeen(System.currentTimeMillis());
+        plugin.getSkullLoader().addSkull(player.getUniqueId());
 
         player.setGameMode((player.isOp() ? GameMode.CREATIVE : GameMode.SURVIVAL));
         player.playSound(player.getLocation().clone().add(0, 10, 0), Sound.ENDERDRAGON_HIT, 1, 1);

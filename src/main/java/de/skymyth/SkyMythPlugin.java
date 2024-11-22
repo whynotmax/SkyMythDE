@@ -23,6 +23,7 @@ import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
+import de.skymyth.utility.SkullLoader;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.codec.*;
 import eu.koboo.en2do.Credentials;
@@ -80,6 +81,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     BaseProtectorManager baseProtectorManager;
     ChatFilterManager chatFilterManager;
     CalenderManager calenderManager;
+    SkullLoader skullLoader;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -117,8 +119,8 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.baseProtectorManager = new BaseProtectorManager(plugin);
         this.chatFilterManager = new ChatFilterManager(plugin);
         this.calenderManager = new CalenderManager(plugin);
-
         this.combatListener = new CombatListener(plugin);
+        this.skullLoader = new SkullLoader(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {

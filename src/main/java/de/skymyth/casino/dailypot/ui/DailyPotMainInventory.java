@@ -51,7 +51,7 @@ public class DailyPotMainInventory extends AbstractInventory {
             return;
         }
 
-        setItem(3, new ItemBuilder(SkullCreator.itemFromUuid(dailyPot.getLastWinner())).setName("§6Letzter Gewinner").lore(
+        setItem(3, new ItemBuilder(plugin.getSkullLoader().getSkull(dailyPot.getLastWinner())).setName("§6Letzter Gewinner").lore(
                 "§r",
                 "§7§oDer letzte Gewinner war §e§o" + (dailyPot.getLastWinner() == null ? "§c§oUnbekannt" : Bukkit.getOfflinePlayer(dailyPot.getLastWinner()).getName()),
                 "§7Er hat §e§o" + NumberFormat.getInstance(Locale.GERMAN).format(dailyPot.getLastWinnerPot()).replace(",", ".") + "$ §7§ogewonnen.",

@@ -32,7 +32,10 @@ public class RankingManager implements Listener {
         this.rankingStands = new ArrayList<>();
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
+        Bukkit.getScheduler().runTaskTimer(plugin, this::update, 20L, 20 * 60 * 5);
+    }
 
+    public void update() {
         for (Entity entity : this.world.getEntities()) {
             if (entity.getType() != EntityType.ARMOR_STAND) continue;
             if (entity.getLocation().distance(plugin.getLocationManager().getPosition("ranking-1").getLocation()) < 10) {
@@ -41,11 +44,11 @@ public class RankingManager implements Listener {
         }
 
         ArmorStand ranking1 = this.world.spawn(plugin.getLocationManager().getPosition("ranking-1")
-                .getLocation().subtract(0, 0, 0.5), ArmorStand.class);
+                .getLocation().clone().subtract(0, 0, 0.5), ArmorStand.class);
         ArmorStand ranking2 = this.world.spawn(plugin.getLocationManager().getPosition("ranking-2")
-                .getLocation().subtract(0, 0, 0.5), ArmorStand.class);
+                .getLocation().clone().subtract(0, 0, 0.5), ArmorStand.class);
         ArmorStand ranking3 = this.world.spawn(plugin.getLocationManager().getPosition("ranking-3")
-                .getLocation().subtract(0, 0, 0.5), ArmorStand.class);
+                .getLocation().clone().subtract(0, 0, 0.5), ArmorStand.class);
 
         ArmorStand[] armorStands = new ArmorStand[]{ranking1, ranking2, ranking3};
 
@@ -61,55 +64,53 @@ public class RankingManager implements Listener {
             this.rankingStands.add(armorStand);
         }
 
-        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            Map<UUID, Long> killsMap = new HashMap<>();
+        Map<UUID, Long> killsMap = new HashMap<>();
 
-            for (User user : plugin.getUserManager().getRepository().findAll()) {
-                if (user.getKills() < 1) continue;
-                killsMap.put(user.getUniqueId(), user.getKills());
+        for (User user : plugin.getUserManager().getRepository().findAll()) {
+            if (user.getKills() < 1) continue;
+            killsMap.put(user.getUniqueId(), user.getKills());
+        }
+
+        AtomicInteger integer = new AtomicInteger(1);
+        for (Map.Entry<UUID, Long> entry : Util.sortMapByValue(killsMap).entrySet()) {
+            UUID uuid = entry.getKey();
+            long kills = entry.getValue();
+
+            OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+            String playerName = UUIDFetcher.getName(uuid);
+
+            if (kills < 1) continue;
+            if (player == null) continue;
+
+            String killsText = (kills > 1 ? "§8( §a%s Kills §8)" : "§8( §a %s Kill §8)");
+
+            if (integer.get() == 1) {
+                ranking1.setCustomName("§8#§c1 §7" + playerName + String.format(killsText, kills));
+                ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
+                ranking1.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+                ranking1.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+                ranking1.setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+                ranking1.setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
             }
-
-            AtomicInteger integer = new AtomicInteger(1);
-            for (Map.Entry<UUID, Long> entry : Util.sortMapByValue(killsMap).entrySet()) {
-                UUID uuid = entry.getKey();
-                long kills = entry.getValue();
-
-                OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
-                String playerName = UUIDFetcher.getName(uuid);
-
-                if (kills < 1) continue;
-                if (player == null) continue;
-
-                String killsText = (kills > 1 ? "§8( §a%s Kills §8)" : "§8( §a %s Kill §8)");
-
-                if (integer.get() == 1) {
-                    ranking1.setCustomName("§8#§c1 §7" + playerName + String.format(killsText, kills));
-                    ranking1.setHelmet(new ItemBuilder(SkullCreator.itemFromUuid(uuid)));
-                    ranking1.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
-                    ranking1.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
-                    ranking1.setBoots(new ItemStack(Material.DIAMOND_BOOTS));
-                    ranking1.setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
-                }
-                if (integer.get() == 2) {
-                    ranking2.setCustomName("§8#§c2 §7" + playerName + String.format(killsText, kills));
-                    ranking1.setHelmet(new ItemBuilder(SkullCreator.itemFromUuid(uuid)));
-                    ranking2.setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
-                    ranking2.setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
-                    ranking2.setBoots(new ItemStack(Material.GOLD_BOOTS));
-                    ranking2.setItemInHand(new ItemStack(Material.BOW));
-                }
-                if (integer.get() == 3) {
-                    ranking3.setCustomName("§8#§c3 §7" + playerName + String.format(killsText, kills));
-                    ranking1.setHelmet(new ItemBuilder(SkullCreator.itemFromUuid(uuid)));
-                    ranking3.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
-                    ranking3.setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
-                    ranking3.setBoots(new ItemStack(Material.LEATHER_BOOTS));
-                    ranking3.setItemInHand(new ItemStack(Material.ENDER_PEARL));
-                }
-                if (integer.get() > 3) continue;
-                integer.getAndIncrement();
+            if (integer.get() == 2) {
+                ranking2.setCustomName("§8#§c2 §7" + playerName + String.format(killsText, kills));
+                ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
+                ranking2.setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
+                ranking2.setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
+                ranking2.setBoots(new ItemStack(Material.GOLD_BOOTS));
+                ranking2.setItemInHand(new ItemStack(Material.BOW));
             }
-        }, 20L, 20 * 60 * 5);
+            if (integer.get() == 3) {
+                ranking3.setCustomName("§8#§c3 §7" + playerName + String.format(killsText, kills));
+                ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
+                ranking3.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+                ranking3.setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+                ranking3.setBoots(new ItemStack(Material.LEATHER_BOOTS));
+                ranking3.setItemInHand(new ItemStack(Material.ENDER_PEARL));
+            }
+            if (integer.get() > 3) continue;
+            integer.getAndIncrement();
+        }
     }
 
     @EventHandler
