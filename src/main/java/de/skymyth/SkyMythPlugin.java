@@ -17,6 +17,9 @@ import de.skymyth.location.LocationManager;
 import de.skymyth.punish.PunishManager;
 import de.skymyth.pvp.PvPShopManager;
 import de.skymyth.ranking.RankingManager;
+import de.skymyth.redisson.RedissonManager;
+import de.skymyth.redisson.verify.listener.DiscordVerifyMessageListener;
+import de.skymyth.redisson.verify.model.DiscordVerifyMessage;
 import de.skymyth.rewards.RewardsManager;
 import de.skymyth.runnables.AntiLagRunnable;
 import de.skymyth.scoreboard.ScoreboardManager;
@@ -82,6 +85,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     ChatFilterManager chatFilterManager;
     CalenderManager calenderManager;
     SkullLoader skullLoader;
+    RedissonManager redissonManager;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -121,6 +125,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.calenderManager = new CalenderManager(plugin);
         this.combatListener = new CombatListener(plugin);
         this.skullLoader = new SkullLoader(plugin);
+        this.redissonManager = new RedissonManager(plugin, this.redissonClient);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {
