@@ -40,6 +40,7 @@ public class UserManager {
             user.setQuitMessage(null);
             user.setSelectedBadge(null);
             user.setAdventDayOpened(new HashMap<>());
+            user.setDiscordId(0);
         }
 
         this.userMap.put(uuid, user);

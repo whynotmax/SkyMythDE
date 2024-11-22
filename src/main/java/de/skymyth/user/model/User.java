@@ -41,6 +41,8 @@ public class User {
     String joinMessage;
     String quitMessage;
 
+    long discordId;
+
     public void addBalance(long amount) {
         this.balance += amount;
     }
@@ -141,6 +143,10 @@ public class User {
 
     public long getPerkDuration(Perks perk) {
         return this.perks.get(perk) - System.currentTimeMillis();
+    }
+
+    public boolean isDiscordVerified() {
+        return this.discordId != 0;
     }
 
 }
