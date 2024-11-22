@@ -20,7 +20,7 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
 
         if (player.getWorld().getName().equals("world")) {
 
-            double distanceToSpawn = player.getLocation().distance(plugin.getLocationManager().getPosition("Farmwelt").getLocation());
+            double distanceToSpawn = event.getBlock().getLocation().distance(plugin.getLocationManager().getPosition("Farmwelt").getLocation());
             if(Math.round(distanceToSpawn) < 500 && !player.isOp()) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§7Du kannst erst in §e" + (500-Math.round(distanceToSpawn)) + " §7Blöcken abbauen.");
                 event.setCancelled(true);
