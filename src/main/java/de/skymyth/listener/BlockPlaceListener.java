@@ -20,6 +20,13 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
 
         if (world.getName().equals("world")) {
 
+            double distanceToSpawn = player.getLocation().distance(plugin.getLocationManager().getPosition("Farmwelt").getLocation());
+            if(Math.round(distanceToSpawn) < 500 && !player.isOp()) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du kannst erst in §e" + (500-Math.round(distanceToSpawn)) + " §7Blöcken platzieren.");
+                event.setCancelled(true);
+                return;
+            }
+
             if (plugin.getBaseProtectorManager().isBlockProtected(event.getBlock())) {
                 BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(event.getBlock());
 
