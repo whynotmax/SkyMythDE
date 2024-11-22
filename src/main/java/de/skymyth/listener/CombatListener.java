@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CombatListener implements Listener {
+public class    CombatListener implements Listener {
 
     SkyMythPlugin plugin;
     Map<Player, Player> combatMap;
@@ -140,6 +140,7 @@ public class CombatListener implements Listener {
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player damager) || !(event.getEntity() instanceof Player target)) return;
+
         User damagerUser = this.plugin.getUserManager().getUser(damager.getUniqueId());
         User targetUser = this.plugin.getUserManager().getUser(target.getUniqueId());
         this.hit(damager);
