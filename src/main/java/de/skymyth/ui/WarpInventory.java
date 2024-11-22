@@ -20,6 +20,23 @@ public class WarpInventory extends AbstractInventory {
 
         defaultInventory();
 
+        setItem(20, new ItemBuilder(Material.IRON_PICKAXE).setName("§7Warp§8: §eFarmwelt")
+                .lore(
+                        "§7§oTeleportiere dich zur Farmwelt",
+                        "§7",
+                        "§7Klicke,§7 um dich zu teleportieren"
+                ), (event -> {
+            Player player = (Player) event.getWhoClicked();
+            event.setCancelled(true);
+            player.closeInventory();
+            Position spawn = this.plugin.getLocationManager().getPosition("farmwelt");
+            if (spawn != null) {
+                TeleportUtil.createTeleportation(plugin, player, plugin.getLocationManager().getPosition("farmwelt").getLocation(), "Farmwelt");
+                return;
+            }
+            player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Spawn wurde noch nicht gesetzt.");
+        }));
+
         setItem(22, new ItemBuilder(Material.NETHER_STAR).setName("§7Warp§8: §eSpawn").lore(
                 "§7§oTeleportiere dich zum Spawn",
                 "§7",
