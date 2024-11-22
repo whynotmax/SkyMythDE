@@ -94,6 +94,12 @@ public class CalenderMainInventory extends AbstractInventory {
                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast dieses Türchen bereits abgeholt.");
                         return;
                     }
+                    AdventDay adventDay = plugin.getCalenderManager().getAdventDay(currentDay);
+
+                    if(adventDay == null) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Tag wurde nicht gesetzt.");
+                        return;
+                    }
 
                     user.openAdvent(currentDay);
 
@@ -103,12 +109,6 @@ public class CalenderMainInventory extends AbstractInventory {
 
                     player.sendMessage(SkyMythPlugin.PREFIX + "§aDu hast das " + currentDay + ". Türchen geöffnet.");
 
-                    AdventDay adventDay = plugin.getCalenderManager().getAdventDay(currentDay);
-
-                    if(adventDay == null) {
-                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Tag wurde nicht gesetzt.");
-                        return;
-                    }
 
                     if(!adventDay.getItemStacks().isEmpty()) {
                         for (ItemStack itemStack : adventDay.getItemStacks()) {
