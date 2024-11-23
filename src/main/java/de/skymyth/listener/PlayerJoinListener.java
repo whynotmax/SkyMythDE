@@ -62,9 +62,10 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Willkommen §e" + player.getName() + "§7 auf §5§lSkyMyth§8.§5§lDE§7!");
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§a§lNEU! §8× #§e" + NumberFormat.getInstance(Locale.GERMAN).format(Bukkit.getOfflinePlayers().length) + " Spieler §7registriert.");
             Bukkit.broadcastMessage("§r");
-            Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§eAlle Spieler§7 haben §e200 Tokens §7erhalten.");
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                if(onlinePlayer == player) continue;
+                if (onlinePlayer == player) continue;
+
+                onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§eAlle Spieler§7 haben §e200 Tokens §7erhalten.");
                 User onlineUser = plugin.getUserManager().getUser(onlinePlayer.getUniqueId());
                 onlineUser.addBalance(200);
                 onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e200 Tokens §7erhalten.");

@@ -95,6 +95,7 @@ public class AdminKitsCommand extends MythCommand {
 
                 if(args[2].equalsIgnoreCase("system_only")) {
                     kitTwo.setSystemOnly(!kitTwo.isSystemOnly());
+                    plugin.getKitManager().saveKit(kitTwo);
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Kit ist nun §eSYSTEM_ONLY");
                     return;
                 }
