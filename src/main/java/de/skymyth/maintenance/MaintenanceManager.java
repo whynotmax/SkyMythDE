@@ -5,6 +5,7 @@ import de.skymyth.maintenance.model.Maintenance;
 import de.skymyth.maintenance.repository.MaintenanceRepository;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class MaintenanceManager {
@@ -20,6 +21,10 @@ public class MaintenanceManager {
         this.maintenance = this.repository.findFirstById("maintenance");
         if (this.maintenance == null) {
             this.maintenance = new Maintenance();
+            this.maintenance.setMotdLine1("§7Der Server ist momentan im Wartungsmodus.");
+            this.maintenance.setMotdLine2("§7Unser Release ist am §e01. Dezember 2024§7.");
+            this.maintenance.setEnabled(false);
+            this.maintenance.setWhitelist(new ArrayList<>());
             this.maintenance.setId("maintenance");
             this.repository.save(this.maintenance);
         }
