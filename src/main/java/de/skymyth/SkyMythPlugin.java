@@ -14,6 +14,8 @@ import de.skymyth.inventory.InventoryManager;
 import de.skymyth.kit.KitManager;
 import de.skymyth.listener.CombatListener;
 import de.skymyth.location.LocationManager;
+import de.skymyth.maintenance.MaintenanceManager;
+import de.skymyth.motd.MOTDManager;
 import de.skymyth.punish.PunishManager;
 import de.skymyth.pvp.PvPShopManager;
 import de.skymyth.ranking.RankingManager;
@@ -57,7 +59,6 @@ public final class SkyMythPlugin extends JavaPlugin {
 
     public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
     private final List<Location> randomPvPLocations = new ArrayList<>();
-    private final List<String> allowedPlayers = new ArrayList<>();
 
     @Setter
     private boolean globalMute = false;
@@ -84,6 +85,8 @@ public final class SkyMythPlugin extends JavaPlugin {
     CalenderManager calenderManager;
     SkullLoader skullLoader;
     RedissonManager redissonManager;
+    MaintenanceManager maintenanceManager;
+    MOTDManager motdManager;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -124,6 +127,8 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.combatListener = new CombatListener(plugin);
         this.skullLoader = new SkullLoader(plugin);
         this.redissonManager = new RedissonManager(plugin, this.redissonClient);
+        this.maintenanceManager = new MaintenanceManager(plugin);
+        this.motdManager = new MOTDManager(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {
@@ -169,9 +174,6 @@ public final class SkyMythPlugin extends JavaPlugin {
         for (int i = 1; i < 7; i++) {
             this.randomPvPLocations.add(this.locationManager.getPosition("pvp-random-" + i).getLocation());
         }
-
-        this.allowedPlayers.add("sxbide");
-        this.allowedPlayers.add("044mzcy_og");
 
         Bukkit.getScheduler().runTaskTimer(this, new AntiLagRunnable(), 20L, 20L);
 
