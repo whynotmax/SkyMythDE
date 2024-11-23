@@ -1,6 +1,7 @@
 package de.skymyth.ranking;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.pvp.model.PvPRank;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.UUIDFetcher;
 import de.skymyth.utility.Util;
@@ -78,14 +79,15 @@ public class RankingManager implements Listener {
 
             OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
             String playerName = UUIDFetcher.getName(uuid);
+            User user = plugin.getUserManager().getUser(uuid);
 
             if (kills < 1) continue;
             if (player == null) continue;
 
-            String killsText = (kills > 1 ? "§8( §a%s Kills §8)" : "§8( §a %s Kill §8)");
+            String killsText = (kills > 1 ? "§8( §a%s Kills §8× §a" + PvPRank.getRank(user.getTrophies()).getDisplayName() + "§8)" : "§8( §a %s Kill §8)");
 
             if (integer.get() == 1) {
-                ranking1.setCustomName("§8#§c1 §7" + playerName + String.format(killsText, kills));
+                ranking1.setCustomName("§8#§51 §7" + playerName + String.format(killsText, kills));
                 ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
                 ranking1.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
                 ranking1.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
@@ -93,7 +95,7 @@ public class RankingManager implements Listener {
                 ranking1.setItemInHand(new ItemStack(Material.DIAMOND_SWORD));
             }
             if (integer.get() == 2) {
-                ranking2.setCustomName("§8#§c2 §7" + playerName + String.format(killsText, kills));
+                ranking2.setCustomName("§8#§52 §7" + playerName + String.format(killsText, kills));
                 ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
                 ranking2.setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
                 ranking2.setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
@@ -101,7 +103,7 @@ public class RankingManager implements Listener {
                 ranking2.setItemInHand(new ItemStack(Material.BOW));
             }
             if (integer.get() == 3) {
-                ranking3.setCustomName("§8#§c3 §7" + playerName + String.format(killsText, kills));
+                ranking3.setCustomName("§8#§53 §7" + playerName + String.format(killsText, kills));
                 ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
                 ranking3.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
                 ranking3.setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));

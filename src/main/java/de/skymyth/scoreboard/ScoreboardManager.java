@@ -2,6 +2,7 @@ package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.baseprotector.model.BaseProtector;
+import de.skymyth.pvp.model.PvPRank;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.TitleUtil;
@@ -86,7 +87,8 @@ public class ScoreboardManager {
                     "  §8× §b" + NumberFormat.getInstance(Locale.GERMAN).format(user.getPvpShards()),
                     "",
                     "§f♛ §8┃ §7Trophäen",
-                    "  §8× §6" + user.getTrophies(),
+
+                    "  §8× §6" + user.getTrophies() + " (" +  PvPRank.getRank(user.getTrophies()).getDisplayName() + ")",
                     ""
             );
             return;
@@ -105,7 +107,7 @@ public class ScoreboardManager {
                 "  §8× §a" + (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()) + " §8/ §c" + Bukkit.getMaxPlayers(),
                 "",
                 "§f♛ §8┃ §7Trophäen",
-                "  §8× §6" + user.getTrophies(),
+                "  §8× §6" + user.getTrophies() + " (" +  PvPRank.getRank(user.getTrophies()).getDisplayName() + ")",
                 ""
         );
     }

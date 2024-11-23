@@ -9,10 +9,13 @@ public record CreatureBehaveListener(SkyMythPlugin plugin) implements Listener {
 
     @EventHandler
     public void onEntitySpawn(CreatureSpawnEvent event) {
-        double distanceToSpawn = event.getEntity().getLocation().distance(plugin.getLocationManager().getPosition("Farmwelt").getLocation());
 
-        if(Math.round(distanceToSpawn) < 500) {
-            event.setCancelled(true);
+        if(event.getEntity().getWorld().getName().equals("world")) {
+            double distanceToSpawn = event.getEntity().getLocation().distance(plugin.getLocationManager().getPosition("Farmwelt").getLocation());
+
+            if (Math.round(distanceToSpawn) < 500) {
+                event.setCancelled(true);
+            }
         }
     }
 
