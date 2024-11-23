@@ -4,6 +4,7 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.chatfilter.model.ChatFilterItem;
 import de.skymyth.chatfilter.repository.ChatFilterItemRepository;
 import lombok.Getter;
+import org.bukkit.ChatColor;
 import org.redisson.PubSubMessageListener;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class ChatFilterManager {
 
     public ChatFilterItem getChatFilterItem(String word) {
         for (ChatFilterItem chatFilterItem : this.chatFilterItems) {
-            if (chatFilterItem.getWord().equals(word)) {
+            if (chatFilterItem.getWord().equals(ChatColor.stripColor(word))) {
                 return chatFilterItem;
             }
         }
@@ -51,7 +52,7 @@ public class ChatFilterManager {
 
     public boolean isChatFilterItem(String word) {
         for (ChatFilterItem chatFilterItem : this.chatFilterItems) {
-            if (chatFilterItem.getWord().equals(word)) {
+            if (chatFilterItem.getWord().equals(ChatColor.stripColor(word))) {
                 return true;
             }
         }
@@ -67,9 +68,9 @@ public class ChatFilterManager {
         List<ChatFilterItem> blockedContent = new ArrayList<>();
         String[] words = message.split(" ");
         for (String word : words) {
-            if (containsChatFilterItem(word)) {
+            if (containsChatFilterItem(ChatColor.stripColor(word))) {
                 for (ChatFilterItem chatFilterItem : this.chatFilterItems) {
-                    if (chatFilterItem.getWord().equals(word)) {
+                    if (chatFilterItem.getWord().equals(ChatColor.stripColor(word))) {
                         blockedContent.add(chatFilterItem);
                     }
                 }
@@ -81,8 +82,8 @@ public class ChatFilterManager {
     public String replaceBlockedWords(String message, String replacement) {
         String[] words = message.split(" ");
         for (String word : words) {
-            if (containsChatFilterItem(word)) {
-                message = message.replace(word, replacement.replace("%word%", word));
+            if (containsChatFilterItem(ChatColor.stripColor(word))) {
+                message = message.replace(word, replacement.replace("%word%", ChatColor.stripColor(word)));
             }
         }
         return message;
@@ -91,7 +92,7 @@ public class ChatFilterManager {
     public boolean checkMessage(String message) {
         String[] words = message.split(" ");
         for (String word : words) {
-            if (containsChatFilterItem(word)) {
+            if (containsChatFilterItem(ChatColor.stripColor(word))) {
                 return true;
             }
         }
@@ -105,7 +106,7 @@ public class ChatFilterManager {
             boolean ignoreCase = chatFilterItem.isIgnoreCase();
             boolean replaceLeetSpeak = chatFilterItem.isReplaceLeetSpeak();
             if (exactMatch && replaceLeetSpeak) {
-                String withoutLeetSpeak = word.replaceAll("[@]", "a").replaceAll("[3]", "e").replaceAll("[1]", "i").replaceAll("[!]", "i").replaceAll("[|]", "i").replaceAll("[5]", "s").replaceAll("[7]", "t").replaceAll("[8]", "b").replaceAll("[9]", "g").replaceAll("[4]", "a").replaceAll("[6]", "b").replaceAll("[2]", "z");
+                String withoutLeetSpeak = ChatColor.stripColor(word).replaceAll("[@]", "a").replaceAll("[3]", "e").replaceAll("[1]", "i").replaceAll("[!]", "i").replaceAll("[|]", "i").replaceAll("[5]", "s").replaceAll("[7]", "t").replaceAll("[8]", "b").replaceAll("[9]", "g").replaceAll("[4]", "a").replaceAll("[6]", "b").replaceAll("[2]", "z");
                 if (chatFilterItem.getWord().equals(withoutLeetSpeak)) {
                     contains = true;
                     break;
@@ -118,7 +119,7 @@ public class ChatFilterManager {
                 }
             }
             if (exactMatch && replaceLeetSpeak) {
-                String withoutLeetSpeak = word.replaceAll("[@]", "a").replaceAll("[3]", "e").replaceAll("[1]", "i").replaceAll("[!]", "i").replaceAll("[|]", "i").replaceAll("[5]", "s").replaceAll("[7]", "t").replaceAll("[8]", "b").replaceAll("[9]", "g").replaceAll("[4]", "a").replaceAll("[6]", "b").replaceAll("[2]", "z");
+                String withoutLeetSpeak = ChatColor.stripColor(word).replaceAll("[@]", "a").replaceAll("[3]", "e").replaceAll("[1]", "i").replaceAll("[!]", "i").replaceAll("[|]", "i").replaceAll("[5]", "s").replaceAll("[7]", "t").replaceAll("[8]", "b").replaceAll("[9]", "g").replaceAll("[4]", "a").replaceAll("[6]", "b").replaceAll("[2]", "z");
                 if (chatFilterItem.getWord().equals(withoutLeetSpeak)) {
                     contains = true;
                     break;
@@ -137,7 +138,7 @@ public class ChatFilterManager {
                 }
             }
             if (replaceLeetSpeak) {
-                String withoutLeetSpeak = word.replaceAll("[@]", "a").replaceAll("[3]", "e").replaceAll("[1]", "i").replaceAll("[!]", "i").replaceAll("[|]", "i").replaceAll("[5]", "s").replaceAll("[7]", "t").replaceAll("[8]", "b").replaceAll("[9]", "g").replaceAll("[4]", "a").replaceAll("[6]", "b").replaceAll("[2]", "z");
+                String withoutLeetSpeak = ChatColor.stripColor(word).replaceAll("[@]", "a").replaceAll("[3]", "e").replaceAll("[1]", "i").replaceAll("[!]", "i").replaceAll("[|]", "i").replaceAll("[5]", "s").replaceAll("[7]", "t").replaceAll("[8]", "b").replaceAll("[9]", "g").replaceAll("[4]", "a").replaceAll("[6]", "b").replaceAll("[2]", "z");
                 if (chatFilterItem.getWord().equals(withoutLeetSpeak)) {
                     contains = true;
                     break;
