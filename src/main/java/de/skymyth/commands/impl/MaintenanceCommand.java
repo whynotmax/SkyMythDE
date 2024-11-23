@@ -2,6 +2,7 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.utility.UUIDFetcher;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -62,11 +63,13 @@ public class MaintenanceCommand extends MythCommand {
                 break;
             case "whitelist":
                 if (args[1].equalsIgnoreCase("add")) {
-                    plugin.getMaintenanceManager().addWhitelist(player.getUniqueId());
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest zur Whitelist hinzugefügt.");
+                    UUID uniqueId = UUIDFetcher.getUUID(args[2]);
+                    plugin.getMaintenanceManager().addWhitelist(uniqueId);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§e" + args[2] + " §7wurde zur Whitelist hinzugefügt.");
                 } else if (args[1].equalsIgnoreCase("remove")) {
-                    plugin.getMaintenanceManager().removeWhitelist(player.getUniqueId());
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest von der Whitelist entfernt.");
+                    UUID uniqueId = UUIDFetcher.getUUID(args[2]);
+                    plugin.getMaintenanceManager().removeWhitelist(uniqueId);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§e" + args[2] + " §7wurde von der  Whitelist entfetnt.");
                 } else {
                     sendHelp(player);
                 }
