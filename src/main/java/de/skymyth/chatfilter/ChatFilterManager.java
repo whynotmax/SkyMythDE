@@ -113,7 +113,7 @@ public class ChatFilterManager {
                 }
             }
             if (exactMatch) {
-                if (chatFilterItem.getWord().equals(word)) {
+                if (chatFilterItem.getWord().equals(word.replaceAll("§[a-z0-9]", ""))) {
                     contains = true;
                     break;
                 }
@@ -126,13 +126,13 @@ public class ChatFilterManager {
                 }
             }
             if (exactMatch && ignoreCase) {
-                if (chatFilterItem.getWord().equalsIgnoreCase(word)) {
+                if (chatFilterItem.getWord().equalsIgnoreCase(word.replaceAll("§[a-z0-9]", ""))) {
                     contains = true;
                     break;
                 }
             }
             if (ignoreCase) {
-                if (chatFilterItem.getWord().equalsIgnoreCase(word)) {
+                if (chatFilterItem.getWord().equalsIgnoreCase(word.replaceAll("§[a-z0-9]", ""))) {
                     contains = true;
                     break;
                 }
