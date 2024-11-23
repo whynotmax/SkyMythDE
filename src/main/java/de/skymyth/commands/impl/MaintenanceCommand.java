@@ -2,9 +2,11 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 public class MaintenanceCommand extends MythCommand {
 
@@ -27,6 +29,10 @@ public class MaintenanceCommand extends MythCommand {
         if (args[0].equalsIgnoreCase("on")) {
             plugin.getMaintenanceManager().enable();
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Wartungsmodus aktiviert.");
+            for (UUID uuid : Bukkit.getOnlinePlayers().stream().map(Player::getUniqueId).filter(uniqueId -> !plugin.getMaintenanceManager().isWhitelisted(uniqueId)).toList()) {
+                Bukkit.getPlayer(uuid).kickPlayer(plugin.getMaintenanceManager().getMaintenanceScreen());
+            }
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Alle Spieler wurden gekickt.");
             return;
         }
         if (args[0].equalsIgnoreCase("off")) {

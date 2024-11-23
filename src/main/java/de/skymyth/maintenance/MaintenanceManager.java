@@ -25,6 +25,20 @@ public class MaintenanceManager {
         }
     }
 
+    public String getMaintenanceScreen() {
+        return "\n" +
+                SkyMythPlugin.PREFIX + "§7Wartungsarbeiten\n" +
+                "\n" +
+                "§7Der Server ist momentan im Wartungsmodus.\n" +
+                "§7Unser Release ist am §e01. Dezember 2024§7.\n" +
+                "§7Bitte versuche es später erneut.\n" +
+                "\n" +
+                "§7Mehr Informationen auf unserem §bDiscord§7:\n" +
+                "§3§ndiscord.skymyth.de§r\n" +
+                "\n" +
+                SkyMythPlugin.PREFIX + "§7Wartungsarbeiten";
+    }
+
     public void enable() {
         this.maintenance.setEnabled(true);
         this.repository.save(this.maintenance);
