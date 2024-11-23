@@ -16,8 +16,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +55,7 @@ public class Kit {
             return;
         }
 
-        for (ItemStack item : items) {
+        for (ItemStack item : replaceName(this)) {
             if (item.getType().name().contains("HELMET")) {
                 if (player.getInventory().getHelmet() != null) {
                     player.getInventory().addItem(player.getInventory().getHelmet());
@@ -88,6 +90,22 @@ public class Kit {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");
     }
 
+    private List<ItemStack> replaceName(Kit kit) {
+        List<ItemStack> items = new ArrayList<>(kit.getItems());
+        List<ItemStack> newItems = new ArrayList<>();
+        for (ItemStack item : items) {
+            if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
+                items.remove(item);
+                ItemStack clone = item.clone();
+                ItemMeta cloneMeta = clone.getItemMeta();
+                cloneMeta.setDisplayName("§e" + kit.getName());
+                clone.setItemMeta(cloneMeta);
+                newItems.add(clone);
+            }
+        }
+        return newItems;
+    }
+
     @Transient
     public void giveTo(User user, SkyMythPlugin plugin) {
         Player player = Bukkit.getPlayer(user.getUniqueId());
@@ -100,7 +118,7 @@ public class Kit {
             return;
         }
 
-        for (ItemStack item : items) {
+        for (ItemStack item : replaceName(this)) {
             if (item.getType().name().toUpperCase().contains("HELMET")) {
                 if (player.getInventory().getHelmet() == null || player.getInventory().getHelmet().getType() == Material.AIR) {
                     player.getInventory().setHelmet(item);
