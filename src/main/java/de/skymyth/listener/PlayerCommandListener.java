@@ -17,7 +17,7 @@ public record PlayerCommandListener(SkyMythPlugin plugin) implements Listener {
 
         if (!player.isOp()) {
             for (String blockedCommand : Util.BLOCKED_COMMANDS) {
-                if (command.equalsIgnoreCase(blockedCommand) || command.split(" ")[0].contains(blockedCommand)) {
+                if (command.equalsIgnoreCase(blockedCommand) || command.split(" ")[0].contains(blockedCommand) && !command.equalsIgnoreCase("/playtime")) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
                     event.setCancelled(true);
                     System.out.println("[Blocker] " + player.getName() + " wanted to execute: " + command);

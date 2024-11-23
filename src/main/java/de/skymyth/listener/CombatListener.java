@@ -7,6 +7,7 @@ import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.TitleUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -109,6 +110,8 @@ public class CombatListener implements Listener {
     }
 
     public void startCombat(Player player, Player target) {
+
+        if(player.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.CREATIVE) return;
 
         if (combat.getIfPresent(player) == null) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§aDu bist jetzt im Kampf.");

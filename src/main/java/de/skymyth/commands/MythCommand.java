@@ -26,7 +26,7 @@ public abstract class MythCommand extends Command {
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
         if (commandSender instanceof Player player) {
-            if ((permission == null && player.hasPermission("skymyth.default")) || player.hasPermission(permission)) {
+            if (permission == null || player.hasPermission(permission)) {
                 run(player, strings);
             } else {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
