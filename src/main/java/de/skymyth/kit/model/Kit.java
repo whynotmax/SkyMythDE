@@ -94,7 +94,6 @@ public class Kit {
         List<ItemStack> newItems = new ArrayList<>();
         for (ItemStack item : items) {
             if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
-                items.remove(item);
                 ItemStack clone = item.clone();
                 ItemMeta cloneMeta = clone.getItemMeta();
                 cloneMeta.setDisplayName("§8» §7Kit §8┃ §e" + this.getName());
