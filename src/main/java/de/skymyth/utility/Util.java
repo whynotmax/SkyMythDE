@@ -31,6 +31,8 @@ public class Util {
     public static final Cache<Player, Player> TELEPORT = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
     public static final Cache<Player, BaseProtector> BASEINVITE = CacheBuilder.newBuilder().expireAfterWrite(30, TimeUnit.SECONDS).build();
     public static final ArrayList<Player> VANISH = new ArrayList<>();
+    public static final ArrayList<Player> COMMANDWATCHER = new ArrayList<>();
+    public static final ArrayList<Player> MSGSPY = new ArrayList<>();
     public static final ArrayList<Player> FREEZE = new ArrayList<>();
     public static final Random RANDOM = new Random();
     public static final List<String> BLOCKED_COMMANDS = new ArrayList<>() {{

@@ -58,6 +58,7 @@ import java.util.List;
 public final class SkyMythPlugin extends JavaPlugin {
 
     public static final String PREFIX = "§8» §5§lSkyMyth.DE §8┃ §7";
+
     private final List<Location> randomPvPLocations = new ArrayList<>();
 
     @Setter
