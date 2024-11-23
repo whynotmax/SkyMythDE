@@ -32,6 +32,7 @@ public class OtherKitsInventory extends AbstractInventory {
         pagination = new Pagination<>(28);
 
         for (Kit kit : plugin.getKitManager().getOtherKits()) {
+            if(kit.isSystemOnly()) continue;
             ItemBuilder displayItem = new ItemBuilder(kit.getDisplayItem());
             displayItem.setName("§7Kit§8: §e" + kit.getName());
             displayItem.lore(

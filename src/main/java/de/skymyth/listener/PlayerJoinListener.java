@@ -64,12 +64,13 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             Bukkit.broadcastMessage("§r");
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§eAlle Spieler§7 haben §e200 Tokens §7erhalten.");
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if(onlinePlayer == player) continue;
                 User onlineUser = plugin.getUserManager().getUser(onlinePlayer.getUniqueId());
                 onlineUser.addBalance(200);
                 onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e200 Tokens §7erhalten.");
             }
             player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
-            plugin.getKitManager().getKitByName("Neuling").giveToAsVoucher(user);
+            plugin.getKitManager().getKitByName("Neuling").giveTo(user, plugin);
         }
 
 
@@ -88,12 +89,5 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
                 player.showPlayer(onlinePlayer);
             }
         }, 20);
-
-
-        if (!plugin.getAllowedPlayers().contains(player.getName())) {
-            player.kickPlayer("§cEs tut uns leid, aber die Verbindung kann gerade nicht hergestellt werden.");
-        }
-
-
     }
 }

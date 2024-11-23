@@ -25,7 +25,7 @@ public record PlayerRespawnListener(SkyMythPlugin plugin) implements Listener {
             plugin.getRewardsManager().getHologram().show(player, 1);
             plugin.getCasinoManager().getDailyPotManager().getHologram().show(player, 1);
             //player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
-            plugin.getKitManager().getKitByName("Neuling").giveToAsVoucher(user);
+            plugin.getKitManager().getKitByName("Respawn").giveTo(user, plugin);
         }, 10L);
 
     }

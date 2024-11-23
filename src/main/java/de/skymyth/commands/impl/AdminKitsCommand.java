@@ -24,7 +24,7 @@ public class AdminKitsCommand extends MythCommand {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/akits delete <name>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/akits additem <kit>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/akits clear <kit>");
-        player.sendMessage(SkyMythPlugin.PREFIX + "§7/akits type <kit> <rank_specific/one_time/buyable>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7/akits type <kit> <rank_specific/one_time/buyable/system_only>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/akits permission <kit> <permission>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7/akits cooldown <kit> <minutes>");
     }
@@ -92,6 +92,13 @@ public class AdminKitsCommand extends MythCommand {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDas Kit §e" + args[1] + " §cexistiert nicht.");
                     return;
                 }
+
+                if(args[2].equalsIgnoreCase("system_only")) {
+                    kitTwo.setSystemOnly(!kitTwo.isSystemOnly());
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Kit ist nun §eSYSTEM_ONLY");
+                    return;
+                }
+
                 kitTwo.setType(KitType.valueOf(args[2].toUpperCase()));
                 plugin.getKitManager().saveKit(kitTwo);
                 switch (kitTwo.getType()) {

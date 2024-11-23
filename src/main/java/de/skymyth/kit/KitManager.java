@@ -33,7 +33,7 @@ public class KitManager {
         if (this.getKitByName(name) != null) {
             throw new IllegalArgumentException("Kit with name " + name + " already exists.");
         }
-        Kit kit = new Kit(name, displayItem, type, true, new ArrayList<>(), null, 0, null, items);
+        Kit kit = new Kit(name, displayItem, type, true,false, new ArrayList<>(), null, 0, null, items);
         repository.save(kit);
 
         if (type.equals(KitType.RANK_SPECIFIC)) {

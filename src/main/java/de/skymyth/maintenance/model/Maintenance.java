@@ -1,5 +1,6 @@
 package de.skymyth.maintenance.model;
 
+import eu.koboo.en2do.repository.entity.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class Maintenance {
 
+    @Id
     String id;
 
     String motdLine1;

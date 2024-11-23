@@ -35,6 +35,7 @@ public class Kit {
 
     KitType type;
     boolean enabled;
+    boolean systemOnly;
 
     List<UUID> oneTimeUsers;
 
@@ -134,12 +135,14 @@ public class Kit {
         player.updateInventory();
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");
 
-        Cooldown cooldown = new Cooldown();
-        cooldown.setName("kit" + name.toLowerCase());
-        cooldown.setDuration(Duration.ofMillis(this.cooldown.toMillis()));
-        cooldown.start();
-        user.addCooldown(cooldown);
-        plugin.getUserManager().saveUser(user);
+        if (this.cooldown != null) {
+            Cooldown cooldown = new Cooldown();
+            cooldown.setName("kit" + name.toLowerCase());
+            cooldown.setDuration(Duration.ofMillis(this.cooldown.toMillis()));
+            cooldown.start();
+            user.addCooldown(cooldown);
+            plugin.getUserManager().saveUser(user);
+        }
     }
 
 }

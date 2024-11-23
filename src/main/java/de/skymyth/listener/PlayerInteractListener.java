@@ -24,6 +24,12 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
         ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
 
         if (player.getWorld().getName().equals("Spawn")) {
+            if(player.getItemInHand() != null) {
+                if(player.getItemInHand().getType() == Material.BOW && !player.isOp()) {
+                    event.setCancelled(true);
+                }
+            }
+
             Block block = event.getClickedBlock();
             if (block == null) return;
             if (block.getType() != Material.ENDER_PORTAL_FRAME) return;
