@@ -1,8 +1,8 @@
 package de.skymyth.redisson.verify.listener;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.redisson.verify.model.DiscordVerifyMessage;
 import de.skymyth.user.model.User;
+import dev.mzcy.DiscordVerifyMessage;
 import org.bukkit.entity.Player;
 import org.redisson.api.listener.MessageListener;
 

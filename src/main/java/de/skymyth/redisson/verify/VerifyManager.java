@@ -3,12 +3,12 @@ package de.skymyth.redisson.verify;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.redisson.verify.model.DiscordVerifyMessage;
-import eu.decentsoftware.holograms.api.utils.scheduler.S;
+import de.skymyth.utility.StringUtil;
+import dev.mzcy.DiscordVerifyMessage;
 import org.bukkit.entity.Player;
 
-import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyManager {
@@ -45,7 +45,14 @@ public class VerifyManager {
     }
 
     public String getVerificationCode(UUID uniqueId) {
-        return this.verificationCache.getIfPresent(uniqueId);
+        try {
+            return this.verificationCache.get(uniqueId, () -> {
+                String verificationCode = StringUtil.getRandomString(10);
+                return verificationCode;
+            });
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

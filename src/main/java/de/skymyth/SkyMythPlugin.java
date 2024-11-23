@@ -18,8 +18,6 @@ import de.skymyth.punish.PunishManager;
 import de.skymyth.pvp.PvPShopManager;
 import de.skymyth.ranking.RankingManager;
 import de.skymyth.redisson.RedissonManager;
-import de.skymyth.redisson.verify.listener.DiscordVerifyMessageListener;
-import de.skymyth.redisson.verify.model.DiscordVerifyMessage;
 import de.skymyth.rewards.RewardsManager;
 import de.skymyth.runnables.AntiLagRunnable;
 import de.skymyth.scoreboard.ScoreboardManager;

@@ -26,10 +26,19 @@ repositories {
 
     maven { url "https://repo.codemc.io/repository/maven-snapshots/" }
 
-
+    maven {
+        name = "skymyth"
+        url = "http://87.106.178.7:8080/skymyth"
+        allowInsecureProtocol = true
+        credentials {
+            username = "skymyth"
+            password = "ZSGJ04j2b3rbUmBAUg0k3luxkZ5qNh5ozqpVaaTaQDd+vlMrpvqeAQuBBLlmXPP3"
+        }
+    }
 }
 
 dependencies {
+    implementation "dev.mzcy:SkyMyth-Common:2.0"
 
     implementation("eu.koboo:en2do:3.1.9")
     implementation("fr.mrmicky:fastboard:2.1.3")

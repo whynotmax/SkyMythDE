@@ -3,7 +3,7 @@ package de.skymyth.redisson;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.redisson.verify.VerifyManager;
 import de.skymyth.redisson.verify.listener.DiscordVerifyMessageListener;
-import de.skymyth.redisson.verify.model.DiscordVerifyMessage;
+import dev.mzcy.DiscordVerifyMessage;
 import lombok.Getter;
 import org.redisson.api.RedissonClient;
 
