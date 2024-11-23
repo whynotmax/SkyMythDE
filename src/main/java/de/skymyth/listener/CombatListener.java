@@ -38,14 +38,17 @@ public class CombatListener implements Listener {
 
                     // Todo: Nachricht kommt nicht an beim ablaufen nach 15 Sek
                     if (inCombat < 1) {
+                        onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist nun nicht mehr im Kampf.");
                         combat.invalidate(onlinePlayer);
                         combatTicker.invalidate(onlinePlayer);
-                        onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist nun nicht mehr im Kampf.");
                     }
-                    TitleUtil.sendActionBar(onlinePlayer, "§cDu bist noch " + (TimeUtil
-                            .beautifyTime(inCombat, TimeUnit.MILLISECONDS, true, true)) + " §cim Kampf.");
-                    TitleUtil.sendActionBar(target, "§cDu bist noch " + (TimeUtil
-                            .beautifyTime(inCombat, TimeUnit.MILLISECONDS, true, true)) + " §cim Kampf.");
+
+                    if(inCombat > 1) {
+                        TitleUtil.sendActionBar(onlinePlayer, "§cDu bist noch " + (TimeUtil
+                                .beautifyTime(inCombat, TimeUnit.MILLISECONDS, true, true)) + " §cim Kampf.");
+                        TitleUtil.sendActionBar(target, "§cDu bist noch " + (TimeUtil
+                                .beautifyTime(inCombat, TimeUnit.MILLISECONDS, true, true)) + " §cim Kampf.");
+                    }
                 }
             }
         }, 0L, 20L);
@@ -62,9 +65,12 @@ public class CombatListener implements Listener {
                 User attackerUser = plugin.getUserManager().getUser(attacker.getUniqueId());
                 User playerUser = plugin.getUserManager().getUser(player.getUniqueId());
 
-                if (inCombat > 0) {
+                if (inCombat > 1) {
                     combat.invalidate(player);
                     combatTicker.invalidate(player);
+
+                    combat.invalidate(attacker);
+                    combatTicker.invalidate(attacker);
 
                     attackerUser.addKill();
                     attackerUser.addTrophies(10);

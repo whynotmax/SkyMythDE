@@ -46,10 +46,13 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
         if (world.getName().equals("PvP")) {
             if (event.getEntity() instanceof Player player) {
                 if (event.getDamager() instanceof Player damager) {
-                    plugin.getCombatListener().startCombat(player, damager);
-
+                    if(player != damager) {
+                        plugin.getCombatListener().startCombat(player, damager);
+                    }
                 } else if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player projectShooter) {
-                    plugin.getCombatListener().startCombat(player, projectShooter);
+                    if(projectShooter != player) {
+                        plugin.getCombatListener().startCombat(player, projectShooter);
+                    }
                 }
             }
         }
