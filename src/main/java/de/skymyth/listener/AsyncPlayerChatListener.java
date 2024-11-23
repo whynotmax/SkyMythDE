@@ -114,7 +114,7 @@ public class AsyncPlayerChatListener implements Listener {
             chatSuffix = "§8[§f" + badge.getColor() + badge.getCharacter() + "§8]";
             chatSuffixComponent.setText(chatSuffix);
 
-            TextComponent hover = getHover(badge, chatPrefix);
+            TextComponent hover = getHover(badge, chatSuffix);
             chatSuffixComponent.append(hover);
         }
         newMessage.append(new TextComponent(chatPrefix));
