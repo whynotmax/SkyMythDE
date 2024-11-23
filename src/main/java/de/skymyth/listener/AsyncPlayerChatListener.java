@@ -103,19 +103,21 @@ public class AsyncPlayerChatListener implements Listener {
         var chatPrefix = playerGroup.getCachedData().getMetaData().getMetaValue("chat-prefix");
         if (chatPrefix == null) chatPrefix = "§r" + playerGroup.getName();
         else chatPrefix = chatPrefix.replace("&", "§");
+        var chatSuffix = "";
 
         boolean hasBadge = user.getSelectedBadge() != null;
         var badge = (!hasBadge ? null : plugin.getBadgeManager().getBadge(user.getSelectedBadge()));
 
         TextComponentBuilder newMessage = new TextComponentBuilder("");
+        TextComponentBuilder chatSuffixComponent = new TextComponentBuilder("");
         if (badge != null) {
-            chatPrefix = "§8[§f" + badge.getColor() + badge.getCharacter() + "§8] §7";
+            chatSuffix = "§8[§f" + badge.getColor() + badge.getCharacter() + "§8]";
+            chatSuffixComponent.setText(chatSuffix);
 
             TextComponent hover = getHover(badge, chatPrefix);
-            newMessage.append(hover);
-        } else {
-            newMessage.append(new TextComponent(chatPrefix));
+            chatSuffixComponent.append(hover);
         }
+        newMessage.append(new TextComponent(chatPrefix));
 
         if (canUseColors != null && canUseColors.equalsIgnoreCase("true")) {
             message = message.replace("&", "§").replace("§k", "&k").replace("§n", "&n").replace("§m", "&m");
@@ -127,6 +129,8 @@ public class AsyncPlayerChatListener implements Listener {
         playerName.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{hoverComponent}));
 
         newMessage.append(playerName);
+        newMessage.append(new TextComponent(" "));
+        newMessage.append(chatSuffixComponent.toTextComponent());
         newMessage.append(new TextComponent("§8 × §7" + message));
 
         event.setCancelled(true);
