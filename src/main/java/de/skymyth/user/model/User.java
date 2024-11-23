@@ -3,6 +3,7 @@ package de.skymyth.user.model;
 import de.skymyth.advent.model.AdventDay;
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
+import de.skymyth.user.model.home.Home;
 import eu.koboo.en2do.repository.entity.Id;
 import eu.koboo.en2do.repository.entity.Transient;
 import lombok.*;
@@ -35,6 +36,7 @@ public class User {
     List<Cooldown> cooldowns;
     Map<Perks, Long> perks;
     Map<Integer, Boolean> adventDayOpened;
+    List<Home> homes;
 
     String selectedBadge;
 
@@ -82,6 +84,15 @@ public class User {
 
     public void removeTrophies(long amount) {
         this.trophies -= amount;
+    }
+
+    public Home existsHome(String name) {
+        for (Home home : this.homes) {
+            if(home.getName().equalsIgnoreCase(name)) {
+                return home;
+            }
+        }
+        return null;
     }
 
     public void updatePlayTime() {

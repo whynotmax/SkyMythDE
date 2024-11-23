@@ -41,7 +41,7 @@ public class LigaMainInventory extends AbstractInventory {
                 ));
 
         setItem(16, new ItemBuilder(Material.IRON_BLOCK)
-                .setName("§f§lGold Liga")
+                .setName("§f§lPlatin Liga")
                 .lore(
                         "§7Ab 2.000 Trophäen befindest",
                         "§7du dich in der §f§lPlatin §7Liga.",

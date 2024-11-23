@@ -12,10 +12,13 @@ public record ExplosionListener(SkyMythPlugin plugin) implements Listener {
     public void onExplosion(EntityExplodeEvent event) {
 
         for (Block block : event.blockList()) {
-            double distanceToSpawn = block.getLocation().distance(plugin.getLocationManager().getPosition("Farmwelt").getLocation());
 
-            if(Math.round(distanceToSpawn) < 500) {
-                event.setCancelled(true);
+            if(block.getWorld().getName().equals("world")) {
+                double distanceToSpawn = block.getLocation().distance(plugin.getLocationManager().getPosition("Farmwelt").getLocation());
+
+                if(Math.round(distanceToSpawn) < 500) {
+                    event.setCancelled(true);
+                }
             }
 
             if (plugin.getBaseProtectorManager().isBlockProtected(block)) {
