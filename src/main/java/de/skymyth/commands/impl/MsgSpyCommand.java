@@ -7,20 +7,20 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CmdSpyCommand extends MythCommand {
+public class MsgSpyCommand extends MythCommand {
 
-    public CmdSpyCommand(SkyMythPlugin plugin) {
-        super("cmdspy", "myth.cmdspy", List.of("commandspy"), plugin);
+    public MsgSpyCommand(SkyMythPlugin plugin) {
+        super("msgspy", "myth.msgspy", List.of("messagespy"), plugin);
     }
 
     @Override
     public void run(Player player, String[] args) {
         if (Util.MSGSPY.contains(player)) {
             Util.MSGSPY.remove(player);
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast den CommandSpy §cdeaktiviert.");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast den MessageSpy §cdeaktiviert.");
             return;
         }
         Util.MSGSPY.add(player);
-        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast den CommandSpy §aaktiviert.");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast den MessageSpy §aaktiviert.");
     }
 }
