@@ -98,7 +98,7 @@ public class Kit {
                 items.remove(item);
                 ItemStack clone = item.clone();
                 ItemMeta cloneMeta = clone.getItemMeta();
-                cloneMeta.setDisplayName("§e" + kit.getName());
+                cloneMeta.setDisplayName("§8» §7Kit §8┃ §e" + kit.getName());
                 clone.setItemMeta(cloneMeta);
                 newItems.add(clone);
             }
