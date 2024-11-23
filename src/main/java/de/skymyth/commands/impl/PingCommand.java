@@ -28,7 +28,7 @@ public class PingCommand extends MythCommand {
     }
 
     private String formatPing(int ping) {
-        if (ping <= 30) {
+        if (ping < 30) {
             return "§2" + ping + "§oms §8(§7sehr gut§8)";
         }
         if (ping < 50) {

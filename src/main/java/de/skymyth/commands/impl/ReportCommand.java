@@ -28,7 +28,7 @@ public class ReportCommand extends MythCommand {
 
         HACKING("Cheating"),
         BUGABUSING("Bugabusing"),
-        RACISM("Rasissmus"),
+        RACISM("Rassismus"),
         NAME_OR_SKIN("Name oder Skin"),
         BEHAVIOR("Verhalten");
 
@@ -49,6 +49,9 @@ public class ReportCommand extends MythCommand {
             for (ReportReason value : ReportReason.values()) {
                 if(reason.toLowerCase().equalsIgnoreCase(value.displayName)) {
                     reason = value.displayName;
+                } else {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "Gründe: Cheating, Bugabusing, Rassismus, Name, Verhalten");
+                    return;
                 }
             }
 

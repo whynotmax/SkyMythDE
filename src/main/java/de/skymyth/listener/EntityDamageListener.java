@@ -16,7 +16,6 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
 
-
         if (event.getEntity() instanceof Player player) {
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 if (player.getWorld().getName().equalsIgnoreCase("Spawn") || player.getWorld().getName().equalsIgnoreCase("PvP")) {
@@ -33,32 +32,24 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
         World world = event.getEntity().getWorld();
 
         if (world.getName().equals("Spawn")) {
-
-            if (event.getDamager() instanceof Projectile) {
-                event.setCancelled(true);
-            }
-
-            if (event.getEntity() instanceof Player player) {
-                if (event.getDamager() instanceof Player damager) {
-                    if (Util.FREEZE.contains(player) || Util.FREEZE.contains(damager)) {
-                        event.setCancelled(true);
-                    }
-                }
-            }
+            event.setCancelled(true);
         }
 
-        if(world.getName().equals("world")) {
+        if (world.getName().equals("world")) {
             if (event.getEntity() instanceof Player player) {
-                if (event.getDamager() instanceof Player damager) {
+                if (event.getDamager() instanceof Player damager || event.getDamager() instanceof Projectile projectile) {
                     event.setCancelled(true);
                 }
             }
         }
 
-        if(world.getName().equals("PvP")) {
+        if (world.getName().equals("PvP")) {
             if (event.getEntity() instanceof Player player) {
                 if (event.getDamager() instanceof Player damager) {
                     plugin.getCombatListener().startCombat(player, damager);
+
+                } else if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player projectShooter) {
+                    plugin.getCombatListener().startCombat(player, projectShooter);
                 }
             }
         }

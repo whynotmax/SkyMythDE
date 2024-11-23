@@ -9,6 +9,7 @@ import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -25,7 +26,8 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
         if (player.getWorld().getName().equals("Spawn")) {
             if(player.getItemInHand() != null) {
-                if(player.getItemInHand().getType() == Material.BOW && !player.isOp()) {
+                if(player.getItemInHand().getType() == Material.BOW || player.getItemInHand().getType() == Material.ENDER_PEARL && !player.isOp()) {
+                    event.setUseItemInHand(Event.Result.DENY);
                     event.setCancelled(true);
                 }
             }

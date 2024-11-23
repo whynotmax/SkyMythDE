@@ -4,12 +4,13 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerTimeCommand extends MythCommand {
 
     public PlayerTimeCommand(SkyMythPlugin plugin) {
-        super("ptime", "myth.playertime", List.of("playertime"), plugin);
+        super("ptime", "myth.playertime", new ArrayList<>(), plugin);
     }
 
     @Override

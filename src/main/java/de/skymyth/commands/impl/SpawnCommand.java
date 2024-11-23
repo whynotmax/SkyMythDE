@@ -34,6 +34,7 @@ public class SpawnCommand extends MythCommand {
             target.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
             TitleUtil.sendTitle(target, 0, 40, 20, "§a§lSpawn", "§8× §7Du wurdest teleportiert §8×");
             target.playSound(target.getLocation(), Sound.ENDERDRAGON_WINGS, 1.0f, 1.0f);
+            player.sendMessage(SkyMythPlugin.PREFIX + "§e" + target.getName() + " §7wurde zum §eSpawn §7teleportiert.");
             return;
         }
 

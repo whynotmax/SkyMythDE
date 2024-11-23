@@ -37,6 +37,7 @@ public class DailyPotMainInventory extends AbstractInventory {
                 "§r",
                 "§7Klicke, um am DailyPot teilzunehmen."
         ), event -> {
+            // todo: checkn ob spieler 100$ hat sonst macht man kein minus!
             plugin.getCasinoManager().getDailyPotManager().joinDailyPot((Player) event.getWhoClicked());
             event.getWhoClicked().closeInventory();
         });

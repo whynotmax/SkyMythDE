@@ -4,6 +4,7 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.UUIDFetcher;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
@@ -26,8 +27,11 @@ public class EcoCommand extends MythCommand {
         if (!player.hasPermission("myth.eco")) {
             if (args.length == 0) {
                 User user = this.plugin.getUserManager().getUser(player.getUniqueId());
-                player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein Kontostand: §e" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()).replace(",", ".") + " Tokens");
-                return;
+
+                if(user != null && Bukkit.getOfflinePlayer(user.getUniqueId()).hasPlayedBefore()) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein Kontostand: §e" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()).replace(",", ".") + " Tokens");
+                    return;
+                }
             }
             String targetName = args[0];
             UUID targetUUID = UUIDFetcher.getUUID(targetName);

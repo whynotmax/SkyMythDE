@@ -38,7 +38,6 @@ public class TeleportUtil {
                     if (ticks % 20 == 0) {
                         player.playSound(player.getLocation(), Sound.LAVA_POP, 1.0f, 1.0f);
                         TitleUtil.sendTitle(player, 0, 40, 20, "§e§l" + secondsLeft, "§8× §7Du wirst teleportiert §8×");
-
                     }
 
                     ticks++;
