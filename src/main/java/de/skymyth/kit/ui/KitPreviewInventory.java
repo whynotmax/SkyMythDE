@@ -31,7 +31,7 @@ public class KitPreviewInventory extends AbstractInventory {
 
         pagination = new Pagination<>(28);
 
-        for (ItemStack itemStack : kit.getItems()) {
+        for (ItemStack itemStack : kit.replaceName(kit.getItems())) {
             pagination.addItem(itemStack);
         }
 

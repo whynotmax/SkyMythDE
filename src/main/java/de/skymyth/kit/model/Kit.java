@@ -55,7 +55,7 @@ public class Kit {
             return;
         }
 
-        for (ItemStack item : replaceName(this)) {
+        for (ItemStack item : replaceName(this.items)) {
             if (item.getType().name().contains("HELMET")) {
                 if (player.getInventory().getHelmet() != null) {
                     player.getInventory().addItem(player.getInventory().getHelmet());
@@ -90,15 +90,14 @@ public class Kit {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");
     }
 
-    private List<ItemStack> replaceName(Kit kit) {
-        List<ItemStack> items = new ArrayList<>(kit.getItems());
+    public List<ItemStack> replaceName(List<ItemStack> items) {
         List<ItemStack> newItems = new ArrayList<>();
         for (ItemStack item : items) {
             if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
                 items.remove(item);
                 ItemStack clone = item.clone();
                 ItemMeta cloneMeta = clone.getItemMeta();
-                cloneMeta.setDisplayName("§8» §7Kit §8┃ §e" + kit.getName());
+                cloneMeta.setDisplayName("§8» §7Kit §8┃ §e" + this.getName());
                 clone.setItemMeta(cloneMeta);
                 newItems.add(clone);
             }
@@ -118,7 +117,7 @@ public class Kit {
             return;
         }
 
-        for (ItemStack item : replaceName(this)) {
+        for (ItemStack item : replaceName(this.items)) {
             if (item.getType().name().toUpperCase().contains("HELMET")) {
                 if (player.getInventory().getHelmet() == null || player.getInventory().getHelmet().getType() == Material.AIR) {
                     player.getInventory().setHelmet(item);
