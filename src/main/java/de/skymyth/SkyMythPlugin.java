@@ -180,7 +180,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         }
 
         Bukkit.getScheduler().runTaskTimer(this, new AntiLagRunnable(), 20L, 20L);
-        Bukkit.getScheduler().runTaskTimer(this, new TrophyRemovalRunnable(plugin), 20L, 20L);
+        Bukkit.getScheduler().runTaskTimer(this, new TrophyRemovalRunnable(plugin), 20L, 20*7L);
 
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             this.playerCount.fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));

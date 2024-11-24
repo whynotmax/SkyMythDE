@@ -3,6 +3,7 @@ package de.skymyth.runnables;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -24,6 +25,9 @@ public record TrophyRemovalRunnable(SkyMythPlugin plugin) implements Runnable {
         List<User> users = new ArrayList<>(plugin.getUserManager().getAllUsers());
         users.forEach(user -> {
             if (user.isWasOnlineToday()) return;
+            if (Duration.ofMillis(user.getLastSeen()).minusMillis(System.currentTimeMillis()).toDays() < 1) {
+                return;
+            }
             if (user.getTrophies() > 0) {
                 user.setTrophies(user.getTrophies() - 2);
             }

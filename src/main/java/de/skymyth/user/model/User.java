@@ -1,14 +1,20 @@
 package de.skymyth.user.model;
 
+import de.skymyth.SkyMythPlugin;
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.user.model.home.Home;
+import de.skymyth.utility.NumberUtils;
 import eu.koboo.en2do.repository.entity.Id;
 import eu.koboo.en2do.repository.entity.Transient;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -25,10 +31,16 @@ public class User {
     long balance;
     long kills;
     long deaths;
+
+    //PvP related
     long trophies;
     long trophiesLostDueToInactivity;
     @Transient
     long pvpShards;
+
+    boolean killstreak;
+    long biggestKillStreak;
+    long currentKillStreak;
 
     long playTime;
     long lastSeen;
@@ -66,11 +78,29 @@ public class User {
     }
 
     public void addKill() {
+        this.currentKillStreak++;
+        if (this.currentKillStreak >= this.biggestKillStreak) {
+            this.biggestKillStreak = this.currentKillStreak;
+        }
+        if (this.currentKillStreak % 5 == 0) {
+            this.killstreak = true;
+            this.addPvPShards(2); //For every 5 kills, the player gets 2 PvP shards
+            Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§e" + Bukkit.getOfflinePlayer(this.uniqueId).getName() + " §7hat einen Killstreak von §e" + NumberFormat.getInstance(Locale.GERMAN).format(this.currentKillStreak) + "§7 erreicht!");
+        }
         this.kills++;
     }
 
     public void addDeath() {
         this.deaths++;
+        if (this.killstreak) {
+            this.killstreak = false;
+            Player player = Bukkit.getPlayer(this.uniqueId);
+            if (player != null) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein Killstreak wurde beendet.");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hattest einen Streak von §e" + NumberFormat.getInstance(Locale.GERMAN).format(this.currentKillStreak) + " Kills§7.");
+            }
+        }
+        this.currentKillStreak = 0;
     }
 
     public void addPvPShards(long amount) {
