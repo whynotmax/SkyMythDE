@@ -26,11 +26,15 @@ public class User {
     long kills;
     long deaths;
     long trophies;
+    long trophiesLostDueToInactivity;
     @Transient
     long pvpShards;
 
     long playTime;
     long lastSeen;
+
+    @Transient
+    boolean wasOnlineToday;
 
     List<Cooldown> cooldowns;
     Map<Perks, Long> perks;

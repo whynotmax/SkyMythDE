@@ -39,7 +39,7 @@ public class HomesInventory extends AbstractInventory {
             setItem(slotCount.getAndIncrement(), new ItemBuilder(Material.WORKBENCH)
                     .setName("§7Home: §e" + home.getName())
                     .lore(
-                            "§7Erstellt vor: §e" + TimeUtil.beautifyTime((System.currentTimeMillis() - home.getCreated()), TimeUnit.MILLISECONDS, true, true),
+                            "§7Erstellt vor §e" + TimeUtil.beautifyTime((System.currentTimeMillis() - home.getCreated()), TimeUnit.MILLISECONDS, true, true),
                             "",
                             "§7Klicke, um dich dahin zu teleportieren"
                     ), event -> {

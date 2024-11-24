@@ -23,6 +23,7 @@ import de.skymyth.ranking.RankingManager;
 import de.skymyth.redisson.RedissonManager;
 import de.skymyth.rewards.RewardsManager;
 import de.skymyth.runnables.AntiLagRunnable;
+import de.skymyth.runnables.TrophyRemovalRunnable;
 import de.skymyth.scoreboard.ScoreboardManager;
 import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
@@ -179,6 +180,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         }
 
         Bukkit.getScheduler().runTaskTimer(this, new AntiLagRunnable(), 20L, 20L);
+        Bukkit.getScheduler().runTaskTimer(this, new TrophyRemovalRunnable(plugin), 20L, 20L);
 
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             this.playerCount.fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));

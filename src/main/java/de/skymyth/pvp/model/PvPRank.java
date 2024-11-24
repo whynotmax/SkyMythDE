@@ -7,11 +7,17 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PvPRank {
 
-    UNRANKED(0, 500, "Ungewertet"),
-    BRONZE(501, 1000, "Bronze"),
-    SILVER(1001, 1500, "Silber"),
-    GOLD(1501, 2000, "Gold"),
-    LEGEND(2001, Long.MAX_VALUE, "Meister");
+    UNRANKED(0, 249, "§7Ungewertet"),
+    BRONZE(250, 499, "§cBronze"),
+    SILVER(500, 749, "§7Silber"),
+    GOLD(750, 999, "§6Gold"),
+    PLATIN(1000, 1249, "§3Platin"),
+    DIAMANT(1250, 1499, "§bDiamant"),
+    SMARAGD(1500, 1749, "§aSmaragd"),
+    RUBIN(1750, 1999, "§4Rubin"),
+    SAPHIR(2000, 2249, "§2Saphir"),
+    LEGENDE(2250, 2499, "§dLegende"),
+    GOD(2500, Long.MAX_VALUE, "§6§lGott");
 
     long minTrophies;
     long maxTrophies;

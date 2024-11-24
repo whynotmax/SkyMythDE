@@ -7,10 +7,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -58,6 +55,10 @@ public class UserManager {
         this.repository.save(user);
     }
 
+    public void saveUsersOnlyToDatabase(List<User> users) {
+        this.repository.saveAll(users);
+    }
+
     public User getUser(UUID uuid) {
         User user = this.userMap.get(uuid);
         if (user == null) {
@@ -65,6 +66,10 @@ public class UserManager {
             user = this.userMap.get(uuid);
         }
         return user;
+    }
+
+    public List<User> getAllUsers() {
+        return List.copyOf(this.repository.findAll());
     }
 
 

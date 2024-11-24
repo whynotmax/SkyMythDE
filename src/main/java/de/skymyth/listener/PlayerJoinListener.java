@@ -31,6 +31,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
 
         plugin.getUserManager().loadUser(player.getUniqueId());
         User user = plugin.getUserManager().getUser(player.getUniqueId());
+        user.setWasOnlineToday(true);
 
         event.setJoinMessage(null);
         plugin.getScoreboardManager().createScoreboard(player);
@@ -84,6 +85,13 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
 
         if (user.hasJoinMessage()) {
             Bukkit.broadcastMessage("§8[§a+§8] §7" + user.getJoinMessage().replace('&', '§').replace("§k", "&k"));
+        }
+
+        if (user.getTrophiesLostDueToInactivity() != 0) {
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Da du inaktiv warst, hast du");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§e" + user.getTrophiesLostDueToInactivity() + " Trophäen §7verloren.");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§6" + (user.getTrophies() + user.getTrophiesLostDueToInactivity()) + " §e(-" + user.getTrophiesLostDueToInactivity() + ")");
+            user.setTrophiesLostDueToInactivity(0);
         }
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
