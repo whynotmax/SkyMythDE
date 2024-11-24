@@ -25,7 +25,6 @@ public class ItemGiveaway extends Giveaway {
 
     @Override
     public void run() {
-        //TODO: Disable chat
         for (int i = 0; i < 20; i++) Bukkit.broadcastMessage("§r");
         Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es wurde ein Item Giveaway gestartet!");
         Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Zu gewinnen gibt es §6" + NumberFormat.getInstance(Locale.GERMAN).format(itemStack.getAmount()) + "§8x '§r" + (itemStack.hasItemMeta() && itemStack.getItemMeta().hasDisplayName() ? itemStack.getItemMeta().getDisplayName() : "§6" + itemStack.getType()) + "§8'§7.");
@@ -48,6 +47,7 @@ public class ItemGiveaway extends Giveaway {
     public Player determineWinner() {
         Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
         List<? extends Player> players = List.copyOf(onlinePlayers);
+        players = players.stream().filter(p -> !p.hasPermission("skymyth.team")).toList();
         return players.get((int) (Math.random() * players.size()));
     }
 
