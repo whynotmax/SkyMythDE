@@ -3,6 +3,7 @@ package de.skymyth.casino.dailypot.ui;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.casino.dailypot.model.DailyPot;
 import de.skymyth.inventory.impl.AbstractInventory;
+import de.skymyth.user.model.User;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
 import org.bukkit.Bukkit;
@@ -37,7 +38,13 @@ public class DailyPotMainInventory extends AbstractInventory {
                 "§r",
                 "§7Klicke, um am DailyPot teilzunehmen."
         ), event -> {
-            // todo: checkn ob spieler 100$ hat sonst macht man kein minus!
+            User user = plugin.getUserManager().getUser(event.getWhoClicked().getUniqueId());
+            if (user.getBalance() < 100) {
+                event.getWhoClicked().sendMessage(SkyMythPlugin.PREFIX + "§cDazu ist dein Kontostand zu niedrig.");
+                return;
+            }
+            user.removeBalance(100);
+            plugin.getUserManager().saveUser(user);
             plugin.getCasinoManager().getDailyPotManager().joinDailyPot((Player) event.getWhoClicked());
             event.getWhoClicked().closeInventory();
         });
