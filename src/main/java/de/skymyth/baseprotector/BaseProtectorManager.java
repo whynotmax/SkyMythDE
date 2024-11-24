@@ -86,6 +86,8 @@ public class BaseProtectorManager {
     public boolean isBaseSpotFine(Location location) {
         if (!location.getWorld().getName().equals("world")) return false;
 
+        if(this.baseProtector.values().isEmpty()) return true;
+
         for (BaseProtector value : this.baseProtector.values()) {
             if (location.distance(value.getBaseProtectorLocation()) > BaseProtectorRadius.RADIUS_50X50.getRadius() * 2) {
                 return true;

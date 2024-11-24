@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +26,6 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
 
         if (itemStack.getItemMeta().hasLore() &&
             itemStack.getItemMeta().getLore().size() >= 3 &&
