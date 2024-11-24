@@ -39,7 +39,7 @@ public class SkullLoader {
         for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
             ItemStack skull = this.getSkull(offlinePlayer.getUniqueId());
 
-            if(skull != null) {
+            if (skull != null) {
                 skulls.add(skull);
             }
         }
@@ -47,7 +47,7 @@ public class SkullLoader {
     }
 
     public ItemStack getSkull(UUID uuid) {
-        if(this.yamlConfiguration.get("skull." + uuid.toString()) == null) {
+        if (this.yamlConfiguration.get("skull." + uuid.toString()) == null) {
             return SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDEzZTk2ZGY2ZWQ0YjcwYTVhNzBmYzI5ZGNkZTkzMTRkYmU5NzY2OTY0NzRmMTIwZTBiMzBlYTVkN2I5NmIzYSJ9fX0=");
         }
         return this.yamlConfiguration.getItemStack("skull." + uuid.toString());

@@ -1,7 +1,6 @@
 package de.skymyth.commands.impl.console;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.utility.TimeUtil;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -9,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class WGKickCommand extends Command {
 

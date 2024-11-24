@@ -1,12 +1,10 @@
 package de.skymyth.listener;
 
-import com.google.common.cache.Cache;
 import de.skymyth.SkyMythPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
-import org.bukkit.util.CachedServerIcon;
 
 public record ServerPingListener(SkyMythPlugin plugin) implements Listener {
 

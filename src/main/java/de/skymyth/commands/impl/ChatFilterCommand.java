@@ -1,7 +1,6 @@
 package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.chatfilter.ChatFilterManager;
 import de.skymyth.chatfilter.model.ChatFilterItem;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.punish.model.reason.PunishReason;

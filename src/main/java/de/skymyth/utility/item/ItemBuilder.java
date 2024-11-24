@@ -1,7 +1,6 @@
 package de.skymyth.utility.item;
 
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import net.minecraft.server.v1_8_R3.NBTTagList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -111,6 +110,7 @@ public class ItemBuilder extends ItemStack {
         this.setItemMeta(itemMeta);
         return this;
     }
+
     public ItemBuilder glow() {
         final ItemMeta itemMeta = this.getItemMeta();
         assert itemMeta != null;

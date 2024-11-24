@@ -16,6 +16,6 @@ public class DailyPotCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
         plugin.getInventoryManager().openInventory(player, new DailyPotMainInventory(plugin));
-        
+
     }
 }

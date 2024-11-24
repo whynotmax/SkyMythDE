@@ -16,7 +16,7 @@ public class NearCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if(player.getWorld().getNearbyEntities(player.getLocation(), 50,50, 50).isEmpty()) {
+        if (player.getWorld().getNearbyEntities(player.getLocation(), 50, 50, 50).isEmpty()) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§cEs befinden sich keine Spieler in deiner Nähe.");
             return;
         }
@@ -25,7 +25,7 @@ public class NearCommand extends MythCommand {
         for (Entity nearbyEntity : player.getWorld().getNearbyEntities(player.getLocation(), 50, 50, 50)) {
             if (nearbyEntity == player) continue;
             count++;
-            if(count == 0) {
+            if (count == 0) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cEs befinden sich keine Spieler in deiner Nähe.");
                 return;
             }

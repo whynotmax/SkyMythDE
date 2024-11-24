@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Locale;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CalenderMainInventory extends AbstractInventory {
@@ -90,13 +89,13 @@ public class CalenderMainInventory extends AbstractInventory {
                 int currentDay = Integer.parseInt(itemName);
                 if (today.getMonthValue() == month && today.getDayOfMonth() == currentDay) {
 
-                    if(taken) {
+                    if (taken) {
                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast dieses Türchen bereits abgeholt.");
                         return;
                     }
                     AdventDay adventDay = plugin.getCalenderManager().getAdventDay(currentDay);
 
-                    if(adventDay == null) {
+                    if (adventDay == null) {
                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Tag wurde nicht gesetzt.");
                         return;
                     }
@@ -110,7 +109,7 @@ public class CalenderMainInventory extends AbstractInventory {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§aDu hast das " + currentDay + ". Türchen geöffnet.");
 
 
-                    if(!adventDay.getItemStacks().isEmpty()) {
+                    if (!adventDay.getItemStacks().isEmpty()) {
                         for (ItemStack itemStack : adventDay.getItemStacks()) {
                             player.getInventory().addItem(itemStack);
                             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + itemStack.getAmount() + "§8x §e" +
@@ -118,13 +117,13 @@ public class CalenderMainInventory extends AbstractInventory {
                         }
                     }
 
-                    if(adventDay.getTokens() > 0) {
+                    if (adventDay.getTokens() > 0) {
                         user.addBalance(adventDay.getTokens());
                         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + NumberFormat.getInstance(Locale.GERMAN).format(adventDay.getTokens()) + " Tokens §7erhalten.");
                         plugin.getUserManager().saveUser(user);
                     }
 
-                    if(adventDay.getActions() != null) {
+                    if (adventDay.getActions() != null) {
                         adventDay.getActions().accept(player);
                     }
                 } else {

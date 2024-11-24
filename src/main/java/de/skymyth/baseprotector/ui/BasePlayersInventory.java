@@ -105,7 +105,7 @@ public class BasePlayersInventory extends AbstractInventory {
                             return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText("Nicht online"));
                         }
 
-                        if(target == player) {
+                        if (target == player) {
                             player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst dich selber nicht einladen.");
                             return Collections.singletonList(AnvilGUI.ResponseAction.replaceInputText("Nicht gültig"));
                         }

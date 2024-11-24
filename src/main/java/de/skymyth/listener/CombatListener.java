@@ -14,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import javax.lang.model.element.ElementVisitor;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("all")
@@ -43,7 +42,7 @@ public class CombatListener implements Listener {
                         combatTicker.invalidate(onlinePlayer);
                     }
 
-                    if(inCombat > 1) {
+                    if (inCombat > 1) {
                         TitleUtil.sendActionBar(onlinePlayer, "§cDu bist noch " + (TimeUtil
                                 .beautifyTime(inCombat, TimeUnit.MILLISECONDS, true, true)) + " §cim Kampf.");
                         TitleUtil.sendActionBar(target, "§cDu bist noch " + (TimeUtil
@@ -55,7 +54,7 @@ public class CombatListener implements Listener {
     }
 
     public boolean isInCombat(Player player) {
-        if(combatTicker.getIfPresent(player) == null) return false;
+        if (combatTicker.getIfPresent(player) == null) return false;
         long inCombat = (combatTicker.getIfPresent(player) - System.currentTimeMillis());
         return inCombat > 1;
     }
@@ -66,7 +65,7 @@ public class CombatListener implements Listener {
     }
 
     public Player getEnemy(Player player) {
-        if(combat.getIfPresent(player) != null) {
+        if (combat.getIfPresent(player) != null) {
             return combat.getIfPresent(player);
         }
         return null;
@@ -130,7 +129,7 @@ public class CombatListener implements Listener {
 
     public void startCombat(Player player, Player target) {
 
-        if(player.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.CREATIVE) return;
+        if (player.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.CREATIVE) return;
 
         if (combat.getIfPresent(player) == null) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§aDu bist jetzt im Kampf.");

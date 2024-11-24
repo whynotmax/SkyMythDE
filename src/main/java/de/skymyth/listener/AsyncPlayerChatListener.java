@@ -3,7 +3,6 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.chatfilter.model.ChatFilterItem;
-import de.skymyth.punish.model.Punish;
 import de.skymyth.punish.model.reason.PunishReason;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;

@@ -4,14 +4,11 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.kit.model.Kit;
 import de.skymyth.user.model.User;
-import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.pagination.Pagination;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.concurrent.TimeUnit;
 
 public class KitPreviewInventory extends AbstractInventory {
 

@@ -3,7 +3,6 @@ package de.skymyth.motd;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.utility.config.Config;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class MOTDManager {

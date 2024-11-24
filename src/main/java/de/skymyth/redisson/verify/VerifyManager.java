@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class VerifyManager {
 
+    SkyMythPlugin plugin;
     Cache<UUID, String> verificationCache = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).removalListener(removalNotification -> {
         if (!removalNotification.wasEvicted()) {
             return;
@@ -24,7 +25,6 @@ public class VerifyManager {
             player.sendMessage(SkyMythPlugin.PREFIX + "§cBitte führe den Befehl erneut aus.");
         }
     }).build();
-    SkyMythPlugin plugin;
 
     public VerifyManager(SkyMythPlugin plugin) {
         this.plugin = plugin;

@@ -5,7 +5,6 @@ import de.skymyth.commands.MythCommand;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RankingCommand extends MythCommand {
 

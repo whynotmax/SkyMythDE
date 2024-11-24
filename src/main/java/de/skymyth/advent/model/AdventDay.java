@@ -1,6 +1,5 @@
 package de.skymyth.advent.model;
 
-import eu.koboo.en2do.repository.entity.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

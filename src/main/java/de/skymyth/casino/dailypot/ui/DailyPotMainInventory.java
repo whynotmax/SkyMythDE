@@ -5,7 +5,6 @@ import de.skymyth.casino.dailypot.model.DailyPot;
 import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.item.ItemBuilder;
-import de.skymyth.utility.item.SkullCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

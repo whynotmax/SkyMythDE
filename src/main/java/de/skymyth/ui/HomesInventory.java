@@ -2,7 +2,6 @@ package de.skymyth.ui;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.inventory.impl.AbstractInventory;
-import de.skymyth.user.model.User;
 import de.skymyth.user.model.home.Home;
 import de.skymyth.utility.TeleportUtil;
 import de.skymyth.utility.TimeUtil;
@@ -32,20 +31,20 @@ public class HomesInventory extends AbstractInventory {
 
         for (Home home : homes) {
 
-            if(slotCount.get() > 16) slotCount.set(19);
-            if(slotCount.get() > 25) slotCount.set(28);
-            if(slotCount.get() > 34) slotCount.set(37);
-            if(slotCount.get() > 43) return;
+            if (slotCount.get() > 16) slotCount.set(19);
+            if (slotCount.get() > 25) slotCount.set(28);
+            if (slotCount.get() > 34) slotCount.set(37);
+            if (slotCount.get() > 43) return;
 
             setItem(slotCount.getAndIncrement(), new ItemBuilder(Material.WORKBENCH)
                     .setName("§7Home: §e" + home.getName())
                     .lore(
-                            "§7Erstellt vor: §e" + TimeUtil.beautifyTime((System.currentTimeMillis()-home.getCreated()), TimeUnit.MILLISECONDS, true, true),
+                            "§7Erstellt vor: §e" + TimeUtil.beautifyTime((System.currentTimeMillis() - home.getCreated()), TimeUnit.MILLISECONDS, true, true),
                             "",
                             "§7Klicke, um dich dahin zu teleportieren"
                     ), event -> {
 
-                if(home.getLocation() == null) {
+                if (home.getLocation() == null) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cHome Position ist ungültig.");
                     return;
                 }

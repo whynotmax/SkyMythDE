@@ -1,6 +1,5 @@
 package de.skymyth.user.model;
 
-import de.skymyth.advent.model.AdventDay;
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.user.model.home.Home;
@@ -88,7 +87,7 @@ public class User {
 
     public Home existsHome(String name) {
         for (Home home : this.homes) {
-            if(home.getName().equalsIgnoreCase(name)) {
+            if (home.getName().equalsIgnoreCase(name)) {
                 return home;
             }
         }

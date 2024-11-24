@@ -16,10 +16,10 @@ public class EnderChestCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if(args.length == 1 && player.isOp()) {
+        if (args.length == 1 && player.isOp()) {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(target == null) {
+            if (target == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler ist nicht online.");
                 return;
             }

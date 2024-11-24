@@ -84,7 +84,7 @@ public class BaseProtectorManager {
     }
 
     public boolean isBaseSpotFine(Location location) {
-        if(!location.getWorld().getName().equals("world")) return false;
+        if (!location.getWorld().getName().equals("world")) return false;
 
         for (BaseProtector value : this.baseProtector.values()) {
             if (location.distance(value.getBaseProtectorLocation()) > BaseProtectorRadius.RADIUS_50X50.getRadius() * 2) {
@@ -96,7 +96,7 @@ public class BaseProtectorManager {
 
 
     public boolean isBlockProtected(Block block) {
-        if(!block.getWorld().getName().equals("world")) return false;
+        if (!block.getWorld().getName().equals("world")) return false;
 
         for (BaseProtector base : this.baseProtector.values()) {
             if (base.getBaseProtectorLocation().distance(block.getLocation()) < base.getBaseProtectorRadius().getRadius()) {

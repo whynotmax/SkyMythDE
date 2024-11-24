@@ -3,7 +3,6 @@ package de.skymyth.advent;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.advent.model.AdventDay;
 import de.skymyth.badge.model.Badge;
-import de.skymyth.user.model.User;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import lombok.AccessLevel;

@@ -6,7 +6,6 @@ import de.skymyth.pvp.ui.liga.LigaMainInventory;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LigaCommand extends MythCommand {
 

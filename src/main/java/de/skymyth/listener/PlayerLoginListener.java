@@ -1,7 +1,6 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.maintenance.model.Maintenance;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
 import org.bukkit.Bukkit;

@@ -5,7 +5,6 @@ import de.skymyth.chatfilter.model.ChatFilterItem;
 import de.skymyth.chatfilter.repository.ChatFilterItemRepository;
 import lombok.Getter;
 import org.bukkit.ChatColor;
-import org.redisson.PubSubMessageListener;
 
 import java.util.ArrayList;
 import java.util.List;

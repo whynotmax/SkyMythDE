@@ -6,10 +6,8 @@ import de.skymyth.giveaway.title.RandomPlayerScrambleTitle;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 public class RandomPlayerGiveaway extends Giveaway {
 

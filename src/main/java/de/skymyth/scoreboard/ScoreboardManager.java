@@ -1,11 +1,8 @@
 package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.pvp.model.PvPRank;
 import de.skymyth.user.model.User;
-import de.skymyth.utility.TimeUtil;
-import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.Util;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.AccessLevel;
@@ -20,7 +17,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ScoreboardManager {
@@ -48,7 +44,7 @@ public class ScoreboardManager {
         FastBoard fastBoard = this.fastBoardMap.get(player.getUniqueId());
         User user = plugin.getUserManager().getUser(player.getUniqueId());
 
-        if(fastBoard == null || fastBoard.isDeleted()) return;
+        if (fastBoard == null || fastBoard.isDeleted()) return;
 
         plugin.getTablistManager().setRank(player);
         user.updatePlayTime();
@@ -86,7 +82,7 @@ public class ScoreboardManager {
                     "",
                     "§f♛ §8┃ §7Trophäen",
 
-                    "  §8× §6" + user.getTrophies() + " (" +  PvPRank.getRank(user.getTrophies()).getDisplayName() + ")",
+                    "  §8× §6" + user.getTrophies() + " (" + PvPRank.getRank(user.getTrophies()).getDisplayName() + ")",
                     ""
             );
             return;
@@ -105,7 +101,7 @@ public class ScoreboardManager {
                 "  §8× §a" + (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()) + " §8/ §c" + Bukkit.getMaxPlayers(),
                 "",
                 "§f♛ §8┃ §7Trophäen",
-                "  §8× §6" + user.getTrophies() + " (" +  PvPRank.getRank(user.getTrophies()).getDisplayName() + ")",
+                "  §8× §6" + user.getTrophies() + " (" + PvPRank.getRank(user.getTrophies()).getDisplayName() + ")",
                 ""
         );
     }

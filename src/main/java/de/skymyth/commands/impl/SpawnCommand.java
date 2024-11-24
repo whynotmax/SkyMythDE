@@ -20,14 +20,14 @@ public class SpawnCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             TeleportUtil.createTeleportation(plugin, player, plugin.getLocationManager().getPosition("spawn").getLocation(), "Spawn");
             return;
         }
-        if(args.length == 1 && player.hasPermission("myth.spawn.other")) {
+        if (args.length == 1 && player.hasPermission("myth.spawn.other")) {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(target == null) {
+            if (target == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler wurde nicht gefunden.");
                 return;
             }

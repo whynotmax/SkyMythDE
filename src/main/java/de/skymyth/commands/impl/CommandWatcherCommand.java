@@ -16,7 +16,7 @@ public class CommandWatcherCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if(Util.COMMANDWATCHER.contains(player)) {
+        if (Util.COMMANDWATCHER.contains(player)) {
             Util.COMMANDWATCHER.remove(player);
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Command-Watcher wurde §cdeaktiviert.");
         } else {

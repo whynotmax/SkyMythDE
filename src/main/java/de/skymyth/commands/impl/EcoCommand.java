@@ -28,7 +28,7 @@ public class EcoCommand extends MythCommand {
             if (args.length == 0) {
                 User user = this.plugin.getUserManager().getUser(player.getUniqueId());
 
-                if(user != null && Bukkit.getOfflinePlayer(user.getUniqueId()).hasPlayedBefore()) {
+                if (user != null && Bukkit.getOfflinePlayer(user.getUniqueId()).hasPlayedBefore()) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein Kontostand: §e" + NumberFormat.getInstance(Locale.GERMAN).format(user.getBalance()).replace(",", ".") + " Tokens");
                     return;
                 }

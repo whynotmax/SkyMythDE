@@ -1,11 +1,9 @@
 package de.skymyth.ranking;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.pvp.model.PvPRank;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.UUIDFetcher;
 import de.skymyth.utility.Util;
-import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
