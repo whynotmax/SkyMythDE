@@ -93,8 +93,5 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             }
         }, 20);
 
-        for (ItemStack skull : plugin.getSkullLoader().getSkulls()) {
-            player.getInventory().addItem(skull);
-        }
     }
 }

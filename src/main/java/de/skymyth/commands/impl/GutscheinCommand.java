@@ -3,6 +3,7 @@ package de.skymyth.commands.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import org.bukkit.Material;
@@ -83,8 +84,8 @@ public class GutscheinCommand extends MythCommand {
                 "§7auf deinem Konto gutschreiben lassen.",
                 "§8§m------------------------------------------------------"
         );
-        addNBTTag(itemBuilder, "balance", String.valueOf(balance));
-        addNBTTag(itemBuilder, "voucher", "balance");
+        Util.addNBT(itemBuilder, "balance", String.valueOf(balance));
+        Util.addNBT(itemBuilder, "voucher", "balance");
         return itemBuilder;
     }
 
@@ -101,8 +102,8 @@ public class GutscheinCommand extends MythCommand {
                 "§7dir das Badge §8'§e" + badge.getCharacter() + "§8' §7freischalten.",
                 "§8§m------------------------------------------------------"
         );
-        addNBTTag(itemBuilder, "badge", badge.getName());
-        addNBTTag(itemBuilder, "voucher", "badge");
+        Util.addNBT(itemBuilder, "badge", badge.getName());
+        Util.addNBT(itemBuilder, "voucher", "badge");
         return itemBuilder;
     }
 
@@ -115,14 +116,9 @@ public class GutscheinCommand extends MythCommand {
                 "§7dir das Kit §8'§e" + kitName + "§8' §7einmal einlösen.",
                 "§8§m------------------------------------------------------"
         );
-        addNBTTag(itemBuilder, "kit", kitName);
-        addNBTTag(itemBuilder, "voucher", "kit");
+        Util.addNBT(itemBuilder, "kit", kitName);
+        Util.addNBT(itemBuilder, "voucher", "kit");
         return itemBuilder;
     }
 
-    private void addNBTTag(ItemBuilder itemBuilder, String key, String value) {
-        NBTTagCompound nbtTagCompound = itemBuilder.getNBTTagCompound();
-        nbtTagCompound.setString(key, value);
-        itemBuilder.setNBTTagCompound(nbtTagCompound);
-    }
 }

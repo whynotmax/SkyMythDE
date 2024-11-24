@@ -3,12 +3,14 @@ package de.skymyth.utility;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.skymyth.baseprotector.model.BaseProtector;
+import de.skymyth.utility.item.ItemBuilder;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -144,6 +146,30 @@ public class Util {
         } catch (Exception exception) {
             return 0.0;
         }
+    }
+
+    public static ItemStack addNBT(ItemStack item, String key, String value) {
+        net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+        NBTTagCompound itemCompound = (nmsItem.hasTag()) ? nmsItem.getTag() : new NBTTagCompound();
+        itemCompound.set(key, new NBTTagString(value));
+        nmsItem.setTag(itemCompound);
+
+        return CraftItemStack.asBukkitCopy(nmsItem);
+    }
+
+    public static boolean hasNBT(ItemStack item) {
+        net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+        return nmsItem.hasTag();
+    }
+
+    public static String getNBT(ItemStack item, String key) {
+        if (hasNBT(item)) {
+            net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+            NBTTagCompound itemCompound = nmsItem.getTag();
+
+            return itemCompound.getString(key);
+        }
+        return null;
     }
 
 

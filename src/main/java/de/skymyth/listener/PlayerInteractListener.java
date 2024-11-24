@@ -5,6 +5,7 @@ import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.baseprotector.ui.BaseMainInventory;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +24,6 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
 
         if (player.getWorld().getName().equals("Spawn")) {
             if (player.getItemInHand() != null) {
