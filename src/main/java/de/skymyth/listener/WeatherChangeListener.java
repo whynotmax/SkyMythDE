@@ -9,7 +9,9 @@ public record WeatherChangeListener(SkyMythPlugin plugin) implements Listener {
 
     @EventHandler
     public void onWeatherChange(WeatherChangeEvent event) {
-        event.setCancelled(event.getWorld().getName().equalsIgnoreCase("Spawn") || event.getWorld().getName().equalsIgnoreCase("PvP"));
+        event.setCancelled(event.getWorld().getName().equalsIgnoreCase("Spawn")
+                || event.getWorld().getName().equalsIgnoreCase("PvP")
+                || event.getWorld().getName().equalsIgnoreCase("FpsArena"));
     }
 
 }

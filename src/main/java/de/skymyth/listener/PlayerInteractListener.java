@@ -75,6 +75,17 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
             return;
         }
 
+        if(player.getWorld().getName().equals("FpsArena")) {
+            if (player.getItemInHand() != null) {
+                if (player.getItemInHand().getType() == Material.ENDER_PEARL &&
+                        !player.isOp()) {
+                    event.setUseItemInHand(Event.Result.DENY);
+                    event.setCancelled(true);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Dieses Item ist hier nicht erlaubt.");
+                }
+            }
+        }
+
         if (player.getWorld().getName().equals("Spawn")) {
             if (player.getItemInHand() != null) {
                 if (player.getItemInHand().getType() == Material.BOW

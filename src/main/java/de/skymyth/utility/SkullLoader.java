@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +45,21 @@ public class SkullLoader {
             }
         }
         return skulls;
+    }
+
+    public ItemStack getItemStackBySkullOwner(String skullOwner) {
+
+        for (String key : this.yamlConfiguration.getKeys(false)) {
+            if (this.yamlConfiguration.isConfigurationSection(key)) {
+                ItemStack itemStack = this.yamlConfiguration.getItemStack(key);
+                if (itemStack != null && itemStack.getItemMeta() instanceof SkullMeta skullMeta) {
+                    if (skullOwner.equalsIgnoreCase(skullMeta.getOwner())) {
+                        return itemStack;
+                    }
+                }
+            }
+        }
+        return SkullCreator.itemFromBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDEzZTk2ZGY2ZWQ0YjcwYTVhNzBmYzI5ZGNkZTkzMTRkYmU5NzY2OTY0NzRmMTIwZTBiMzBlYTVkN2I5NmIzYSJ9fX0=");
     }
 
     public ItemStack getSkull(UUID uuid) {
