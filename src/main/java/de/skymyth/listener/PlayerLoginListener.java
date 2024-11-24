@@ -21,7 +21,6 @@ public record PlayerLoginListener(SkyMythPlugin plugin) implements Listener {
         }
 
         if (plugin.getMaintenanceManager().getMaintenance().isEnabled() && !plugin.getMaintenanceManager().isWhitelisted(player.getUniqueId())) {
-            Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7wollte den Server betreten.");
             event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, plugin.getMaintenanceManager().getMaintenanceScreen());
             return;
         }

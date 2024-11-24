@@ -42,7 +42,14 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
             }
         }
 
-        if (world.getName().equals("PvP")) {
+        if(event.getEntity() instanceof Player player || event.getDamager() instanceof Projectile projectile) {
+            if (world.getName().equals("FpsArena") && player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").getLocation()) < 10) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+
+        if (world.getName().equals("PvP") || world.getName().equals("FpsArena")) {
             if (event.getEntity() instanceof Player player) {
                 if (event.getDamager() instanceof Player damager) {
                     if (player != damager) {

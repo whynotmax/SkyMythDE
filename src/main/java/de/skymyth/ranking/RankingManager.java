@@ -85,7 +85,7 @@ public class RankingManager implements Listener {
 
             if (integer.get() == 1) {
                 ranking1.setCustomName("§8#§51 §7" + playerName + String.format(killsText, kills));
-                ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
+                ranking1.setHelmet(plugin.getSkullLoader().getItemStackBySkullOwner(playerName));
                 ranking1.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
                 ranking1.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
                 ranking1.setBoots(new ItemStack(Material.DIAMOND_BOOTS));
@@ -93,7 +93,7 @@ public class RankingManager implements Listener {
             }
             if (integer.get() == 2) {
                 ranking2.setCustomName("§8#§52 §7" + playerName + String.format(killsText, kills));
-                ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
+                ranking2.setHelmet(plugin.getSkullLoader().getSkull(uuid));
                 ranking2.setChestplate(new ItemStack(Material.GOLD_CHESTPLATE));
                 ranking2.setLeggings(new ItemStack(Material.GOLD_LEGGINGS));
                 ranking2.setBoots(new ItemStack(Material.GOLD_BOOTS));
@@ -101,7 +101,7 @@ public class RankingManager implements Listener {
             }
             if (integer.get() == 3) {
                 ranking3.setCustomName("§8#§53 §7" + playerName + String.format(killsText, kills));
-                ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
+                ranking3.setHelmet(plugin.getSkullLoader().getSkull(uuid));
                 ranking3.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
                 ranking3.setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
                 ranking3.setBoots(new ItemStack(Material.LEATHER_BOOTS));
