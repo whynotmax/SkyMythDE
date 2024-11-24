@@ -90,21 +90,6 @@ public class Kit {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");
     }
 
-    //TODO:
-    public List<ItemStack> replaceName(List<ItemStack> items) {
-        List<ItemStack> newItems = new ArrayList<>();
-        for (ItemStack item : items) {
-            if (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) {
-                ItemStack clone = item.clone();
-                ItemMeta cloneMeta = clone.getItemMeta();
-                cloneMeta.setDisplayName("§8» §7Kit §8┃ §e" + this.getName());
-                clone.setItemMeta(cloneMeta);
-                newItems.add(clone);
-            }
-        }
-        return newItems;
-    }
-
     @Transient
     public void giveTo(User user, SkyMythPlugin plugin) {
         Player player = Bukkit.getPlayer(user.getUniqueId());
