@@ -45,9 +45,14 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
         if (world.getName().equals("PvP") || world.getName().equals("FpsArena")) {
             if (event.getEntity() instanceof Player player) {
                 if (world.getName().equals("FpsArena")) {
-                    event.setCancelled(player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7);
+                    event.setCancelled(player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) <= 7);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
+                }
+
+                if(world.getName().equals("FpsArena") && player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) <= 7) {
                     return;
                 }
+
                 if (event.getDamager() instanceof Player damager) {
                     if (player != damager) {
                         plugin.getCombatListener().startCombat(player, damager);
