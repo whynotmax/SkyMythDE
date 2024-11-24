@@ -75,16 +75,14 @@ public class GutscheinCommand extends MythCommand {
 
     private ItemStack getBalanceVoucher(long balance) {
         ItemBuilder itemBuilder = new ItemBuilder(Material.DOUBLE_PLANT);
-        itemBuilder.setName("§7Gutschein§8: §e" + NumberFormat.getInstance(Locale.GERMAN).format(balance).replace(",", ".") + " §7Coins");
+        itemBuilder.setName("§7Gutschein§8: §e" + NumberFormat.getInstance(Locale.GERMAN).format(balance).replace(",", ".") + " §7Tokens");
         itemBuilder.lore(
                 "§8§m------------------------------------------------------",
-                "§7Mit diesem Gutschein kannst du",
-                "§7dir §e" + NumberFormat.getInstance(Locale.GERMAN).format(balance).replace(",", ".") + " §7Coins",
+                "§7Mit diesem Tokengutschein kannst du",
+                "§7dir §e" + NumberFormat.getInstance(Locale.GERMAN).format(balance).replace(",", ".") + " §7Tokens",
                 "§7auf deinem Konto gutschreiben lassen.",
                 "§8§m------------------------------------------------------"
         );
-        addNBTTag(itemBuilder, "balance", String.valueOf(balance));
-        addNBTTag(itemBuilder, "voucher", "balance");
         return itemBuilder;
     }
 
@@ -97,12 +95,10 @@ public class GutscheinCommand extends MythCommand {
         itemBuilder.setName("§7Gutschein§8: §e" + badge.getCharacter() + "§8 (§7Badge§8)");
         itemBuilder.lore(
                 "§8§m------------------------------------------------------",
-                "§7Mit diesem Gutschein kannst du",
+                "§7Mit diesem Badgegutschein kannst du",
                 "§7dir das Badge §8'§e" + badge.getCharacter() + "§8' §7freischalten.",
                 "§8§m------------------------------------------------------"
         );
-        addNBTTag(itemBuilder, "badge", badge.getName());
-        addNBTTag(itemBuilder, "voucher", "badge");
         return itemBuilder;
     }
 
@@ -111,18 +107,10 @@ public class GutscheinCommand extends MythCommand {
         itemBuilder.setName("§7Gutschein§8: §e" + kitName + " §8(§eKit§8)");
         itemBuilder.lore(
                 "§8§m------------------------------------------------------",
-                "§7Mit diesem Gutschein kannst du",
+                "§7Mit diesem Kitgutschein kannst du",
                 "§7dir das Kit §8'§e" + kitName + "§8' §7einmal einlösen.",
                 "§8§m------------------------------------------------------"
         );
-        addNBTTag(itemBuilder, "kit", kitName);
-        addNBTTag(itemBuilder, "voucher", "kit");
         return itemBuilder;
-    }
-
-    private void addNBTTag(ItemBuilder itemBuilder, String key, String value) {
-        NBTTagCompound nbtTagCompound = itemBuilder.getNBTTagCompound();
-        nbtTagCompound.setString(key, value);
-        itemBuilder.setNBTTagCompound(nbtTagCompound);
     }
 }

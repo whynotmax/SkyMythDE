@@ -1,10 +1,13 @@
 package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.badge.model.Badge;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.baseprotector.ui.BaseMainInventory;
+import de.skymyth.kit.model.Kit;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,6 +26,53 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemBuilder itemStack = new ItemBuilder(player.getItemInHand());
+
+        if (itemStack.getItemMeta().hasLore() &&
+            itemStack.getItemMeta().getLore().size() >= 3 &&
+            itemStack.getItemMeta().getLore().get(1).contains("gutschein")) {
+            event.setCancelled(true);
+            String gutschein = itemStack.getItemMeta().getLore().get(1).replace("§7Mit diesem ", "").replace("gutschein kannst du", "");
+            switch (gutschein) {
+                case "Token" -> {
+                    long balance = Long.parseLong(itemStack.getItemMeta().getLore().get(2).replace("§7dir §e", "").replace(" §7Tokens", "").replace(".", ""));
+                    User user = plugin.getUserManager().getUser(player.getUniqueId());
+                    user.addBalance(balance);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + balance + " §7Tokens erhalten.");
+                    Util.removeItem(player, itemStack);
+                    break;
+                }
+                case "Kit" -> {
+                    String kitName = itemStack.getItemMeta().getLore().get(2).replace("§7dir das Kit §e", "").replace("§8' §7einmal einlösen.", "");
+                    Kit kit = plugin.getKitManager().getKitByName(kitName);
+                    if (kit == null) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Kit existiert nicht.");
+                        return;
+                    }
+                    kit.giveToAsVoucher(plugin.getUserManager().getUser(player.getUniqueId()));
+                    Util.removeItem(player, itemStack);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + kitName + " §7erhalten.");
+                    break;
+                }
+                case "Badge" -> {
+                    String badgeName = itemStack.getItemMeta().getLore().get(2).replace("§7dir das Badge §8'§e", "").replace("§8' §7freischalten.", "");
+                    Badge badge = plugin.getBadgeManager().getBadgeByCharacter(badgeName);
+                    if (badge == null) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Badge existiert nicht.");
+                        return;
+                    }
+                    if (badge.getOwners().contains(player.getUniqueId())) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDu besitzt dieses Badge bereits.");
+                        return;
+                    }
+                    badge.getOwners().add(player.getUniqueId());
+                    plugin.getBadgeManager().saveBadge(badge);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Badge §e" + badgeName + " §7erhalten.");
+                    Util.removeItem(player, itemStack);
+                    break;
+                }
+            }
+            return;
+        }
 
         if (player.getWorld().getName().equals("Spawn")) {
             if (player.getItemInHand() != null) {

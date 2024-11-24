@@ -60,4 +60,8 @@ public class BadgeManager {
     public List<Badge> getBadges() {
         return new ArrayList<>(cachedBadges.values());
     }
+
+    public Badge getBadgeByCharacter(String character) {
+        return cachedBadges.values().stream().filter(badge -> badge.getCharacter().equalsIgnoreCase(character)).findFirst().orElse(null);
+    }
 }
