@@ -92,6 +92,7 @@ public class CombatListener implements Listener {
                     combatTicker.invalidate(attacker);
 
                     attackerUser.addKill();
+                    attackerUser.addPvPShards(5);
                     attackerUser.addTrophies(10);
 
                     playerUser.addDeath();
