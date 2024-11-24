@@ -50,6 +50,7 @@ public class TokenGiveaway extends Giveaway {
         Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
         List<? extends Player> players = List.copyOf(onlinePlayers);
         players = players.stream().filter(p -> !p.hasPermission("skymyth.team")).toList();
+        if (players.isEmpty()) return Bukkit.getOnlinePlayers().iterator().next();
         return players.get((int) (Math.random() * players.size()));
     }
 
