@@ -5,6 +5,7 @@ import de.skymyth.badge.model.Badge;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.baseprotector.ui.BaseMainInventory;
 import de.skymyth.kit.model.Kit;
+import de.skymyth.ui.EnchanterInventory;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.Util;
@@ -28,7 +29,7 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         ItemStack itemStack = new ItemBuilder(player.getItemInHand());
 
-        if (itemStack != null && itemStack.getType() == Material.AIR && itemStack.getItemMeta().hasLore() &&
+        if (itemStack != null && itemStack.getType() != Material.AIR && itemStack.getItemMeta().hasLore() &&
             itemStack.getItemMeta().getLore().size() >= 3 &&
             itemStack.getItemMeta().getLore().get(1).contains("gutschein")) {
             event.setCancelled(true);
@@ -89,6 +90,13 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
             Block block = event.getClickedBlock();
             if (block == null) return;
+
+            if (block.getType() == Material.ENCHANTMENT_TABLE) {
+                event.setCancelled(true);
+                plugin.getInventoryManager().openInventory(player, new EnchanterInventory(plugin));
+                return;
+            }
+
             if (block.getType() != Material.ENDER_PORTAL_FRAME) return;
 
             if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {

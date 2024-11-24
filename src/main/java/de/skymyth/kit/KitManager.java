@@ -52,6 +52,7 @@ public class KitManager {
         } else {
             otherKits.remove(kit);
         }
+
     }
 
     public Kit getKitByName(String name) {

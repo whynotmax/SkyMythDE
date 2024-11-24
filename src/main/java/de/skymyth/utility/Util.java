@@ -13,6 +13,7 @@ import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagString;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
@@ -62,6 +63,10 @@ public class Util {
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+    }
+
+    public static boolean isTool(Material material) {
+        return material.name().contains("SWORD") || material.name().contains("AXE") || material.name().contains("PICKAXE") || material.name().contains("SHOVEL") || material.name().contains("HOE");
     }
 
     public static String christmasColor(String text) {

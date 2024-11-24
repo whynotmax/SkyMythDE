@@ -24,7 +24,6 @@ import de.skymyth.redisson.RedissonManager;
 import de.skymyth.rewards.RewardsManager;
 import de.skymyth.runnables.AntiLagRunnable;
 import de.skymyth.scoreboard.ScoreboardManager;
-import de.skymyth.stattrack.enchant.EnchantWrapper;
 import de.skymyth.tablist.TablistManager;
 import de.skymyth.user.UserManager;
 import de.skymyth.utility.SkullLoader;
@@ -168,7 +167,7 @@ public final class SkyMythPlugin extends JavaPlugin {
             f.setAccessible(true);
             f.set(null, true);
 
-            Enchantment.registerEnchantment(EnchantWrapper.STAT_TRACK);
+//            Enchantment.registerEnchantment(EnchantWrapper.STAT_TRACK);
         } catch (IllegalArgumentException | ExceptionInInitializerError e) {
             e.printStackTrace();
         } catch (NoSuchFieldException | IllegalAccessException e) {
