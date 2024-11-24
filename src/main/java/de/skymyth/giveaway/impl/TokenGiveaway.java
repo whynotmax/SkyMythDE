@@ -25,7 +25,6 @@ public class TokenGiveaway extends Giveaway {
 
     @Override
     public void run() {
-        //TODO: Disable chat
         for (int i = 0; i < 20; i++) Bukkit.broadcastMessage("§r");
         Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Es wurde ein Token Giveaway gestartet!");
         Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Zu gewinnen gibt es §e" + NumberFormat.getInstance(Locale.GERMAN).format(amount) + " Tokens§7.");
