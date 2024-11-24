@@ -9,6 +9,7 @@ import de.skymyth.casino.CasinoManager;
 import de.skymyth.chatfilter.ChatFilterManager;
 import de.skymyth.clan.ClanManager;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.commands.impl.console.WGKickCommand;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.kit.KitManager;
@@ -145,6 +146,8 @@ public final class SkyMythPlugin extends JavaPlugin {
 
             bukkitCommandMap.setAccessible(true);
             CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+
+            commandMap.register("skymyth", new WGKickCommand());
 
             Reflections commandReflections = new Reflections("de.skymyth.commands.impl");
             commandReflections.getSubTypesOf(MythCommand.class).forEach(command -> {
