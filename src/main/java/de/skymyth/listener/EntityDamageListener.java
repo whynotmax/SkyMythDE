@@ -17,7 +17,9 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
 
         if (event.getEntity() instanceof Player player) {
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                if (player.getWorld().getName().equalsIgnoreCase("Spawn") || player.getWorld().getName().equalsIgnoreCase("PvP")) {
+                if (player.getWorld().getName().equals("Spawn")
+                        || player.getWorld().getName().equals("PvP")
+                        || player.getWorld().getName().equals("FpsArena")) {
                     event.setCancelled(true);
                     return;
                 }
@@ -62,11 +64,11 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
             if (event.getEntity() instanceof Player player) {
                 if (event.getDamager() instanceof Player damager) {
                     if (player != damager) {
-                        if (player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                        if (player.getLocation().distance(plugin.getLocationManager().getPosition("arena").toBukkitLocation()) <= 10) {
                             event.setCancelled(true);
                             return;
                         }
-                        if (damager.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                        if (damager.getLocation().distance(plugin.getLocationManager().getPosition("arena").toBukkitLocation()) <= 10) {
                             event.setCancelled(true);
                             return;
                         }
@@ -74,11 +76,11 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
                     }
                 } else if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player projectShooter) {
                     if (projectShooter != player) {
-                        if (player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                        if (player.getLocation().distance(plugin.getLocationManager().getPosition("arena").toBukkitLocation()) <= 10) {
                             event.setCancelled(true);
                             return;
                         }
-                        if (projectShooter.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                        if (projectShooter.getLocation().distance(plugin.getLocationManager().getPosition("arena").toBukkitLocation()) <= 10) {
                             event.setCancelled(true);
                             return;
                         }
