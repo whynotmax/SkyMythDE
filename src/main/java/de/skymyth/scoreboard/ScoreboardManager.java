@@ -91,7 +91,7 @@ public class ScoreboardManager {
             );
             return;
         }
-        //TODO: Mine scoreboard?
+        //FEAT: Mine scoreboard?
         fastBoard.updateLines(
                 "",
                 "§f⚔ §8┃ §7Statistiken",

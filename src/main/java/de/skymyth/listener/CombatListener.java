@@ -37,7 +37,6 @@ public class CombatListener implements Listener {
                     Player target = combat.getIfPresent(onlinePlayer);
                     long inCombat = (combatTicker.getIfPresent(onlinePlayer) - System.currentTimeMillis());
 
-                    // Todo: Nachricht kommt nicht an beim ablaufen nach 15 Sek
                     if (inCombat < 1) {
                         onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§cDu bist nun nicht mehr im Kampf.");
                         combat.invalidate(onlinePlayer);

@@ -5,6 +5,7 @@ import de.skymyth.kit.model.type.KitType;
 import de.skymyth.user.model.User;
 import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.item.ItemBuilder;
 import eu.koboo.en2do.repository.entity.Id;
 import eu.koboo.en2do.repository.entity.Transient;
 import lombok.AllArgsConstructor;
@@ -55,33 +56,33 @@ public class Kit {
             return;
         }
 
-        for (ItemStack item : this.items) {
+        for (ItemBuilder item : this.items.stream().map(ItemStack::clone).map(ItemBuilder::new).toList()) {
             if (item.getType().name().contains("HELMET")) {
                 if (player.getInventory().getHelmet() != null) {
-                    player.getInventory().addItem(player.getInventory().getHelmet());
+                    player.getInventory().setHelmet(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().contains("CHESTPLATE")) {
                 if (player.getInventory().getChestplate() != null) {
-                    player.getInventory().addItem(player.getInventory().getChestplate());
+                    player.getInventory().setChestplate(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().contains("LEGGINGS")) {
                 if (player.getInventory().getLeggings() != null) {
-                    player.getInventory().addItem(player.getInventory().getLeggings());
+                    player.getInventory().setLeggings(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().contains("BOOTS")) {
                 if (player.getInventory().getBoots() != null) {
-                    player.getInventory().addItem(player.getInventory().getBoots());
+                    player.getInventory().setBoots(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             }
@@ -102,37 +103,37 @@ public class Kit {
             return;
         }
 
-        for (ItemStack item : this.items) {
+        for (ItemBuilder item : this.items.stream().map(ItemStack::clone).map(ItemBuilder::new).toList()) {
             if (item.getType().name().toUpperCase().contains("HELMET")) {
                 if (player.getInventory().getHelmet() == null || player.getInventory().getHelmet().getType() == Material.AIR) {
-                    player.getInventory().setHelmet(item);
+                    player.getInventory().setHelmet(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().toUpperCase().contains("CHESTPLATE")) {
                 if (player.getInventory().getChestplate() == null || player.getInventory().getChestplate().getType() == Material.AIR) {
-                    player.getInventory().setChestplate(item);
+                    player.getInventory().setChestplate(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().toUpperCase().contains("LEGGINGS")) {
                 if (player.getInventory().getLeggings() == null || player.getInventory().getLeggings().getType() == Material.AIR) {
-                    player.getInventory().setLeggings(item);
+                    player.getInventory().setLeggings(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().toUpperCase().contains("BOOTS")) {
                 if (player.getInventory().getBoots() == null || player.getInventory().getBoots().getType() == Material.AIR) {
-                    player.getInventory().setBoots(item);
+                    player.getInventory().setBoots(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
-                    player.getInventory().addItem(item);
+                    player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             }
-            player.getInventory().addItem(item);
+            player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
         }
         player.updateInventory();
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + name + " §7erhalten.");

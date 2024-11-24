@@ -35,7 +35,6 @@ public class RTPManager {
             this.player.sendMessage(ChatColor.RED + "ERROR: Failed to find a safe teleport location!");
         } else {
             this.player.teleport(location);
-            //TODO: Send Message
         }
     }
 
