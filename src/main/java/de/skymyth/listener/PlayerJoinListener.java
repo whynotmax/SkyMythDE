@@ -4,6 +4,7 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.Util;
+import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -91,5 +93,9 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
                 player.showPlayer(onlinePlayer);
             }
         }, 20);
+
+        for (ItemStack skull : plugin.getSkullLoader().getSkulls()) {
+            player.getInventory().addItem(skull);
+        }
     }
 }

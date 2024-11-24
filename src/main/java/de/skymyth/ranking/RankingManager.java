@@ -79,7 +79,6 @@ public class RankingManager implements Listener {
 
             OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
             String playerName = UUIDFetcher.getName(uuid);
-            User user = plugin.getUserManager().getUser(uuid);
 
             if (kills < 1) continue;
             if (player == null) continue;

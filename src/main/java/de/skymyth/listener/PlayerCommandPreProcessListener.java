@@ -20,6 +20,7 @@ public record PlayerCommandPreProcessListener(SkyMythPlugin plugin) implements L
                 && !command.contains("/reply")) {
 
             for (Player player : Util.COMMANDWATCHER) {
+                if(player == event.getPlayer()) continue;
                 player.sendMessage(SkyMythPlugin.PREFIX + "§e" + event.getPlayer().getName() + " §8➟ §8(§f" + command + "§8)");
             }
 

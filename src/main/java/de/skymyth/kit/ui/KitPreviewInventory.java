@@ -64,7 +64,7 @@ public class KitPreviewInventory extends AbstractInventory {
 
         int i = 10;
         for (ItemStack itemStack : pagination.getItems(newPage)) {
-            this.setItem(i, itemStack);
+            this.setItem(i, new ItemBuilder(itemStack).setName("§7Kit§8: §e" + kit.getName()));
             i++;
             if (i == 17) {
                 i = 19;

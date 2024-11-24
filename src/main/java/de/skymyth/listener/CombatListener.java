@@ -55,6 +55,24 @@ public class CombatListener implements Listener {
         }, 0L, 20L);
     }
 
+    public boolean isInCombat(Player player) {
+        if(combatTicker.getIfPresent(player) == null) return false;
+        long inCombat = (combatTicker.getIfPresent(player) - System.currentTimeMillis());
+        return inCombat > 1;
+    }
+
+    public String getRemaining(Player player) {
+        return TimeUtil.beautifyTime(combatTicker.getIfPresent(player) - System.currentTimeMillis(),
+                TimeUnit.MILLISECONDS, true, true);
+    }
+
+    public Player getEnemy(Player player) {
+        if(combat.getIfPresent(player) != null) {
+            return combat.getIfPresent(player);
+        }
+        return null;
+    }
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         event.setDeathMessage(null);
@@ -78,7 +96,8 @@ public class CombatListener implements Listener {
 
                     playerUser.addDeath();
 
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu wurdest von " + attacker.getName() + " getötet.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu wurdest von " + attacker.getName() + " getötet §8(§c" + Math.round(attacker.getHealth() / 2) + "❤§8)");
+
 
                     attacker.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast " + player.getName() + " getötet.");
                     attacker.sendMessage(SkyMythPlugin.PREFIX + "§eTrophäen: " + attackerUser.getTrophies() + " §a(+10)");
