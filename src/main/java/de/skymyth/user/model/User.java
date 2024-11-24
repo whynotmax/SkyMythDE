@@ -77,6 +77,7 @@ public class User {
         this.pvpShards -= amount;
     }
 
+    @Transient
     public void addKill() {
         this.currentKillStreak++;
         if (this.currentKillStreak >= this.biggestKillStreak) {
@@ -90,6 +91,7 @@ public class User {
         this.kills++;
     }
 
+    @Transient
     public void addDeath() {
         this.deaths++;
         if (this.killstreak) {
