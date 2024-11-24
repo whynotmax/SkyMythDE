@@ -28,7 +28,7 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         ItemStack itemStack = new ItemBuilder(player.getItemInHand());
 
-        if (itemStack.getItemMeta().hasLore() &&
+        if (itemStack != null && itemStack.getType() == Material.AIR && itemStack.getItemMeta().hasLore() &&
             itemStack.getItemMeta().getLore().size() >= 3 &&
             itemStack.getItemMeta().getLore().get(1).contains("gutschein")) {
             event.setCancelled(true);
