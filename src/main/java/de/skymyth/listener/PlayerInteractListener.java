@@ -26,6 +26,7 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        ItemStack itemStack = new ItemBuilder(player.getItemInHand());
 
         if (itemStack.getItemMeta().hasLore() &&
             itemStack.getItemMeta().getLore().size() >= 3 &&
