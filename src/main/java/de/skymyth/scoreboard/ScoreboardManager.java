@@ -54,25 +54,23 @@ public class ScoreboardManager {
         user.updatePlayTime();
 
         String playerWorld = player.getWorld().getName();
-//        if (plugin.getCombatListener().isInCombat(player)) {
-//            fastBoard.updateLines(
-//                    "",
-//                    "§f⚔ §8┃ §7Rüstung",
-//                    "  §8× §f" + getDurability(player.getInventory().getHelmet()),
-//                    "  §8× §f" + getDurability(player.getInventory().getChestplate()),
-//                    "  §8× §f" + getDurability(player.getInventory().getLeggings()),
-//                    "  §8× §f" + getDurability(player.getInventory().getBoots()),
-//                    "",
-//                    "§fΩ §8┃ §7Gegner",
-//                    "  §8× §c" + plugin.getCombatListener().getEnemy(player).getName(),
-//                    "  §8× §c" + plugin.getCombatListener().getEnemy(player).getHealth() + "/" + plugin.getCombatListener().getEnemy(player).getMaxHealth(),
-//                    "",
-//                    "§f✄ §8┃ §7Verbleibend",
-//                    "  §8× §c" + TimeUtil.beautifyTime(plugin.getCombatListener().getRemainingTime(player), TimeUnit.SECONDS, true, true),
-//                    ""
-//            );
-//            return;
-//        }
+        if (plugin.getCombatListener().isInCombat(player)) {
+            fastBoard.updateLines(
+                    "",
+                    "§f⚔ §8┃ §7Statistiken",
+                    "  §8× §a" + user.getKills() + " §8/ §c" + user.getDeaths(),
+                    "  §8× §e" + user.getKillDeathRatio(),
+                    "",
+                    "§fΩ §8┃ §7Gegner",
+                    "  §8× §c" + plugin.getCombatListener().getEnemy(player).getName(),
+                    "  §8× §c" + Math.round(plugin.getCombatListener().getEnemy(player).getHealth()) + " ❤",
+                    "",
+                    "§f✄ §8┃ §7Verbleibend",
+                    "  §8× §c" + plugin.getCombatListener().getRemaining(player),
+                    ""
+            );
+            return;
+        }
         if (playerWorld.equals("PvP")) {
             fastBoard.updateLines(
                     "",

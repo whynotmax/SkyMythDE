@@ -2,11 +2,15 @@ package de.skymyth.utility;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.utility.item.SkullCreator;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class SkullLoader {
@@ -28,6 +32,18 @@ public class SkullLoader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<ItemStack> getSkulls() {
+        List<ItemStack> skulls = new ArrayList<>();
+        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+            ItemStack skull = this.getSkull(offlinePlayer.getUniqueId());
+
+            if(skull != null) {
+                skulls.add(skull);
+            }
+        }
+        return skulls;
     }
 
     public ItemStack getSkull(UUID uuid) {

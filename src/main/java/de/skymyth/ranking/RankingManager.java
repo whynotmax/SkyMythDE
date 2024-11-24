@@ -79,12 +79,11 @@ public class RankingManager implements Listener {
 
             OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
             String playerName = UUIDFetcher.getName(uuid);
-            User user = plugin.getUserManager().getUser(uuid);
 
             if (kills < 1) continue;
             if (player == null) continue;
 
-            String killsText = (kills > 1 ? "§8( §a%s Kills §8× §a" + PvPRank.getRank(user.getTrophies()).getDisplayName() + "§8)" : "§8( §a %s Kill §8)");
+            String killsText = (kills > 1 ? "§8( §a%s Kills §8)" : "§8( §a %s Kill §8)");
 
             if (integer.get() == 1) {
                 ranking1.setCustomName("§8#§51 §7" + playerName + String.format(killsText, kills));

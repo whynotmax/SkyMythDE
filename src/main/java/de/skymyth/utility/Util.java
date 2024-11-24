@@ -47,6 +47,7 @@ public class Util {
         add("/icanhasbukkit");
         add("/bukkit:");
         add("/tell");
+        add("/help");
         add("/?");
     }};
     public static boolean CANDROPITEMS = true;

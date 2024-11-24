@@ -26,9 +26,13 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
         if (player.getWorld().getName().equals("Spawn")) {
             if(player.getItemInHand() != null) {
-                if(player.getItemInHand().getType() == Material.BOW || player.getItemInHand().getType() == Material.ENDER_PEARL && !player.isOp()) {
+                if(player.getItemInHand().getType() == Material.BOW
+                        || player.getItemInHand().getType() == Material.ENDER_PEARL
+                        || player.getItemInHand().getType() == Material.POTION
+                        && !player.isOp()) {
                     event.setUseItemInHand(Event.Result.DENY);
                     event.setCancelled(true);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Dieses Item ist hier nicht erlaubt.");
                 }
             }
 
