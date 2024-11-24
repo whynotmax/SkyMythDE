@@ -42,16 +42,8 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
             }
         }
 
-        if (world.getName().equals("PvP") || world.getName().equals("FpsArena")) {
+        if (world.getName().equals("PvP")) {
             if (event.getEntity() instanceof Player player) {
-                if (world.getName().equals("FpsArena")) {
-                    event.setCancelled(player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) <= 7);
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
-                }
-
-                if(world.getName().equals("FpsArena") && player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) <= 7) {
-                    return;
-                }
 
                 if (event.getDamager() instanceof Player damager) {
                     if (player != damager) {
@@ -63,6 +55,38 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
                     }
                 }
             }
+            return;
+        }
+
+        if (world.getName().equals("FpsArena")) {
+            if (event.getEntity() instanceof Player player) {
+                if (event.getDamager() instanceof Player damager) {
+                    if (player != damager) {
+                        if (player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                            event.setCancelled(true);
+                            return;
+                        }
+                        if (damager.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                            event.setCancelled(true);
+                            return;
+                        }
+                        plugin.getCombatListener().startCombat(player, damager);
+                    }
+                } else if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player projectShooter) {
+                    if (projectShooter != player) {
+                        if (player.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                            event.setCancelled(true);
+                            return;
+                        }
+                        if (projectShooter.getLocation().distance(plugin.getLocationManager().getPosition("FpsArena").toBukkitLocation()) >= 7) {
+                            event.setCancelled(true);
+                            return;
+                        }
+                        plugin.getCombatListener().startCombat(player, projectShooter);
+                    }
+                }
+            }
+            return;
         }
     }
 }
