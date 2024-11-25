@@ -10,6 +10,7 @@ import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -134,6 +135,18 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
                         plugin.getInventoryManager().openInventory(player, new BaseMainInventory(player, plugin));
                     }
                 }
+                return;
+            }
+
+            if (block != null && plugin.getBaseProtectorManager().isBlockProtected(block)) {
+                BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(block);
+
+                if (!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
+                    event.setCancelled(true);
+                    return;
+                }
+                return;
             }
 
         }

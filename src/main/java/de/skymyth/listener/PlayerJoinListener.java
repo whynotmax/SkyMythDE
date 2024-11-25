@@ -56,6 +56,10 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         plugin.getSkullLoader().addSkull(player.getUniqueId());
         player.setFoodLevel(20);
 
+        if(player.isOp()) {
+            Util.COMMANDWATCHER.add(player);
+        }
+
         player.setGameMode((player.isOp() ? GameMode.CREATIVE : GameMode.SURVIVAL));
         player.playSound(player.getLocation().clone().add(0, 10, 0), Sound.ENDERDRAGON_HIT, 1, 1);
 
