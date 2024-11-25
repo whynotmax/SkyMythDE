@@ -85,7 +85,7 @@ public class RankingManager implements Listener {
 
             if (integer.get() == 1) {
                 ranking1.setCustomName("§8#§51 §7" + playerName + String.format(killsText, kills));
-                ranking1.setHelmet(plugin.getSkullLoader().getItemStackBySkullOwner(playerName));
+                ranking1.setHelmet(plugin.getSkullLoader().getSkull(uuid));
                 ranking1.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
                 ranking1.setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
                 ranking1.setBoots(new ItemStack(Material.DIAMOND_BOOTS));

@@ -41,7 +41,7 @@ public class LastSeenCommand extends MythCommand {
         }
 
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Der Spieler §e" + playerName + " §7war zuletzt vor §e" +
-                TimeUtil.beautifyTime(System.currentTimeMillis() - user.getLastSeen(), TimeUnit.MILLISECONDS, true, true) + " Online.");
+                TimeUtil.beautifyTime(System.currentTimeMillis() - user.getLastSeen(), TimeUnit.MILLISECONDS, true, true) + " §7Online.");
 
         return;
     }
