@@ -6,6 +6,7 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.TitleUtil;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -14,18 +15,27 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Getter
 @SuppressWarnings("all")
 public class CombatListener implements Listener {
 
     SkyMythPlugin plugin;
     Cache<Player, Player> combat = CacheBuilder.newBuilder().expireAfterWrite(20, TimeUnit.SECONDS).build();
     Cache<Player, Long> combatTicker = CacheBuilder.newBuilder().expireAfterWrite(20, TimeUnit.SECONDS).build();
+    List<String> blockedCommands = new ArrayList<>();
 
 
     public CombatListener(SkyMythPlugin plugin) {
         this.plugin = plugin;
+        this.blockedCommands.add("/warp");
+        this.blockedCommands.add("/home");
+        this.blockedCommands.add("/tpa");
+        this.blockedCommands.add("/tpahere");
+        this.blockedCommands.add("/tpaccept");
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
 
