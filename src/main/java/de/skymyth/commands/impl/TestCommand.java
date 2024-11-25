@@ -2,6 +2,7 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.pvp.model.PvPShopItems;
 import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
@@ -31,5 +32,6 @@ public class TestCommand extends MythCommand {
     public void run(Player player, String[] args) {
 
         player.getInventory().addItem(plugin.getBaseProtectorManager().getBaseProtectorItem());
+        player.getInventory().addItem(new ItemBuilder(Material.BOW).setName("§b§lSniper"));
     }
 }
