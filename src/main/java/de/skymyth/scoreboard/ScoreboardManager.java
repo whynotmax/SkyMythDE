@@ -59,7 +59,7 @@ public class ScoreboardManager {
                     "",
                     "§fΩ §8┃ §7Gegner",
                     "  §8× §c" + plugin.getCombatListener().getEnemy(player).getName(),
-                    "  §8× §c" + Math.round(plugin.getCombatListener().getEnemy(player).getHealth()) + " ❤",
+                    "  §8× §c" + Math.round(plugin.getCombatListener().getEnemy(player).getHealth() / 2) + " ❤",
                     "",
                     "§f✄ §8┃ §7Verbleibend",
                     "  §8× §c" + plugin.getCombatListener().getRemaining(player),

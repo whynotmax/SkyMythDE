@@ -96,10 +96,10 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                onlinePlayer.showPlayer(player);
                 player.showPlayer(onlinePlayer);
+                onlinePlayer.showPlayer(player);
             }
-        }, 20);
+        }, 20*3L);
 
     }
 }
