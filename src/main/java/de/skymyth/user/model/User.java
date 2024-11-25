@@ -85,8 +85,11 @@ public class User {
         }
         if (this.currentKillStreak % 5 == 0) {
             this.killstreak = true;
-            this.addPvPShards(2);
-            Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§e" + Bukkit.getOfflinePlayer(this.uniqueId).getName() + " §7hat einen Killstreak von §e" + NumberFormat.getInstance(Locale.GERMAN).format(this.currentKillStreak) + "§7 erreicht!");
+            this.addPvPShards(2); //For every 5 kills, the player gets 2 PvP shards
+            for (Player pvpPlayer : Bukkit.getWorld("PvP").getPlayers()) {
+                pvpPlayer.sendMessage(SkyMythPlugin.PREFIX + "§e" + Bukkit.getPlayer(this.uniqueId).getName() + " §7hat einen Killstreak von §e" + NumberFormat.getInstance(Locale.GERMAN).format((this.currentKillStreak)) + " Kills§7.");
+
+            }
         }
         this.kills++;
     }
