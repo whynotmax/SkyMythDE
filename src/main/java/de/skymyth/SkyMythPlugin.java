@@ -62,8 +62,6 @@ public final class SkyMythPlugin extends JavaPlugin {
 
     private final List<Location> randomPvPLocations = new ArrayList<>();
 
-    @Setter
-    private boolean globalMute = false;
     SkyMythPlugin plugin;
     MongoManager mongoManager;
     ScoreboardManager scoreboardManager;

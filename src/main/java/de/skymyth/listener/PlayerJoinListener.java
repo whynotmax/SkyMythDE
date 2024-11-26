@@ -45,7 +45,9 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         player.sendMessage("§8§m----------------------------------------§r");
         player.sendMessage("§r ");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Willkommen auf §5§lSkyMyth§8.§5§lDE§7!");
-        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du warst offline für §c" + TimeUtil.beautifyTime(System.currentTimeMillis() - user.getLastSeen(), TimeUnit.MILLISECONDS, true, true) + "§7.");
+        if(player.hasPlayedBefore()) {
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du warst offline für §c" + TimeUtil.beautifyTime(System.currentTimeMillis() - user.getLastSeen(), TimeUnit.MILLISECONDS, true, true) + "§7.");
+        }
         player.sendMessage("§r ");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Spenden§8: §chttps://store.skymyth.de/");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Tutorial§8: /§ctutorial");

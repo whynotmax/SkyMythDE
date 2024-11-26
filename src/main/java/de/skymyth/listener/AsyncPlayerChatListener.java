@@ -8,6 +8,7 @@ import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TextComponentBuilder;
+import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -57,7 +58,7 @@ public class AsyncPlayerChatListener implements Listener {
             return;
         }
 
-        if (plugin.isGlobalMute() && !player.hasPermission("myth.team")) {
+        if (Util.GLOBALMUTE && !player.hasPermission("myth.team")) {
             event.setCancelled(true);
             player.sendMessage(SkyMythPlugin.PREFIX + "§cWährend dem Globalmute kannst du nicht schreiben.");
             player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1, 1);

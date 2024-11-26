@@ -2,6 +2,7 @@ package de.skymyth.giveaway;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.giveaway.model.Giveaway;
+import de.skymyth.utility.Util;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
@@ -76,7 +77,7 @@ public class GiveawayManager {
      * This method schedules a repeating task that processes the queue.
      */
     private void startQueue() {
-        plugin.setGlobalMute(true);
+        Util.GLOBALMUTE = true;
         giveawayRunning = true;
         runnable = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (paused) {
@@ -84,7 +85,7 @@ public class GiveawayManager {
             }
             if (giveawayQueue.isEmpty()) {
                 giveawayRunning = false;
-                plugin.setGlobalMute(false);
+                Util.GLOBALMUTE = false;
                 return;
             }
             if (currentGiveaway != null && !currentGiveaway.done()) {

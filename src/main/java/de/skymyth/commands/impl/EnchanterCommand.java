@@ -15,6 +15,7 @@ public class EnchanterCommand extends MythCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        plugin.getInventoryManager().openInventory(player, new EnchanterInventory(plugin));
+        //plugin.getInventoryManager().openInventory(player, new EnchanterInventory(plugin));
+        player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Schmied ist im Moment deaktiviert.");
     }
 }

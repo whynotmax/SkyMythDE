@@ -57,6 +57,7 @@ public class Util {
         add("/?");
     }};
     public static boolean CANDROPITEMS = true;
+    public static boolean GLOBALMUTE = false;
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {
         return map.entrySet().stream()

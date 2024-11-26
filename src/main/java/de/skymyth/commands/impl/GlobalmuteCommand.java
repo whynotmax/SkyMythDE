@@ -2,6 +2,7 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.utility.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -16,11 +17,11 @@ public class GlobalmuteCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if (plugin.isGlobalMute()) {
-            plugin.setGlobalMute(false);
+        if (Util.GLOBALMUTE) {
+            Util.GLOBALMUTE = false;
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Globalmute wurde §cdeaktiviert.");
         } else {
-            plugin.setGlobalMute(true);
+            Util.GLOBALMUTE = true;
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Globalmute wurde §aaktiviert.");
         }
     }
