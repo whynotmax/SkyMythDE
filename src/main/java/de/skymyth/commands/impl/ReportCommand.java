@@ -29,14 +29,26 @@ public class ReportCommand extends MythCommand {
             Player target = Bukkit.getPlayer(args[0]);
             String reason = args[1];
 
+            boolean validReason = false;
+
             for (ReportReason value : ReportReason.values()) {
-                if (reason.toLowerCase().equalsIgnoreCase(value.displayName)) {
+                if (reason.equalsIgnoreCase(value.name)) {
                     reason = value.displayName;
-                } else {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "Gründe: Cheating, Bugabusing, Rassismus, Name, Verhalten");
-                    return;
+                    validReason = true;
+                    break;
                 }
             }
+
+            if (!validReason) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Wähle einen der Gründe aus:");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Beispiel§8: §7/report <name> Hacking");
+                for (ReportReason reportReason : ReportReason.values()) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Name§8: §e" + reportReason.getName() + " §8(§7" + reportReason.getDisplayName() + "§8)");
+                }
+                return;
+            }
+
+
 
 
             if (target == null) {
@@ -44,10 +56,13 @@ public class ReportCommand extends MythCommand {
                 return;
             }
 
+            /*
             if (target == player) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu kannst dich selber nicht reporten.");
                 return;
             }
+
+             */
 
             if (reason != null) {
 
@@ -71,14 +86,12 @@ public class ReportCommand extends MythCommand {
 
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                     if (!onlinePlayer.hasPermission("skymyth.team")) continue;
-                    onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§c" + target.getName() + " §7wurde von §c" + player.getName() + " §7für §c" + reason + " §7gemeldet.");
+                    onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§e" + target.getName() + " §7wurde von §e" + player.getName() + " §7für §c" + reason + " §7gemeldet.");
                 }
                 player.sendMessage(SkyMythPlugin.PREFIX + "§7Dein Report wurde erfolgreich abgesendet, Danke!");
                 return;
 
             }
-
-
             return;
         }
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /report <spieler> <grund>");
@@ -92,13 +105,14 @@ public class ReportCommand extends MythCommand {
     public enum ReportReason {
 
 
-        HACKING("Cheating"),
-        BUGABUSING("Bugabusing"),
-        RACISM("Rassismus"),
-        NAME_OR_SKIN("Name oder Skin"),
-        BEHAVIOR("Verhalten");
+        HACKING("Clientmodifikationen", "Hacking"),
+        BUGABUSING("Bugabusing", "Bugabusing"),
+        RACISM("Rassismus", "Rassismus"),
+        NAME_OR_SKIN("Name oder Skin", "Name"),
+        BEHAVIOR("Verhalten (im Chat oä.)", "Verhalten");
 
         String displayName;
+        String name; // report argument
     }
 
 }
