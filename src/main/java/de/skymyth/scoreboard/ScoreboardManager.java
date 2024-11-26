@@ -74,20 +74,6 @@ public class ScoreboardManager {
             return;
         }
 
-        if(playerWorld.equals("world")) {
-            BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(player.getLocation().getBlock());
-
-            if(baseProtector != null) {
-                Cuboid cuboid = new Cuboid(
-                        baseProtector.getBaseProtectorLocation().add(0,0, baseProtector.getBaseProtectorRadius().getRadius()),
-                        baseProtector.getBaseProtectorLocation().subtract(0,0, baseProtector.getBaseProtectorRadius().getRadius()));
-
-                cuboid.blockList().forEachRemaining(block -> {
-                    block.getLocation().getWorld().playEffect(block.getLocation().add(0,1,0), Effect.HEART, 1);
-                });
-            }
-            return;
-        }
         if (playerWorld.equals("PvP")) {
             fastBoard.updateLines(
                     "",

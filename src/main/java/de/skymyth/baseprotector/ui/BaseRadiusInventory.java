@@ -65,6 +65,7 @@ public class BaseRadiusInventory extends AbstractInventory {
                 user.removeBalance(baseProtectorRadius.getPrice());
                 player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast den §eBasisschutz Radius §7erworben.");
                 baseProtector.setBaseProtectorRadius(baseProtectorRadius);
+                plugin.getBaseProtectorManager().saveBaseProtection(baseProtector);
 
                 player.closeInventory();
                 plugin.getInventoryManager().openInventory(player, new BaseRadiusInventory(plugin, player));
