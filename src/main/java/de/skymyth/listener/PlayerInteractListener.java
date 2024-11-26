@@ -1,5 +1,7 @@
 package de.skymyth.listener;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.baseprotector.model.BaseProtector;
@@ -9,13 +11,16 @@ import de.skymyth.pvp.model.PvPShopItems;
 import de.skymyth.ui.EnchanterInventory;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
+import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +32,15 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.concurrent.TimeUnit;
 
-public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
+public class PlayerInteractListener implements Listener {
+
+    SkyMythPlugin plugin;
+    Cache<Player, Arrow> sniperArrow;
+
+    public PlayerInteractListener(SkyMythPlugin plugin) {
+        this.plugin = plugin;
+        this.sniperArrow = CacheBuilder.newBuilder().expireAfterWrite(2, TimeUnit.SECONDS).build();
+    }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
@@ -49,13 +62,15 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
                     break;
                 }
                 case "Kit" -> {
-                    String kitName = itemStack.getItemMeta().getLore().get(2).replace("§7dir das Kit §e", "").replace("§8' §7einmal einlösen.", "");
+                    String kitName = itemStack.getItemMeta().getLore().get(2)
+                            .replace("§7dir das Kit §8'§e", "")
+                            .replace("§8' §7einmal einlösen.", "");
                     Kit kit = plugin.getKitManager().getKitByName(kitName);
                     if (kit == null) {
                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Kit existiert nicht.");
                         return;
                     }
-                    kit.giveToAsVoucher(plugin.getUserManager().getUser(player.getUniqueId()));
+                    kit.giveToAsVoucher(plugin.getUserManager().getUser(player.getUniqueId()), false);
                     Util.removeItem(player, itemStack);
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das Kit §e" + kitName + " §7erhalten.");
                     break;
@@ -156,7 +171,16 @@ public record PlayerInteractListener(SkyMythPlugin plugin) implements Listener {
 
         if(player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§b§lSniper")) {
             event.setCancelled(true);
-            player.launchProjectile(Arrow.class);
+
+            if(this.sniperArrow.getIfPresent(player) != null) {
+                TitleUtil.sendActionBar(player, "§cBitte warte noch einen kurzen Moment!");
+                return;
+            }
+            Arrow arrow = player.launchProjectile(Arrow.class);
+            arrow.setKnockbackStrength(2);
+            //net.minecraft.server.v1_8_R3.EntityArrow entityArrow = ((CraftArrow) arrow).getHandle();
+            //entityArrow.fromPlayer = 0;
+            this.sniperArrow.put(player, arrow);
         }
     }
 

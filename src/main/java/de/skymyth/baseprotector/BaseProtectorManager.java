@@ -69,12 +69,20 @@ public class BaseProtectorManager {
 
     public BaseProtector getBaseProtection(Block block) {
         for (BaseProtector base : this.baseProtector.values()) {
-            if (base.getBaseProtectorLocation().distance(block.getLocation()) < base.getBaseProtectorRadius().getRadius()) {
+            double distance = Math.sqrt(
+                    Math.pow(base.getBaseProtectorLocation().getX() - block.getLocation().getX(), 2) +
+                            Math.pow(base.getBaseProtectorLocation().getY() - block.getLocation().getY(), 2) +
+                            Math.pow(base.getBaseProtectorLocation().getZ() - block.getLocation().getZ(), 2)
+            );
+
+            if (distance < base.getBaseProtectorRadius().getRadius()) {
                 return base;
             }
         }
         return null;
     }
+
+
 
     public double getBaseProtectionDistance(Block block) {
         for (BaseProtector base : this.baseProtector.values()) {

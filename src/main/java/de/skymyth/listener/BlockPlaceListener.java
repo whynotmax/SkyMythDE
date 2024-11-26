@@ -61,7 +61,7 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
                 plugin.getBaseProtectorManager().createBaseProtection(player.getUniqueId(), event.getBlockPlaced().getLocation());
                 player.sendMessage(SkyMythPlugin.PREFIX + "§aDein Basisschutz wurde erfolgreich erstellt.");
                 player.playSound(player.getLocation(), Sound.CHEST_CLOSE, 1, 1);
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 256; i++) {
                     event.getBlockPlaced().getWorld().playEffect(event.getBlockPlaced().getLocation()
                             .add(0.5f, i, 0.5f), Effect.COLOURED_DUST, i * 3);
                 }

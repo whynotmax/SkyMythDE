@@ -1,13 +1,16 @@
 package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.pvp.model.PvPRank;
 import de.skymyth.user.model.User;
+import de.skymyth.utility.Cuboid;
 import de.skymyth.utility.Util;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -49,7 +52,10 @@ public class ScoreboardManager {
         plugin.getTablistManager().setRank(player);
         user.updatePlayTime();
 
+
+
         String playerWorld = player.getWorld().getName();
+
         if (plugin.getCombatListener().isInCombat(player)) {
             fastBoard.updateLines(
                     "",
@@ -65,6 +71,21 @@ public class ScoreboardManager {
                     "  §8× §c" + plugin.getCombatListener().getRemaining(player),
                     ""
             );
+            return;
+        }
+
+        if(playerWorld.equals("world")) {
+            BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(player.getLocation().getBlock());
+
+            if(baseProtector != null) {
+                Cuboid cuboid = new Cuboid(
+                        baseProtector.getBaseProtectorLocation().add(0,0, baseProtector.getBaseProtectorRadius().getRadius()),
+                        baseProtector.getBaseProtectorLocation().subtract(0,0, baseProtector.getBaseProtectorRadius().getRadius()));
+
+                cuboid.blockList().forEachRemaining(block -> {
+                    block.getLocation().getWorld().playEffect(block.getLocation().add(0,1,0), Effect.HEART, 1);
+                });
+            }
             return;
         }
         if (playerWorld.equals("PvP")) {

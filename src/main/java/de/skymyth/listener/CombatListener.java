@@ -85,12 +85,16 @@ public class CombatListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         event.setDeathMessage(null);
         if (event.getEntity() instanceof Player player) {
+
+            User playerUser = plugin.getUserManager().getUser(player.getUniqueId());
+            playerUser.addDeath();
+
+
             if (combat.getIfPresent(player) != null) {
                 long inCombat = (combatTicker.getIfPresent(player) - System.currentTimeMillis());
                 Player attacker = (combat.getIfPresent(player));
 
                 User attackerUser = plugin.getUserManager().getUser(attacker.getUniqueId());
-                User playerUser = plugin.getUserManager().getUser(player.getUniqueId());
 
                 if (inCombat > 1) {
                     combat.invalidate(player);
@@ -102,8 +106,6 @@ public class CombatListener implements Listener {
                     attackerUser.addKill();
                     attackerUser.addPvPShards(5);
                     attackerUser.addTrophies(10);
-
-                    playerUser.addDeath();
 
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu wurdest von " + attacker.getName() + " getötet §8(§c" + Math.round(attacker.getHealth() / 2) + "❤§8)");
 
