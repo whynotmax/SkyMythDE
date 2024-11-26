@@ -32,6 +32,6 @@ public class TestCommand extends MythCommand {
     public void run(Player player, String[] args) {
 
         player.getInventory().addItem(plugin.getBaseProtectorManager().getBaseProtectorItem());
-        player.getInventory().addItem(new ItemBuilder(Material.BOW).setName("§b§lSniper").durability(354));
+        player.getInventory().addItem(new ItemBuilder(Material.BOW).setName("§b§lSniper").durability(334));
     }
 }

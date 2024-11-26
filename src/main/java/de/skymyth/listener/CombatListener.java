@@ -32,6 +32,7 @@ public class CombatListener implements Listener {
     public CombatListener(SkyMythPlugin plugin) {
         this.plugin = plugin;
         this.blockedCommands.add("/warp");
+        this.blockedCommands.add("/spawn");
         this.blockedCommands.add("/home");
         this.blockedCommands.add("/tpa");
         this.blockedCommands.add("/tpahere");

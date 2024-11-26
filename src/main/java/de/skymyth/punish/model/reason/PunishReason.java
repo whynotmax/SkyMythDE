@@ -13,7 +13,9 @@ import java.util.List;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public enum PunishReason {
 
-    HACKING("Hacking", "Hacking", PunishType.BAN, Duration.ofDays(30)),
+    HACKING("Hacking", "Hacking", PunishType.BAN, Duration.ofDays(14)),
+    HACKING_SECOND("Hacking (Zugegeben)", "Hacking (Zugegeben)", PunishType.BAN, Duration.ofDays(7)),
+    TEAMING("Teaming", "Teaming", PunishType.BAN, Duration.ofMinutes(15)),
     ADVERTISING("Werbung", "Werbung", PunishType.MUTE, Duration.ofHours(1)),
     RACISM("Rassismus", "Rassismus", PunishType.MUTE, Duration.ofDays(7)),
     BEHAVIOUR("Respektloses Verhalten", "Respektloses Verhalten", PunishType.MUTE, Duration.ofDays(1)),

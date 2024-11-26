@@ -27,6 +27,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.MetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -178,7 +179,7 @@ public class PlayerInteractListener implements Listener {
             }
             Arrow arrow = player.launchProjectile(Arrow.class);
             arrow.setKnockbackStrength(2);
-            player.getItemInHand().setDurability((short) (player.getItemInHand().getDurability()-1));
+            player.getItemInHand().setDurability((short) (player.getItemInHand().getDurability()+1));
             this.sniperArrow.put(player, arrow);
         }
     }
