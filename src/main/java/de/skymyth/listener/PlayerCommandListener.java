@@ -15,6 +15,17 @@ public record PlayerCommandListener(SkyMythPlugin plugin) implements Listener {
         Player player = event.getPlayer();
         String command = event.getMessage().toLowerCase();
 
+        if (!command.contains("/msg")
+                && !command.contains("/r")
+                && !command.contains("/reply")) {
+
+            for (Player onlinePlayers : Util.COMMANDWATCHER) {
+                if (onlinePlayers == event.getPlayer()) continue;
+                onlinePlayers.sendMessage(SkyMythPlugin.PREFIX + "§e" + event.getPlayer().getName() + " §8➟ §8(§f" + command + "§8)");
+            }
+            return;
+        }
+
         if (!player.isOp()) {
             for (String blockedCommand : Util.BLOCKED_COMMANDS) {
                 if (command.equalsIgnoreCase(blockedCommand) || command.split(" ")[0].contains(blockedCommand) && !command.equalsIgnoreCase("/playtime")) {

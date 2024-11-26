@@ -54,7 +54,7 @@ public class MessageCommand extends MythCommand {
             target.playSound(target.getLocation(), Sound.CHICKEN_EGG_POP, 1F, 1F);
 
             for (Player messageSpyPlayer : Util.MSGSPY) {
-                messageSpyPlayer.sendMessage(SkyMythPlugin.PREFIX + "§8[§cMSG§8] §e" + player.getName() + " §7zu §e" + target.getName() + " §8» §7" + stringBuilder);
+                messageSpyPlayer.sendMessage(SkyMythPlugin.PREFIX + "§e" + player.getName() + " §7zu §e" + target.getName() + " §8» §7" + stringBuilder);
             }
 
             Util.MESSAGE.put(player, target);

@@ -29,13 +29,13 @@ public class PlayerStatsInventory extends AbstractInventory {
         User statsUser = plugin.getUserManager().getUser(statsPlayer);
         statsUser.updatePlayTime();
 
-        setItem(22, new ItemBuilder(SkullCreator.itemFromUuid(statsPlayer)).setName("§e" + Bukkit.getOfflinePlayer(statsPlayer).getName()).lore("§7§oDie Statistiken von §e§o" + Bukkit.getOfflinePlayer(statsPlayer).getName()));
+        setItem(22, new ItemBuilder(plugin.getSkullLoader().getSkull(statsPlayer)).setName("§e" + Bukkit.getOfflinePlayer(statsPlayer).getName()).lore("§7§oDie Statistiken von §e§o" + Bukkit.getOfflinePlayer(statsPlayer).getName()));
 
         setItem(20, new ItemBuilder(Material.DIAMOND_SWORD).setName("§eKills").lore("§7Kills: §e" + NumberFormat.getInstance(Locale.GERMAN).format(statsUser.getKills())));
         setItem(24, new ItemBuilder(Material.FEATHER).setName("§eTode").lore("§7Tode: §e" + NumberFormat.getInstance(Locale.GERMAN).format(statsUser.getDeaths())));
 
         setItem(29, new ItemBuilder(Material.DIAMOND).setName("§eTokens")
-                .lore("§7Tokens: §e" + NumberFormat.getInstance(Locale.GERMAN).format(statsUser.getBalance()).replace(",", ".") + "⛃"));
+                .lore("§7Tokens: §e" + NumberFormat.getInstance(Locale.GERMAN).format(statsUser.getBalance()).replace(",", ".") + " ⛃"));
         setItem(33, new ItemBuilder(Material.WATCH).setName("§eSpielzeit").lore("§7Spielzeit: §e" + TimeUtil.beautifyTime(statsUser.getPlayTime(), TimeUnit.MILLISECONDS, true, true)));
 
         setItem(45, new ItemBuilder(Material.BARRIER).setName("§cSchließen").lore("§7§oKlicke, um das Inventar zu schließen."), event -> {

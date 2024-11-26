@@ -36,6 +36,9 @@ public class CombatListener implements Listener {
         this.blockedCommands.add("/tpa");
         this.blockedCommands.add("/tpahere");
         this.blockedCommands.add("/tpaccept");
+        this.blockedCommands.add("/ec");
+        this.blockedCommands.add("/enderchest");
+        this.blockedCommands.add("/lager");
 
         Bukkit.getPluginManager().registerEvents(this, plugin);
 

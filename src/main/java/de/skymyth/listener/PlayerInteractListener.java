@@ -178,8 +178,7 @@ public class PlayerInteractListener implements Listener {
             }
             Arrow arrow = player.launchProjectile(Arrow.class);
             arrow.setKnockbackStrength(2);
-            //net.minecraft.server.v1_8_R3.EntityArrow entityArrow = ((CraftArrow) arrow).getHandle();
-            //entityArrow.fromPlayer = 0;
+            player.getItemInHand().setDurability((short) (player.getItemInHand().getDurability()-1));
             this.sniperArrow.put(player, arrow);
         }
     }
