@@ -1,16 +1,13 @@
 package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
-import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.pvp.model.PvPRank;
 import de.skymyth.user.model.User;
-import de.skymyth.utility.Cuboid;
 import de.skymyth.utility.Util;
 import fr.mrmicky.fastboard.FastBoard;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -51,7 +48,6 @@ public class ScoreboardManager {
 
         plugin.getTablistManager().setRank(player);
         user.updatePlayTime();
-
 
 
         String playerWorld = player.getWorld().getName();

@@ -3,7 +3,6 @@ package de.skymyth.utility;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.skymyth.baseprotector.model.BaseProtector;
-import de.skymyth.utility.item.ItemBuilder;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.chat.BaseComponent;

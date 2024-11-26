@@ -2,7 +2,6 @@ package de.skymyth.commands.impl;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
-import de.skymyth.ui.EnchanterInventory;
 import org.bukkit.entity.Player;
 
 import java.util.List;

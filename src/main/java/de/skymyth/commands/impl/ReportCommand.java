@@ -49,8 +49,6 @@ public class ReportCommand extends MythCommand {
             }
 
 
-
-
             if (target == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler ist nicht online.");
                 return;

@@ -7,7 +7,6 @@ import de.skymyth.badge.model.Badge;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.baseprotector.ui.BaseMainInventory;
 import de.skymyth.kit.model.Kit;
-import de.skymyth.pvp.model.PvPShopItems;
 import de.skymyth.ui.EnchanterInventory;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.TimeUtil;
@@ -17,19 +16,14 @@ import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.MetadataValue;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,8 +43,8 @@ public class PlayerInteractListener implements Listener {
         ItemStack itemStack = new ItemBuilder(player.getItemInHand());
 
         if (itemStack != null && itemStack.getType() != Material.AIR && itemStack.getItemMeta().hasLore() &&
-            itemStack.getItemMeta().getLore().size() >= 3 &&
-            itemStack.getItemMeta().getLore().get(1).contains("gutschein")) {
+                itemStack.getItemMeta().getLore().size() >= 3 &&
+                itemStack.getItemMeta().getLore().get(1).contains("gutschein")) {
             event.setCancelled(true);
             String gutschein = itemStack.getItemMeta().getLore().get(1).replace("§7Mit diesem ", "").replace("gutschein kannst du", "");
             switch (gutschein) {
@@ -97,7 +91,7 @@ public class PlayerInteractListener implements Listener {
             return;
         }
 
-        if(player.getWorld().getName().equals("FpsArena")) {
+        if (player.getWorld().getName().equals("FpsArena")) {
             if (player.getItemInHand() != null) {
                 if (player.getItemInHand().getType() == Material.ENDER_PEARL &&
                         !player.isOp()) {
@@ -161,6 +155,10 @@ public class PlayerInteractListener implements Listener {
             if (block != null && plugin.getBaseProtectorManager().isBlockProtected(block)) {
                 BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(block);
 
+                if (player.isOp()) {
+                    return;
+                }
+
                 if (!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
                     event.setCancelled(true);
@@ -170,16 +168,16 @@ public class PlayerInteractListener implements Listener {
             }
         }
 
-        if(player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§b§lSniper")) {
+        if (player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§b§lSniper")) {
             event.setCancelled(true);
 
-            if(this.sniperArrow.getIfPresent(player) != null) {
+            if (this.sniperArrow.getIfPresent(player) != null) {
                 TitleUtil.sendActionBar(player, "§cBitte warte noch einen kurzen Moment!");
                 return;
             }
             Arrow arrow = player.launchProjectile(Arrow.class);
             arrow.setKnockbackStrength(2);
-            player.getItemInHand().setDurability((short) (player.getItemInHand().getDurability()+1));
+            player.getItemInHand().setDurability((short) (player.getItemInHand().getDurability() + 1));
             this.sniperArrow.put(player, arrow);
         }
     }

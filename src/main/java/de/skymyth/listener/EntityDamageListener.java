@@ -25,7 +25,7 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
                 }
             }
 
-            if(event.getCause() == EntityDamageEvent.DamageCause.VOID) {
+            if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
                 player.setHealth(0);
             }
         }

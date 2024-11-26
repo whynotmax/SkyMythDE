@@ -28,16 +28,16 @@ public record PlayerMoveListener(SkyMythPlugin plugin) implements Listener {
             player.playSound(player.getLocation().add(0, 5, 0), Sound.IRONGOLEM_WALK, 1, 1);
         }
 
-        if(player.getWorld().getName().equals("FpsArena")) {
-            if(player.getLocation().distance(plugin.getLocationManager().getPosition("arena").getLocation()) > 100) {
+        if (player.getWorld().getName().equals("FpsArena")) {
+            if (player.getLocation().distance(plugin.getLocationManager().getPosition("arena").getLocation()) > 100) {
                 player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu darfst die Arena nicht verlassen.");
                 player.playSound(player.getLocation().add(0, 5, 0), Sound.IRONGOLEM_HIT, 1, 1);
             }
         }
 
-        if(player.getWorld().getName().equals("Spawn")) {
-            if(player.getLocation().distance(plugin.getLocationManager().getPosition("spawn").getLocation()) > 200) {
+        if (player.getWorld().getName().equals("Spawn")) {
+            if (player.getLocation().distance(plugin.getLocationManager().getPosition("spawn").getLocation()) > 200) {
                 player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDu darfst den Spawn nicht verlassen.");
                 player.playSound(player.getLocation().add(0, 5, 0), Sound.IRONGOLEM_HIT, 1, 1);

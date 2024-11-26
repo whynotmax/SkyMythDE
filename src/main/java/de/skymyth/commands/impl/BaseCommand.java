@@ -54,13 +54,13 @@ public class BaseCommand extends MythCommand {
             return;
         }
 
-        if(args.length == 2 && args[0].equalsIgnoreCase("visit") && player.hasPermission("base.visit")) {
+        if (args.length == 2 && args[0].equalsIgnoreCase("visit") && player.hasPermission("base.visit")) {
 
             String playerName = args[1];
 
             BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtector(UUIDFetcher.getUUID(playerName));
 
-            if(baseProtector == null) {
+            if (baseProtector == null) {
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Spieler hat keinen Basisschutz.");
                 return;
             }
@@ -70,7 +70,7 @@ public class BaseCommand extends MythCommand {
             return;
         }
 
-        if(player.hasPermission("base.visit")) {
+        if (player.hasPermission("base.visit")) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /base visit <name>");
         }
 

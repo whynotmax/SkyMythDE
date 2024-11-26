@@ -24,7 +24,6 @@ public class CalenderManager {
         this.adventDayMap = new HashMap<>();
 
 
-
         for (int i = 1; i < 23; i++) {
             AdventDay day = new AdventDay();
             day.setDay(i);
