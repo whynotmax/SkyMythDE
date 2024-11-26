@@ -79,6 +79,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             }
             player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
             plugin.getKitManager().getKitByName("Neuling").giveTo(user, plugin);
+            player.getInventory().addItem(plugin.getBaseProtectorManager().getBaseProtectorItem());
         }
 
 
@@ -92,7 +93,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         }
 
         if (user.getTrophiesLostDueToInactivity() != 0) {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Da du inaktiv warst, hast du");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Da du lange inaktiv warst, hast du");
             player.sendMessage(SkyMythPlugin.PREFIX + "§e" + user.getTrophiesLostDueToInactivity() + " Trophäen §7verloren.");
             player.sendMessage(SkyMythPlugin.PREFIX + "§6" + (user.getTrophies() + user.getTrophiesLostDueToInactivity()) + " §e(-" + user.getTrophiesLostDueToInactivity() + ")");
             user.setTrophiesLostDueToInactivity(0);

@@ -24,18 +24,18 @@ public class CalenderManager {
         this.adventDayMap = new HashMap<>();
 
 
-        /*
+
         for (int i = 1; i < 23; i++) {
             AdventDay day = new AdventDay();
             day.setDay(i);
-            day.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).amount(3)));
+            day.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).setDataId(1).amount(3)));
             day.setTokens(100);
             this.adventDayMap.put(i, day);
         }
 
-         */
+
         AdventDay lastDay = new AdventDay();
-        lastDay.setDay(23);
+        lastDay.setDay(24);
         lastDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).amount(16)));
         lastDay.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).setDataId(1).amount(3)));
         lastDay.setActions(player -> {
@@ -45,7 +45,7 @@ public class CalenderManager {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das " + Util.christmasColor("Weihnachten") + " 2024 " + "§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge" + " erhalten!");
         });
         lastDay.setTokens(5000);
-        this.adventDayMap.put(23, lastDay);
+        this.adventDayMap.put(24, lastDay);
 
     }
 

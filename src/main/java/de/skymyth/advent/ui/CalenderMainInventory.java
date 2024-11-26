@@ -25,7 +25,7 @@ public class CalenderMainInventory extends AbstractInventory {
 
         this.defaultInventory();
 
-        int month = 11; // November for development else set it to 12 for december
+        int month = 12; // November for development else set it to 12 for december
 
         User user = plugin.getUserManager().getUser(player.getUniqueId());
         LocalDate today = LocalDate.now();

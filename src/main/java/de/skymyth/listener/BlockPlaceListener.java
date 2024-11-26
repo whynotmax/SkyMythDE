@@ -32,7 +32,7 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
 
                 if (event.getBlock().getType() == Material.ENDER_PORTAL_FRAME) event.setCancelled(true);
 
-                if (!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
+                if (!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId()) && !player.isOp()) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
                     event.setCancelled(true);
                     return;
