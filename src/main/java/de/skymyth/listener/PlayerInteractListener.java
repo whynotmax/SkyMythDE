@@ -168,7 +168,7 @@ public class PlayerInteractListener implements Listener {
             }
         }
 
-        if (player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§b§lSniper")) {
+        if (player.getItemInHand() != null && player.getItemInHand().hasItemMeta() && player.getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§b§lSniper")) {
             event.setCancelled(true);
 
             if (this.sniperArrow.getIfPresent(player) != null) {

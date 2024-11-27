@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CalenderManager {
@@ -42,6 +43,12 @@ public class CalenderManager {
             badge.getOwners().add(player.getUniqueId());
             plugin.getBadgeManager().saveBadge(badge);
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das " + Util.christmasColor("Weihnachten") + " 2024 " + "§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge" + " erhalten!");
+
+            Random random = Util.RANDOM;
+
+            if(random.nextInt(100) >= 10) {
+                player.getInventory().addItem(new ItemBuilder(Material.BOW).setName("§b§lSniper").durability(334));
+            }
         });
         lastDay.setTokens(5000);
         this.adventDayMap.put(24, lastDay);

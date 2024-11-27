@@ -23,7 +23,6 @@ public record PlayerCommandListener(SkyMythPlugin plugin) implements Listener {
                 if (onlinePlayers == event.getPlayer()) continue;
                 onlinePlayers.sendMessage(SkyMythPlugin.PREFIX + "§e" + event.getPlayer().getName() + " §8➟ §8(§f" + command + "§8)");
             }
-            return;
         }
 
         if (!player.isOp()) {

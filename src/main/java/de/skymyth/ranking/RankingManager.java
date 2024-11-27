@@ -2,10 +2,15 @@ package de.skymyth.ranking;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.UUIDFetcher;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.SkullCreator;
+import eu.decentsoftware.holograms.api.DHAPI;
+import eu.decentsoftware.holograms.api.DecentHolograms;
+import eu.decentsoftware.holograms.api.DecentHologramsAPI;
+import eu.decentsoftware.holograms.api.holograms.Hologram;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.*;
@@ -20,6 +25,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -63,13 +69,41 @@ public class RankingManager implements Listener {
                 TitleUtil.sendActionBar(spawn, SkyMythPlugin.PREFIX + "§7Ranking wurde zu §e" + nextState.getDisplayName() + " §7geändert!");
             }
 
-
             this.update(currentState.get(), new Location[]{
-                    plugin.getLocationManager().getPosition("ranking-1").getLocation().subtract(0,0.4,0),
-                    plugin.getLocationManager().getPosition("ranking-2").getLocation().subtract(0,0.4,0),
-                    plugin.getLocationManager().getPosition("ranking-3").getLocation().subtract(0,0.4,0)
+                    plugin.getLocationManager().getPosition("ranking-1").getLocation(),
+                    plugin.getLocationManager().getPosition("ranking-2").getLocation(),
+                    plugin.getLocationManager().getPosition("ranking-3").getLocation()
             });
         }, 20L, 20 * 60 * 3);
+
+        AtomicInteger ticks = new AtomicInteger(180);
+
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            Hologram hologram = DHAPI.getHologram("ranking");
+            if (hologram != null) {
+                int currentTicks = ticks.getAndDecrement();
+
+                if (currentTicks <= 0) {
+                    ticks.set(180);
+                    return;
+                }
+
+                DHAPI.setHologramLine(
+                        hologram,
+                        1,
+                        "§7Nächstes Update in: §e" + TimeUtil.beautifyTime(
+                                currentTicks * 1000L,
+                                TimeUnit.MILLISECONDS,
+                                true,
+                                true
+                        )
+                );
+            }
+        }, 0L, 20L);
+
+
+
+
     }
 
 
