@@ -65,9 +65,9 @@ public class RankingManager implements Listener {
 
 
             this.update(currentState.get(), new Location[]{
-                    plugin.getLocationManager().getPosition("ranking-1").getLocation().subtract(0,1,0),
-                    plugin.getLocationManager().getPosition("ranking-2").getLocation().subtract(0,1,0),
-                    plugin.getLocationManager().getPosition("ranking-3").getLocation().subtract(0,1,0)
+                    plugin.getLocationManager().getPosition("ranking-1").getLocation().subtract(0,0.4,0),
+                    plugin.getLocationManager().getPosition("ranking-2").getLocation().subtract(0,0.4,0),
+                    plugin.getLocationManager().getPosition("ranking-3").getLocation().subtract(0,0.4,0)
             });
         }, 20L, 20 * 60 * 3);
     }
