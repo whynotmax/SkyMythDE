@@ -14,7 +14,7 @@ public class RankingCommand extends MythCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        plugin.getRankingManager().update();
+        //plugin.getRankingManager().update();
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Das Ranking wurde §esofort §7geupdated.");
     }
 }
