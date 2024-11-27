@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public enum PvPShopItems {
 
     NOTCH_APPLE(new ItemBuilder(Material.GOLDEN_APPLE)
-            .setDataId(1), "§e§lVerzauberter Goldener PvP Apfel", -1),
+            .setDataId(1), "§e§lGold Apfel", 5),
     FISHING_ROD(new ItemStack(Material.FISHING_ROD), "§3PvP Angel", 15),
     SPEED_POTION(new ItemBuilder(Material.POTION)
             .setDataId(16386), "§bSpeed PvP Trank", 20),

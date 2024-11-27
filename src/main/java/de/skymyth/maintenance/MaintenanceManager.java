@@ -6,6 +6,7 @@ import de.skymyth.maintenance.repository.MaintenanceRepository;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MaintenanceManager {
@@ -66,6 +67,10 @@ public class MaintenanceManager {
     public void addWhitelist(UUID uniqueId) {
         this.maintenance.getWhitelist().add(uniqueId);
         this.repository.save(this.maintenance);
+    }
+
+    public List<UUID> getWhitelist() {
+        return this.maintenance.getWhitelist();
     }
 
     public void removeWhitelist(UUID uniqueId) {

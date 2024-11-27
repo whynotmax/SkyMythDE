@@ -49,7 +49,7 @@ public class BaseRadiusInventory extends AbstractInventory {
                             "§7Kosten: §e" + (baseProtectorRadius.getPrice() < 1 ? "Kostenfrei" : NumberFormat.getInstance(Locale.GERMAN).format(baseProtectorRadius.getPrice())) + " §e⛃",
 
                             "",
-                            (baseProtector.getBaseProtectorRadius() == baseProtectorRadius ? "§aDu besitzt im Moment diesen Radius." : "§cKlicke, um diese Stufe zu kaufen.")
+                            (baseProtector.getBaseProtectorRadius() == baseProtectorRadius ? "§aDu besitzt im Moment diesen Radius." : "§aKlicke, um diese Stufe zu kaufen.")
                     ), event -> {
 
                 if (baseProtectorRadius.getRadius() <= baseProtector.getBaseProtectorRadius().getRadius()) {

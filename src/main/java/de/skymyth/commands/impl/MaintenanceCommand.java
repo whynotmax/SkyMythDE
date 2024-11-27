@@ -19,6 +19,7 @@ public class MaintenanceCommand extends MythCommand {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /maintenance <on/off>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /maintenance <motd> <1/2> <text>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /maintenance <whitelist> <add/remove> <player>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /maintenance <whitelist> <list>");
     }
 
     @Override
@@ -70,6 +71,11 @@ public class MaintenanceCommand extends MythCommand {
                     UUID uniqueId = UUIDFetcher.getUUID(args[2]);
                     plugin.getMaintenanceManager().removeWhitelist(uniqueId);
                     player.sendMessage(SkyMythPlugin.PREFIX + "§e" + args[2] + " §7wurde von der  Whitelist entfetnt.");
+                }else if(args[1].equalsIgnoreCase("list")) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Folgende Spieler sind auf der Whitelist:");
+                    for (UUID uuid : plugin.getMaintenanceManager().getWhitelist()) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§e" + UUIDFetcher.getName(uuid));
+                    }
                 } else {
                     sendHelp(player);
                 }

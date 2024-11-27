@@ -29,10 +29,6 @@ public class NearCommand extends MythCommand {
                 count++;
             }
 
-            if (count < 1) {
-                player.sendMessage(SkyMythPlugin.PREFIX + "§cEs befinden sich keine Spieler in deiner Nähe.");
-                return;
-            }
         }
 
     }
