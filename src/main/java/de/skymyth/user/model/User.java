@@ -1,6 +1,7 @@
 package de.skymyth.user.model;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.kit.model.Kit;
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.user.model.home.Home;
