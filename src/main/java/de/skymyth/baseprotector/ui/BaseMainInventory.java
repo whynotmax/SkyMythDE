@@ -28,7 +28,7 @@ public class BaseMainInventory extends AbstractInventory {
                         "",
                         "§7Zerstöre deinen Basisschutz und erhalte ihn neu.",
                         "§7Alles im Umkreis befindene ist daraufhin ungeschützt und",
-                        "§7von jedem Spieler zugreifbar. Zudem wird dein Radius gelöscht!",
+                        "§7von jedem Spieler zugreifbar. §c§nZudem wird dein Radius gelöscht!§r",
                         "",
                         "§cKlicke, um deinen Basisschutz zu zerstören."
                 ), event -> {

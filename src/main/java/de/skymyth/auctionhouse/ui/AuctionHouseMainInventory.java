@@ -248,7 +248,7 @@ public class AuctionHouseMainInventory extends AbstractInventory {
                 plugin.getUserManager().saveUser(user);
                 plugin.getAuctionHouseManager().removeAuctionHouseItem(auctionHouseItem);
                 player.getInventory().addItem(auctionHouseItem.getItemStack());
-                update(page);
+                player.closeInventory();
 
                 Player seller = plugin.getServer().getPlayer(auctionHouseItem.getSeller());
                 if (seller == null) return;

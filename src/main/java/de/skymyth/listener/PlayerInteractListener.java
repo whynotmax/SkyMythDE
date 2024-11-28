@@ -25,6 +25,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class PlayerInteractListener implements Listener {
@@ -51,9 +53,16 @@ public class PlayerInteractListener implements Listener {
                 case "Token" -> {
                     long balance = Long.parseLong(itemStack.getItemMeta().getLore().get(2).replace("§7dir §e", "").replace(" §7Tokens", "").replace(".", ""));
                     User user = plugin.getUserManager().getUser(player.getUniqueId());
-                    user.addBalance(balance);
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + balance + " §7Tokens erhalten.");
-                    Util.removeItem(player, itemStack);
+
+                    System.out.println(itemStack.getAmount());
+                    int counter = 0;
+                    for (int i = 0; i < itemStack.getAmount(); i++) {
+                        counter += (int) balance;
+                    }
+                    user.addBalance(counter);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e" + NumberFormat.getInstance(Locale.GERMAN).format(counter) + " §7Tokens erhalten.");
+                    player.setItemInHand(null);
+                    player.updateInventory();
                     break;
                 }
                 case "Kit" -> {
@@ -153,18 +162,21 @@ public class PlayerInteractListener implements Listener {
             }
 
             if (block != null && plugin.getBaseProtectorManager().isBlockProtected(block)) {
-                BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(block);
 
-                if (player.isOp()) {
+                if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                    BaseProtector baseProtector = plugin.getBaseProtectorManager().getBaseProtection(block);
+
+                    if (player.isOp()) {
+                        return;
+                    }
+
+                    if (!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
+                        player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
+                        event.setCancelled(true);
+                        return;
+                    }
                     return;
                 }
-
-                if (!baseProtector.getTrustedPlayers().contains(player.getUniqueId()) && !baseProtector.getBaseOwner().equals(player.getUniqueId())) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Base von " + Bukkit.getOfflinePlayer(baseProtector.getBaseOwner()).getName() + " §cist geschützt.");
-                    event.setCancelled(true);
-                    return;
-                }
-                return;
             }
         }
 

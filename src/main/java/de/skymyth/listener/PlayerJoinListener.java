@@ -24,9 +24,6 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
 
         plugin.getPlayerCount().fastPut("skypvp", (Bukkit.getOnlinePlayers().size() - Util.VANISH.size()));
 
-        if (plugin.getLocationManager().getPosition("spawn") != null) {
-            player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
-        }
 
         plugin.getUserManager().loadUser(player.getUniqueId());
         User user = plugin.getUserManager().getUser(player.getUniqueId());
@@ -78,16 +75,17 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
                 onlineUser.addBalance(200);
                 onlinePlayer.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast §e200 Tokens §7erhalten.");
             }
-            player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
             plugin.getKitManager().getKitByName("Neuling").giveTo(user, plugin);
             player.getInventory().addItem(plugin.getBaseProtectorManager().getBaseProtectorItem());
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give PvP " + player.getName() + " 16");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Blocks " + player.getName() + " 16");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Tokens " + player.getName() + " 16");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Tools " + player.getName() + " 6");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give AoN " + player.getName() + " 2");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Emoji " + player.getName() + " 2");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give christmas24 " + player.getName() + " 3");
         }
 
-
-        if (plugin.getLocationManager().getPosition("spawn") != null) {
-            player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
-            player.teleport(plugin.getLocationManager().getPosition("spawn").getLocation());
-        }
 
         if (user.hasJoinMessage()) {
             Bukkit.broadcastMessage("§8[§a+§8] §7" + user.getJoinMessage().replace('&', '§').replace("§k", "&k"));
@@ -100,6 +98,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             user.setTrophiesLostDueToInactivity(0);
         }
 
+        player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 player.showPlayer(onlinePlayer);

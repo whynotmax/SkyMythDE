@@ -19,7 +19,6 @@ import java.util.Map;
 public class InvseeCommand extends MythCommand implements Listener {
 
     private final Map<Player, Player> invsee = new HashMap<>();
-    private final Map<Player, Inventory> openInventories = new HashMap<>();
 
     public InvseeCommand(SkyMythPlugin plugin) {
         super("invsee", "myth.invsee", new ArrayList<>(), plugin);

@@ -103,6 +103,11 @@ public class BaseProtectorManager {
         return false;
     }
 
+    public void purgeChestsInBases() {
+        for (BaseProtector value : this.baseProtector.values()) {
+
+        }
+    }
 
     public boolean isBlockProtected(Block block) {
         if (!block.getWorld().getName().equals("world")) return false;
