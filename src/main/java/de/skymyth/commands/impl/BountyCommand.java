@@ -31,12 +31,12 @@ public class BountyCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
         if (args.length == 0) {
-            plugin.getInventoryManager().openInventory(player, new BountyInventory(player.getUniqueId()));
+            plugin.getInventoryManager().openInventory(player, new BountyInventory(this.plugin, player.getUniqueId()));
             return;
         }
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("list")) {
-                plugin.getInventoryManager().openInventory(player, new BountyInventory(player.getUniqueId()));
+                plugin.getInventoryManager().openInventory(player, new BountyInventory(this.plugin, player.getUniqueId()));
                 return;
             }
             UUID target = UUIDFetcher.getUUID(args[0]);
