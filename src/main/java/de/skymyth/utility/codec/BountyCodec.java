@@ -25,6 +25,7 @@ public class BountyCodec implements Codec<Bounty> {
             bsonReader.readEndDocument();
             hunters.put(hunter, reward);
         }
+        bsonReader.readEndArray();
         bsonReader.readEndDocument();
         return new Bounty(target, hunters);
     }
