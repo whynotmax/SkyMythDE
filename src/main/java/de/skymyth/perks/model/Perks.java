@@ -17,14 +17,6 @@ import java.util.function.Consumer;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 public enum Perks {
 
-    NO_HUNGER("Kein Hunger", Material.COOKED_BEEF, "Werde nie wieder hungrig!", 1_000_000, Duration.ofHours(3), user -> {
-        Player player = Bukkit.getPlayer(user.getUniqueId());
-        if (player != null) {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Der Perk §eKein Hunger §7wurde deaktiviert.");
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wirst nun wieder hungrig.");
-            player.setFoodLevel(20);
-        }
-    }),
     STRENTH("Stärke", Material.DIAMOND_SWORD, "Erhalte Stärke 2!", 250_000, Duration.ofMinutes(90), user -> {
         Player player = Bukkit.getPlayer(user.getUniqueId());
         if (player != null) {
@@ -44,13 +36,6 @@ public enum Perks {
         if (player != null) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Der Perk §eSprungkraft §7wurde deaktiviert.");
             player.removePotionEffect(org.bukkit.potion.PotionEffectType.JUMP);
-        }
-    }),
-    INVISIBILITY("Unsichtbarkeit", Material.GOLDEN_CARROT, "Erhalte Unsichtbarkeit!", -1, Duration.ofMinutes(3), user -> {
-        Player player = Bukkit.getPlayer(user.getUniqueId());
-        if (player != null) {
-            player.sendMessage(SkyMythPlugin.PREFIX + "§7Der Perk §eUnsichtbarkeit §7wurde deaktiviert.");
-            player.removePotionEffect(org.bukkit.potion.PotionEffectType.INVISIBILITY);
         }
     }),
     FLY("Fliegen", Material.FEATHER, "Erhalte die Fähigkeit zu fliegen!", 200_000, Duration.ofMinutes(90), user -> {
