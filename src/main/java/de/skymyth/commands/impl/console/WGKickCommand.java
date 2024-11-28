@@ -25,11 +25,12 @@ public class WGKickCommand extends Command {
                 return true;
             }
             PlayerConnection playerConnection = ((org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer) player).getHandle().playerConnection;
-            playerConnection.disconnect("§r\n" +
-                    "§cDu wurdest von SkyMyth.DE gekickt.\n" +
-                    "§r\n" +
-                    "§7Grund: §eDu sendest misstrauische Pakete.\n" +
-                    "§r");
+            playerConnection.disconnect("""
+                    §r
+                    §cDu wurdest von SkyMyth.DE gekickt.
+                    §r
+                    §7Grund: §eDu sendest misstrauische Pakete.
+                    §r""");
             return true;
         }
         commandSender.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
