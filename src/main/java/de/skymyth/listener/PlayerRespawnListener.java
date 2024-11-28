@@ -20,7 +20,7 @@ public record PlayerRespawnListener(SkyMythPlugin plugin) implements Listener {
 
 
         plugin.getRewardsManager().getHologram().hide(player);
-        plugin.getCasinoManager().getDailyPotManager().getHologram().hide(player);
+        //plugin.getCasinoManager().getDailyPotManager().getHologram().hide(player);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             plugin.getRewardsManager().getHologram().show(player, 1);
             //plugin.getCasinoManager().getDailyPotManager().getHologram().show(player, 1);

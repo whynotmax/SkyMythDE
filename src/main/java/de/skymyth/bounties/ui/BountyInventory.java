@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 import java.util.UUID;
 
+/*
 public class BountyInventory extends AbstractInventory {
 
     SkyMythPlugin plugin;
@@ -89,3 +90,5 @@ public class BountyInventory extends AbstractInventory {
 
     }
 }
+
+ */

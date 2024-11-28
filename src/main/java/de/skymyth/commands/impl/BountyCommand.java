@@ -3,7 +3,6 @@ package de.skymyth.commands.impl;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.bounties.BountyManager;
 import de.skymyth.bounties.model.Bounty;
-import de.skymyth.bounties.ui.BountyInventory;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.UUIDFetcher;
@@ -16,6 +15,7 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.LongStream;
 
+/*
 public class BountyCommand extends MythCommand {
 
     public BountyCommand(SkyMythPlugin plugin) {
@@ -103,3 +103,5 @@ public class BountyCommand extends MythCommand {
         sendHelp(player);
     }
 }
+
+ */
