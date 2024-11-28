@@ -42,6 +42,7 @@ public class AuctionHouseManager {
     }
 
     public void addAuctionHouseItem(AuctionHouseItem auctionHouseItem) {
+        this.auctionHouseItems.computeIfAbsent(auctionHouseItem.getSeller(), k -> new ArrayList<>());
         if (this.auctionHouseItems.get(auctionHouseItem.getSeller()).contains(auctionHouseItem)) {
             throw new IllegalArgumentException("AuctionHouseItem already exists.");
         }
