@@ -19,8 +19,9 @@ public class BountyInventory extends AbstractInventory {
     Pagination<ItemStack> pagination;
     int page;
 
-    public BountyInventory(UUID playerUniqueId) {
+    public BountyInventory(SkyMythPlugin plugin, UUID playerUniqueId) {
         super("Kopfgeld: Menü", 54);
+        this.plugin = plugin;
 
         defaultInventory();
 
