@@ -132,9 +132,14 @@ public class CombatListener implements Listener {
             if (inCombat > 0) {
                 player.setHealth(0);
 
+                Player target = combat.getIfPresent(player);
+
+
                 combat.invalidate(player);
                 combatTicker.invalidate(player);
 
+                combat.invalidate(target);
+                combatTicker.invalidate(target);
                 for (Player onlinePlayers : player.getWorld().getPlayers()) {
                     onlinePlayers.sendMessage(SkyMythPlugin.PREFIX + "§c" + player.getName() + " hat sich im Kampf ausgeloggt.");
                 }

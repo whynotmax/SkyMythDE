@@ -126,9 +126,8 @@ public class PlayerInteractListener implements Listener {
             Block block = event.getClickedBlock();
             if (block == null) return;
 
-            if (block.getType() == Material.ENCHANTMENT_TABLE) {
+            if (block.getType() == Material.TRAP_DOOR && !player.isOp()) {
                 event.setCancelled(true);
-                plugin.getInventoryManager().openInventory(player, new EnchanterInventory(plugin));
                 return;
             }
 

@@ -11,12 +11,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
+
+    @EventHandler
+    public void on(PlayerSpawnLocationEvent event) {
+        event.setSpawnLocation(plugin.getLocationManager().getPosition("spawn").getLocation());
+    }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -97,14 +103,5 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             player.sendMessage(SkyMythPlugin.PREFIX + "§6" + (user.getTrophies() + user.getTrophiesLostDueToInactivity()) + " §e(-" + user.getTrophiesLostDueToInactivity() + ")");
             user.setTrophiesLostDueToInactivity(0);
         }
-
-        player.teleport(Bukkit.getWorld("spawn").getSpawnLocation());
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                player.showPlayer(onlinePlayer);
-                onlinePlayer.showPlayer(player);
-            }
-        }, 20 * 3L);
-
     }
 }
