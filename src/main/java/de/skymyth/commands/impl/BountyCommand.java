@@ -5,6 +5,7 @@ import de.skymyth.bounties.BountyManager;
 import de.skymyth.bounties.model.Bounty;
 import de.skymyth.bounties.ui.BountyInventory;
 import de.skymyth.commands.MythCommand;
+import de.skymyth.user.model.User;
 import de.skymyth.utility.UUIDFetcher;
 import org.bukkit.entity.Player;
 
@@ -67,6 +68,13 @@ public class BountyCommand extends MythCommand {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Betrag darf maximal 1.000.000 ⛃ betragen.");
                     return;
                 }
+                User user = plugin.getUserManager().getUser(player.getUniqueId());
+                if (user.getBalance() < reward) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast nicht genügend Geld.");
+                    return;
+                }
+                user.removeBalance(reward);
+                plugin.getUserManager().saveUser(user);
                 Bounty bounty = plugin.getBountyManager().getBounty(target);
                 if (bounty == null) {
                     bounty = new Bounty();
@@ -74,6 +82,8 @@ public class BountyCommand extends MythCommand {
                     bounty.setHunters(new HashMap<>() {{
                         put(player.getUniqueId(), reward);
                     }});
+                } else {
+                    bounty.getHunters().put(player.getUniqueId(), reward);
                 }
                 plugin.getBountyManager().saveBounty(bounty);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast ein Kopfgeld auf §e" + args[0] + " §7ausgesetzt.");
