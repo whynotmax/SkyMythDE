@@ -185,11 +185,16 @@ public class User {
     }
 
     public boolean hasPerk(Perks perk) {
-        return this.perks.containsKey(perk);
-    }
-
-    public boolean isPerkActive(Perks perk) {
-        return this.perks.containsKey(perk) && this.perks.get(perk) > System.currentTimeMillis();
+        Perks perk1 = this.perks.keySet().stream().filter(perks -> perks.equals(perk)).findFirst().orElse(null);
+        if (perk1 == null) {
+            return false;
+        }
+        if (this.perks.get(perk1) >= System.currentTimeMillis()) {
+            return true;
+        }
+        this.perks.remove(perk1);
+        perk1.getRemovalAction().accept(this);
+        return false;
     }
 
     public long getPerkDuration(Perks perk) {
