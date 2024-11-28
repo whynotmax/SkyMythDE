@@ -114,6 +114,10 @@ public class AuctionHouseFilterInventory extends AbstractInventory {
                 player.getInventory().addItem(auctionHouseItem.getItemStack());
                 update(page);
 
+                User sellerUser = plugin.getUserManager().getUser(auctionHouseItem.getSeller());
+                sellerUser.addBalance(auctionHouseItem.getPrice());
+                plugin.getUserManager().saveUser(sellerUser);
+
                 Player seller = plugin.getServer().getPlayer(auctionHouseItem.getSeller());
                 if (seller == null) return;
                 seller.sendMessage(SkyMythPlugin.PREFIX + "§7Deine Auktion wurde für §e" + NumberFormat.getInstance(Locale.GERMAN).format(auctionHouseItem.getPrice()).replace(",", ".") + " Tokens §7verkauft.");
