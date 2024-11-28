@@ -83,7 +83,7 @@ public class RankingManager implements Listener {
             if (hologram != null) {
                 int currentTicks = ticks.getAndDecrement();
 
-                if (currentTicks <= 0) {
+                if (currentTicks <= 1) {
                     ticks.set(180);
                     return;
                 }

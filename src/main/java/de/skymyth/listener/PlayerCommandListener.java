@@ -37,7 +37,7 @@ public record PlayerCommandListener(SkyMythPlugin plugin) implements Listener {
         }
 
         if (plugin.getCombatListener().isInCombat(player)) {
-            for (String blockedCommand : plugin.getCombatListener().blockedCommands) {
+            for (String blockedCommand : plugin.getCombatListener().getBlockedCommands()) {
                 if (command.equalsIgnoreCase(blockedCommand) || command.split(" ")[0].contains(blockedCommand) && !player.hasPermission("myth.team")) {
                     event.setCancelled(true);
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Befehl ist im Kampf nicht erlaubt.");

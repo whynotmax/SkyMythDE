@@ -1,4 +1,4 @@
-package de.skymyth.listener;
+package de.skymyth.pvp.combat;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -89,10 +89,7 @@ public class CombatListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         event.setDeathMessage(null);
         if (event.getEntity() instanceof Player player) {
-
-            User playerUser = plugin.getUserManager().getUser(player.getUniqueId());
-            playerUser.addDeath();
-
+            System.out.println("death event");
 
             if (combat.getIfPresent(player) != null) {
                 long inCombat = (combatTicker.getIfPresent(player) - System.currentTimeMillis());
@@ -118,6 +115,8 @@ public class CombatListener implements Listener {
                     attacker.sendMessage(SkyMythPlugin.PREFIX + "§eTrophäen: " + attackerUser.getTrophies() + " §a(+10)");
                 }
             }
+            User playerUser = plugin.getUserManager().getUser(player.getUniqueId());
+            playerUser.addDeath();
         }
     }
 
@@ -133,8 +132,6 @@ public class CombatListener implements Listener {
                 player.setHealth(0);
 
                 Player target = combat.getIfPresent(player);
-
-
                 combat.invalidate(player);
                 combatTicker.invalidate(player);
 

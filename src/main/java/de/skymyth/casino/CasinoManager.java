@@ -13,7 +13,8 @@ public class CasinoManager {
 
     public CasinoManager(SkyMythPlugin plugin) {
         this.plugin = plugin;
-        this.dailyPotManager = new DailyPotManager(plugin);
+        // Deaktiviert weil "Es gibt keine Teilnehmer" die ganze Zeit im chat spammt???
+        //this.dailyPotManager = new DailyPotManager(plugin);
     }
 
 }

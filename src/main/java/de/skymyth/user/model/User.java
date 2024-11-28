@@ -77,7 +77,7 @@ public class User {
         this.pvpShards -= amount;
     }
 
-    @Transient
+    //@Transient
     public void addKill() {
         this.currentKillStreak++;
         if (this.currentKillStreak >= this.biggestKillStreak) {
@@ -94,9 +94,11 @@ public class User {
         this.kills++;
     }
 
-    @Transient
+    //@Transient
     public void addDeath() {
+        System.out.println("kills - " + this.deaths);
         this.deaths++;
+        System.out.println("kill added - " + this.deaths);
         if (this.killstreak) {
             this.killstreak = false;
             Player player = Bukkit.getPlayer(this.uniqueId);
@@ -139,7 +141,7 @@ public class User {
     }
 
     public String getKillDeathRatio() {
-        return this.deaths == 0 ? "∞" : (this.kills == 0 ? "0.00" : String.format("%.2f", (double) this.kills / this.deaths));
+        return this.deaths == 0 ? "N/A" : (this.kills == 0 ? "0.00" : String.format("%.2f", (double) this.kills / this.deaths));
     }
 
     public Cooldown getCooldown(String name) {

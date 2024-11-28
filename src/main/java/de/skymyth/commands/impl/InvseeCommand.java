@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -48,6 +49,7 @@ public class InvseeCommand extends MythCommand implements Listener {
                     event.setCancelled(false);
                     Bukkit.getScheduler().runTaskLater(plugin, () -> {
                         ItemStack currentItem = event.getView().getTopInventory().getItem(slot);
+                        if(currentItem == null) return;
                         target.getInventory().setItem(slot, currentItem);
                         target.updateInventory();
                     }, 1L);
@@ -55,6 +57,16 @@ public class InvseeCommand extends MythCommand implements Listener {
             }
         }
     }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event) {
+        if(event.getPlayer() instanceof Player player) {
+            if(invsee.containsKey(player)) {
+                invsee.remove(player);
+            }
+        }
+    }
+
 
     @Override
     public void run(Player player, String[] args) {

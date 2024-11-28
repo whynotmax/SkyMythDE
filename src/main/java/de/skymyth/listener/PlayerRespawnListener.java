@@ -23,11 +23,11 @@ public record PlayerRespawnListener(SkyMythPlugin plugin) implements Listener {
         plugin.getCasinoManager().getDailyPotManager().getHologram().hide(player);
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             plugin.getRewardsManager().getHologram().show(player, 1);
-            plugin.getCasinoManager().getDailyPotManager().getHologram().show(player, 1);
+            //plugin.getCasinoManager().getDailyPotManager().getHologram().show(player, 1);
             plugin.getKitManager().getKitByName("Respawn").giveTo(user, plugin);
 
-            plugin.getCombatListener().combat.invalidate(player);
-            plugin.getCombatListener().combatTicker.invalidate(player);
+            plugin.getCombatListener().getCombat().invalidate(player);
+            plugin.getCombatListener().getCombatTicker().invalidate(player);
         }, 10L);
 
     }

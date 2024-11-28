@@ -21,7 +21,6 @@ public record EntityDamageListener(SkyMythPlugin plugin) implements Listener {
                         || player.getWorld().getName().equals("PvP")
                         || player.getWorld().getName().equals("FpsArena")) {
                     event.setCancelled(true);
-                    return;
                 }
             }
 

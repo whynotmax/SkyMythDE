@@ -13,7 +13,7 @@ import de.skymyth.commands.impl.console.WGKickCommand;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.kit.KitManager;
-import de.skymyth.listener.CombatListener;
+import de.skymyth.pvp.combat.CombatListener;
 import de.skymyth.location.LocationManager;
 import de.skymyth.maintenance.MaintenanceManager;
 import de.skymyth.motd.MOTDManager;
