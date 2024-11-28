@@ -1,6 +1,7 @@
 package de.skymyth.scoreboard;
 
 import de.skymyth.SkyMythPlugin;
+import de.skymyth.perks.model.Perks;
 import de.skymyth.pvp.model.PvPRank;
 import de.skymyth.user.model.User;
 import de.skymyth.utility.Util;
@@ -11,6 +12,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
@@ -49,6 +52,20 @@ public class ScoreboardManager {
         plugin.getTablistManager().setRank(player);
         user.updatePlayTime();
 
+        //Perk shit
+        if (user.hasPerk(Perks.STRENTH)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 21, 1, false, false));
+        }
+        if (user.hasPerk(Perks.SPEED)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 21, 1, false, false));
+        }
+        if (user.hasPerk(Perks.JUMP_BOOST)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 21, 1, false, false));
+        }
+        if (user.hasPerk(Perks.INVISIBILITY)) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 21, 1, false, false));
+            //TODO: vielleicht nicht gerade nice auf der pvp map
+        }
 
         String playerWorld = player.getWorld().getName();
 

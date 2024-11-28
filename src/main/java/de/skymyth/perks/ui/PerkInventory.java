@@ -43,12 +43,12 @@ public class PerkInventory extends AbstractInventory {
             lore.add("§r");
             if (!user.hasPerk(perk)) {
                 lore.add("§7Klicke, um den Perk für §e" + TimeUtil.beautifyTime(perk.getDurationPerPrice().toMillis(), TimeUnit.MILLISECONDS, true, true) + " §7zu kaufen.");
+            } else {
+                lore.add("§7Der Perk ist noch aktiv für §e" + TimeUtil.beautifyTime(user.getPerkDuration(perk), TimeUnit.MILLISECONDS, true, true));
+                lore.add("§7Klicke, um den Perk für §e" + TimeUtil.beautifyTime(perk.getDurationPerPrice().toMillis(), TimeUnit.MILLISECONDS, true, true) + " §7zu verlängern.");
             }
             itemBuilder.lore(lore);
             setItem(i, itemBuilder, event -> {
-                if (user.hasPerk(perk)) {
-                    return;
-                }
                 Player player = (Player) event.getWhoClicked();
                 long price = perk.getPrice();
                 if (price < 1) {
@@ -57,6 +57,15 @@ public class PerkInventory extends AbstractInventory {
                 }
                 if (user.getBalance() < price) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast nicht genügend Tokens.");
+                    return;
+                }
+                if (user.hasPerk(perk)) {
+                    long currentDuration = user.getPerkDuration(perk);
+                    user.addPerk(perk, perk.getDurationPerPrice().toMillis() + currentDuration);
+                    user.removeBalance(price);
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast den Perk §e" + perk.getName() + " §7verlängert.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Der Perk ist nun für §e" + TimeUtil.beautifyTime(user.getPerkDuration(perk), TimeUnit.MILLISECONDS, true, true) + " §7aktiviert.");
+                    player.closeInventory();
                     return;
                 }
                 user.addPerk(perk, perk.getDurationPerPrice().toMillis());
