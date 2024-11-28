@@ -281,6 +281,7 @@ public class AuctionHouseFilterInventory extends AbstractInventory {
                                                     plugin.getAuctionHouseManager().addAuctionHouseItem(auctionHouseItem);
                                                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast dein Item für §e" + NumberFormat.getInstance(Locale.GERMAN).format(price).replace(",", ".") + " Tokens §7zum Verkauf angeboten.");
                                                     player.closeInventory();
+                                                    player.setItemInHand(new ItemStack(Material.AIR));
                                                     Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().openInventory(player, new AuctionHouseMainInventory(plugin)), 2L);
                                                 }
                                             }));
