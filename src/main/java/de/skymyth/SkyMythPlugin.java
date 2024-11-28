@@ -5,6 +5,7 @@ import de.skymyth.advent.CalenderManager;
 import de.skymyth.auctionhouse.AuctionHouseManager;
 import de.skymyth.badge.BadgeManager;
 import de.skymyth.baseprotector.BaseProtectorManager;
+import de.skymyth.bounties.BountyManager;
 import de.skymyth.casino.CasinoManager;
 import de.skymyth.chatfilter.ChatFilterManager;
 import de.skymyth.clan.ClanManager;
@@ -86,6 +87,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     RedissonManager redissonManager;
     MaintenanceManager maintenanceManager;
     MOTDManager motdManager;
+    BountyManager bountyManager;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -128,6 +130,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.redissonManager = new RedissonManager(plugin, this.redissonClient);
         this.maintenanceManager = new MaintenanceManager(plugin);
         this.motdManager = new MOTDManager(plugin);
+        this.bountyManager = new BountyManager(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {

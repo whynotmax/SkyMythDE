@@ -10,8 +10,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class BountyManager implements Listener {
 
@@ -34,6 +37,10 @@ public class BountyManager implements Listener {
         return this.bounties.stream().filter(bounty -> bounty.getTarget().equals(target)).findFirst().orElse(null);
     }
 
+    public List<Bounty> getBounties(UUID target) {
+        return this.bounties.stream().filter(bounty -> bounty.getTarget().equals(target)).collect(Collectors.toList());
+    }
+
     public void saveBounties(List<Bounty> bounties) {
         this.bounties.addAll(bounties);
         this.repository.saveAll(bounties);
@@ -42,6 +49,12 @@ public class BountyManager implements Listener {
     public void removeBounty(Bounty bounty) {
         this.bounties.remove(bounty);
         this.repository.delete(bounty);
+    }
+
+    public Map<UUID, Long> sortedBounties() {
+        //Sort bounties by reward. If two bounties have the same target, the rewards will be added together.
+        return this.bounties.stream().collect(Collectors.groupingBy(Bounty::getTarget, Collectors.summingLong(Bounty::getReward)))
+                .entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     @EventHandler
