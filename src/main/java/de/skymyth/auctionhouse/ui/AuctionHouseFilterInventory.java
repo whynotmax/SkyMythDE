@@ -244,8 +244,8 @@ public class AuctionHouseFilterInventory extends AbstractInventory {
                                         .onClose(player1 -> Bukkit.getScheduler().runTaskLater(plugin, () -> plugin.getInventoryManager().openInventory(player, new AuctionHouseMainInventory(plugin)), 2L))
                                         .onClick((integer1, stateSnapshot1) -> {
                                             long duration = TimeUtil.parseTimeFromString(stateSnapshot1.getOutputItem().getItemMeta().getDisplayName());
-                                            if (Duration.ofMillis(duration).toMinutes() < 15) {
-                                                player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Mindestdauer beträgt 15 Minuten.");
+                                            if (Duration.ofMillis(duration).toMinutes() < 60) {
+                                                player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Mindestdauer beträgt 1 Stunde.");
                                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                                             }
                                             player.closeInventory();
