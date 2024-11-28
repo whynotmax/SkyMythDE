@@ -16,6 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -87,6 +88,7 @@ public class CombatListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
+        Arrays.stream(event.getHandlerList().getRegisteredListeners()).forEach(System.out::println);
         event.setDeathMessage(null);
         if (event.getEntity() instanceof Player player) {
             System.out.println("death event");
