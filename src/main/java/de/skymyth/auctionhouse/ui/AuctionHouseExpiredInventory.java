@@ -145,6 +145,10 @@ public class AuctionHouseExpiredInventory extends AbstractInventory {
                                                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDie Mindestdauer beträgt 1 Stunde.");
                                                 return Collections.singletonList(AnvilGUI.ResponseAction.close());
                                             }
+                                            if (Duration.ofMillis(duration).toDays() > 7) {
+                                                player.sendMessage(SkyMythPlugin.PREFIX + "§cDie maximale Dauer beträgt 7 Tage.");
+                                                return Collections.singletonList(AnvilGUI.ResponseAction.close());
+                                            }
                                             player.closeInventory();
                                             return Collections.singletonList(AnvilGUI.ResponseAction.run(() -> {
                                                 if (Duration.ofMillis(duration).toHours() >= 3) {
