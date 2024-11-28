@@ -18,7 +18,7 @@ public class BountyCodec implements Codec<Bounty> {
         UUID target = UUID.fromString(bsonReader.readString("target"));
         Map<UUID, Long> hunters = new HashMap<>();
         bsonReader.readStartArray();
-        while (bsonReader.readBsonType() != null) {
+        while (bsonReader.readBsonType() != org.bson.BsonType.END_OF_DOCUMENT) {
             bsonReader.readStartDocument();
             UUID hunter = UUID.fromString(bsonReader.readString("hunter"));
             long reward = bsonReader.readInt64("reward");
