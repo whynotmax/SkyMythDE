@@ -98,7 +98,7 @@ public final class SkyMythPlugin extends JavaPlugin {
 
         this.mongoManager = new MongoManager(Credentials.of("mongodb://minerush:Rbrmf5aPMt9hqgx7BWjLkGe2U38w46Kv@87.106.178.7:27017/", "skymyth"));
         this.mongoManager = this.mongoManager.registerCodec(new ItemStackCodec()).registerCodec(new LocationCodec()).registerCodec(new DurationCodec())
-                .registerCodec(new ChunkCodec()).registerCodec(new CooldownCodec());
+                .registerCodec(new ChunkCodec()).registerCodec(new CooldownCodec()).registerCodec(new BountyCodec());
 
         Config redissonConfig = new Config();
         redissonConfig.useSingleServer().setAddress("redis://87.106.178.7:6379");
