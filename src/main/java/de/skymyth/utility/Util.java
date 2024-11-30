@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.skymyth.baseprotector.model.BaseProtector;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -56,6 +57,8 @@ public class Util {
         add("/?");
     }};
     public static boolean CANDROPITEMS = true;
+    @Setter
+    @Getter
     public static boolean GLOBALMUTE = false;
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {

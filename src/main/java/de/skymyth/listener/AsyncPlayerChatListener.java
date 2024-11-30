@@ -50,7 +50,14 @@ public class AsyncPlayerChatListener implements Listener {
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        String message = event.getMessage().replaceAll("%", "%%");
+        String message = event.getMessage().replaceAll("%", "1");
+
+        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+            if(message.contains(onlinePlayer.getName())) {
+                message = message.replaceAll(onlinePlayer.getName() , "§e@" + onlinePlayer.getName());
+                onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.LEVEL_UP, 1,1);
+            }
+        }
 
         PunishCheckResult punishCheckResult = plugin.getPunishManager().check(player.getUniqueId());
         if (punishCheckResult.isPunished() && punishCheckResult.getPunish().getType() == PunishType.MUTE) {

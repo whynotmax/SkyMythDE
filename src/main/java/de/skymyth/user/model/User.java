@@ -77,7 +77,7 @@ public class User {
         this.pvpShards -= amount;
     }
 
-    //@Transient
+    @Transient
     public void addKill() {
         this.currentKillStreak++;
         if (this.currentKillStreak >= this.biggestKillStreak) {
@@ -94,11 +94,9 @@ public class User {
         this.kills++;
     }
 
-    //@Transient
+    @Transient
     public void addDeath() {
-        System.out.println("kills - " + this.deaths);
         this.deaths++;
-        System.out.println("kill added - " + this.deaths);
         if (this.killstreak) {
             this.killstreak = false;
             Player player = Bukkit.getPlayer(this.uniqueId);
