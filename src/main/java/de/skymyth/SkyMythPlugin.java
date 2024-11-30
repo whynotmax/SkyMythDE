@@ -20,6 +20,7 @@ import de.skymyth.maintenance.MaintenanceManager;
 import de.skymyth.motd.MOTDManager;
 import de.skymyth.punish.PunishManager;
 import de.skymyth.pvp.PvPShopManager;
+import de.skymyth.pvp.punish.PvPPunishManager;
 import de.skymyth.ranking.RankingManager;
 import de.skymyth.redisson.RedissonManager;
 import de.skymyth.rewards.RewardsManager;
@@ -87,6 +88,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     RedissonManager redissonManager;
     MaintenanceManager maintenanceManager;
     MOTDManager motdManager;
+    PvPPunishManager pvPPunishManager;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -129,6 +131,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.redissonManager = new RedissonManager(plugin, this.redissonClient);
         this.maintenanceManager = new MaintenanceManager(plugin);
         this.motdManager = new MOTDManager(plugin);
+        this.pvPPunishManager = new PvPPunishManager(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {

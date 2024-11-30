@@ -2,6 +2,7 @@ package de.skymyth.user;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import de.skymyth.user.model.setting.Setting;
 import de.skymyth.user.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,6 +40,7 @@ public class UserManager {
             user.setAdventDayOpened(new HashMap<>());
             user.setHomes(new ArrayList<>());
             user.setDiscordId(0);
+            user.setSettings(new HashMap<>(Setting.DEFAULT_SETTINGS));
         }
 
         this.userMap.put(uuid, user);

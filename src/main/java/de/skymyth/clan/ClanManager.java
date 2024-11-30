@@ -2,6 +2,7 @@ package de.skymyth.clan;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.clan.model.Clan;
+import de.skymyth.clan.model.bank.ClanBank;
 import de.skymyth.clan.repository.ClanRepository;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class ClanManager {
         clan.setLeader(uuid);
         clan.setMaxMembers(10);
         clan.setMembers(new ArrayList<>());
+        clan.setBank(new ClanBank(0L, 0L, 0L));
         this.repository.save(clan);
         this.clanMap.put(clanName.toLowerCase(), clan);
     }
@@ -64,6 +66,10 @@ public class ClanManager {
             }
         }
         return null;
+    }
+
+    public Clan getClan(String clanName) {
+        return this.clanMap.get(clanName.toLowerCase());
     }
 
     public boolean isInClan(UUID uuid) {

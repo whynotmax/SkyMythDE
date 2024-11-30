@@ -5,6 +5,7 @@ import de.skymyth.kit.model.Kit;
 import de.skymyth.perks.model.Perks;
 import de.skymyth.user.model.cooldown.Cooldown;
 import de.skymyth.user.model.home.Home;
+import de.skymyth.user.model.setting.Setting;
 import eu.koboo.en2do.repository.entity.Id;
 import eu.koboo.en2do.repository.entity.Transient;
 import lombok.*;
@@ -44,6 +45,8 @@ public class User {
 
     long playTime;
     long lastSeen;
+
+    Map<Setting, Integer> settings;
 
     @Transient
     boolean wasOnlineToday;
@@ -199,8 +202,15 @@ public class User {
         return this.perks.get(perk) - System.currentTimeMillis();
     }
 
+    public int getSetting(Setting setting) {
+        return this.settings.getOrDefault(setting, setting.getDefaultValue());
+    }
+
     public boolean isDiscordVerified() {
         return this.discordId != 0;
     }
 
+    public void setSetting(Setting setting, int nextValue) {
+        this.settings.put(setting, nextValue);
+    }
 }

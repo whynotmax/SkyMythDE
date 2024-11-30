@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.clan.model.Clan;
+import de.skymyth.clan.ui.ClanBankInventory;
 import de.skymyth.commands.MythCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -262,10 +263,44 @@ public class ClanCommand extends MythCommand {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Clanbesitzer: §e" + Bukkit.getOfflinePlayer(clan.getLeader()).getName());
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Clanmitglieder: §a" + clan.getMembers().size() + " §8/ §c" + clan.getMaxMembers());
             if (!clan.getMembers().isEmpty()) {
-                int i = 1;
                 for (UUID member : clan.getMembers()) {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Mitglied #" + i + ": §e" + Bukkit.getOfflinePlayer(member).getName());
-                    i++;
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Mitglied #" + (clan.getMembers().indexOf(member) + 1) + ": §e" + Bukkit.getOfflinePlayer(member).getName());
+                }
+            }
+            player.sendMessage("§r");
+            player.sendMessage("§8§m------------------------------------------------------§r");
+
+            return;
+        }
+        if (args.length == 1 && args[0].equalsIgnoreCase("bank")) {
+            Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
+
+            if (clan == null) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich in keinem Clan.");
+                return;
+            }
+
+            plugin.getInventoryManager().openInventory(player, new ClanBankInventory(plugin, clan, clan.isLeader(player.getUniqueId())));
+
+            return;
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("info")) {
+            String clanName = args[1];
+            Clan clan = plugin.getClanManager().getClan(clanName);
+
+            if (clan == null) {
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDu befindest dich in keinem Clan.");
+                return;
+            }
+
+            player.sendMessage("§8§m------------------------------------------------------§r");
+            player.sendMessage("§r");
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Clan: §e" + clan.getName());
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Clanbesitzer: §e" + Bukkit.getOfflinePlayer(clan.getLeader()).getName());
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Clanmitglieder: §a" + clan.getMembers().size() + " §8/ §c" + clan.getMaxMembers());
+            if (!clan.getMembers().isEmpty()) {
+                for (UUID member : clan.getMembers()) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§7Mitglied #" + (clan.getMembers().indexOf(member) + 1) + ": §e" + Bukkit.getOfflinePlayer(member).getName());
                 }
             }
             player.sendMessage("§r");
@@ -279,9 +314,11 @@ public class ClanCommand extends MythCommand {
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan create <name>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan invite <spieler>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan kick <spieler>");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan info <clan>");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan accept");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan delete");
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan info");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /clan bank");
         player.sendMessage("§r");
         player.sendMessage("§8§m------------------------------------------------------§r");
 

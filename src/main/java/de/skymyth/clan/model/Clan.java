@@ -1,6 +1,8 @@
 package de.skymyth.clan.model;
 
+import de.skymyth.clan.model.bank.ClanBank;
 import eu.koboo.en2do.repository.entity.Id;
+import eu.koboo.en2do.repository.entity.Transient;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Location;
@@ -24,5 +26,12 @@ public class Clan {
     List<UUID> members;
 
     Location baseLocation;
+
+    ClanBank bank;
+
+    @Transient
+    public boolean isLeader(UUID uuid) {
+        return leader.equals(uuid);
+    }
 
 }

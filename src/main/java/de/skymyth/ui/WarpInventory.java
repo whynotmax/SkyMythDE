@@ -3,12 +3,16 @@ package de.skymyth.ui;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.inventory.impl.AbstractInventory;
 import de.skymyth.location.model.Position;
+import de.skymyth.pvp.punish.model.PvPPunishment;
 import de.skymyth.utility.TeleportUtil;
+import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.item.ItemBuilder;
 import de.skymyth.utility.item.SkullCreator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+
+import java.util.concurrent.TimeUnit;
 
 public class WarpInventory extends AbstractInventory {
 
@@ -29,6 +33,17 @@ public class WarpInventory extends AbstractInventory {
             Player player = (Player) event.getWhoClicked();
             event.setCancelled(true);
             player.closeInventory();
+            if (plugin.getPvPPunishManager().isPunished(player.getUniqueId())) {
+                player.teleport(plugin.getLocationManager().getPosition("spawn").toBukkitLocation());
+                PvPPunishment punishment = plugin.getPvPPunishManager().getPunishment(player.getUniqueId());
+                player.sendMessage("§r");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest aus der PvP-Zone verbannt.");
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Grund: §e" + punishment.getReason());
+                player.sendMessage(SkyMythPlugin.PREFIX + "§7Dauer: §e" + (punishment.isPermanent() ? "Permanent" : TimeUtil.beautifyTime(punishment.getRemainingTime().toMillis(), TimeUnit.MILLISECONDS, true, true)));
+                player.sendMessage("§r");
+                event.setCancelled(true);
+                return;
+            }
             Position spawn = this.plugin.getLocationManager().getPosition("arena");
             if (spawn != null) {
                 TeleportUtil.createTeleportation(plugin, player, plugin.getLocationManager().getPosition("arena").getLocation(), "Arena");

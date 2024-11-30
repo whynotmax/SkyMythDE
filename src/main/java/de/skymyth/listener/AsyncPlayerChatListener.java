@@ -8,6 +8,7 @@ import de.skymyth.punish.model.reason.PunishReason;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
 import de.skymyth.user.model.User;
+import de.skymyth.user.model.setting.Setting;
 import de.skymyth.utility.TextComponentBuilder;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
@@ -40,7 +41,9 @@ public class AsyncPlayerChatListener implements Listener {
         ItemBuilder badgeItem = new ItemBuilder(Material.PAPER);
         badgeItem.setName("§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge");
         badgeItem.lore(
-                "§7§o" + badge.getDescription()
+                "§7§o" + badge.getDescription(),
+                "§r",
+                "§7Klicke, um dir die Badge anzusehen."
         );
         TextComponent hover = new TextComponent(chatPrefix);
         hover.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(badgeItem.getItemMeta().getDisplayName() + "\n" + badgeItem.getItemMeta().getLore().get(0))}));
@@ -122,8 +125,8 @@ public class AsyncPlayerChatListener implements Listener {
             chatSuffix = "§8[§f" + badge.getColor() + badge.getCharacter() + "§8]";
             chatSuffixComponent.setText(chatSuffix);
 
-            TextComponent hover = getHover(badge, chatSuffix);
             chatSuffixComponent.setHoverEvent(getHover(badge, chatSuffix).getHoverEvent());
+            chatSuffixComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/badge info " + badge.getName()));
         }
         newMessage.append(new TextComponent(chatPrefix));
 
@@ -141,10 +144,10 @@ public class AsyncPlayerChatListener implements Listener {
         newMessage.append(chatSuffixComponent.toTextComponent());
 
         Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
-        if (clan != null) {
+        if (clan != null && user.getSetting(Setting.SHOW_CLAN_IN_CHAT) == 1) {
             TextComponentBuilder clanComponent = new TextComponentBuilder("");
             TextComponent hoverClanComponent = new TextComponentBuilder("§7Klicke, um das Clanprofil zu öffnen.").toTextComponent();
-            clanComponent.setText(" §8[§e" + clan.getName() + "§8]");
+            clanComponent.setText(" §8[#§e" + clan.getName() + "§8]");
             clanComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan info " + clan.getName()));
             clanComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{hoverClanComponent}));
             newMessage.append(clanComponent.toTextComponent());
