@@ -3,6 +3,7 @@ package de.skymyth.listener;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.chatfilter.model.ChatFilterItem;
+import de.skymyth.clan.model.Clan;
 import de.skymyth.punish.model.reason.PunishReason;
 import de.skymyth.punish.model.result.PunishCheckResult;
 import de.skymyth.punish.model.type.PunishType;
@@ -131,6 +132,17 @@ public class AsyncPlayerChatListener implements Listener {
         newMessage.append(playerName);
         newMessage.append(new TextComponent(" "));
         newMessage.append(chatSuffixComponent.toTextComponent());
+
+        Clan clan = plugin.getClanManager().getClan(player.getUniqueId());
+        if (clan != null) {
+            TextComponentBuilder clanComponent = new TextComponentBuilder("");
+            TextComponent hoverClanComponent = new TextComponentBuilder("§7Klicke, um das Clanprofil zu öffnen.").toTextComponent();
+            clanComponent.setText(" §8[§e" + clan.getName() + "§8]");
+            clanComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/clan info " + clan.getName()));
+            clanComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{hoverClanComponent}));
+            newMessage.append(clanComponent.toTextComponent());
+        }
+
         newMessage.append(new TextComponent("§8 × §7" + message));
 
         event.setCancelled(true);
