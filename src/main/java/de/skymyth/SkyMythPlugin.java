@@ -11,6 +11,7 @@ import de.skymyth.chatfilter.ChatFilterManager;
 import de.skymyth.clan.ClanManager;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.commands.impl.console.WGKickCommand;
+import de.skymyth.freesigns.FreeSignManager;
 import de.skymyth.giveaway.GiveawayManager;
 import de.skymyth.inventory.InventoryManager;
 import de.skymyth.kit.KitManager;
@@ -89,6 +90,7 @@ public final class SkyMythPlugin extends JavaPlugin {
     MaintenanceManager maintenanceManager;
     MOTDManager motdManager;
     PvPPunishManager pvPPunishManager;
+    FreeSignManager freeSignManager;
 
     RedissonClient redissonClient;
     RMap<String, Integer> playerCount;
@@ -132,6 +134,7 @@ public final class SkyMythPlugin extends JavaPlugin {
         this.maintenanceManager = new MaintenanceManager(plugin);
         this.motdManager = new MOTDManager(plugin);
         this.pvPPunishManager = new PvPPunishManager(plugin);
+        this.freeSignManager = new FreeSignManager(plugin);
 
         Reflections listenerReflections = new Reflections("de.skymyth.listener");
         listenerReflections.getSubTypesOf(Listener.class).forEach(listener -> {

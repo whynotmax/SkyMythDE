@@ -6,6 +6,9 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.badge.model.Badge;
 import de.skymyth.baseprotector.model.BaseProtector;
 import de.skymyth.baseprotector.ui.BaseMainInventory;
+import de.skymyth.freesigns.FreeSignManager;
+import de.skymyth.freesigns.model.FreeSign;
+import de.skymyth.freesigns.ui.FreeSignInventory;
 import de.skymyth.kit.model.Kit;
 import de.skymyth.ui.EnchanterInventory;
 import de.skymyth.user.model.User;
@@ -14,6 +17,7 @@ import de.skymyth.utility.TitleUtil;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
@@ -190,6 +194,15 @@ public class PlayerInteractListener implements Listener {
             arrow.setKnockbackStrength(2);
             player.getItemInHand().setDurability((short) (player.getItemInHand().getDurability() + 1));
             this.sniperArrow.put(player, arrow);
+        }
+
+        Block block = event.getClickedBlock();
+        if (block != null) {
+            if (plugin.getFreeSignManager().isFreeSign(block)) {
+                event.setCancelled(true);
+                FreeSign freeSign = plugin.getFreeSignManager().get(new Location(block.getWorld(), block.getX(), block.getY(), block.getZ()));
+                plugin.getInventoryManager().openInventory(player, new FreeSignInventory(plugin, freeSign));
+            }
         }
     }
 
