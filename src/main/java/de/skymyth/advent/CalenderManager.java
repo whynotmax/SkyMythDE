@@ -3,6 +3,7 @@ package de.skymyth.advent;
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.advent.model.AdventDay;
 import de.skymyth.badge.model.Badge;
+import de.skymyth.utility.NumberUtils;
 import de.skymyth.utility.Util;
 import de.skymyth.utility.item.ItemBuilder;
 import lombok.AccessLevel;
@@ -29,7 +30,7 @@ public class CalenderManager {
             AdventDay day = new AdventDay();
             day.setDay(i);
             day.setItemStacks(List.of(new ItemBuilder(Material.GOLDEN_APPLE).setDataId(1).amount(3)));
-            day.setTokens(100);
+            day.setTokens(NumberUtils.randomInt(5, 350));
             this.adventDayMap.put(i, day);
         }
 
@@ -43,14 +44,8 @@ public class CalenderManager {
             badge.getOwners().add(player.getUniqueId());
             plugin.getBadgeManager().saveBadge(badge);
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Du hast das " + Util.christmasColor("Weihnachten") + " 2024 " + "§8[§e" + badge.getColor() + badge.getCharacter() + "§8] §7Badge" + " erhalten!");
-
-            Random random = Util.RANDOM;
-
-            if(random.nextInt(100) >= 10) {
-                player.getInventory().addItem(new ItemBuilder(Material.BOW).setName("§b§lSniper").durability(334));
-            }
         });
-        lastDay.setTokens(5000);
+        lastDay.setTokens(1500);
         this.adventDayMap.put(24, lastDay);
 
     }

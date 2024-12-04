@@ -56,28 +56,28 @@ public class Kit {
 
         for (ItemBuilder item : this.items.stream().map(ItemStack::clone).map(ItemBuilder::new).toList()) {
             if (item.getType().name().contains("HELMET")) {
-                if (player.getInventory().getHelmet() != null || putArmorOn) {
+                if (player.getInventory().getHelmet() == null || putArmorOn) {
                     player.getInventory().setHelmet(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
                     player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().contains("CHESTPLATE")) {
-                if (player.getInventory().getChestplate() != null || putArmorOn) {
+                if (player.getInventory().getChestplate() == null || putArmorOn) {
                     player.getInventory().setChestplate(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
                     player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().contains("LEGGINGS")) {
-                if (player.getInventory().getLeggings() != null || putArmorOn) {
+                if (player.getInventory().getLeggings() == null || putArmorOn) {
                     player.getInventory().setLeggings(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
                     player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
                 }
                 continue;
             } else if (item.getType().name().contains("BOOTS")) {
-                if (player.getInventory().getBoots() != null || putArmorOn) {
+                if (player.getInventory().getBoots() == null || putArmorOn) {
                     player.getInventory().setBoots(item.setName("§8» §7Kit §8┃ §e" + name));
                 } else {
                     player.getInventory().addItem(item.setName("§8» §7Kit §8┃ §e" + name));
