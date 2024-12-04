@@ -53,13 +53,13 @@ public class ScoreboardManager {
         user.updatePlayTime();
 
         if (user.hasPerk(Perks.STRENTH)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 30, 1, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60, 1, false, false));
         }
         if (user.hasPerk(Perks.SPEED)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 30, 1, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 1, false, false));
         }
         if (user.hasPerk(Perks.JUMP_BOOST)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 30, 1, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 60, 1, false, false));
         }
 
         String playerWorld = player.getWorld().getName();
