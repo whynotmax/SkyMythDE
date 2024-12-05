@@ -64,6 +64,14 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             Util.COMMANDWATCHER.add(player);
         }
 
+        if(Util.VANISH.contains(player)) {
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (!onlinePlayer.hasPermission("myth.team")) {
+                    onlinePlayer.hidePlayer(player);
+                }
+            }
+        }
+
         player.setGameMode((player.isOp() ? GameMode.CREATIVE : GameMode.SURVIVAL));
         player.playSound(player.getLocation().clone().add(0, 10, 0), Sound.ENDERDRAGON_HIT, 1, 1);
 
