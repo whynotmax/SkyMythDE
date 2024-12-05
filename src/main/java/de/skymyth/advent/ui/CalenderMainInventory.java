@@ -25,7 +25,7 @@ public class CalenderMainInventory extends AbstractInventory {
 
         this.defaultInventory();
 
-        int month = 12; // November for development else set it to 12 for december
+        int month = 12; // November for development, set to 12 for December in production
 
         User user = plugin.getUserManager().getUser(player.getUniqueId());
         LocalDate today = LocalDate.now();
@@ -43,12 +43,12 @@ public class CalenderMainInventory extends AbstractInventory {
 
             boolean taken = user.getAdventDayOpened().getOrDefault(i, false);
 
-            if (today.getMonthValue() == month && today.getDayOfMonth() == i) {
+            if (today.getMonthValue() == month && i <= today.getDayOfMonth()) {
                 itemBuilder.glow();
                 if (taken) {
                     itemBuilder.lore(
                             "",
-                            "§7Dieser Tag ist Heute! Hole das Türchen ab.",
+                            "§7Dieser Tag ist verfügbar.",
                             "§7Es sind noch §c" + (24 - i) + " §7Tage bis §cWeihnachten!",
                             "",
                             "§cDu hast dieses Türchen schon abgeholt."
@@ -56,26 +56,13 @@ public class CalenderMainInventory extends AbstractInventory {
                 } else {
                     itemBuilder.lore(
                             "",
-                            "§7Dieser Tag ist Heute! Hole das Türchen ab.",
+                            "§7Dieser Tag ist verfügbar!",
                             "§7Es sind noch §c" + (24 - i) + " §7Tage bis §cWeihnachten!",
                             "",
                             "§aKlicke, um die Belohnung abzuholen."
-
                     );
                 }
-            } else if (today.getMonthValue() == month && i < today.getDayOfMonth()) {
-                if (taken) {
-                    itemBuilder.lore(
-                            "",
-                            "§cDu hast dieses Türchen bereits geöffnet."
-                    );
-                } else {
-                    itemBuilder.lore(
-                            "",
-                            "§cDu hast dieses Türchen leider verpasst."
-                    );
-                }
-            } else {
+            } else if (i > today.getDayOfMonth()) {
                 itemBuilder.lore(
                         "",
                         "§7Dieses Türchen kannst du in §c" + (i - today.getDayOfMonth()) + " Tagen §7abholen."
@@ -87,7 +74,7 @@ public class CalenderMainInventory extends AbstractInventory {
                         .replaceAll("§7Adventstürchen: §c", "")
                         .trim();
                 int currentDay = Integer.parseInt(itemName);
-                if (today.getMonthValue() == month && today.getDayOfMonth() == currentDay) {
+                if (today.getMonthValue() == month && currentDay <= today.getDayOfMonth()) {
 
                     if (taken) {
                         player.sendMessage(SkyMythPlugin.PREFIX + "§cDu hast dieses Türchen bereits abgeholt.");
@@ -105,9 +92,7 @@ public class CalenderMainInventory extends AbstractInventory {
                     player.closeInventory();
                     plugin.getInventoryManager().openInventory(player, new CalenderMainInventory(plugin, player));
 
-
                     player.sendMessage(SkyMythPlugin.PREFIX + "§aDu hast das " + currentDay + ". Türchen geöffnet.");
-
 
                     if (!adventDay.getItemStacks().isEmpty()) {
                         for (ItemStack itemStack : adventDay.getItemStacks()) {
@@ -127,7 +112,7 @@ public class CalenderMainInventory extends AbstractInventory {
                         adventDay.getActions().accept(player);
                     }
                 } else {
-                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDieser Tag ist heute nicht.");
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDieses Türchen ist noch nicht freigeschaltet.");
                 }
             });
         }

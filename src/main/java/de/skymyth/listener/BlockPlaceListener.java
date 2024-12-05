@@ -79,7 +79,7 @@ public record BlockPlaceListener(SkyMythPlugin plugin) implements Listener {
         }
 
         if (!player.isOp()) {
-            if (world.getName().equals("Spawn") || world.getName().equals("PvP")) {
+            if (world.getName().equals("Spawn") || world.getName().equals("PvP") || world.getName().equalsIgnoreCase("FpsArena")) {
                 event.setCancelled(true);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
             }

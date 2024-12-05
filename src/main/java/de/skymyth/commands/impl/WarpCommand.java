@@ -4,6 +4,7 @@ import de.skymyth.SkyMythPlugin;
 import de.skymyth.commands.MythCommand;
 import de.skymyth.location.model.Position;
 import de.skymyth.ui.WarpInventory;
+import de.skymyth.utility.TeleportUtil;
 import de.skymyth.utility.TitleUtil;
 import org.bukkit.entity.Player;
 
@@ -27,7 +28,7 @@ public class WarpCommand extends MythCommand {
             return;
         }
         Position warp = plugin.getLocationManager().getPosition(warpName);
-        player.teleport(warp.toBukkitLocation());
+        TeleportUtil.createTeleportation(plugin, player, warp.toBukkitLocation(), "Arena");
         TitleUtil.sendTitle(player, 0, 40, 20, "§a§l" + warp.getName(), "§8× §7Du wurdest teleportiert §8×");
     }
 }

@@ -52,7 +52,7 @@ public record BlockBreakListener(SkyMythPlugin plugin) implements Listener {
 
 
         if (!player.isOp()) {
-            if (world.getName().equalsIgnoreCase("Spawn") || world.getName().equalsIgnoreCase("PvP")) {
+            if (world.getName().equalsIgnoreCase("Spawn") || world.getName().equalsIgnoreCase("PvP") || world.getName().equalsIgnoreCase("FpsArena")) {
                 event.setCancelled(true);
                 player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
             }
