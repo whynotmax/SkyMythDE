@@ -57,8 +57,10 @@ public class AsyncPlayerChatListener implements Listener {
 
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
             if(message.contains(onlinePlayer.getName())) {
-                message = message.replaceAll(onlinePlayer.getName() , "§e@" + onlinePlayer.getName());
-                onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.LEVEL_UP, 1,1);
+                if(!Util.VANISH.contains(onlinePlayer)) { // Filter vanished
+                    message = message.replaceAll(onlinePlayer.getName(), "§e@" + onlinePlayer.getName());
+                    onlinePlayer.playSound(onlinePlayer.getLocation(), Sound.LEVEL_UP, 1, 1);
+                }
             }
         }
 
