@@ -69,9 +69,17 @@ public class RouletteManager {
                 ticksToRoll.getAndIncrement();
                 secondsToStart.set(30);
 
-                for (int i = 5; i > 1; i--) {
-
-                }
+//                for (int i = 5; i > 1; i--) {
+//                    Block block = rouletteBlocks.get(i);
+//                    Block block2 = rouletteBlocks.get(i - 1);
+//                    block.setType(block2.getType());
+//                    block.setData(block2.getData());
+//                    int chance = random.nextInt(100);
+//                    if (chance < 2 && !aBlockIsGreen) {
+//                        block.setData((byte) 5);
+//                        aBlockIsGreen = true;
+//                    }
+//                }
 
                 if (ticksToRoll.get() == 200) {
                     player.sendMessage(SkyMythPlugin.PREFIX + "§7Das Roulette ist vorbei.");
@@ -97,6 +105,10 @@ public class RouletteManager {
             }
         }, 1L, 1L);
 
+    }
+
+    private boolean isGreen(Block block) {
+        return block.getData() == 5 && block.getType() == Material.STAINED_CLAY;
     }
 
 }
