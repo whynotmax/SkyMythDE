@@ -77,7 +77,7 @@ public class GiveawayManager {
      * This method schedules a repeating task that processes the queue.
      */
     private void startQueue() {
-        Util.GLOBALMUTE = true;
+        Util.GLOBALMUTE.set(true);
         giveawayRunning = true;
         runnable = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (paused) {
@@ -85,7 +85,7 @@ public class GiveawayManager {
             }
             if (giveawayQueue.isEmpty()) {
                 giveawayRunning = false;
-                Util.GLOBALMUTE = false;
+                Util.GLOBALMUTE.set(false);
                 return;
             }
             if (currentGiveaway != null && !currentGiveaway.done()) {

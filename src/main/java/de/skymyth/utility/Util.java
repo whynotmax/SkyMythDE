@@ -27,6 +27,7 @@ import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -59,7 +60,7 @@ public class Util {
     public static boolean CANDROPITEMS = true;
     @Setter
     @Getter
-    public static boolean GLOBALMUTE = false;
+    public static AtomicBoolean GLOBALMUTE = new AtomicBoolean(false);
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {
         return map.entrySet().stream()

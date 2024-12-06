@@ -17,11 +17,11 @@ public class GlobalmuteCommand extends MythCommand {
     @Override
     public void run(Player player, String[] args) {
 
-        if (Util.isGLOBALMUTE()) {
-            Util.setGLOBALMUTE(false);
+        if (Util.GLOBALMUTE.get()) {
+            Util.GLOBALMUTE.set(false);
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Globalmute wurde §cdeaktiviert.");
         } else {
-            Util.setGLOBALMUTE(true);
+            Util.GLOBALMUTE.set(true);
             Bukkit.broadcastMessage(SkyMythPlugin.PREFIX + "§7Der Globalmute wurde §aaktiviert.");
         }
     }
