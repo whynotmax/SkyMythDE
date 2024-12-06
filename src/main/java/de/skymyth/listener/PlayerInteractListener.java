@@ -145,7 +145,8 @@ public class PlayerInteractListener implements Listener {
                     return;
                 }
 
-                plugin.getRewardsManager().openFor(player);
+                //plugin.getRewardsManager().openFor(player);
+                player.sendMessage(SkyMythPlugin.PREFIX + "§cDiese Belohnung kommt in Kürze!");
             }
         }
 
