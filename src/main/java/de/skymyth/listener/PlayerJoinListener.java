@@ -111,5 +111,9 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             player.sendMessage(SkyMythPlugin.PREFIX + "§6" + (user.getTrophies() + user.getTrophiesLostDueToInactivity()) + " §e(-" + user.getTrophiesLostDueToInactivity() + ")");
             user.setTrophiesLostDueToInactivity(0);
         }
+
+
+        player.sendMessage(SkyMythPlugin.PREFIX + "§cDer Release am 06.12.2024 ist ein §c§nBETA Release§r§c.");
+        player.sendMessage(SkyMythPlugin.PREFIX + "§cMelde Fehler gerne in einem Discord Ticket und erhalte eine Belohnung!");
     }
 }

@@ -16,19 +16,22 @@ public class PurgeCommand extends MythCommand {
 
     @Override
     public void run(Player player, String[] args) {
-
         int chestsCleared = 0;
+
         for (int i = 0; i < 50; i++) {
             Block block = player.getLocation().getWorld().getBlockAt(i, i, i);
 
-            Chest chest = (Chest) block.getState();
+            if (block.getState() instanceof Chest chest) {
 
-            if (chest.getInventory().getContents().length > 0) {
-                chest.getInventory().clear();
-                chest.update();
-                chestsCleared++;
+                if (chest.getInventory().getContents().length > 0) {
+                    chest.getInventory().clear();
+                    chest.update();
+                    chestsCleared++;
+                }
             }
         }
+
         player.sendMessage(SkyMythPlugin.PREFIX + "§7Es wurden §e" + chestsCleared + " §7Kisten geleert.");
     }
+
 }
