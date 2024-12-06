@@ -42,5 +42,6 @@ public class PvPBanCommand extends MythCommand {
             }
         }
         plugin.getPvPPunishManager().punish(target, args[1], duration);
+        player.sendMessage(SkyMythPlugin.PREFIX + "§e" + UUIDFetcher.getName(target) + " §7wurde gebannt.");
     }
 }

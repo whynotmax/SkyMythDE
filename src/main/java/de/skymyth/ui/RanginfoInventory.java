@@ -25,7 +25,6 @@ public class RanginfoInventory extends AbstractInventory {
                         "§r",
                         "§7Vorteile:",
                         "§8× /§7kit §8» §7Zugriff auf das Elite-Kit",
-                        "§8× /§7fly §8» §7Selbsterklärend",
                         "§8× /§7heal §8» §7Heile dich",
                         "§8× /§7ec §8» §7Öffne deine Enderkiste überall",
                         "§8× /§7invsee §8» §7Sehe das Inventar deines Gegners",

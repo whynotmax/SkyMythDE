@@ -31,5 +31,6 @@ public class PvPUnbanCommand extends MythCommand {
             return;
         }
         plugin.getPvPPunishManager().unpunish(target);
+        player.sendMessage(SkyMythPlugin.PREFIX + "§e" + UUIDFetcher.getName(target) + " §7wurde entbannt.");
     }
 }
