@@ -26,6 +26,12 @@ public class AuctionHouseManager {
             for (UUID seller : this.auctionHouseItems.keySet()) {
                 List<AuctionHouseItem> expiredItems = getExpiredAuctionHouseItems(seller);
                 for (AuctionHouseItem expiredItem : expiredItems) {
+                    if ((expiredItem.getStart() + expiredItem.getDuration().toMillis()) > System.currentTimeMillis()) {
+                        expiredItem.setExpired(true);
+                        this.auctionHouseItems.get(seller).remove(expiredItem);
+                        this.repository.save(expiredItem);
+                        continue;
+                    }
                     if (expiredItem.getExpired()) {
                         continue;
                     }
