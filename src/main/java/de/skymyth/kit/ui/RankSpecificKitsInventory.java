@@ -88,6 +88,12 @@ public class RankSpecificKitsInventory extends AbstractInventory {
                     plugin.getInventoryManager().openInventory(player, new KitPreviewInventory(plugin, user, kit));
                     return;
                 }
+
+                if(kit.getPermission() != null && !player.hasPermission(kit.getPermission())) {
+                    player.sendMessage(SkyMythPlugin.PREFIX + "§cDazu hast du keine Rechte.");
+                    return;
+                }
+
                 kit.giveTo(user, plugin);
                 update(page);
             });

@@ -91,7 +91,7 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             }
             plugin.getKitManager().getKitByName("Neuling").giveTo(user, plugin);
             player.getInventory().addItem(plugin.getBaseProtectorManager().getBaseProtectorItem());
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give PvP " + player.getName() + " 16");
+            //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give PvP " + player.getName() + " 16");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Blocks " + player.getName() + " 16");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Tokens " + player.getName() + " 16");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Tools " + player.getName() + " 6");
