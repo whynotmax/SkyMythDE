@@ -25,6 +25,7 @@ public class ClanBank {
 
     @Transient
     public void deposit(long amount) {
+        if(amount < 1 || amount > 1000000) return;
         if (!canDeposit(amount)) {
             throw new IllegalArgumentException("The amount is too high");
         }
@@ -39,6 +40,8 @@ public class ClanBank {
 
     @Transient
     public void withdraw(long amount) {
+        if(amount < 1 || amount > 1000000) return;
+
         if (!canWithdraw(amount)) {
             throw new IllegalArgumentException("The amount is too high");
         }
