@@ -75,6 +75,9 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
         player.setGameMode((player.isOp() ? GameMode.CREATIVE : GameMode.SURVIVAL));
         player.playSound(player.getLocation().clone().add(0, 10, 0), Sound.ENDERDRAGON_HIT, 1, 1);
 
+        for (Player vanishPlayer : Util.VANISH) {
+            player.hidePlayer(vanishPlayer);
+        }
 
         if (!player.hasPlayedBefore()) {
             Bukkit.broadcastMessage("§r");
