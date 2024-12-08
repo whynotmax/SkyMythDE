@@ -71,13 +71,6 @@ public class AsyncPlayerChatListener implements Listener {
             return;
         }
 
-        if (Util.GLOBALMUTE.get() && !player.hasPermission("myth.team")) {
-            event.setCancelled(true);
-            player.sendMessage(SkyMythPlugin.PREFIX + "§cWährend dem Globalmute kannst du nicht schreiben.");
-            player.playSound(player.getLocation(), Sound.ORB_PICKUP, 1, 1);
-            return;
-        }
-
         boolean containsBlockedContent = plugin.getChatFilterManager().checkMessage(message);
         if (containsBlockedContent) {
             event.setCancelled(true);

@@ -16,6 +16,7 @@ import java.util.Map;
 public enum Setting {
 
     SHOW_CLAN_IN_CHAT("Clan im Chat anzeigen", Material.NAME_TAG, 0, List.of(0, 1), List.of("§cDeaktiviert", "§aAktiviert")),
+    SPAWN_POSITION("Spawn-Position", Material.COMPASS, 0, List.of(0, 1), List.of("§cAm Spawn", "§aAn deiner letzten Position")),
     ;
 
     String name;

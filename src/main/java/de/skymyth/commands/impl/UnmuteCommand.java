@@ -11,7 +11,7 @@ import java.util.UUID;
 public class UnmuteCommand extends MythCommand {
 
     public UnmuteCommand(SkyMythPlugin plugin) {
-        super("unmute", "myth.ban", List.of(), plugin);
+        super("unmute", "myth.unmute", List.of(), plugin);
     }
 
     @Override

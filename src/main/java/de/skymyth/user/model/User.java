@@ -11,6 +11,7 @@ import eu.koboo.en2do.repository.entity.Transient;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.text.NumberFormat;
@@ -45,6 +46,8 @@ public class User {
 
     long playTime;
     long lastSeen;
+
+    Location lastLocation;
 
     Map<Setting, Integer> settings;
 

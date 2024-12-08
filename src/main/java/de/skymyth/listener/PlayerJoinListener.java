@@ -2,12 +2,15 @@ package de.skymyth.listener;
 
 import de.skymyth.SkyMythPlugin;
 import de.skymyth.user.model.User;
+import de.skymyth.user.model.setting.Setting;
+import de.skymyth.utility.CrateUtil;
 import de.skymyth.utility.TimeUtil;
 import de.skymyth.utility.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,7 +24,15 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
 
     @EventHandler
     public void on(PlayerSpawnLocationEvent event) {
-        event.setSpawnLocation(plugin.getLocationManager().getPosition("spawn").getLocation());
+        Player player = event.getPlayer();
+        User user = plugin.getUserManager().getUser(player.getUniqueId());
+        if (user.getSetting(Setting.SPAWN_POSITION) == 0) {
+            player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest an den Spawn teleportiert.");
+            event.setSpawnLocation(plugin.getLocationManager().getPosition("spawn").getLocation());
+            return;
+        }
+        event.setSpawnLocation(user.getLastLocation().clone());
+        player.sendMessage(SkyMythPlugin.PREFIX + "§7Du wurdest an deinen letzten Standort teleportiert.");
     }
 
     @EventHandler
@@ -95,12 +106,12 @@ public record PlayerJoinListener(SkyMythPlugin plugin) implements Listener {
             plugin.getKitManager().getKitByName("Neuling").giveTo(user, plugin);
             player.getInventory().addItem(plugin.getBaseProtectorManager().getBaseProtectorItem());
             //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give PvP " + player.getName() + " 16");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Blocks " + player.getName() + " 16");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Tokens " + player.getName() + " 16");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Tools " + player.getName() + " 6");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give AoN " + player.getName() + " 2");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give Emoji " + player.getName() + " 2");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate give christmas24 " + player.getName() + " 3");
+            CrateUtil.giveCrate(player, "Blocks", 16);
+            CrateUtil.giveCrate(player, "Tokens", 16);
+            CrateUtil.giveCrate(player, "Tools", 6);
+            CrateUtil.giveCrate(player, "AoN", 2);
+            CrateUtil.giveCrate(player, "Emoji", 2);
+            CrateUtil.giveCrate(player, "christmas24", 3);
         }
 
 

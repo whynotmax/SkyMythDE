@@ -21,13 +21,17 @@ public record PlayerQuitListener(SkyMythPlugin plugin) implements Listener {
         event.setQuitMessage(null);
         user.updatePlayTime();
         plugin.getScoreboardManager().destroyScoreboard(player);
-
-        plugin.getUserManager().saveUser(user);
         Util.VANISH.remove(player);
 
         if (user.hasQuitMessage()) {
             Bukkit.broadcastMessage("§8[§c-§8] §7" + user.getQuitMessage().replace('&', '§').replace("§k", "&k"));
         }
+
+        if (player.getWorld().getName().equalsIgnoreCase("PvP") || player.getWorld().getName().equalsIgnoreCase("FpsArena")) {
+            user.setLastLocation(player.getLocation().clone());
+        }
+
+        plugin.getUserManager().saveUser(user);
 
     }
 }

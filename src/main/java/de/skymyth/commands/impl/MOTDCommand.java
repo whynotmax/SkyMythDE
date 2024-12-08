@@ -14,7 +14,7 @@ public class MOTDCommand extends MythCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        if (args.length > 2) {
+        if (args.length < 2) {
             player.sendMessage(SkyMythPlugin.PREFIX + "§7Verwende: /motd <1/2> <text>");
             return;
         }

@@ -58,9 +58,6 @@ public class Util {
         add("/?");
     }};
     public static boolean CANDROPITEMS = true;
-    @Setter
-    @Getter
-    public static AtomicBoolean GLOBALMUTE = new AtomicBoolean(false);
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map) {
         return map.entrySet().stream()

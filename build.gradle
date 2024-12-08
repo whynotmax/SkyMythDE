@@ -39,6 +39,7 @@ repositories {
 
 dependencies {
     implementation "dev.mzcy:SkyMyth-Common:2.0"
+    compileOnly(fileTree("lib"))
 
     implementation("eu.koboo:en2do:3.1.9")
     implementation("fr.mrmicky:fastboard:2.1.3")
