@@ -68,6 +68,11 @@ If you have any questions or need further assistance, you can reach out to the p
 
 - GitHub: [whynotmax](https://github.com/whynotmax)
 
+## Authors
+
+- Sebastian: [sxbide](https://github.com/sxbide)
+- Max: [whynotmax](https://github.com/whynotmax)
+
 ---
 
 Thank you for using SkyMythDE! We hope you enjoy developing your SkyPvP game mode with our boilerplate.
